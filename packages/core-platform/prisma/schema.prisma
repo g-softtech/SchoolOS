@@ -64,6 +64,10 @@ model Tenant {
   MedicalRecord    MedicalRecord[]
   DisciplineRecord DisciplineRecord[]
   Attendance       Attendance[]
+  Staff            Staff[]
+  Employment       Employment[]
+  Payroll          Payroll[]
+  LeaveRequest     LeaveRequest[]
 
   @@map("plt_tenants")
 }
@@ -238,6 +242,7 @@ model TenantMembership {
   deletedAt DateTime?
   Student   Student?
   Guardian  Guardian?
+  Staff     Staff?
 
   @@unique([tenantId, userId])
   @@index([tenantId])
@@ -418,6 +423,7 @@ model Department {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Staff     Staff[]
 
   @@index([tenantId])
   @@map("acd_departments")
@@ -688,4 +694,123 @@ enum AttendanceStatus {
   ABSENT
   LATE
   EXCUSED
+}
+
+// ==================================================
+// DOMAIN 5: STAFF & HR DOMAIN
+// ==================================================
+
+model Staff {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  membershipId String           @unique
+  membership   TenantMembership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  staffIdNumber String
+  departmentId  String?
+  department    Department? @relation(fields: [departmentId], references: [id])
+  designation   String?
+
+  employment     Employment?
+  payrollRecords Payroll[]
+  leaveRequests  LeaveRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, staffIdNumber])
+  @@index([tenantId])
+  @@map("stf_staff")
+}
+
+model Employment {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staffId  String @unique
+  staff    Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  hireDate        DateTime
+  terminationDate DateTime?
+  status          EmploymentStatus @default(ACTIVE)
+  contractType    String? // e.g., FULL_TIME, PART_TIME, CONTRACT
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("stf_employment")
+}
+
+enum EmploymentStatus {
+  ACTIVE
+  ON_LEAVE
+  TERMINATED
+  SUSPENDED
+}
+
+model Payroll {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staffId  String
+  staff    Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  periodStart DateTime
+  periodEnd   DateTime
+  baseSalary  Decimal
+  deductions  Decimal       @default(0.0)
+  bonuses     Decimal       @default(0.0)
+  netPay      Decimal
+  status      PaymentStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, staffId])
+  @@map("stf_payroll")
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+}
+
+model LeaveRequest {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  staffId  String
+  staff    Staff  @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  type      LeaveType
+  startDate DateTime
+  endDate   DateTime
+  reason    String?
+  status    LeaveStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, staffId])
+  @@map("stf_leave_requests")
+}
+
+enum LeaveType {
+  SICK
+  ANNUAL
+  MATERNITY
+  UNPAID
+  OTHER
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELED
 }
