@@ -42,6 +42,10 @@ model Tenant {
   marketplaceApps TenantMarketplaceApp[]
   featureFlags    FeatureFlag[]
 
+  memberships TenantMembership[]
+  roles       Role[]
+  auditLogs   AuditLog[]
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -174,4 +178,156 @@ model AuditSeed {
   appliedAt DateTime @default(now())
 
   @@map("plt_audit_seeds")
+}
+
+// ==================================================
+// DOMAIN 2: IDENTITY (Global Users & Tenant Isolation)
+// ==================================================
+
+model User {
+  id            String     @id @default(uuid())
+  email         String     @unique
+  passwordHash  String?
+  globalRole    GlobalRole @default(USER)
+  emailVerified DateTime?
+
+  memberships TenantMembership[]
+  sessions    Session[]
+  auditLogs   AuditLog[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("idm_users")
+}
+
+enum GlobalRole {
+  SUPER_ADMIN
+  USER
+}
+
+model TenantMembership {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roleId   String
+  role     Role   @relation(fields: [roleId], references: [id])
+
+  profile Profile?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([tenantId, userId])
+  @@index([tenantId])
+  @@map("idm_tenant_memberships")
+}
+
+model Profile {
+  id                 String           @id @default(uuid())
+  tenantMembershipId String           @unique
+  membership         TenantMembership @relation(fields: [tenantMembershipId], references: [id], onDelete: Cascade)
+
+  firstName String
+  lastName  String
+  phone     String?
+  avatarUrl String?
+  dob       DateTime?
+  gender    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("idm_profiles")
+}
+
+model Role {
+  id       String  @id @default(uuid())
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name     String // e.g., "SCHOOL_ADMIN", "TEACHER"
+  isSystem Boolean @default(false)
+
+  permissions RolePermission[]
+  memberships TenantMembership[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("idm_roles")
+}
+
+model Permission {
+  id          String  @id @default(uuid())
+  name        String  @unique // e.g., "users:read", "fees:write"
+  description String?
+
+  rolePermissions RolePermission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("idm_permissions")
+}
+
+model RolePermission {
+  id           String     @id @default(uuid())
+  roleId       String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permissionId String
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([roleId, permissionId])
+  @@map("idm_role_permissions")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("idm_sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("idm_verification_tokens")
+}
+
+model AuditLog {
+  id       String  @id @default(uuid())
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  action   String // e.g., "FEE_PAID", "USER_CREATED"
+  entity   String // e.g., "Invoice", "User"
+  entityId String
+  metadata Json?
+
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId, entity, entityId])
+  @@map("idm_audit_logs")
 }
