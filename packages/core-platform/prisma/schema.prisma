@@ -68,6 +68,12 @@ model Tenant {
   Employment       Employment[]
   Payroll          Payroll[]
   LeaveRequest     LeaveRequest[]
+  FeeCategory      FeeCategory[]
+  Invoice          Invoice[]
+  Payment          Payment[]
+  Expense          Expense[]
+  Income           Income[]
+  Scholarship      Scholarship[]
 
   @@map("plt_tenants")
 }
@@ -409,6 +415,7 @@ model Term {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Timetable Timetable[]
+  Invoice   Invoice[]
 
   @@index([tenantId, academicYearId])
   @@map("acd_terms")
@@ -544,8 +551,10 @@ model Student {
   disciplineRecords DisciplineRecord[]
   attendance        Attendance[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Invoice     Invoice[]
+  Scholarship Scholarship[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId])
@@ -813,4 +822,172 @@ enum LeaveStatus {
   APPROVED
   REJECTED
   CANCELED
+}
+
+// ==================================================
+// DOMAIN 6: FINANCE DOMAIN
+// ==================================================
+
+model FeeCategory {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name        String // e.g., "Tuition", "Transport"
+  description String?
+  amount      Decimal
+  mandatory   Boolean @default(true)
+
+  invoices InvoiceItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("fin_fee_categories")
+}
+
+model Invoice {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  termId    String
+  term      Term    @relation(fields: [termId], references: [id])
+
+  invoiceNumber String
+  totalAmount   Decimal
+  amountPaid    Decimal       @default(0.0)
+  status        InvoiceStatus @default(DRAFT)
+  dueDate       DateTime
+
+  items    InvoiceItem[]
+  payments Payment[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@unique([tenantId, invoiceNumber])
+  @@index([tenantId, studentId])
+  @@map("fin_invoices")
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PARTIAL
+  PAID
+  OVERDUE
+  CANCELED
+}
+
+model InvoiceItem {
+  id        String  @id @default(uuid())
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  feeCategoryId String?
+  feeCategory   FeeCategory? @relation(fields: [feeCategoryId], references: [id])
+
+  description String
+  amount      Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([invoiceId])
+  @@map("fin_invoice_items")
+}
+
+model Payment {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  amount      Decimal
+  method      PaymentMethod
+  reference   String                   @unique // e.g., Paystack reference
+  paymentDate DateTime                 @default(now())
+  status      PaymentTransactionStatus @default(SUCCESS)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, invoiceId])
+  @@map("fin_payments")
+}
+
+enum PaymentMethod {
+  CARD
+  BANK_TRANSFER
+  CASH
+  CHEQUE
+}
+
+enum PaymentTransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+model Expense {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  amount      Decimal
+  category    String // e.g., "Maintenance", "Supplies"
+  description String
+  date        DateTime @default(now())
+  receiptUrl  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("fin_expenses")
+}
+
+model Income {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  amount      Decimal
+  category    String // e.g., "Donation", "Grant"
+  description String
+  date        DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("fin_income")
+}
+
+model Scholarship {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  name            String
+  discountPercent Decimal? // e.g., 50.00
+  discountAmount  Decimal? // e.g., 50000.00
+  validUntil      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, studentId])
+  @@map("fin_scholarships")
 }
