@@ -1,0 +1,177 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+// ==================================================
+// DOMAIN 1: PLATFORM (Global Models)
+// ==================================================
+
+model PlatformPlan {
+  id           String  @id @default(uuid())
+  name         String // e.g., Starter, Pro, Enterprise
+  price        Decimal
+  entitlements Json // JSON config of unlocked features
+
+  tenants       Tenant[]
+  subscriptions PlatformSubscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("plt_platform_plans")
+}
+
+model Tenant {
+  id     String       @id @default(uuid())
+  name   String
+  slug   String       @unique
+  status TenantStatus @default(ACTIVE)
+  planId String
+  plan   PlatformPlan @relation(fields: [planId], references: [id])
+
+  subscriptions   PlatformSubscription[]
+  domains         TenantDomain[]
+  branding        TenantBranding?
+  settings        TenantSettings?
+  marketplaceApps TenantMarketplaceApp[]
+  featureFlags    FeatureFlag[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("plt_tenants")
+}
+
+enum TenantStatus {
+  TRIAL
+  ACTIVE
+  SUSPENDED
+  INACTIVE
+}
+
+model PlatformSubscription {
+  id       String       @id @default(uuid())
+  tenantId String
+  tenant   Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  planId   String
+  plan     PlatformPlan @relation(fields: [planId], references: [id])
+
+  status           SubStatus @default(ACTIVE)
+  currentPeriodEnd DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("plt_platform_subscriptions")
+}
+
+enum SubStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+model MarketplaceApp {
+  id          String @id @default(uuid())
+  appCode     String @unique // e.g., 'library', 'hostel'
+  name        String
+  description String
+
+  tenantApps TenantMarketplaceApp[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("plt_marketplace_apps")
+}
+
+model TenantMarketplaceApp {
+  id       String         @id @default(uuid())
+  tenantId String
+  tenant   Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  appId    String
+  app      MarketplaceApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+
+  enabled Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, appId])
+  @@index([tenantId])
+  @@map("plt_tenant_marketplace_apps")
+}
+
+model TenantDomain {
+  id       String  @id @default(uuid())
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  domain   String  @unique // e.g., school.com
+  verified Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("plt_tenant_domains")
+}
+
+model TenantBranding {
+  id             String  @id @default(uuid())
+  tenantId       String  @unique
+  tenant         Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  logoUrl        String?
+  faviconUrl     String?
+  primaryColor   String?
+  secondaryColor String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("plt_tenant_branding")
+}
+
+model TenantSettings {
+  id         String @id @default(uuid())
+  tenantId   String @unique
+  tenant     Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  timezone   String @default("UTC")
+  dateFormat String @default("YYYY-MM-DD")
+  currency   String @default("USD")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("plt_tenant_settings")
+}
+
+model FeatureFlag {
+  id       String  @id @default(uuid())
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  feature  String
+  enabled  Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, feature])
+  @@index([tenantId])
+  @@map("plt_feature_flags")
+}
+
+model AuditSeed {
+  id        String   @id @default(uuid())
+  version   String
+  appliedAt DateTime @default(now())
+
+  @@map("plt_audit_seeds")
+}
