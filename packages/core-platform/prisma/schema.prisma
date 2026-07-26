@@ -46,34 +46,48 @@ model Tenant {
   roles       Role[]
   auditLogs   AuditLog[]
 
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  deletedAt        DateTime?
-  Campus           Campus[]
-  AcademicYear     AcademicYear[]
-  Term             Term[]
-  Department       Department[]
-  Class            Class[]
-  Arm              Arm[]
-  SubjectGroup     SubjectGroup[]
-  Subject          Subject[]
-  Timetable        Timetable[]
-  Student          Student[]
-  Guardian         Guardian[]
-  Admission        Admission[]
-  MedicalRecord    MedicalRecord[]
-  DisciplineRecord DisciplineRecord[]
-  Attendance       Attendance[]
-  Staff            Staff[]
-  Employment       Employment[]
-  Payroll          Payroll[]
-  LeaveRequest     LeaveRequest[]
-  FeeCategory      FeeCategory[]
-  Invoice          Invoice[]
-  Payment          Payment[]
-  Expense          Expense[]
-  Income           Income[]
-  Scholarship      Scholarship[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  Campus            Campus[]
+  AcademicYear      AcademicYear[]
+  Term              Term[]
+  Department        Department[]
+  Class             Class[]
+  Arm               Arm[]
+  SubjectGroup      SubjectGroup[]
+  Subject           Subject[]
+  Timetable         Timetable[]
+  Student           Student[]
+  Guardian          Guardian[]
+  Admission         Admission[]
+  MedicalRecord     MedicalRecord[]
+  DisciplineRecord  DisciplineRecord[]
+  Attendance        Attendance[]
+  Staff             Staff[]
+  Employment        Employment[]
+  Payroll           Payroll[]
+  LeaveRequest      LeaveRequest[]
+  FeeCategory       FeeCategory[]
+  Invoice           Invoice[]
+  Payment           Payment[]
+  Expense           Expense[]
+  Income            Income[]
+  Scholarship       Scholarship[]
+  Exam              Exam[]
+  Result            Result[]
+  Assignment        Assignment[]
+  LessonNote        LessonNote[]
+  Website           Website?
+  Page              Page[]
+  NavigationMenu    NavigationMenu[]
+  AIProviderConfig  AIProviderConfig[]
+  AIUsageLog        AIUsageLog[]
+  PromptTemplate    PromptTemplate[]
+  Hostel            Hostel[]
+  TransportVehicle  TransportVehicle[]
+  LibraryBook       LibraryBook[]
+  NotificationQueue NotificationQueue[]
 
   @@map("plt_tenants")
 }
@@ -220,9 +234,11 @@ model User {
   sessions    Session[]
   auditLogs   AuditLog[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  deletedAt         DateTime?
+  AIUsageLog        AIUsageLog[]
+  NotificationQueue NotificationQueue[]
 
   @@map("idm_users")
 }
@@ -416,6 +432,7 @@ model Term {
   updatedAt DateTime    @updatedAt
   Timetable Timetable[]
   Invoice   Invoice[]
+  Exam      Exam[]
 
   @@index([tenantId, academicYearId])
   @@map("acd_terms")
@@ -446,8 +463,9 @@ model Class {
   arms     Arm[]
   subjects Subject[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Assignment Assignment[]
 
   @@index([tenantId])
   @@map("acd_classes")
@@ -499,8 +517,11 @@ model Subject {
 
   classes Class[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Exam       Exam[]
+  Assignment Assignment[]
+  LessonNote LessonNote[]
 
   @@unique([tenantId, code])
   @@index([tenantId])
@@ -551,10 +572,13 @@ model Student {
   disciplineRecords DisciplineRecord[]
   attendance        Attendance[]
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Invoice     Invoice[]
-  Scholarship Scholarship[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Invoice       Invoice[]
+  Scholarship   Scholarship[]
+  Result        Result[]
+  BedAllocation BedAllocation[]
+  BookBorrowing BookBorrowing[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId])
@@ -990,4 +1014,405 @@ model Scholarship {
 
   @@index([tenantId, studentId])
   @@map("fin_scholarships")
+}
+
+// ==================================================
+// DOMAIN 7: LEARNING DOMAIN
+// ==================================================
+
+model Exam {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  termId    String
+  term      Term    @relation(fields: [termId], references: [id])
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+
+  title      String
+  totalMarks Decimal
+  isCBT      Boolean  @default(false)
+  date       DateTime
+
+  questions CBTQuestion[]
+  results   Result[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, termId])
+  @@map("lrn_exams")
+}
+
+model CBTQuestion {
+  id     String @id @default(uuid())
+  examId String
+  exam   Exam   @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  questionText  String
+  options       Json // e.g., ["A", "B", "C", "D"]
+  correctOption String
+  marks         Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([examId])
+  @@map("lrn_cbt_questions")
+}
+
+model Result {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  examId    String
+  exam      Exam    @relation(fields: [examId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  score   Decimal
+  grade   String?
+  remarks String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, examId, studentId])
+  @@map("lrn_results")
+}
+
+model Assignment {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  classId   String
+  class     Class   @relation(fields: [classId], references: [id])
+  teacherId String
+
+  title       String
+  description String
+  dueDate     DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, classId])
+  @@map("lrn_assignments")
+}
+
+model LessonNote {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  teacherId String
+
+  title   String
+  content String @db.Text
+  week    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, teacherId])
+  @@map("lrn_lesson_notes")
+}
+
+// ==================================================
+// DOMAIN 8: WEBSITE BUILDER (CMS)
+// ==================================================
+
+model Website {
+  id       String @id @default(uuid())
+  tenantId String @unique
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  domain      String @unique
+  themeColors Json?
+  heroConfig  Json?
+  seoMeta     Json?
+
+  pages      Page[]
+  navigation NavigationMenu?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cms_websites")
+}
+
+model Page {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  websiteId String
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  title         String
+  slug          String
+  contentBlocks Json // JSON representation of the visual page builder
+  isPublished   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([websiteId, slug])
+  @@index([tenantId])
+  @@map("cms_pages")
+}
+
+model NavigationMenu {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  websiteId String  @unique
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  links Json // e.g., [{ label: "Home", url: "/" }]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cms_navigation_menus")
+}
+
+// ==================================================
+// DOMAIN 9: AI DOMAIN
+// ==================================================
+
+model AIProviderConfig {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  provider AIProvider
+  settings Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("ai_provider_configs")
+}
+
+enum AIProvider {
+  OPENAI
+  ANTHROPIC
+  GEMINI
+}
+
+model AIUsageLog {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  feature    AIFeature
+  tokensUsed Int
+  date       DateTime  @default(now())
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId, userId])
+  @@map("ai_usage_logs")
+}
+
+enum AIFeature {
+  LESSON_PLANNER
+  REPORT_COMMENTS
+  TUTOR
+  PARENT_ASSISTANT
+}
+
+model PromptTemplate {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  feature      AIFeature
+  systemPrompt String    @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("ai_prompt_templates")
+}
+
+// ==================================================
+// DOMAIN 10: ENTERPRISE MODULES (MARKETPLACE)
+// ==================================================
+
+model Hostel {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name     String
+  capacity Int
+  wardenId String?
+
+  rooms HostelRoom[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("ent_hostels")
+}
+
+model HostelRoom {
+  id       String @id @default(uuid())
+  hostelId String
+  hostel   Hostel @relation(fields: [hostelId], references: [id], onDelete: Cascade)
+
+  roomNumber String
+  capacity   Int
+
+  allocations BedAllocation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([hostelId])
+  @@map("ent_hostel_rooms")
+}
+
+model BedAllocation {
+  id     String     @id @default(uuid())
+  roomId String
+  room   HostelRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  academicYearId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roomId, studentId])
+  @@map("ent_bed_allocations")
+}
+
+model TransportVehicle {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  plateNumber String
+  driverName  String?
+  capacity    Int
+
+  routes TransportRoute[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("ent_transport_vehicles")
+}
+
+model TransportRoute {
+  id        String           @id @default(uuid())
+  vehicleId String
+  vehicle   TransportVehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  routeName String
+  stops     Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([vehicleId])
+  @@map("ent_transport_routes")
+}
+
+model LibraryBook {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  isbn            String?
+  title           String
+  author          String
+  copiesAvailable Int
+
+  borrowings BookBorrowing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("ent_library_books")
+}
+
+model BookBorrowing {
+  id     String      @id @default(uuid())
+  bookId String
+  book   LibraryBook @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  borrowDate DateTime     @default(now())
+  returnDate DateTime?
+  dueDate    DateTime
+  status     BorrowStatus @default(ISSUED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([bookId, studentId])
+  @@map("ent_book_borrowings")
+}
+
+enum BorrowStatus {
+  ISSUED
+  RETURNED
+  OVERDUE
+  LOST
+}
+
+model NotificationQueue {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  channel NotificationChannel
+  payload Json
+  status  NotificationStatus  @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, status])
+  @@map("ent_notification_queue")
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  WHATSAPP
+  PUSH
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
 }
