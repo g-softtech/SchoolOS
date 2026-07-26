@@ -46,18 +46,24 @@ model Tenant {
   roles       Role[]
   auditLogs   AuditLog[]
 
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  deletedAt    DateTime?
-  Campus       Campus[]
-  AcademicYear AcademicYear[]
-  Term         Term[]
-  Department   Department[]
-  Class        Class[]
-  Arm          Arm[]
-  SubjectGroup SubjectGroup[]
-  Subject      Subject[]
-  Timetable    Timetable[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  Campus           Campus[]
+  AcademicYear     AcademicYear[]
+  Term             Term[]
+  Department       Department[]
+  Class            Class[]
+  Arm              Arm[]
+  SubjectGroup     SubjectGroup[]
+  Subject          Subject[]
+  Timetable        Timetable[]
+  Student          Student[]
+  Guardian         Guardian[]
+  Admission        Admission[]
+  MedicalRecord    MedicalRecord[]
+  DisciplineRecord DisciplineRecord[]
+  Attendance       Attendance[]
 
   @@map("plt_tenants")
 }
@@ -230,6 +236,8 @@ model TenantMembership {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+  Student   Student?
+  Guardian  Guardian?
 
   @@unique([tenantId, userId])
   @@index([tenantId])
@@ -441,9 +449,11 @@ model Arm {
   name     String // e.g., "10A"
   capacity Int?
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  Timetable Timetable[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Timetable  Timetable[]
+  Student    Student[]
+  Attendance Attendance[]
 
   @@unique([classId, name])
   @@index([tenantId])
@@ -500,4 +510,182 @@ model Timetable {
 
   @@index([tenantId, armId, termId])
   @@map("acd_timetables")
+}
+
+// ==================================================
+// DOMAIN 4: STUDENT DOMAIN
+// ==================================================
+
+model Student {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  // Link to the Identity Domain
+  membershipId String           @unique
+  membership   TenantMembership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  admissionNumber String
+  enrollmentDate  DateTime @default(now())
+
+  // Link to Academic Domain
+  currentArmId String?
+  currentArm   Arm?    @relation(fields: [currentArmId], references: [id])
+
+  guardians         StudentGuardian[]
+  admissions        Admission[]
+  medicalRecords    MedicalRecord[]
+  disciplineRecords DisciplineRecord[]
+  attendance        Attendance[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, admissionNumber])
+  @@index([tenantId])
+  @@map("std_students")
+}
+
+model Guardian {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  // Link to the Identity Domain
+  membershipId String           @unique
+  membership   TenantMembership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  students StudentGuardian[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("std_guardians")
+}
+
+model StudentGuardian {
+  id         String   @id @default(uuid())
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  guardianId String
+  guardian   Guardian @relation(fields: [guardianId], references: [id], onDelete: Cascade)
+
+  relationship GuardianRelationship
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, guardianId])
+  @@map("std_student_guardians")
+}
+
+enum GuardianRelationship {
+  FATHER
+  MOTHER
+  SIBLING
+  UNCLE
+  AUNT
+  GRANDPARENT
+  OTHER
+}
+
+model Admission {
+  id        String  @id @default(uuid())
+  tenantId  String
+  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  status          AdmissionStatus @default(PENDING)
+  applicationDate DateTime        @default(now())
+  notes           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, studentId])
+  @@map("std_admissions")
+}
+
+enum AdmissionStatus {
+  PENDING
+  UNDER_REVIEW
+  ACCEPTED
+  REJECTED
+  WAITLISTED
+}
+
+model MedicalRecord {
+  id        String  @id @default(uuid())
+  tenantId  String
+  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  bloodGroup        String?
+  genotype          String?
+  allergies         String?
+  medicalConditions String?
+  notes             String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, studentId])
+  @@map("std_medical_records")
+}
+
+model DisciplineRecord {
+  id        String  @id @default(uuid())
+  tenantId  String
+  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  incidentDate DateTime
+  description  String
+  actionTaken  String?
+  severity     IncidentSeverity @default(MINOR)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, studentId])
+  @@map("std_discipline_records")
+}
+
+enum IncidentSeverity {
+  MINOR
+  MAJOR
+  SEVERE
+}
+
+model Attendance {
+  id        String  @id @default(uuid())
+  tenantId  String
+  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  armId String
+  arm   Arm    @relation(fields: [armId], references: [id])
+
+  date    DateTime
+  status  AttendanceStatus
+  remarks String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, studentId, date])
+  @@index([tenantId, studentId])
+  @@map("std_attendance")
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
 }
