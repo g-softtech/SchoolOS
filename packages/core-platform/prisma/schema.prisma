@@ -46,9 +46,18 @@ model Tenant {
   roles       Role[]
   auditLogs   AuditLog[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
+  Campus       Campus[]
+  AcademicYear AcademicYear[]
+  Term         Term[]
+  Department   Department[]
+  Class        Class[]
+  Arm          Arm[]
+  SubjectGroup SubjectGroup[]
+  Subject      Subject[]
+  Timetable    Timetable[]
 
   @@map("plt_tenants")
 }
@@ -330,4 +339,165 @@ model AuditLog {
 
   @@index([tenantId, entity, entityId])
   @@map("idm_audit_logs")
+}
+
+// ==================================================
+// DOMAIN 3: ACADEMIC STRUCTURE
+// ==================================================
+
+model Campus {
+  id       String  @id @default(uuid())
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name     String
+  address  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("acd_campuses")
+}
+
+model AcademicYear {
+  id        String     @id @default(uuid())
+  tenantId  String
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String // e.g., "2026/2027"
+  startDate DateTime
+  endDate   DateTime
+  status    YearStatus @default(UPCOMING)
+
+  terms Term[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("acd_academic_years")
+}
+
+enum YearStatus {
+  UPCOMING
+  ACTIVE
+  PAST
+}
+
+model Term {
+  id             String       @id @default(uuid())
+  tenantId       String
+  tenant         Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  academicYearId String
+  academicYear   AcademicYear @relation(fields: [academicYearId], references: [id], onDelete: Cascade)
+  name           String // e.g., "Fall Term"
+  startDate      DateTime
+  endDate        DateTime
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Timetable Timetable[]
+
+  @@index([tenantId, academicYearId])
+  @@map("acd_terms")
+}
+
+model Department {
+  id       String  @id @default(uuid())
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name     String
+  headId   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("acd_departments")
+}
+
+model Class {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name     String // e.g., "Grade 10"
+  level    Int
+
+  arms     Arm[]
+  subjects Subject[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("acd_classes")
+}
+
+model Arm {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  classId  String
+  class    Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  name     String // e.g., "10A"
+  capacity Int?
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Timetable Timetable[]
+
+  @@unique([classId, name])
+  @@index([tenantId])
+  @@map("acd_arms")
+}
+
+model SubjectGroup {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name     String // e.g., "Sciences"
+
+  subjects Subject[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("acd_subject_groups")
+}
+
+model Subject {
+  id             String        @id @default(uuid())
+  tenantId       String
+  tenant         Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name           String
+  code           String
+  subjectGroupId String?
+  subjectGroup   SubjectGroup? @relation(fields: [subjectGroupId], references: [id])
+
+  classes Class[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("acd_subjects")
+}
+
+model Timetable {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  armId    String
+  arm      Arm    @relation(fields: [armId], references: [id], onDelete: Cascade)
+  termId   String
+  term     Term   @relation(fields: [termId], references: [id], onDelete: Cascade)
+
+  config Json // JSON representing schedule blocks
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, armId, termId])
+  @@map("acd_timetables")
 }
