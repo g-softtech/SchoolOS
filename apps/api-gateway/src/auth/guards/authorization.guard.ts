@@ -91,15 +91,15 @@ export class AuthorizationGuard implements CanActivate {
       ]);
 
       if (requiredPolicy) {
-        const policyResult = await this.policyService.evaluate(requiredPolicy, {
-          tenantId: workspace.tenant.id,
-          userId,
-          resource: req.body,
-        });
-
-        if (!policyResult.allowed) {
+        try {
+          await this.policyService.evaluate(requiredPolicy, {
+            tenantId: workspace.tenant.id,
+            userId,
+            resource: req.body,
+          });
+        } catch (policyError: any) {
           trace.policy = false;
-          throw new ForbiddenException({ allowed: false, reason: policyResult.reason || `Blocked by policy '${requiredPolicy}'` });
+          throw new ForbiddenException({ allowed: false, reason: policyError.message || `Blocked by policy '${requiredPolicy}'` });
         }
       }
 

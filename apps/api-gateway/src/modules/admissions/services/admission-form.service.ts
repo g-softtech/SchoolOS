@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { AdmissionFormRepository } from '../repositories';
-import { WorkspaceContext } from '../../shared/context/workspace-context';
+import { WorkspaceContext } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionFormService {
@@ -30,7 +30,7 @@ export class AdmissionFormService {
    * guaranteeing that past submissions do not lose structural integrity.
    */
   async publishNewVersion(ctx: WorkspaceContext, campaignId: string, fieldsPayload: any[]) {
-    return this.formRepo.prisma.$transaction(async (tx) => {
+    return this.formRepo.prisma.$transaction(async (tx: any) => {
       // Find latest version
       const latest = await tx.admissionForm.findFirst({
         where: { tenantId: ctx.tenantId, campaignId },
@@ -54,7 +54,7 @@ export class AdmissionFormService {
               orderIndex: i,
               visibilityRule: f.visibilityRule || {},
               options: {
-                create: f.options?.map(o => ({ value: o.value })) || []
+                create: f.options?.map((o: any) => ({ value: o.value })) || []
               }
             }))
           }

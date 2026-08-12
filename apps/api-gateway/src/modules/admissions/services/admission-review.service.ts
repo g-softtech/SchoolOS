@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, ConflictException } from '@nestjs/common';
 import { AdmissionReviewRepository } from '../repositories';
-import { WorkspaceContext } from '../../shared/context/workspace-context';
+import { WorkspaceContext } from '@saas/core-platform';
 import { PlatformEventBus } from '@saas/core-platform';
 
 @Injectable()
@@ -20,20 +20,23 @@ export class AdmissionReviewService {
     stageId: string, 
     payload: { score?: number, comments?: string, recommendation: any }
   ) {
-    const existing = await this.reviewRepo.findExistingReview(applicationId, ctx.userId, stageId);
+    const reviewerId = ctx.userId || '';
+    const existing = await this.reviewRepo.findExistingReview(applicationId, reviewerId, stageId);
     
     if (existing) {
       throw new ConflictException('You have already submitted a review for this application in this stage. Overwrites are forbidden.');
     }
 
     const review = await this.reviewRepo.create({
-      applicationId,
-      reviewerId: ctx.userId,
-      stageId,
-      score: payload.score,
-      comments: payload.comments,
-      recommendation: payload.recommendation,
-      version: 1
+      data: {
+        applicationId,
+        reviewerId,
+        stageId,
+        score: payload.score,
+        comments: payload.comments,
+        recommendation: payload.recommendation,
+        version: 1
+      }
     });
 
     // Audit Log

@@ -140,7 +140,7 @@ describe('Level 7: Event Consistency', () => {
 
   describe('7. Predictable Replay', () => {
     it('resets failed events back to PENDING for retry loops', async () => {
-      await dispatcher.retryFailed();
+      await dispatcher.retryQuarantined();
       expect(mockPrisma.outboxMessage.updateMany).toHaveBeenCalledWith(expect.objectContaining({
         where: { status: 'FAILED' },
         data: { status: 'PENDING', error: null }

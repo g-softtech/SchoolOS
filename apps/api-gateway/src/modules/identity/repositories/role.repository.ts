@@ -9,8 +9,8 @@ export class RoleRepository implements BaseRepository<Role, any, any, any> {
   }
 
   async findById(id: string, tenantId: string): Promise<Role | null> {
-    return this.prisma.role.findUnique({ 
-      where: { id, tenantId, deletedAt: null },
+    return this.prisma.role.findFirst({
+      where: { id, tenantId },
       include: { permissions: { include: { permission: true } } }
     });
   }

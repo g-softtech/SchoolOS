@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { WorkspaceContext } from '../../../workspace/workspace.context';
+import { WorkspaceContext } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionNumberService {
@@ -11,7 +11,7 @@ export class AdmissionNumberService {
    * Format example: '{PREFIX}-{YEAR}-{SEQ}' -> 'ADM-2027-0001'
    */
   async generateAdmissionNumber(campaignId: string, sequence: number, formatTemplate: string = 'ADM-{YYYY}-{SEQ}'): Promise<string> {
-    const tenantId = this.workspace.getTenantId();
+    const tenantId = this.workspace.tenantId;
     
     const year = new Date().getFullYear().toString();
     const formattedSequence = sequence.toString().padStart(4, '0');

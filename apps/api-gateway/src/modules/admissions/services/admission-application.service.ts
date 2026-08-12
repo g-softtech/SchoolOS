@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { AdmissionApplicationRepository } from '../repositories';
 import { PlatformEventBus, PlatformStorageService } from '@saas/core-platform';
-import { WorkspaceContext } from '../../shared/context/workspace-context';
+import { WorkspaceContext } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionApplicationService {
@@ -13,14 +13,16 @@ export class AdmissionApplicationService {
 
   async submitApplication(ctx: WorkspaceContext, payload: any) {
     const application = await this.applicationRepo.create({
-      tenantId: ctx.tenantId,
-      campaignId: payload.campaignId,
-      applicantId: ctx.userId,
-      studentFirstName: payload.studentFirstName,
-      studentLastName: payload.studentLastName,
-      studentDateOfBirth: new Date(payload.studentDateOfBirth),
-      customFields: payload.customFields,
-      formVersion: payload.formVersion,
+      data: {
+        tenantId: ctx.tenantId,
+        campaignId: payload.campaignId,
+        applicantId: ctx.userId || '',
+        studentFirstName: payload.studentFirstName,
+        studentLastName: payload.studentLastName,
+        studentDateOfBirth: new Date(payload.studentDateOfBirth),
+        customFields: payload.customFields,
+        formVersion: payload.formVersion,
+      }
     });
 
     // Event Architecture

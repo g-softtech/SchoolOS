@@ -70,15 +70,15 @@ export class AuthSimulatorController {
 
       // 5. Policy Check
       if (dto.policy) {
-        const policyResult = await this.policyService.evaluate(dto.policy, {
-          tenantId: dto.tenantId,
-          userId: dto.userId,
-          resource: dto.resource,
-        });
-
-        if (!policyResult.allowed) {
+        try {
+          await this.policyService.evaluate(dto.policy, {
+            tenantId: dto.tenantId,
+            userId: dto.userId,
+            resource: dto.resource,
+          });
+        } catch (policyError: any) {
           trace.policy = false;
-          throw new Error(policyResult.reason || `Blocked by policy '${dto.policy}'`);
+          throw new Error(policyError.message || `Blocked by policy '${dto.policy}'`);
         }
       }
 

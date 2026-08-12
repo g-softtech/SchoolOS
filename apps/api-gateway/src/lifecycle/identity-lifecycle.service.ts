@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { LifecycleException , MembershipState } from '@saas/core-platform';
+import { LifecycleException } from '@saas/core-platform';
 import { IdentityState } from '@saas/core-platform';
 import { randomUUID } from 'crypto';
 
@@ -28,16 +28,8 @@ export class IdentityLifecycleService {
     ACTIVE: ['SUSPENDED', 'OFFBOARDED'],
     SUSPENDED: ['ACTIVE', 'OFFBOARDED'],
     OFFBOARDED: ['ARCHIVED'],
-    ARCHIVED: ['REINSTATED'],
-    REINSTATED: ['ACTIVE'] // Assuming REINSTATED is technically a transitional pseudo-state or actual state, we didn't add REINSTATED to Prisma. Let's fix that.
+    ARCHIVED: ['ACTIVE'] // Reinstatement goes to ACTIVE
   };
-
-  /**
-   * In schema.prisma, we have:
-   * PROVISIONED, PENDING_ACTIVATION, ACTIVE, SUSPENDED, OFFBOARDED, ARCHIVED
-   * Reinstated is an action, the state goes to ACTIVE.
-   * So ARCHIVED -> ACTIVE is the reinstatement path.
-   */
 
   private isValidTransition(from: IdentityState, to: IdentityState): boolean {
     const fsm: Record<string, string[]> = {
@@ -63,6 +55,7 @@ export class IdentityLifecycleService {
         state: 'PROVISIONED',
         lifecycleTransitions: {
           create: {
+            fromState: 'NONE',
             toState: 'PROVISIONED',
             actorId,
             reason: 'Initial Provisioning',

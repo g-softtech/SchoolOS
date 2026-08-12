@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException, Inject } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { PERMISSIONS_KEY } from './require-permission.decorator';
-import { CacheProvider } from '@saas/core-platform';
+import type { CacheProvider } from '@saas/core-platform';
 import { RoleRepository } from '../repositories/role.repository';
 
 @Injectable()
@@ -45,7 +45,7 @@ export class PoliciesGuard implements CanActivate {
         throw new ForbiddenException('Role not found.');
       }
       
-      permissions = role.permissions.map((rp: any) => rp.permission.code);
+      permissions = (role as any).permissions.map((rp: any) => rp.permission.name);
       
       // Store in cache for 15 minutes
       await this.cache.set(cacheKey, permissions, 900);

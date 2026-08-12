@@ -95,6 +95,12 @@ model Tenant {
   ScheduledJob       ScheduledJob[]
   SequenceGenerator  SequenceGenerator[]
 
+  AdmissionCampaign         AdmissionCampaign[]
+  AdmissionWorkflow         AdmissionWorkflow[]
+  AdmissionForm             AdmissionForm[]
+  AdmissionRequiredDocument AdmissionRequiredDocument[]
+  AdmissionApplication      AdmissionApplication[]
+
   @@map("plt_tenants")
 }
 
@@ -262,6 +268,30 @@ enum MembershipState {
   SUSPENDED
 }
 
+enum IdentityState {
+  PROVISIONED
+  PENDING_ACTIVATION
+  ACTIVE
+  SUSPENDED
+  ARCHIVED
+  OFFBOARDED
+}
+
+model LifecycleTransition {
+  id                 String           @id @default(uuid())
+  tenantMembershipId String
+  membership         TenantMembership @relation(fields: [tenantMembershipId], references: [id], onDelete: Cascade)
+  fromState          String
+  toState            String
+  correlationId      String?
+  reason             String?
+  actorId            String?
+  createdAt          DateTime         @default(now())
+
+  @@index([tenantMembershipId])
+  @@map("idm_lifecycle_transitions")
+}
+
 model TenantMembership {
   id       String @id @default(uuid())
   tenantId String
@@ -272,11 +302,13 @@ model TenantMembership {
   role     Role   @relation(fields: [roleId], references: [id])
 
   // Lifecycle & State
-  state     MembershipState @default(ACTIVE)
-  isRevoked Boolean         @default(false)
+  state     IdentityState @default(PROVISIONED)
+  isRevoked Boolean       @default(false)
   revokedAt DateTime?
   revokedBy String?
-  version   Int             @default(1)
+  version   Int           @default(1)
+
+  lifecycleTransitions LifecycleTransition[]
 
   profile Profile?
 
@@ -379,6 +411,7 @@ model Session {
   // Metadata
   fingerprint String?
   isRevoked   Boolean @default(false)
+  mfaVerified Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -443,7 +476,8 @@ model AcademicYear {
   endDate   DateTime
   status    YearStatus @default(UPCOMING)
 
-  terms Term[]
+  terms              Term[]
+  admissionCampaigns AdmissionCampaign[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1689,4 +1723,228 @@ model SupportAccessGrant {
 
   @@index([userId, tenantId])
   @@map("idm_support_access_grants")
+}
+
+// ==================================================
+// DOMAIN X: ADMISSIONS
+// ==================================================
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+}
+
+enum FieldType {
+  TEXT
+  DROPDOWN
+  DATE
+  FILE
+}
+
+enum DocVerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum RecommendationStatus {
+  APPROVE
+  REJECT
+  HOLD
+}
+
+model AdmissionCampaign {
+  id               String         @id @default(uuid())
+  tenantId         String
+  tenant           Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  academicYearId   String
+  academicYear     AcademicYear   @relation(fields: [academicYearId], references: [id], onDelete: Restrict)
+  name             String
+  startDate        DateTime
+  endDate          DateTime
+  status           CampaignStatus @default(DRAFT)
+  applicationFee   Decimal?
+  maxApplicants    Int?
+  allowedClasses   Json
+  portalVisibility Boolean        @default(true)
+  version          Int            @default(1)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  deletedAt        DateTime?
+  deletedBy        String?
+
+  forms        AdmissionForm[]
+  applications AdmissionApplication[]
+
+  @@index([tenantId, academicYearId])
+  @@map("adm_campaigns")
+}
+
+model AdmissionWorkflow {
+  id        String    @id @default(uuid())
+  tenantId  String
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  isDefault Boolean   @default(false)
+  version   Int       @default(1)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  deletedBy String?
+
+  stages AdmissionWorkflowStage[]
+
+  @@index([tenantId])
+  @@map("adm_workflows")
+}
+
+model AdmissionWorkflowStage {
+  id             String            @id @default(uuid())
+  workflowId     String
+  workflow       AdmissionWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  name           String
+  orderIndex     Int
+  requiresReview Boolean           @default(false)
+  isTerminal     Boolean           @default(false)
+  permissions    Json              @default("{}")
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  applications AdmissionApplication[]
+  reviews      AdmissionReview[]
+
+  @@index([workflowId, orderIndex])
+  @@map("adm_workflow_stages")
+}
+
+model AdmissionForm {
+  id          String            @id @default(uuid())
+  tenantId    String
+  tenant      Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  campaignId  String
+  campaign    AdmissionCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  version     Int               @default(1)
+  isPublished Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  deletedAt   DateTime?
+  deletedBy   String?
+
+  fields AdmissionField[]
+
+  @@index([tenantId, campaignId])
+  @@map("adm_forms")
+}
+
+model AdmissionField {
+  id             String        @id @default(uuid())
+  formId         String
+  form           AdmissionForm @relation(fields: [formId], references: [id], onDelete: Cascade)
+  label          String
+  type           FieldType
+  isRequired     Boolean       @default(true)
+  orderIndex     Int
+  visibilityRule Json?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  options AdmissionFieldOption[]
+
+  @@index([formId])
+  @@map("adm_fields")
+}
+
+model AdmissionFieldOption {
+  id        String         @id @default(uuid())
+  fieldId   String
+  field     AdmissionField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  value     String
+  createdAt DateTime       @default(now())
+
+  @@index([fieldId])
+  @@map("adm_field_options")
+}
+
+model AdmissionRequiredDocument {
+  id         String    @id @default(uuid())
+  tenantId   String
+  tenant     Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name       String
+  isRequired Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  deletedBy  String?
+
+  documents AdmissionDocument[]
+
+  @@index([tenantId])
+  @@map("adm_required_documents")
+}
+
+model AdmissionApplication {
+  id                 String                  @id @default(uuid())
+  tenantId           String
+  tenant             Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  campaignId         String
+  campaign           AdmissionCampaign       @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  applicantId        String
+  admissionNumber    String?                 @unique
+  studentFirstName   String
+  studentLastName    String
+  studentDateOfBirth DateTime
+  customFields       Json
+  formVersion        Int                     @default(1)
+  currentStageId     String?
+  currentStage       AdmissionWorkflowStage? @relation(fields: [currentStageId], references: [id], onDelete: SetNull)
+  paymentStatus      PaymentStatus           @default(PENDING)
+  version            Int                     @default(1)
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  deletedAt          DateTime?
+  deletedBy          String?
+
+  documents AdmissionDocument[]
+  reviews   AdmissionReview[]
+
+  @@index([tenantId, campaignId])
+  @@index([tenantId, currentStageId])
+  @@map("adm_applications")
+}
+
+model AdmissionDocument {
+  id                 String                     @id @default(uuid())
+  applicationId      String
+  application        AdmissionApplication       @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  requiredDocumentId String?
+  requiredDocument   AdmissionRequiredDocument? @relation(fields: [requiredDocumentId], references: [id], onDelete: SetNull)
+  fileUrl            String
+  verificationStatus DocVerificationStatus      @default(PENDING)
+  createdAt          DateTime                   @default(now())
+  updatedAt          DateTime                   @updatedAt
+
+  @@index([applicationId])
+  @@map("adm_documents")
+}
+
+model AdmissionReview {
+  id             String                 @id @default(uuid())
+  applicationId  String
+  application    AdmissionApplication   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  reviewerId     String
+  stageId        String
+  stage          AdmissionWorkflowStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  score          Int?
+  comments       String?
+  recommendation RecommendationStatus   @default(HOLD)
+  version        Int                    @default(1)
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
+  deletedAt      DateTime?
+  deletedBy      String?
+
+  @@unique([applicationId, reviewerId, stageId])
+  @@index([applicationId])
+  @@map("adm_reviews")
 }

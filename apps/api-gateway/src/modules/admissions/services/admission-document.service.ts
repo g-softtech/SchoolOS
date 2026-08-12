@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { WorkspaceContext } from '../../../workspace/workspace.context';
+import { WorkspaceContext } from '@saas/core-platform';
 import { AdmissionApplicationRepository } from '../repositories/admission-application.repository';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class AdmissionDocumentService {
   ) {}
 
   async defineRequiredDocument(name: string, isRequired: boolean = true) {
-    const tenantId = this.workspace.getTenantId();
+    const tenantId = this.workspace.tenantId;
     
     // Abstracted Repository logic (using generic query to avoid Prisma import)
     const rule = { id: 'mock-rule', tenantId, name, isRequired };
@@ -22,14 +22,14 @@ export class AdmissionDocumentService {
   }
 
   async verifyDocument(applicationId: string, documentId: string, status: any) {
-    const tenantId = this.workspace.getTenantId();
+    const tenantId = this.workspace.tenantId;
     
     this.eventEmitter.emit('Admissions.Document.Verified', {
       tenantId,
       applicationId,
       documentId,
       status,
-      actorId: this.workspace.getUserId(),
+      actorId: this.workspace.userId,
     });
 
     return { id: documentId, verificationStatus: status };

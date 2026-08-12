@@ -126,7 +126,7 @@ export class AuthService {
       throw new AuthenticationException('INVALID_TOKEN', 'Invalid refresh token');
     }
 
-    if (session.status === 'REVOKED') {
+    if (session.state === 'REVOKED') {
       // Security Risk: Refresh Token Reuse Detection
       await this.prisma.session.updateMany({
         where: { userId: session.userId, state: SessionState.ACTIVE },
@@ -139,7 +139,7 @@ export class AuthService {
       throw new AuthenticationException('TOKEN_REVOKED', 'Refresh token has been revoked. All sessions terminated.');
     }
 
-    if (session.expires < new Date() || session.status === 'EXPIRED') {
+    if (session.expires < new Date() || session.state === 'EXPIRED') {
       await this.prisma.session.update({ where: { id: session.id }, data: { state: 'EXPIRED' } });
       this.eventEmitter.emit('AUTH_REFRESH_FAILED', { reason: 'Token expired' });
       throw new AuthenticationException('TOKEN_EXPIRED', 'Refresh token has expired');

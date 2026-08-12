@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { CacheProvider } from '@saas/core-platform';
+import type { CacheProvider } from '@saas/core-platform';
 
 @Injectable()
 export class CacheInvalidationSubscriber {

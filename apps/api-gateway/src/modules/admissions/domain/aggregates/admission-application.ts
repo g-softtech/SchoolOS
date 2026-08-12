@@ -1,6 +1,6 @@
-import { AggregateRoot } from '@saas/core-platform/domain';
+import { AggregateRoot } from '@saas/core-platform';
 import { AdmissionNumber } from '../value-objects/admission-number';
-import { ApplicationStatus } from '../value-objects/application-status';
+import { ApplicationStatus, ApplicationState } from '../value-objects/application-status';
 
 export interface AdmissionApplicationProps {
   tenantId: string;
@@ -33,7 +33,7 @@ export class AdmissionApplication extends AggregateRoot<AdmissionApplicationProp
   }
 
   // The workflow engine verified this transition is allowed. We just apply the state change and bump version.
-  public changeStatus(newStatus: string): void {
+  public changeStatus(newStatus: ApplicationState): void {
     this.props.status = ApplicationStatus.create(newStatus);
     if (newStatus === 'SUBMITTED') {
       this.props.submittedAt = new Date();

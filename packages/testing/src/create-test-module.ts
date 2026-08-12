@@ -1,4 +1,5 @@
-﻿import { Test, TestingModuleBuilder, ModuleMetadata } from '@nestjs/testing';
+import { Test, TestingModuleBuilder } from '@nestjs/testing';
+import type { ModuleMetadata } from '@nestjs/common';
 import { createPrismaProvider } from './prisma.mock';
 
 export function createTestingModuleWithMocks(

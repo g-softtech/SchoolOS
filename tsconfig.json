@@ -1,16 +1,9 @@
-﻿{
+{
   "extends": "./tsconfig.base.json",
   "files": [],
   "references": [
     { "path": "./apps/api-gateway" },
     { "path": "./apps/web-app" },
-    { "path": "./packages/cli" },
-    { "path": "./packages/core-platform" },
-    { "path": "./packages/testing" },
-    { "path": "./packages/contracts" },
-    { "path": "./packages/projections" },
-    { "path": "./packages/shared-kernel" },
-    { "path": "./packages/workflow" },
-    { "path": "./packages/ui" }
+    { "path": "./packages/cli" }
   ]
 }

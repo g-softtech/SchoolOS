@@ -1,5 +1,6 @@
 import { Controller, Post, Body, Request } from '@nestjs/common';
 import { TimetablesService } from './timetables.service';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('timetables')
 export class TimetablesController {

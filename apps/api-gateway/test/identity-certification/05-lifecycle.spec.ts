@@ -3,7 +3,7 @@ import { IdentityLifecycleService } from '../../src/lifecycle/identity-lifecycle
 import { PrismaService } from '../../src/database/prisma.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { LifecycleException } from '@saas/core-platform';
-import { IdentityState } from '@prisma/client';
+import { IdentityState } from '@saas/core-platform';
 
 describe('Level 5: Lifecycle', () => {
   let service: IdentityLifecycleService;
@@ -17,8 +17,8 @@ describe('Level 5: Lifecycle', () => {
     state: 'ACTIVE' as IdentityState
   };
 
-  const mockPrisma = {
-    $transaction: jest.fn(async (cb) => cb(mockPrisma)),
+  const mockPrisma: any = {
+    $transaction: jest.fn(async (cb: any) => cb(mockPrisma)),
     tenantMembership: {
       create: jest.fn().mockImplementation((data) => Promise.resolve({ id: 'mem-new', ...data.data })),
       findUnique: jest.fn().mockImplementation(() => Promise.resolve(mockMembership)),

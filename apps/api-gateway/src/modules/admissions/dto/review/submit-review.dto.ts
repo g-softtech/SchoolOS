@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsEnum, IsNumber, IsOptional, Max, Min } from 'class-validator';
-import { ReviewRecommendation } from '@saas/core-platform';
+import { RecommendationStatus } from '@saas/core-platform';
 
 export class SubmitReviewDto {
   @ApiProperty({ description: 'The UUID of the target AdmissionWorkflowStage for this review' })
@@ -20,8 +20,8 @@ export class SubmitReviewDto {
   @IsNotEmpty()
   comments: string;
 
-  @ApiProperty({ description: 'Final recommendation for this stage', enum: ReviewRecommendation })
-  @IsEnum(ReviewRecommendation)
+  @ApiProperty({ description: 'Final recommendation for this stage', enum: RecommendationStatus })
+  @IsEnum(RecommendationStatus)
   @IsNotEmpty()
-  recommendation: ReviewRecommendation;
+  recommendation: RecommendationStatus;
 }

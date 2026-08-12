@@ -22,7 +22,7 @@ export class CreateApplicationDto {
   @IsNotEmpty()
   studentDateOfBirth: string;
 
-  @ApiPropertyOptional({ description: 'JSON answers to the dynamic Admission Form fields', type: 'object' })
+  @ApiPropertyOptional({ description: 'JSON answers to the dynamic Admission Form fields', type: 'object', additionalProperties: true })
   @IsOptional()
   @IsObject()
   customFields?: Record<string, any>;

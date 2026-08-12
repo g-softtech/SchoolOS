@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { AdmissionWorkflowRepository, AdmissionApplicationRepository } from '../repositories';
 import { PlatformEventBus } from '@saas/core-platform';
-import { WorkspaceContext } from '../../shared/context/workspace-context';
+import { WorkspaceContext } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionWorkflowService {

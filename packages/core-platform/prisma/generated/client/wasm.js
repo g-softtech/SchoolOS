@@ -227,6 +227,17 @@ exports.Prisma.UserScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.LifecycleTransitionScalarFieldEnum = {
+  id: 'id',
+  tenantMembershipId: 'tenantMembershipId',
+  fromState: 'fromState',
+  toState: 'toState',
+  correlationId: 'correlationId',
+  reason: 'reason',
+  actorId: 'actorId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.TenantMembershipScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -290,6 +301,7 @@ exports.Prisma.SessionScalarFieldEnum = {
   state: 'state',
   fingerprint: 'fingerprint',
   isRevoked: 'isRevoked',
+  mfaVerified: 'mfaVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -967,6 +979,136 @@ exports.Prisma.SupportAccessGrantScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AdmissionCampaignScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  academicYearId: 'academicYearId',
+  name: 'name',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  applicationFee: 'applicationFee',
+  maxApplicants: 'maxApplicants',
+  allowedClasses: 'allowedClasses',
+  portalVisibility: 'portalVisibility',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+};
+
+exports.Prisma.AdmissionWorkflowScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  isDefault: 'isDefault',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+};
+
+exports.Prisma.AdmissionWorkflowStageScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  name: 'name',
+  orderIndex: 'orderIndex',
+  requiresReview: 'requiresReview',
+  isTerminal: 'isTerminal',
+  permissions: 'permissions',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdmissionFormScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  campaignId: 'campaignId',
+  version: 'version',
+  isPublished: 'isPublished',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+};
+
+exports.Prisma.AdmissionFieldScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  label: 'label',
+  type: 'type',
+  isRequired: 'isRequired',
+  orderIndex: 'orderIndex',
+  visibilityRule: 'visibilityRule',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdmissionFieldOptionScalarFieldEnum = {
+  id: 'id',
+  fieldId: 'fieldId',
+  value: 'value',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AdmissionRequiredDocumentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  isRequired: 'isRequired',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+};
+
+exports.Prisma.AdmissionApplicationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  campaignId: 'campaignId',
+  applicantId: 'applicantId',
+  admissionNumber: 'admissionNumber',
+  studentFirstName: 'studentFirstName',
+  studentLastName: 'studentLastName',
+  studentDateOfBirth: 'studentDateOfBirth',
+  customFields: 'customFields',
+  formVersion: 'formVersion',
+  currentStageId: 'currentStageId',
+  paymentStatus: 'paymentStatus',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+};
+
+exports.Prisma.AdmissionDocumentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  requiredDocumentId: 'requiredDocumentId',
+  fileUrl: 'fileUrl',
+  verificationStatus: 'verificationStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AdmissionReviewScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  reviewerId: 'reviewerId',
+  stageId: 'stageId',
+  score: 'score',
+  comments: 'comments',
+  recommendation: 'recommendation',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1014,11 +1156,13 @@ exports.GlobalRole = exports.$Enums.GlobalRole = {
   USER: 'USER'
 };
 
-exports.MembershipState = exports.$Enums.MembershipState = {
-  PENDING: 'PENDING',
+exports.IdentityState = exports.$Enums.IdentityState = {
+  PROVISIONED: 'PROVISIONED',
+  PENDING_ACTIVATION: 'PENDING_ACTIVATION',
   ACTIVE: 'ACTIVE',
-  REVOKED: 'REVOKED',
-  SUSPENDED: 'SUSPENDED'
+  SUSPENDED: 'SUSPENDED',
+  ARCHIVED: 'ARCHIVED',
+  OFFBOARDED: 'OFFBOARDED'
 };
 
 exports.SessionState = exports.$Enums.SessionState = {
@@ -1150,6 +1294,31 @@ exports.NotificationStatus = exports.$Enums.NotificationStatus = {
   FAILED: 'FAILED'
 };
 
+exports.CampaignStatus = exports.$Enums.CampaignStatus = {
+  DRAFT: 'DRAFT',
+  ACTIVE: 'ACTIVE',
+  CLOSED: 'CLOSED'
+};
+
+exports.FieldType = exports.$Enums.FieldType = {
+  TEXT: 'TEXT',
+  DROPDOWN: 'DROPDOWN',
+  DATE: 'DATE',
+  FILE: 'FILE'
+};
+
+exports.DocVerificationStatus = exports.$Enums.DocVerificationStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+};
+
+exports.RecommendationStatus = exports.$Enums.RecommendationStatus = {
+  APPROVE: 'APPROVE',
+  REJECT: 'REJECT',
+  HOLD: 'HOLD'
+};
+
 exports.Prisma.ModelName = {
   PlatformPlan: 'PlatformPlan',
   Tenant: 'Tenant',
@@ -1162,6 +1331,7 @@ exports.Prisma.ModelName = {
   FeatureFlag: 'FeatureFlag',
   AuditSeed: 'AuditSeed',
   User: 'User',
+  LifecycleTransition: 'LifecycleTransition',
   TenantMembership: 'TenantMembership',
   Profile: 'Profile',
   Role: 'Role',
@@ -1229,7 +1399,17 @@ exports.Prisma.ModelName = {
   TimetableSlot: 'TimetableSlot',
   Policy: 'Policy',
   PolicyVersion: 'PolicyVersion',
-  SupportAccessGrant: 'SupportAccessGrant'
+  SupportAccessGrant: 'SupportAccessGrant',
+  AdmissionCampaign: 'AdmissionCampaign',
+  AdmissionWorkflow: 'AdmissionWorkflow',
+  AdmissionWorkflowStage: 'AdmissionWorkflowStage',
+  AdmissionForm: 'AdmissionForm',
+  AdmissionField: 'AdmissionField',
+  AdmissionFieldOption: 'AdmissionFieldOption',
+  AdmissionRequiredDocument: 'AdmissionRequiredDocument',
+  AdmissionApplication: 'AdmissionApplication',
+  AdmissionDocument: 'AdmissionDocument',
+  AdmissionReview: 'AdmissionReview'
 };
 
 /**

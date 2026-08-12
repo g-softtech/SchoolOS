@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { SubmitApplicationCommand } from '../commands/application.commands';
-import { DatabaseWorkflowEngine } from '@saas/workflow';
+import { WorkflowEngine } from '@saas/workflow';
 
 // Mock dependencies for the reference implementation
 interface IdempotencyRepository {
@@ -18,7 +18,7 @@ export class SubmitApplicationHandler implements ICommandHandler<SubmitApplicati
   constructor(
     private readonly idempotencyRepo: IdempotencyRepository,
     private readonly applicationRepo: ApplicationRepository,
-    private readonly workflowEngine: DatabaseWorkflowEngine // Injected real engine
+    private readonly workflowEngine: WorkflowEngine // Injected real engine
   ) {}
 
   async execute(command: SubmitApplicationCommand): Promise<void> {

@@ -13,6 +13,7 @@ export * from './domain/policy.types';
 export * from './domain/access-context.types';
 export * from './domain/audit';
 export * from './domain/events';
+export { AggregateRoot, Entity, ValueObject } from './domain';
 
 // Prisma generated client re-export
 export * from '../prisma/generated/client';
@@ -22,3 +23,4 @@ export * from './providers/platform-event-bus';
 export * from './providers/platform-storage.service';
 export * from './providers/prisma.service';
 export * from './providers/prisma.module';
+export * from './providers';

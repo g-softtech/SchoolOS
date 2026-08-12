@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 
 // Controllers
 import { AdmissionsCampaignController } from './controllers/admissions-campaign.controller';
-import { AdmissionsApplicationController } from './controllers/admissions-application.controller';
-import { AdmissionsWorkflowController } from './controllers/admissions-workflow.controller';
+import { AdmissionApplicationController } from './controllers/admission-application.controller';
+import { AdmissionWorkflowController } from './controllers/admission-workflow.controller';
 
 // Repositories
 import { AdmissionApplicationRepository } from './repositories/admission-application.repository';
@@ -23,8 +23,8 @@ import { AdmissionNumberService } from './services/admission-number.service';
   imports: [], // Add DatabaseModule, WorkspaceModule etc. when hooking up to core
   controllers: [
     AdmissionsCampaignController,
-    AdmissionsApplicationController,
-    AdmissionsWorkflowController,
+    AdmissionApplicationController,
+    AdmissionWorkflowController,
   ],
   providers: [
     // Repositories
