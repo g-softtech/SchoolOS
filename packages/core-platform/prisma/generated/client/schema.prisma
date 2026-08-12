@@ -49,6 +49,7 @@ model Tenant {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   deletedAt          DateTime?
+  assets             Asset[]
   Campus             Campus[]
   AcademicYear       AcademicYear[]
   Term               Term[]
@@ -1222,6 +1223,7 @@ model Website {
   seoMeta     Json?
 
   deletedAt DateTime?
+  deletedBy String?
   version   Int       @default(1)
 
   pages      Page[]
@@ -1248,6 +1250,7 @@ model Page {
   isPublished   Boolean   @default(false)
   version       Int       @default(1)
   deletedAt     DateTime?
+  deletedBy     String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1266,6 +1269,10 @@ model NavigationMenu {
   website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   links Json // e.g., [{ label: "Home", url: "/" }]
+
+  deletedAt DateTime?
+  deletedBy String?
+  version   Int       @default(1)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1633,11 +1640,13 @@ model SequenceGenerator {
 model Asset {
   id        String    @id @default(uuid())
   tenantId  String
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   websiteId String
   mimeType  String
   url       String
   size      Int
   deletedAt DateTime?
+  deletedBy String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -1651,6 +1660,7 @@ model WebsiteDomain {
   website    Website   @relation(fields: [websiteId], references: [id])
   domainName String    @unique
   deletedAt  DateTime?
+  deletedBy  String?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 

@@ -8,8 +8,15 @@ export class AssetRepository extends BaseRepository<
   Prisma.AssetCreateArgs,
   Prisma.AssetUpdateArgs
 > {
-  constructor(protected readonly prisma: PrismaClient) {
-    super(prisma.asset);
+  constructor(public readonly prisma: PrismaClient) {
+    super(prisma, prisma.asset);
+  }
+
+  async transaction<T>(action: (repo: AssetRepository) => Promise<T>): Promise<T> {
+    return this.prisma.$transaction(async (tx: any) => {
+      const repo = new AssetRepository(tx as PrismaClient);
+      return action(repo);
+    });
   }
 
   async findActiveAssets(tenantId: string, mimeType?: string) {

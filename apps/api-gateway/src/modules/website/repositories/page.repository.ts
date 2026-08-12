@@ -8,8 +8,8 @@ export class PageRepository extends BaseRepository<
   Prisma.PageCreateArgs,
   Prisma.PageUpdateArgs
 > {
-  constructor(protected readonly prisma: PrismaClient) {
-    super(prisma.page);
+  constructor(public readonly prisma: PrismaClient) {
+    super(prisma, prisma.page);
   }
 
   async transaction<T>(action: (repo: PageRepository) => Promise<T>): Promise<T> {

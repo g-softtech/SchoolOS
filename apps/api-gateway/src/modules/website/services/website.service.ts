@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { WebsiteRepository } from '../repositories/website.repository';
-import { PlatformEventBus } from '@saas/core-platform';
+import { OutboxService } from '@saas/core-platform';
 
 @Injectable()
 export class WebsiteService {
   constructor(
     private readonly websiteRepo: WebsiteRepository,
-    private readonly eventBus: PlatformEventBus
+    private readonly outboxService: OutboxService
   ) {}
 
   async getSettings(tenantId: string) {
@@ -26,18 +26,22 @@ export class WebsiteService {
 
       const updated = await repo.update(website.id, tenantId, updates);
 
-      await this.eventBus.publish({
-        eventName: 'Website.Updated',
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'Website.Updated',
+        aggregateId: website.id,
+        aggregateType: 'Website',
+        tenantId,
         version: 1,
-        occurredAt: new Date().toISOString(),
         payload: { tenantId, fields: Object.keys(updates) }
       });
 
       if (updates.themeId && updates.themeId !== website.themeId) {
-        await this.eventBus.publish({
-          eventName: 'Website.ThemeChanged',
+        await this.outboxService.appendEvent(repo.prisma, {
+          eventType: 'Website.ThemeChanged',
+          aggregateId: website.id,
+          aggregateType: 'Website',
+          tenantId,
           version: 1,
-          occurredAt: new Date().toISOString(),
           payload: { tenantId, themeId: updates.themeId }
         });
       }

@@ -8912,6 +8912,7 @@ export namespace Prisma {
     memberships: number
     roles: number
     auditLogs: number
+    assets: number
     Campus: number
     AcademicYear: number
     Term: number
@@ -8971,6 +8972,7 @@ export namespace Prisma {
     memberships?: boolean | TenantCountOutputTypeCountMembershipsArgs
     roles?: boolean | TenantCountOutputTypeCountRolesArgs
     auditLogs?: boolean | TenantCountOutputTypeCountAuditLogsArgs
+    assets?: boolean | TenantCountOutputTypeCountAssetsArgs
     Campus?: boolean | TenantCountOutputTypeCountCampusArgs
     AcademicYear?: boolean | TenantCountOutputTypeCountAcademicYearArgs
     Term?: boolean | TenantCountOutputTypeCountTermArgs
@@ -9080,6 +9082,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountAuditLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuditLogWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetWhereInput
   }
 
   /**
@@ -12024,6 +12033,7 @@ export namespace Prisma {
     memberships?: boolean | Tenant$membershipsArgs<ExtArgs>
     roles?: boolean | Tenant$rolesArgs<ExtArgs>
     auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
+    assets?: boolean | Tenant$assetsArgs<ExtArgs>
     Campus?: boolean | Tenant$CampusArgs<ExtArgs>
     AcademicYear?: boolean | Tenant$AcademicYearArgs<ExtArgs>
     Term?: boolean | Tenant$TermArgs<ExtArgs>
@@ -12111,6 +12121,7 @@ export namespace Prisma {
     memberships?: boolean | Tenant$membershipsArgs<ExtArgs>
     roles?: boolean | Tenant$rolesArgs<ExtArgs>
     auditLogs?: boolean | Tenant$auditLogsArgs<ExtArgs>
+    assets?: boolean | Tenant$assetsArgs<ExtArgs>
     Campus?: boolean | Tenant$CampusArgs<ExtArgs>
     AcademicYear?: boolean | Tenant$AcademicYearArgs<ExtArgs>
     Term?: boolean | Tenant$TermArgs<ExtArgs>
@@ -12180,6 +12191,7 @@ export namespace Prisma {
       memberships: Prisma.$TenantMembershipPayload<ExtArgs>[]
       roles: Prisma.$RolePayload<ExtArgs>[]
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+      assets: Prisma.$AssetPayload<ExtArgs>[]
       Campus: Prisma.$CampusPayload<ExtArgs>[]
       AcademicYear: Prisma.$AcademicYearPayload<ExtArgs>[]
       Term: Prisma.$TermPayload<ExtArgs>[]
@@ -12614,6 +12626,7 @@ export namespace Prisma {
     memberships<T extends Tenant$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantMembershipPayload<ExtArgs>, T, "findMany"> | Null>
     roles<T extends Tenant$rolesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany"> | Null>
     auditLogs<T extends Tenant$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany"> | Null>
+    assets<T extends Tenant$assetsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany"> | Null>
     Campus<T extends Tenant$CampusArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$CampusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusPayload<ExtArgs>, T, "findMany"> | Null>
     AcademicYear<T extends Tenant$AcademicYearArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$AcademicYearArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findMany"> | Null>
     Term<T extends Tenant$TermArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$TermArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findMany"> | Null>
@@ -13186,6 +13199,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.assets
+   */
+  export type Tenant$assetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+    orderBy?: AssetOrderByWithRelationInput | AssetOrderByWithRelationInput[]
+    cursor?: AssetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetScalarFieldEnum | AssetScalarFieldEnum[]
   }
 
   /**
@@ -64634,6 +64667,7 @@ export namespace Prisma {
     tenantId: string | null
     domain: string | null
     deletedAt: Date | null
+    deletedBy: string | null
     version: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -64644,6 +64678,7 @@ export namespace Prisma {
     tenantId: string | null
     domain: string | null
     deletedAt: Date | null
+    deletedBy: string | null
     version: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -64657,6 +64692,7 @@ export namespace Prisma {
     heroConfig: number
     seoMeta: number
     deletedAt: number
+    deletedBy: number
     version: number
     createdAt: number
     updatedAt: number
@@ -64677,6 +64713,7 @@ export namespace Prisma {
     tenantId?: true
     domain?: true
     deletedAt?: true
+    deletedBy?: true
     version?: true
     createdAt?: true
     updatedAt?: true
@@ -64687,6 +64724,7 @@ export namespace Prisma {
     tenantId?: true
     domain?: true
     deletedAt?: true
+    deletedBy?: true
     version?: true
     createdAt?: true
     updatedAt?: true
@@ -64700,6 +64738,7 @@ export namespace Prisma {
     heroConfig?: true
     seoMeta?: true
     deletedAt?: true
+    deletedBy?: true
     version?: true
     createdAt?: true
     updatedAt?: true
@@ -64800,6 +64839,7 @@ export namespace Prisma {
     heroConfig: JsonValue | null
     seoMeta: JsonValue | null
     deletedAt: Date | null
+    deletedBy: string | null
     version: number
     createdAt: Date
     updatedAt: Date
@@ -64832,6 +64872,7 @@ export namespace Prisma {
     heroConfig?: boolean
     seoMeta?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -64850,6 +64891,7 @@ export namespace Prisma {
     heroConfig?: boolean
     seoMeta?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -64864,6 +64906,7 @@ export namespace Prisma {
     heroConfig?: boolean
     seoMeta?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -64896,6 +64939,7 @@ export namespace Prisma {
       heroConfig: Prisma.JsonValue | null
       seoMeta: Prisma.JsonValue | null
       deletedAt: Date | null
+      deletedBy: string | null
       version: number
       createdAt: Date
       updatedAt: Date
@@ -65303,6 +65347,7 @@ export namespace Prisma {
     readonly heroConfig: FieldRef<"Website", 'Json'>
     readonly seoMeta: FieldRef<"Website", 'Json'>
     readonly deletedAt: FieldRef<"Website", 'DateTime'>
+    readonly deletedBy: FieldRef<"Website", 'String'>
     readonly version: FieldRef<"Website", 'Int'>
     readonly createdAt: FieldRef<"Website", 'DateTime'>
     readonly updatedAt: FieldRef<"Website", 'DateTime'>
@@ -65722,6 +65767,7 @@ export namespace Prisma {
     isPublished: boolean | null
     version: number | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -65735,6 +65781,7 @@ export namespace Prisma {
     isPublished: boolean | null
     version: number | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -65749,6 +65796,7 @@ export namespace Prisma {
     isPublished: number
     version: number
     deletedAt: number
+    deletedBy: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -65772,6 +65820,7 @@ export namespace Prisma {
     isPublished?: true
     version?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -65785,6 +65834,7 @@ export namespace Prisma {
     isPublished?: true
     version?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -65799,6 +65849,7 @@ export namespace Prisma {
     isPublished?: true
     version?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -65900,6 +65951,7 @@ export namespace Prisma {
     isPublished: boolean
     version: number
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date
     updatedAt: Date
     _count: PageCountAggregateOutputType | null
@@ -65933,6 +65985,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -65949,6 +66002,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -65965,6 +66019,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -65994,6 +66049,7 @@ export namespace Prisma {
       isPublished: boolean
       version: number
       deletedAt: Date | null
+      deletedBy: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["page"]>
@@ -66400,6 +66456,7 @@ export namespace Prisma {
     readonly isPublished: FieldRef<"Page", 'Boolean'>
     readonly version: FieldRef<"Page", 'Int'>
     readonly deletedAt: FieldRef<"Page", 'DateTime'>
+    readonly deletedBy: FieldRef<"Page", 'String'>
     readonly createdAt: FieldRef<"Page", 'DateTime'>
     readonly updatedAt: FieldRef<"Page", 'DateTime'>
   }
@@ -66740,14 +66797,27 @@ export namespace Prisma {
 
   export type AggregateNavigationMenu = {
     _count: NavigationMenuCountAggregateOutputType | null
+    _avg: NavigationMenuAvgAggregateOutputType | null
+    _sum: NavigationMenuSumAggregateOutputType | null
     _min: NavigationMenuMinAggregateOutputType | null
     _max: NavigationMenuMaxAggregateOutputType | null
+  }
+
+  export type NavigationMenuAvgAggregateOutputType = {
+    version: number | null
+  }
+
+  export type NavigationMenuSumAggregateOutputType = {
+    version: number | null
   }
 
   export type NavigationMenuMinAggregateOutputType = {
     id: string | null
     tenantId: string | null
     websiteId: string | null
+    deletedAt: Date | null
+    deletedBy: string | null
+    version: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -66756,6 +66826,9 @@ export namespace Prisma {
     id: string | null
     tenantId: string | null
     websiteId: string | null
+    deletedAt: Date | null
+    deletedBy: string | null
+    version: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -66765,16 +66838,30 @@ export namespace Prisma {
     tenantId: number
     websiteId: number
     links: number
+    deletedAt: number
+    deletedBy: number
+    version: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
+  export type NavigationMenuAvgAggregateInputType = {
+    version?: true
+  }
+
+  export type NavigationMenuSumAggregateInputType = {
+    version?: true
+  }
+
   export type NavigationMenuMinAggregateInputType = {
     id?: true
     tenantId?: true
     websiteId?: true
+    deletedAt?: true
+    deletedBy?: true
+    version?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -66783,6 +66870,9 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     websiteId?: true
+    deletedAt?: true
+    deletedBy?: true
+    version?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -66792,6 +66882,9 @@ export namespace Prisma {
     tenantId?: true
     websiteId?: true
     links?: true
+    deletedAt?: true
+    deletedBy?: true
+    version?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -66835,6 +66928,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: NavigationMenuAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NavigationMenuSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: NavigationMenuMinAggregateInputType
@@ -66865,6 +66970,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: NavigationMenuCountAggregateInputType | true
+    _avg?: NavigationMenuAvgAggregateInputType
+    _sum?: NavigationMenuSumAggregateInputType
     _min?: NavigationMenuMinAggregateInputType
     _max?: NavigationMenuMaxAggregateInputType
   }
@@ -66874,9 +66981,14 @@ export namespace Prisma {
     tenantId: string
     websiteId: string
     links: JsonValue
+    deletedAt: Date | null
+    deletedBy: string | null
+    version: number
     createdAt: Date
     updatedAt: Date
     _count: NavigationMenuCountAggregateOutputType | null
+    _avg: NavigationMenuAvgAggregateOutputType | null
+    _sum: NavigationMenuSumAggregateOutputType | null
     _min: NavigationMenuMinAggregateOutputType | null
     _max: NavigationMenuMaxAggregateOutputType | null
   }
@@ -66900,6 +67012,9 @@ export namespace Prisma {
     tenantId?: boolean
     websiteId?: boolean
     links?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -66911,6 +67026,9 @@ export namespace Prisma {
     tenantId?: boolean
     websiteId?: boolean
     links?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -66922,6 +67040,9 @@ export namespace Prisma {
     tenantId?: boolean
     websiteId?: boolean
     links?: boolean
+    deletedAt?: boolean
+    deletedBy?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -66946,6 +67067,9 @@ export namespace Prisma {
       tenantId: string
       websiteId: string
       links: Prisma.JsonValue
+      deletedAt: Date | null
+      deletedBy: string | null
+      version: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["navigationMenu"]>
@@ -67347,6 +67471,9 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"NavigationMenu", 'String'>
     readonly websiteId: FieldRef<"NavigationMenu", 'String'>
     readonly links: FieldRef<"NavigationMenu", 'Json'>
+    readonly deletedAt: FieldRef<"NavigationMenu", 'DateTime'>
+    readonly deletedBy: FieldRef<"NavigationMenu", 'String'>
+    readonly version: FieldRef<"NavigationMenu", 'Int'>
     readonly createdAt: FieldRef<"NavigationMenu", 'DateTime'>
     readonly updatedAt: FieldRef<"NavigationMenu", 'DateTime'>
   }
@@ -85568,6 +85695,7 @@ export namespace Prisma {
     url: string | null
     size: number | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -85580,6 +85708,7 @@ export namespace Prisma {
     url: string | null
     size: number | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -85592,6 +85721,7 @@ export namespace Prisma {
     url: number
     size: number
     deletedAt: number
+    deletedBy: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -85614,6 +85744,7 @@ export namespace Prisma {
     url?: true
     size?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -85626,6 +85757,7 @@ export namespace Prisma {
     url?: true
     size?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -85638,6 +85770,7 @@ export namespace Prisma {
     url?: true
     size?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -85737,6 +85870,7 @@ export namespace Prisma {
     url: string
     size: number
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date
     updatedAt: Date
     _count: AssetCountAggregateOutputType | null
@@ -85768,8 +85902,10 @@ export namespace Prisma {
     url?: boolean
     size?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -85780,8 +85916,10 @@ export namespace Prisma {
     url?: boolean
     size?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectScalar = {
@@ -85792,14 +85930,23 @@ export namespace Prisma {
     url?: boolean
     size?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
+  export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
 
   export type $AssetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Asset"
-    objects: {}
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
@@ -85808,6 +85955,7 @@ export namespace Prisma {
       url: string
       size: number
       deletedAt: Date | null
+      deletedBy: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["asset"]>
@@ -86174,6 +86322,7 @@ export namespace Prisma {
    */
   export interface Prisma__AssetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -86210,6 +86359,7 @@ export namespace Prisma {
     readonly url: FieldRef<"Asset", 'String'>
     readonly size: FieldRef<"Asset", 'Int'>
     readonly deletedAt: FieldRef<"Asset", 'DateTime'>
+    readonly deletedBy: FieldRef<"Asset", 'String'>
     readonly createdAt: FieldRef<"Asset", 'DateTime'>
     readonly updatedAt: FieldRef<"Asset", 'DateTime'>
   }
@@ -86225,6 +86375,10 @@ export namespace Prisma {
      */
     select?: AssetSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    /**
      * Filter, which Asset to fetch.
      */
     where: AssetWhereUniqueInput
@@ -86239,6 +86393,10 @@ export namespace Prisma {
      */
     select?: AssetSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    /**
      * Filter, which Asset to fetch.
      */
     where: AssetWhereUniqueInput
@@ -86252,6 +86410,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Asset
      */
     select?: AssetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
     /**
      * Filter, which Asset to fetch.
      */
@@ -86297,6 +86459,10 @@ export namespace Prisma {
      */
     select?: AssetSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    /**
      * Filter, which Asset to fetch.
      */
     where?: AssetWhereInput
@@ -86341,6 +86507,10 @@ export namespace Prisma {
      */
     select?: AssetSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    /**
      * Filter, which Assets to fetch.
      */
     where?: AssetWhereInput
@@ -86380,6 +86550,10 @@ export namespace Prisma {
      */
     select?: AssetSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    /**
      * The data needed to create a Asset.
      */
     data: XOR<AssetCreateInput, AssetUncheckedCreateInput>
@@ -86409,6 +86583,10 @@ export namespace Prisma {
      */
     data: AssetCreateManyInput | AssetCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -86419,6 +86597,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Asset
      */
     select?: AssetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
     /**
      * The data needed to update a Asset.
      */
@@ -86452,6 +86634,10 @@ export namespace Prisma {
      */
     select?: AssetSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    /**
      * The filter to search for the Asset to update in case it exists.
      */
     where: AssetWhereUniqueInput
@@ -86473,6 +86659,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Asset
      */
     select?: AssetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
     /**
      * Filter which Asset to delete.
      */
@@ -86497,6 +86687,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Asset
      */
     select?: AssetSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
   }
 
 
@@ -86515,6 +86709,7 @@ export namespace Prisma {
     websiteId: string | null
     domainName: string | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -86524,6 +86719,7 @@ export namespace Prisma {
     websiteId: string | null
     domainName: string | null
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -86533,6 +86729,7 @@ export namespace Prisma {
     websiteId: number
     domainName: number
     deletedAt: number
+    deletedBy: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -86544,6 +86741,7 @@ export namespace Prisma {
     websiteId?: true
     domainName?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -86553,6 +86751,7 @@ export namespace Prisma {
     websiteId?: true
     domainName?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -86562,6 +86761,7 @@ export namespace Prisma {
     websiteId?: true
     domainName?: true
     deletedAt?: true
+    deletedBy?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -86644,6 +86844,7 @@ export namespace Prisma {
     websiteId: string
     domainName: string
     deletedAt: Date | null
+    deletedBy: string | null
     createdAt: Date
     updatedAt: Date
     _count: WebsiteDomainCountAggregateOutputType | null
@@ -86670,6 +86871,7 @@ export namespace Prisma {
     websiteId?: boolean
     domainName?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     website?: boolean | WebsiteDefaultArgs<ExtArgs>
@@ -86680,6 +86882,7 @@ export namespace Prisma {
     websiteId?: boolean
     domainName?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     website?: boolean | WebsiteDefaultArgs<ExtArgs>
@@ -86690,6 +86893,7 @@ export namespace Prisma {
     websiteId?: boolean
     domainName?: boolean
     deletedAt?: boolean
+    deletedBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -86711,6 +86915,7 @@ export namespace Prisma {
       websiteId: string
       domainName: string
       deletedAt: Date | null
+      deletedBy: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["websiteDomain"]>
@@ -87111,6 +87316,7 @@ export namespace Prisma {
     readonly websiteId: FieldRef<"WebsiteDomain", 'String'>
     readonly domainName: FieldRef<"WebsiteDomain", 'String'>
     readonly deletedAt: FieldRef<"WebsiteDomain", 'DateTime'>
+    readonly deletedBy: FieldRef<"WebsiteDomain", 'String'>
     readonly createdAt: FieldRef<"WebsiteDomain", 'DateTime'>
     readonly updatedAt: FieldRef<"WebsiteDomain", 'DateTime'>
   }
@@ -103412,6 +103618,7 @@ export namespace Prisma {
     heroConfig: 'heroConfig',
     seoMeta: 'seoMeta',
     deletedAt: 'deletedAt',
+    deletedBy: 'deletedBy',
     version: 'version',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -103430,6 +103637,7 @@ export namespace Prisma {
     isPublished: 'isPublished',
     version: 'version',
     deletedAt: 'deletedAt',
+    deletedBy: 'deletedBy',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -103442,6 +103650,9 @@ export namespace Prisma {
     tenantId: 'tenantId',
     websiteId: 'websiteId',
     links: 'links',
+    deletedAt: 'deletedAt',
+    deletedBy: 'deletedBy',
+    version: 'version',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -103699,6 +103910,7 @@ export namespace Prisma {
     url: 'url',
     size: 'size',
     deletedAt: 'deletedAt',
+    deletedBy: 'deletedBy',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -103711,6 +103923,7 @@ export namespace Prisma {
     websiteId: 'websiteId',
     domainName: 'domainName',
     deletedAt: 'deletedAt',
+    deletedBy: 'deletedBy',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -104533,6 +104746,7 @@ export namespace Prisma {
     memberships?: TenantMembershipListRelationFilter
     roles?: RoleListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    assets?: AssetListRelationFilter
     Campus?: CampusListRelationFilter
     AcademicYear?: AcademicYearListRelationFilter
     Term?: TermListRelationFilter
@@ -104604,6 +104818,7 @@ export namespace Prisma {
     memberships?: TenantMembershipOrderByRelationAggregateInput
     roles?: RoleOrderByRelationAggregateInput
     auditLogs?: AuditLogOrderByRelationAggregateInput
+    assets?: AssetOrderByRelationAggregateInput
     Campus?: CampusOrderByRelationAggregateInput
     AcademicYear?: AcademicYearOrderByRelationAggregateInput
     Term?: TermOrderByRelationAggregateInput
@@ -104678,6 +104893,7 @@ export namespace Prisma {
     memberships?: TenantMembershipListRelationFilter
     roles?: RoleListRelationFilter
     auditLogs?: AuditLogListRelationFilter
+    assets?: AssetListRelationFilter
     Campus?: CampusListRelationFilter
     AcademicYear?: AcademicYearListRelationFilter
     Term?: TermListRelationFilter
@@ -108543,6 +108759,7 @@ export namespace Prisma {
     heroConfig?: JsonNullableFilter<"Website">
     seoMeta?: JsonNullableFilter<"Website">
     deletedAt?: DateTimeNullableFilter<"Website"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Website"> | string | null
     version?: IntFilter<"Website"> | number
     createdAt?: DateTimeFilter<"Website"> | Date | string
     updatedAt?: DateTimeFilter<"Website"> | Date | string
@@ -108560,6 +108777,7 @@ export namespace Prisma {
     heroConfig?: SortOrderInput | SortOrder
     seoMeta?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -108580,6 +108798,7 @@ export namespace Prisma {
     heroConfig?: JsonNullableFilter<"Website">
     seoMeta?: JsonNullableFilter<"Website">
     deletedAt?: DateTimeNullableFilter<"Website"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Website"> | string | null
     version?: IntFilter<"Website"> | number
     createdAt?: DateTimeFilter<"Website"> | Date | string
     updatedAt?: DateTimeFilter<"Website"> | Date | string
@@ -108597,6 +108816,7 @@ export namespace Prisma {
     heroConfig?: SortOrderInput | SortOrder
     seoMeta?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -108618,6 +108838,7 @@ export namespace Prisma {
     heroConfig?: JsonNullableWithAggregatesFilter<"Website">
     seoMeta?: JsonNullableWithAggregatesFilter<"Website">
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Website"> | Date | string | null
+    deletedBy?: StringNullableWithAggregatesFilter<"Website"> | string | null
     version?: IntWithAggregatesFilter<"Website"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Website"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Website"> | Date | string
@@ -108636,6 +108857,7 @@ export namespace Prisma {
     isPublished?: BoolFilter<"Page"> | boolean
     version?: IntFilter<"Page"> | number
     deletedAt?: DateTimeNullableFilter<"Page"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Page"> | string | null
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
@@ -108652,6 +108874,7 @@ export namespace Prisma {
     isPublished?: SortOrder
     version?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
@@ -108672,6 +108895,7 @@ export namespace Prisma {
     isPublished?: BoolFilter<"Page"> | boolean
     version?: IntFilter<"Page"> | number
     deletedAt?: DateTimeNullableFilter<"Page"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Page"> | string | null
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
@@ -108688,6 +108912,7 @@ export namespace Prisma {
     isPublished?: SortOrder
     version?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PageCountOrderByAggregateInput
@@ -108710,6 +108935,7 @@ export namespace Prisma {
     isPublished?: BoolWithAggregatesFilter<"Page"> | boolean
     version?: IntWithAggregatesFilter<"Page"> | number
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Page"> | Date | string | null
+    deletedBy?: StringNullableWithAggregatesFilter<"Page"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
   }
@@ -108722,6 +108948,9 @@ export namespace Prisma {
     tenantId?: StringFilter<"NavigationMenu"> | string
     websiteId?: StringFilter<"NavigationMenu"> | string
     links?: JsonFilter<"NavigationMenu">
+    deletedAt?: DateTimeNullableFilter<"NavigationMenu"> | Date | string | null
+    deletedBy?: StringNullableFilter<"NavigationMenu"> | string | null
+    version?: IntFilter<"NavigationMenu"> | number
     createdAt?: DateTimeFilter<"NavigationMenu"> | Date | string
     updatedAt?: DateTimeFilter<"NavigationMenu"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
@@ -108733,6 +108962,9 @@ export namespace Prisma {
     tenantId?: SortOrder
     websiteId?: SortOrder
     links?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
@@ -108747,6 +108979,9 @@ export namespace Prisma {
     NOT?: NavigationMenuWhereInput | NavigationMenuWhereInput[]
     tenantId?: StringFilter<"NavigationMenu"> | string
     links?: JsonFilter<"NavigationMenu">
+    deletedAt?: DateTimeNullableFilter<"NavigationMenu"> | Date | string | null
+    deletedBy?: StringNullableFilter<"NavigationMenu"> | string | null
+    version?: IntFilter<"NavigationMenu"> | number
     createdAt?: DateTimeFilter<"NavigationMenu"> | Date | string
     updatedAt?: DateTimeFilter<"NavigationMenu"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
@@ -108758,11 +108993,16 @@ export namespace Prisma {
     tenantId?: SortOrder
     websiteId?: SortOrder
     links?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: NavigationMenuCountOrderByAggregateInput
+    _avg?: NavigationMenuAvgOrderByAggregateInput
     _max?: NavigationMenuMaxOrderByAggregateInput
     _min?: NavigationMenuMinOrderByAggregateInput
+    _sum?: NavigationMenuSumOrderByAggregateInput
   }
 
   export type NavigationMenuScalarWhereWithAggregatesInput = {
@@ -108773,6 +109013,9 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"NavigationMenu"> | string
     websiteId?: StringWithAggregatesFilter<"NavigationMenu"> | string
     links?: JsonWithAggregatesFilter<"NavigationMenu">
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"NavigationMenu"> | Date | string | null
+    deletedBy?: StringNullableWithAggregatesFilter<"NavigationMenu"> | string | null
+    version?: IntWithAggregatesFilter<"NavigationMenu"> | number
     createdAt?: DateTimeWithAggregatesFilter<"NavigationMenu"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"NavigationMenu"> | Date | string
   }
@@ -110057,8 +110300,10 @@ export namespace Prisma {
     url?: StringFilter<"Asset"> | string
     size?: IntFilter<"Asset"> | number
     deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -110069,8 +110314,10 @@ export namespace Prisma {
     url?: SortOrder
     size?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -110084,8 +110331,10 @@ export namespace Prisma {
     url?: StringFilter<"Asset"> | string
     size?: IntFilter<"Asset"> | number
     deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Asset"> | string | null
     createdAt?: DateTimeFilter<"Asset"> | Date | string
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
   }, "id">
 
   export type AssetOrderByWithAggregationInput = {
@@ -110096,6 +110345,7 @@ export namespace Prisma {
     url?: SortOrder
     size?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AssetCountOrderByAggregateInput
@@ -110116,6 +110366,7 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Asset"> | string
     size?: IntWithAggregatesFilter<"Asset"> | number
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Asset"> | Date | string | null
+    deletedBy?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Asset"> | Date | string
   }
@@ -110128,6 +110379,7 @@ export namespace Prisma {
     websiteId?: StringFilter<"WebsiteDomain"> | string
     domainName?: StringFilter<"WebsiteDomain"> | string
     deletedAt?: DateTimeNullableFilter<"WebsiteDomain"> | Date | string | null
+    deletedBy?: StringNullableFilter<"WebsiteDomain"> | string | null
     createdAt?: DateTimeFilter<"WebsiteDomain"> | Date | string
     updatedAt?: DateTimeFilter<"WebsiteDomain"> | Date | string
     website?: XOR<WebsiteRelationFilter, WebsiteWhereInput>
@@ -110138,6 +110390,7 @@ export namespace Prisma {
     websiteId?: SortOrder
     domainName?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     website?: WebsiteOrderByWithRelationInput
@@ -110151,6 +110404,7 @@ export namespace Prisma {
     NOT?: WebsiteDomainWhereInput | WebsiteDomainWhereInput[]
     websiteId?: StringFilter<"WebsiteDomain"> | string
     deletedAt?: DateTimeNullableFilter<"WebsiteDomain"> | Date | string | null
+    deletedBy?: StringNullableFilter<"WebsiteDomain"> | string | null
     createdAt?: DateTimeFilter<"WebsiteDomain"> | Date | string
     updatedAt?: DateTimeFilter<"WebsiteDomain"> | Date | string
     website?: XOR<WebsiteRelationFilter, WebsiteWhereInput>
@@ -110161,6 +110415,7 @@ export namespace Prisma {
     websiteId?: SortOrder
     domainName?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    deletedBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: WebsiteDomainCountOrderByAggregateInput
@@ -110176,6 +110431,7 @@ export namespace Prisma {
     websiteId?: StringWithAggregatesFilter<"WebsiteDomain"> | string
     domainName?: StringWithAggregatesFilter<"WebsiteDomain"> | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"WebsiteDomain"> | Date | string | null
+    deletedBy?: StringNullableWithAggregatesFilter<"WebsiteDomain"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"WebsiteDomain"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"WebsiteDomain"> | Date | string
   }
@@ -111452,6 +111708,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -111522,6 +111779,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -111592,6 +111850,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -111662,6 +111921,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -115691,6 +115951,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -115708,6 +115969,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -115723,6 +115985,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -115740,6 +116003,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -115756,6 +116020,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -115768,6 +116033,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -115781,6 +116047,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -115794,6 +116061,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPageInput
@@ -115810,6 +116078,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -115822,6 +116091,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPageNestedInput
@@ -115838,6 +116108,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -115852,6 +116123,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -115864,6 +116136,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -115878,6 +116151,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -115885,6 +116159,9 @@ export namespace Prisma {
   export type NavigationMenuCreateInput = {
     id?: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutNavigationMenuInput
@@ -115896,6 +116173,9 @@ export namespace Prisma {
     tenantId: string
     websiteId: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -115903,6 +116183,9 @@ export namespace Prisma {
   export type NavigationMenuUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutNavigationMenuNestedInput
@@ -115914,6 +116197,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     websiteId?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -115923,6 +116209,9 @@ export namespace Prisma {
     tenantId: string
     websiteId: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -115930,6 +116219,9 @@ export namespace Prisma {
   export type NavigationMenuUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -115939,6 +116231,9 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     websiteId?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117256,14 +117551,15 @@ export namespace Prisma {
 
   export type AssetCreateInput = {
     id?: string
-    tenantId: string
     websiteId: string
     mimeType: string
     url: string
     size: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAssetsInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -117274,20 +117570,22 @@ export namespace Prisma {
     url: string
     size: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type AssetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
     websiteId?: StringFieldUpdateOperationsInput | string
     mimeType?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -117298,6 +117596,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117310,18 +117609,19 @@ export namespace Prisma {
     url: string
     size: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type AssetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
     websiteId?: StringFieldUpdateOperationsInput | string
     mimeType?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117334,6 +117634,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117342,6 +117643,7 @@ export namespace Prisma {
     id?: string
     domainName: string
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     website: WebsiteCreateNestedOneWithoutDomainsInput
@@ -117352,6 +117654,7 @@ export namespace Prisma {
     websiteId: string
     domainName: string
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -117360,6 +117663,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     website?: WebsiteUpdateOneRequiredWithoutDomainsNestedInput
@@ -117370,6 +117674,7 @@ export namespace Prisma {
     websiteId?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117379,6 +117684,7 @@ export namespace Prisma {
     websiteId: string
     domainName: string
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -117387,6 +117693,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -117396,6 +117703,7 @@ export namespace Prisma {
     websiteId?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -118933,6 +119241,12 @@ export namespace Prisma {
     none?: AuditLogWhereInput
   }
 
+  export type AssetListRelationFilter = {
+    every?: AssetWhereInput
+    some?: AssetWhereInput
+    none?: AssetWhereInput
+  }
+
   export type CampusListRelationFilter = {
     every?: CampusWhereInput
     some?: CampusWhereInput
@@ -119258,6 +119572,10 @@ export namespace Prisma {
   }
 
   export type AuditLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -122038,6 +122356,7 @@ export namespace Prisma {
     heroConfig?: SortOrder
     seoMeta?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -122052,6 +122371,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     domain?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -122062,6 +122382,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     domain?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -122091,6 +122412,7 @@ export namespace Prisma {
     isPublished?: SortOrder
     version?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -122108,6 +122430,7 @@ export namespace Prisma {
     isPublished?: SortOrder
     version?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -122121,6 +122444,7 @@ export namespace Prisma {
     isPublished?: SortOrder
     version?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -122134,14 +122458,24 @@ export namespace Prisma {
     tenantId?: SortOrder
     websiteId?: SortOrder
     links?: SortOrder
+    deletedAt?: SortOrder
+    deletedBy?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type NavigationMenuAvgOrderByAggregateInput = {
+    version?: SortOrder
   }
 
   export type NavigationMenuMaxOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     websiteId?: SortOrder
+    deletedAt?: SortOrder
+    deletedBy?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -122150,8 +122484,15 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     websiteId?: SortOrder
+    deletedAt?: SortOrder
+    deletedBy?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type NavigationMenuSumOrderByAggregateInput = {
+    version?: SortOrder
   }
 
   export type EnumAIProviderFilter<$PrismaModel = never> = {
@@ -122963,6 +123304,7 @@ export namespace Prisma {
     url?: SortOrder
     size?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -122979,6 +123321,7 @@ export namespace Prisma {
     url?: SortOrder
     size?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -122991,6 +123334,7 @@ export namespace Prisma {
     url?: SortOrder
     size?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -123004,6 +123348,7 @@ export namespace Prisma {
     websiteId?: SortOrder
     domainName?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -123013,6 +123358,7 @@ export namespace Prisma {
     websiteId?: SortOrder
     domainName?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -123022,6 +123368,7 @@ export namespace Prisma {
     websiteId?: SortOrder
     domainName?: SortOrder
     deletedAt?: SortOrder
+    deletedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -123992,6 +124339,13 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
+  export type AssetCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AssetCreateWithoutTenantInput, AssetUncheckedCreateWithoutTenantInput> | AssetCreateWithoutTenantInput[] | AssetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutTenantInput | AssetCreateOrConnectWithoutTenantInput[]
+    createMany?: AssetCreateManyTenantInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+  }
+
   export type CampusCreateNestedManyWithoutTenantInput = {
     create?: XOR<CampusCreateWithoutTenantInput, CampusUncheckedCreateWithoutTenantInput> | CampusCreateWithoutTenantInput[] | CampusUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: CampusCreateOrConnectWithoutTenantInput | CampusCreateOrConnectWithoutTenantInput[]
@@ -124400,6 +124754,13 @@ export namespace Prisma {
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
     createMany?: AuditLogCreateManyTenantInputEnvelope
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
+  }
+
+  export type AssetUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AssetCreateWithoutTenantInput, AssetUncheckedCreateWithoutTenantInput> | AssetCreateWithoutTenantInput[] | AssetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutTenantInput | AssetCreateOrConnectWithoutTenantInput[]
+    createMany?: AssetCreateManyTenantInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
   export type CampusUncheckedCreateNestedManyWithoutTenantInput = {
@@ -124883,6 +125244,20 @@ export namespace Prisma {
     update?: AuditLogUpdateWithWhereUniqueWithoutTenantInput | AuditLogUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: AuditLogUpdateManyWithWhereWithoutTenantInput | AuditLogUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type AssetUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AssetCreateWithoutTenantInput, AssetUncheckedCreateWithoutTenantInput> | AssetCreateWithoutTenantInput[] | AssetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutTenantInput | AssetCreateOrConnectWithoutTenantInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutTenantInput | AssetUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AssetCreateManyTenantInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutTenantInput | AssetUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutTenantInput | AssetUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
   }
 
   export type CampusUpdateManyWithoutTenantNestedInput = {
@@ -125697,6 +126072,20 @@ export namespace Prisma {
     update?: AuditLogUpdateWithWhereUniqueWithoutTenantInput | AuditLogUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: AuditLogUpdateManyWithWhereWithoutTenantInput | AuditLogUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: AuditLogScalarWhereInput | AuditLogScalarWhereInput[]
+  }
+
+  export type AssetUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AssetCreateWithoutTenantInput, AssetUncheckedCreateWithoutTenantInput> | AssetCreateWithoutTenantInput[] | AssetUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutTenantInput | AssetCreateOrConnectWithoutTenantInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutTenantInput | AssetUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AssetCreateManyTenantInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutTenantInput | AssetUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutTenantInput | AssetUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
   }
 
   export type CampusUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -130687,6 +131076,20 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutSequenceGeneratorInput, TenantUpdateWithoutSequenceGeneratorInput>, TenantUncheckedUpdateWithoutSequenceGeneratorInput>
   }
 
+  export type TenantCreateNestedOneWithoutAssetsInput = {
+    create?: XOR<TenantCreateWithoutAssetsInput, TenantUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAssetsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutAssetsNestedInput = {
+    create?: XOR<TenantCreateWithoutAssetsInput, TenantUncheckedCreateWithoutAssetsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAssetsInput
+    upsert?: TenantUpsertWithoutAssetsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAssetsInput, TenantUpdateWithoutAssetsInput>, TenantUncheckedUpdateWithoutAssetsInput>
+  }
+
   export type WebsiteCreateNestedOneWithoutDomainsInput = {
     create?: XOR<WebsiteCreateWithoutDomainsInput, WebsiteUncheckedCreateWithoutDomainsInput>
     connectOrCreate?: WebsiteCreateOrConnectWithoutDomainsInput
@@ -132193,6 +132596,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -132262,6 +132666,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -132697,6 +133102,40 @@ export namespace Prisma {
 
   export type AuditLogCreateManyTenantInputEnvelope = {
     data: AuditLogCreateManyTenantInput | AuditLogCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssetCreateWithoutTenantInput = {
+    id?: string
+    websiteId: string
+    mimeType: string
+    url: string
+    size: number
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssetUncheckedCreateWithoutTenantInput = {
+    id?: string
+    websiteId: string
+    mimeType: string
+    url: string
+    size: number
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssetCreateOrConnectWithoutTenantInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutTenantInput, AssetUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AssetCreateManyTenantInputEnvelope = {
+    data: AssetCreateManyTenantInput | AssetCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -133679,6 +134118,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -133694,6 +134134,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -133715,6 +134156,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     website: WebsiteCreateNestedOneWithoutPagesInput
@@ -133729,6 +134171,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -133746,6 +134189,9 @@ export namespace Prisma {
   export type NavigationMenuCreateWithoutTenantInput = {
     id?: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     website: WebsiteCreateNestedOneWithoutNavigationInput
@@ -133755,6 +134201,9 @@ export namespace Prisma {
     id?: string
     websiteId: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -134637,6 +135086,38 @@ export namespace Prisma {
     ipAddress?: StringNullableFilter<"AuditLog"> | string | null
     userAgent?: StringNullableFilter<"AuditLog"> | string | null
     createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }
+
+  export type AssetUpsertWithWhereUniqueWithoutTenantInput = {
+    where: AssetWhereUniqueInput
+    update: XOR<AssetUpdateWithoutTenantInput, AssetUncheckedUpdateWithoutTenantInput>
+    create: XOR<AssetCreateWithoutTenantInput, AssetUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AssetUpdateWithWhereUniqueWithoutTenantInput = {
+    where: AssetWhereUniqueInput
+    data: XOR<AssetUpdateWithoutTenantInput, AssetUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type AssetUpdateManyWithWhereWithoutTenantInput = {
+    where: AssetScalarWhereInput
+    data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type AssetScalarWhereInput = {
+    AND?: AssetScalarWhereInput | AssetScalarWhereInput[]
+    OR?: AssetScalarWhereInput[]
+    NOT?: AssetScalarWhereInput | AssetScalarWhereInput[]
+    id?: StringFilter<"Asset"> | string
+    tenantId?: StringFilter<"Asset"> | string
+    websiteId?: StringFilter<"Asset"> | string
+    mimeType?: StringFilter<"Asset"> | string
+    url?: StringFilter<"Asset"> | string
+    size?: IntFilter<"Asset"> | number
+    deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Asset"> | string | null
+    createdAt?: DateTimeFilter<"Asset"> | Date | string
+    updatedAt?: DateTimeFilter<"Asset"> | Date | string
   }
 
   export type CampusUpsertWithWhereUniqueWithoutTenantInput = {
@@ -135538,6 +136019,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135553,6 +136035,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -135590,6 +136073,7 @@ export namespace Prisma {
     isPublished?: BoolFilter<"Page"> | boolean
     version?: IntFilter<"Page"> | number
     deletedAt?: DateTimeNullableFilter<"Page"> | Date | string | null
+    deletedBy?: StringNullableFilter<"Page"> | string | null
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
   }
@@ -135618,6 +136102,9 @@ export namespace Prisma {
     tenantId?: StringFilter<"NavigationMenu"> | string
     websiteId?: StringFilter<"NavigationMenu"> | string
     links?: JsonFilter<"NavigationMenu">
+    deletedAt?: DateTimeNullableFilter<"NavigationMenu"> | Date | string | null
+    deletedBy?: StringNullableFilter<"NavigationMenu"> | string | null
+    version?: IntFilter<"NavigationMenu"> | number
     createdAt?: DateTimeFilter<"NavigationMenu"> | Date | string
     updatedAt?: DateTimeFilter<"NavigationMenu"> | Date | string
   }
@@ -136191,6 +136678,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -136260,6 +136748,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -136370,6 +136859,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -136439,6 +136929,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -136581,6 +137072,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -136650,6 +137142,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -136758,6 +137251,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -136827,6 +137321,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -136925,6 +137420,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -136994,6 +137490,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -137079,6 +137576,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -137148,6 +137646,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -137217,6 +137716,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -137286,6 +137786,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -137371,6 +137872,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -137440,6 +137942,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -137509,6 +138012,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -137578,6 +138082,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -137663,6 +138168,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -137732,6 +138238,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -137801,6 +138308,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -137870,6 +138378,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -137955,6 +138464,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -138024,6 +138534,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -138461,6 +138972,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -138530,6 +139042,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -138833,6 +139346,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -138902,6 +139416,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -139313,6 +139828,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -139382,6 +139898,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -139535,6 +140052,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -139604,6 +140122,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -139937,6 +140456,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -140006,6 +140526,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -140128,6 +140649,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -140197,6 +140719,7 @@ export namespace Prisma {
     featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -140310,6 +140833,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
     Department?: DepartmentCreateNestedManyWithoutTenantInput
@@ -140379,6 +140903,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
     Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -140464,6 +140989,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
     Department?: DepartmentUpdateManyWithoutTenantNestedInput
@@ -140533,6 +141059,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
     Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -140602,6 +141129,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
     Department?: DepartmentCreateNestedManyWithoutTenantInput
@@ -140671,6 +141199,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
     Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -140842,6 +141371,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
     Department?: DepartmentUpdateManyWithoutTenantNestedInput
@@ -140911,6 +141441,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
     Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -141012,6 +141543,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Department?: DepartmentCreateNestedManyWithoutTenantInput
@@ -141081,6 +141613,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
@@ -141305,6 +141838,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Department?: DepartmentUpdateManyWithoutTenantNestedInput
@@ -141374,6 +141908,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -141526,6 +142061,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -141595,6 +142131,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -141775,6 +142312,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -141844,6 +142382,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -141978,6 +142517,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -142047,6 +142587,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -142231,6 +142772,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -142300,6 +142842,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -142417,6 +142960,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -142486,6 +143030,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -142710,6 +143255,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -142779,6 +143325,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -142929,6 +143476,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -142998,6 +143546,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -143119,6 +143668,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -143188,6 +143738,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -143273,6 +143824,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -143342,6 +143894,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -143579,6 +144132,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -143648,6 +144202,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -143808,6 +144363,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -143877,6 +144433,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -144054,6 +144611,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -144123,6 +144681,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -144295,6 +144854,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -144364,6 +144924,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -144837,6 +145398,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -144906,6 +145468,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -145256,6 +145819,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -145325,6 +145889,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -145477,6 +146042,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -145546,6 +146112,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -145822,6 +146389,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -145891,6 +146459,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -146021,6 +146590,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -146090,6 +146660,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -146210,6 +146781,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -146279,6 +146851,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -146409,6 +146982,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -146478,6 +147052,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -146598,6 +147173,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -146667,6 +147243,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -146797,6 +147374,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -146866,6 +147444,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -146986,6 +147565,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -147055,6 +147635,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -147214,6 +147795,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -147283,6 +147865,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -147438,6 +148021,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -147507,6 +148091,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -147759,6 +148344,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -147828,6 +148414,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -148042,6 +148629,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -148111,6 +148699,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -148227,6 +148816,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -148296,6 +148886,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -148402,6 +148993,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -148471,6 +149063,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -148587,6 +149180,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -148656,6 +149250,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -148762,6 +149357,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -148831,6 +149427,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -148947,6 +149544,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -149016,6 +149614,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -149122,6 +149721,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -149191,6 +149791,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -149306,6 +149907,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -149375,6 +149977,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -149473,6 +150076,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -149542,6 +150146,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -149771,6 +150376,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -149840,6 +150446,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -150213,6 +150820,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -150282,6 +150890,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -150466,6 +151075,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -150535,6 +151145,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -150679,6 +151290,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -150748,6 +151360,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -150833,6 +151446,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -150902,6 +151516,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -150971,6 +151586,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -151040,6 +151656,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -151125,6 +151742,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -151194,6 +151812,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -151263,6 +151882,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -151332,6 +151952,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -151462,6 +152083,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -151531,6 +152153,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -151651,6 +152274,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -151720,6 +152344,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -151929,6 +152554,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -151998,6 +152624,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -152259,6 +152886,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -152328,6 +152956,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -152491,6 +153120,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -152560,6 +153190,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -152719,6 +153350,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -152788,6 +153420,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -152931,6 +153564,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -153000,6 +153634,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -153139,6 +153774,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -153208,6 +153844,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -153324,6 +153961,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -153393,6 +154031,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -153499,6 +154138,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -153568,6 +154208,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -153632,6 +154273,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPageInput
@@ -153646,6 +154288,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -153663,6 +154306,9 @@ export namespace Prisma {
   export type NavigationMenuCreateWithoutWebsiteInput = {
     id?: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutNavigationMenuInput
@@ -153672,6 +154318,9 @@ export namespace Prisma {
     id?: string
     tenantId: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -153685,6 +154334,7 @@ export namespace Prisma {
     id?: string
     domainName: string
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -153693,6 +154343,7 @@ export namespace Prisma {
     id?: string
     domainName: string
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -153736,6 +154387,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -153805,6 +154457,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -153886,6 +154539,9 @@ export namespace Prisma {
   export type NavigationMenuUpdateWithoutWebsiteInput = {
     id?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutNavigationMenuNestedInput
@@ -153895,6 +154551,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -153923,6 +154582,7 @@ export namespace Prisma {
     websiteId?: StringFilter<"WebsiteDomain"> | string
     domainName?: StringFilter<"WebsiteDomain"> | string
     deletedAt?: DateTimeNullableFilter<"WebsiteDomain"> | Date | string | null
+    deletedBy?: StringNullableFilter<"WebsiteDomain"> | string | null
     createdAt?: DateTimeFilter<"WebsiteDomain"> | Date | string
     updatedAt?: DateTimeFilter<"WebsiteDomain"> | Date | string
   }
@@ -153945,6 +154605,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -154014,6 +154675,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -154077,6 +154739,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -154093,6 +154756,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -154134,6 +154798,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -154203,6 +154868,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -154272,6 +154938,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -154288,6 +154955,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -154313,6 +154981,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -154382,6 +155051,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -154445,6 +155115,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -154461,6 +155132,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -154502,6 +155174,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -154571,6 +155244,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -154640,6 +155314,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -154656,6 +155331,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -154681,6 +155357,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -154750,6 +155427,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -154835,6 +155513,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -154904,6 +155583,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -154973,6 +155653,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -155042,6 +155723,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -155164,6 +155846,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -155233,6 +155916,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -155345,6 +156029,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -155414,6 +156099,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -155499,6 +156185,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -155568,6 +156255,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -155637,6 +156325,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -155706,6 +156395,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -155819,6 +156509,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -155888,6 +156579,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -156231,6 +156923,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -156300,6 +156993,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -156411,6 +157105,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -156480,6 +157175,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -156633,6 +157329,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -156702,6 +157399,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -156819,6 +157517,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -156888,6 +157587,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -157129,6 +157829,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -157198,6 +157899,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -157320,6 +158022,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -157389,6 +158092,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -157501,6 +158205,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -157570,6 +158275,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -157688,6 +158394,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -157757,6 +158464,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -157865,6 +158573,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -157934,6 +158643,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -158077,6 +158787,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -158146,6 +158857,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -158285,6 +158997,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -158354,6 +159067,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -158439,6 +159153,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -158508,6 +159223,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -158577,6 +159293,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -158646,6 +159363,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -158765,6 +159483,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -158834,6 +159553,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -158999,6 +159719,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -159068,6 +159789,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -159153,6 +159875,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -159222,6 +159945,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -159291,6 +160015,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -159360,6 +160085,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -159445,6 +160171,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -159514,6 +160241,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -159565,6 +160293,302 @@ export namespace Prisma {
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
+  export type TenantCreateWithoutAssetsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutAssetsInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutAssetsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutAssetsInput, TenantUncheckedCreateWithoutAssetsInput>
+  }
+
+  export type TenantUpsertWithoutAssetsInput = {
+    update: XOR<TenantUpdateWithoutAssetsInput, TenantUncheckedUpdateWithoutAssetsInput>
+    create: XOR<TenantCreateWithoutAssetsInput, TenantUncheckedCreateWithoutAssetsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutAssetsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutAssetsInput, TenantUncheckedUpdateWithoutAssetsInput>
+  }
+
+  export type TenantUpdateWithoutAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
   export type WebsiteCreateWithoutDomainsInput = {
     id?: string
     domain: string
@@ -159572,6 +160596,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -159588,6 +160613,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -159618,6 +160644,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -159634,6 +160661,7 @@ export namespace Prisma {
     heroConfig?: NullableJsonNullValueInput | InputJsonValue
     seoMeta?: NullableJsonNullValueInput | InputJsonValue
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -159822,6 +160850,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -159891,6 +160920,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -160091,6 +161121,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -160160,6 +161191,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -160296,6 +161328,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -160365,6 +161398,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -160486,6 +161520,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -160555,6 +161590,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -160859,6 +161895,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -160928,6 +161965,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -161092,6 +162130,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -161161,6 +162200,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -161488,6 +162528,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -161557,6 +162598,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -161670,6 +162712,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -161739,6 +162782,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -161837,6 +162881,7 @@ export namespace Prisma {
     memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
     roles?: RoleCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
     Campus?: CampusCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
     Term?: TermCreateNestedManyWithoutTenantInput
@@ -161906,6 +162951,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
     roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
     Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
     AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
     Term?: TermUncheckedCreateNestedManyWithoutTenantInput
@@ -162133,6 +163179,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -162202,6 +163249,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -162737,6 +163785,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
     roles?: RoleUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
     Campus?: CampusUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
     Term?: TermUpdateManyWithoutTenantNestedInput
@@ -162806,6 +163855,7 @@ export namespace Prisma {
     memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
     roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
     Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
     AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
     Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
@@ -162959,6 +164009,18 @@ export namespace Prisma {
     ipAddress?: string | null
     userAgent?: string | null
     createdAt?: Date | string
+  }
+
+  export type AssetCreateManyTenantInput = {
+    id?: string
+    websiteId: string
+    mimeType: string
+    url: string
+    size: number
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CampusCreateManyTenantInput = {
@@ -163271,6 +164333,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -163279,6 +164342,9 @@ export namespace Prisma {
     id?: string
     websiteId: string
     links: JsonNullValueInput | InputJsonValue
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -163685,6 +164751,42 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    websiteId?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    websiteId?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    websiteId?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CampusUpdateWithoutTenantInput = {
@@ -164678,6 +165780,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     website?: WebsiteUpdateOneRequiredWithoutPagesNestedInput
@@ -164692,6 +165795,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -164705,6 +165809,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -164712,6 +165817,9 @@ export namespace Prisma {
   export type NavigationMenuUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     website?: WebsiteUpdateOneRequiredWithoutNavigationNestedInput
@@ -164721,6 +165829,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     websiteId?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -164729,6 +165840,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     websiteId?: StringFieldUpdateOperationsInput | string
     links?: JsonNullValueInput | InputJsonValue
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167561,6 +168675,7 @@ export namespace Prisma {
     isPublished?: boolean
     version?: number
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -167569,6 +168684,7 @@ export namespace Prisma {
     id?: string
     domainName: string
     deletedAt?: Date | string | null
+    deletedBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -167581,6 +168697,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPageNestedInput
@@ -167595,6 +168712,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167608,6 +168726,7 @@ export namespace Prisma {
     isPublished?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167616,6 +168735,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167624,6 +168744,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -167632,6 +168753,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     domainName?: StringFieldUpdateOperationsInput | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

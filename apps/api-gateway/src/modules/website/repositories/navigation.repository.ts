@@ -8,8 +8,15 @@ export class NavigationRepository extends BaseRepository<
   Prisma.NavigationMenuCreateArgs,
   Prisma.NavigationMenuUpdateArgs
 > {
-  constructor(protected readonly prisma: PrismaClient) {
-    super(prisma.navigationMenu);
+  constructor(public readonly prisma: PrismaClient) {
+    super(prisma, prisma.navigationMenu);
+  }
+
+  async transaction<T>(action: (repo: NavigationRepository) => Promise<T>): Promise<T> {
+    return this.prisma.$transaction(async (tx: any) => {
+      const repo = new NavigationRepository(tx as PrismaClient);
+      return action(repo);
+    });
   }
 
   async findByLocation(tenantId: string, location: string, locale: string = 'en') {

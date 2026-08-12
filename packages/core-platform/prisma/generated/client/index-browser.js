@@ -693,6 +693,7 @@ exports.Prisma.WebsiteScalarFieldEnum = {
   heroConfig: 'heroConfig',
   seoMeta: 'seoMeta',
   deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   version: 'version',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -708,6 +709,7 @@ exports.Prisma.PageScalarFieldEnum = {
   isPublished: 'isPublished',
   version: 'version',
   deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -717,6 +719,9 @@ exports.Prisma.NavigationMenuScalarFieldEnum = {
   tenantId: 'tenantId',
   websiteId: 'websiteId',
   links: 'links',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
+  version: 'version',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -917,6 +922,7 @@ exports.Prisma.AssetScalarFieldEnum = {
   url: 'url',
   size: 'size',
   deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -926,6 +932,7 @@ exports.Prisma.WebsiteDomainScalarFieldEnum = {
   websiteId: 'websiteId',
   domainName: 'domainName',
   deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

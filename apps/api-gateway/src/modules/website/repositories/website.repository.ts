@@ -8,8 +8,8 @@ export class WebsiteRepository extends BaseRepository<
   Prisma.WebsiteCreateArgs,
   Prisma.WebsiteUpdateArgs
 > {
-  constructor(protected readonly prisma: PrismaClient) {
-    super(prisma.website);
+  constructor(public readonly prisma: PrismaClient) {
+    super(prisma, prisma.website);
   }
 
   // Support for transactions

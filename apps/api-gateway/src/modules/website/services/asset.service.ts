@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { AssetRepository } from '../repositories/asset.repository';
-import { PlatformStorageService, PlatformEventBus } from '@saas/core-platform';
+import { PlatformStorageService, OutboxService } from '@saas/core-platform';
 
 @Injectable()
 export class AssetService {
   constructor(
     private readonly assetRepo: AssetRepository,
     private readonly storage: PlatformStorageService,
-    private readonly eventBus: PlatformEventBus
+    private readonly outboxService: OutboxService
   ) {}
 
   async uploadAsset(tenantId: string, file: any) {
@@ -16,25 +16,29 @@ export class AssetService {
     const storageKey = `tenants/${tenantId}/website/assets/${Date.now()}-${file.originalname}`;
     const uploadResult = await this.storage.upload(storageKey, file.buffer, file.mimetype);
 
-    // 3. Save to repository
-    const asset = await this.assetRepo.create({
-      data: {
+    // 3. Save to repository and emit event atomically
+    return this.assetRepo.transaction(async (repo) => {
+      const asset = await repo.create({
+        data: {
+          tenantId,
+          websiteId: 'default', // Legacy unused field
+          url: uploadResult.url || '',
+          mimeType: file.mimetype,
+          size: file.size,
+        }
+      });
+
+      // 4. Emit event for background optimization (WebP, Blurhash)
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'Website.AssetUploaded',
+        aggregateId: asset.id,
+        aggregateType: 'Asset',
         tenantId,
-        websiteId: 'default',
-        url: uploadResult.url || '',
-        mimeType: file.mimetype,
-        size: file.size,
-      }
-    });
+        version: 1,
+        payload: { tenantId, assetId: asset.id, storageKey }
+      });
 
-    // 4. Emit event for background optimization (WebP, Blurhash)
-    await this.eventBus.publish({
-      eventName: 'Website.AssetUploaded',
-      version: 1,
-      occurredAt: new Date().toISOString(),
-      payload: { tenantId, assetId: asset.id, storageKey }
+      return asset;
     });
-
-    return asset;
   }
 }

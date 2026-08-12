@@ -10,7 +10,10 @@ describe('WebsiteController Unit', () => {
   let service: jest.Mocked<WebsiteService>;
 
   beforeEach(async () => {
-    const module: TestingModule = await createTestingModuleWithMocks({}, PrismaService).compile();
+    const module: TestingModule = await createTestingModuleWithMocks({
+      controllers: [WebsiteController],
+      providers: [WebsiteService]
+    }, PrismaService).compile();
 
     controller = module.get<WebsiteController>(WebsiteController);
     service = module.get(WebsiteService);
