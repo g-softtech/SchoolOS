@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Inject, NotFoundException } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
+import type { Cache } from 'cache-manager';
 import { WebsiteRepository } from '../repositories/website.repository';
 import { PageRepository } from '../repositories/page.repository';
 
@@ -40,7 +40,7 @@ export class EdgeDeliveryController {
     // 2. Query Page where status=PUBLISHED
     // 'path' is expected to be the slug (e.g. 'home' or 'about-us')
     const page = await this.pageRepo.findBySlug(tenantId, path);
-    if (!page || page.status !== 'PUBLISHED') {
+    if (!page || !page.isPublished) {
       throw new NotFoundException('Page not found or not published');
     }
 
@@ -50,10 +50,10 @@ export class EdgeDeliveryController {
       path: page.slug,
       title: page.title,
       contentBlocks: page.contentBlocks,
-      seoMetadata: page.seoMetadata,
+      seoMeta: website.seoMeta,
       // Provide theme details from website setting
-      themeId: website.themeId,
-      branding: website.branding
+      themeColors: website.themeColors,
+      heroConfig: website.heroConfig
     };
 
     // Cache for future requests

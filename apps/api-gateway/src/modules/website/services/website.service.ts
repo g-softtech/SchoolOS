@@ -35,14 +35,14 @@ export class WebsiteService {
         payload: { tenantId, fields: Object.keys(updates) }
       });
 
-      if (updates.themeId && updates.themeId !== website.themeId) {
+      if (updates.themeColors && updates.themeColors !== website.themeColors) {
         await this.outboxService.appendEvent(repo.prisma, {
           eventType: 'Website.ThemeChanged',
           aggregateId: website.id,
           aggregateType: 'Website',
           tenantId,
           version: 1,
-          payload: { tenantId, themeId: updates.themeId }
+          payload: { tenantId, themeColors: updates.themeColors }
         });
       }
 

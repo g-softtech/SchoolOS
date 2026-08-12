@@ -1116,6 +1116,41 @@ exports.Prisma.AdmissionReviewScalarFieldEnum = {
   deletedBy: 'deletedBy'
 };
 
+exports.Prisma.DomainEventLogScalarFieldEnum = {
+  eventId: 'eventId',
+  eventType: 'eventType',
+  aggregateId: 'aggregateId',
+  aggregateType: 'aggregateType',
+  version: 'version',
+  occurredAt: 'occurredAt',
+  correlationId: 'correlationId',
+  causationId: 'causationId',
+  tenantId: 'tenantId',
+  payload: 'payload',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OutboxQueueScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  status: 'status',
+  attempts: 'attempts',
+  lastAttemptAt: 'lastAttemptAt',
+  nextAttemptAt: 'nextAttemptAt',
+  errorMessage: 'errorMessage',
+  aggregateId: 'aggregateId',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IdempotencyRecordScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  consumer: 'consumer',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1326,6 +1361,13 @@ exports.RecommendationStatus = exports.$Enums.RecommendationStatus = {
   HOLD: 'HOLD'
 };
 
+exports.OutboxStatus = exports.$Enums.OutboxStatus = {
+  PENDING: 'PENDING',
+  FAILED: 'FAILED',
+  COMPLETED: 'COMPLETED',
+  QUARANTINED: 'QUARANTINED'
+};
+
 exports.Prisma.ModelName = {
   PlatformPlan: 'PlatformPlan',
   Tenant: 'Tenant',
@@ -1416,7 +1458,10 @@ exports.Prisma.ModelName = {
   AdmissionRequiredDocument: 'AdmissionRequiredDocument',
   AdmissionApplication: 'AdmissionApplication',
   AdmissionDocument: 'AdmissionDocument',
-  AdmissionReview: 'AdmissionReview'
+  AdmissionReview: 'AdmissionReview',
+  DomainEventLog: 'DomainEventLog',
+  OutboxQueue: 'OutboxQueue',
+  IdempotencyRecord: 'IdempotencyRecord'
 };
 
 /**

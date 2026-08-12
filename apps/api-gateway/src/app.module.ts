@@ -11,6 +11,7 @@ import { EntitlementsModule } from './platform-services/entitlements/entitlement
 import { LicensingModule } from './platform-services/licensing/licensing.module';
 import { StorageModule } from './platform-services/storage/storage.module';
 import { AuditModule } from './platform-services/audit/audit.module';
+import { WebsiteModule } from './modules/website/website.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuditModule } from './platform-services/audit/audit.module';
     LicensingModule,
     StorageModule,
     AuditModule,
+    WebsiteModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

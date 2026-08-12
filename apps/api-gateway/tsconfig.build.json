@@ -8,7 +8,6 @@
     "src/modules/students/**/*",
     "src/modules/staff/**/*",
     "src/modules/finance/**/*",
-    "src/modules/website/**/*",
     "src/modules/parent-portal/**/*",
     "src/modules/attendance/**/*",
     "src/modules/examinations/**/*",

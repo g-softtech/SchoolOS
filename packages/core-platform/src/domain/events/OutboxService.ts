@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../../../prisma/generated/client';
 import { DomainEvent } from './DomainEvent.types';
 import { randomUUID } from 'crypto';
 
@@ -39,7 +39,7 @@ export class OutboxService {
           occurredAt: event.occurredAt,
           correlationId: event.correlationId || '',
           causationId: event.causationId,
-          tenantId: event.tenantId,
+          tenantId: event.tenantId || 'SYSTEM',
           payload: payload,
         }
       });
@@ -50,7 +50,7 @@ export class OutboxService {
           eventId: event.eventId,
           status: 'PENDING',
           aggregateId: event.aggregateId,
-          tenantId: event.tenantId,
+          tenantId: event.tenantId || 'SYSTEM',
         }
       });
 

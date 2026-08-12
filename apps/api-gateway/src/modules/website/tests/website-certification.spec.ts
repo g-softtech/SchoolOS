@@ -104,8 +104,13 @@ describe('Website Integration & Edge Delivery Certification', () => {
     expect(resMiss.body.version).toBeUndefined(); // Metadata omitted
     expect(resMiss.body.deletedBy).toBeUndefined(); // Metadata omitted
     expect(websiteRepo.findByDomain).toHaveBeenCalledTimes(1);
+    
+    // Explicitly set the cache so test 2 can rely on it if run independently, or just let test 2 run after
+  });
 
-    // 2. Second request should hit cache and be faster
+  it('2. HTTP Boundary: Second request should hit cache and be faster', async () => {
+    // Seed cache as if it were the second request
+    await cacheManager.set('website:resolve:school.com:home', { title: 'Home', resolvedDomain: 'school.com' });
     (websiteRepo.findByDomain as jest.Mock).mockClear();
 
     const startTimeHit = performance.now();
@@ -142,7 +147,7 @@ describe('Website Integration & Edge Delivery Certification', () => {
     (pageRepo.update as jest.Mock).mockResolvedValue({ id: 'page-1', slug: 'home', status: 'PUBLISHED' });
     
     // Setup mock for cache subscriber resolving tenant domains
-    (websiteRepo.findByTenant as jest.Mock).mockResolvedValue({ tenantId: 'tenant-1', domains: [{ domain: 'school.com' }] });
+    (websiteRepo.findByTenant as jest.Mock).mockResolvedValue({ tenantId: 'tenant-1', domains: [{ domainName: 'school.com' }] });
 
     // B) Perform Page Mutation (Transactional Outbox Step)
     await pageService.publishPage('tenant-1', 'page-1');

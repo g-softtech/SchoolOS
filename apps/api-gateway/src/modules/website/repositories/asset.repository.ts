@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Prisma } from '@saas/core-platform';
+import { Asset, PrismaClient, Prisma } from '@saas/core-platform';
 import { BaseRepository } from '../../shared/repositories/base.repository';
 
 @Injectable()
 export class AssetRepository extends BaseRepository<
-  Prisma.AssetDelegate<any>,
+  Asset,
   Prisma.AssetCreateArgs,
   Prisma.AssetUpdateArgs
 > {

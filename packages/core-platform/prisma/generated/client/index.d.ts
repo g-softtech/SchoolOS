@@ -463,6 +463,21 @@ export type AdmissionDocument = $Result.DefaultSelection<Prisma.$AdmissionDocume
  * 
  */
 export type AdmissionReview = $Result.DefaultSelection<Prisma.$AdmissionReviewPayload>
+/**
+ * Model DomainEventLog
+ * 
+ */
+export type DomainEventLog = $Result.DefaultSelection<Prisma.$DomainEventLogPayload>
+/**
+ * Model OutboxQueue
+ * 
+ */
+export type OutboxQueue = $Result.DefaultSelection<Prisma.$OutboxQueuePayload>
+/**
+ * Model IdempotencyRecord
+ * 
+ */
+export type IdempotencyRecord = $Result.DefaultSelection<Prisma.$IdempotencyRecordPayload>
 
 /**
  * Enums
@@ -726,6 +741,16 @@ export const RecommendationStatus: {
 
 export type RecommendationStatus = (typeof RecommendationStatus)[keyof typeof RecommendationStatus]
 
+
+export const OutboxStatus: {
+  PENDING: 'PENDING',
+  FAILED: 'FAILED',
+  COMPLETED: 'COMPLETED',
+  QUARANTINED: 'QUARANTINED'
+};
+
+export type OutboxStatus = (typeof OutboxStatus)[keyof typeof OutboxStatus]
+
 }
 
 export type TenantStatus = $Enums.TenantStatus
@@ -831,6 +856,10 @@ export const DocVerificationStatus: typeof $Enums.DocVerificationStatus
 export type RecommendationStatus = $Enums.RecommendationStatus
 
 export const RecommendationStatus: typeof $Enums.RecommendationStatus
+
+export type OutboxStatus = $Enums.OutboxStatus
+
+export const OutboxStatus: typeof $Enums.OutboxStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1854,6 +1883,36 @@ export class PrismaClient<
     * ```
     */
   get admissionReview(): Prisma.AdmissionReviewDelegate<ExtArgs>;
+
+  /**
+   * `prisma.domainEventLog`: Exposes CRUD operations for the **DomainEventLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DomainEventLogs
+    * const domainEventLogs = await prisma.domainEventLog.findMany()
+    * ```
+    */
+  get domainEventLog(): Prisma.DomainEventLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.outboxQueue`: Exposes CRUD operations for the **OutboxQueue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OutboxQueues
+    * const outboxQueues = await prisma.outboxQueue.findMany()
+    * ```
+    */
+  get outboxQueue(): Prisma.OutboxQueueDelegate<ExtArgs>;
+
+  /**
+   * `prisma.idempotencyRecord`: Exposes CRUD operations for the **IdempotencyRecord** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more IdempotencyRecords
+    * const idempotencyRecords = await prisma.idempotencyRecord.findMany()
+    * ```
+    */
+  get idempotencyRecord(): Prisma.IdempotencyRecordDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2384,7 +2443,10 @@ export namespace Prisma {
     AdmissionRequiredDocument: 'AdmissionRequiredDocument',
     AdmissionApplication: 'AdmissionApplication',
     AdmissionDocument: 'AdmissionDocument',
-    AdmissionReview: 'AdmissionReview'
+    AdmissionReview: 'AdmissionReview',
+    DomainEventLog: 'DomainEventLog',
+    OutboxQueue: 'OutboxQueue',
+    IdempotencyRecord: 'IdempotencyRecord'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2400,7 +2462,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview"
+      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -8701,6 +8763,216 @@ export namespace Prisma {
           count: {
             args: Prisma.AdmissionReviewCountArgs<ExtArgs>
             result: $Utils.Optional<AdmissionReviewCountAggregateOutputType> | number
+          }
+        }
+      }
+      DomainEventLog: {
+        payload: Prisma.$DomainEventLogPayload<ExtArgs>
+        fields: Prisma.DomainEventLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DomainEventLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DomainEventLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>
+          }
+          findFirst: {
+            args: Prisma.DomainEventLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DomainEventLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>
+          }
+          findMany: {
+            args: Prisma.DomainEventLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>[]
+          }
+          create: {
+            args: Prisma.DomainEventLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>
+          }
+          createMany: {
+            args: Prisma.DomainEventLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DomainEventLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>[]
+          }
+          delete: {
+            args: Prisma.DomainEventLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>
+          }
+          update: {
+            args: Prisma.DomainEventLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.DomainEventLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DomainEventLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DomainEventLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DomainEventLogPayload>
+          }
+          aggregate: {
+            args: Prisma.DomainEventLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDomainEventLog>
+          }
+          groupBy: {
+            args: Prisma.DomainEventLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DomainEventLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DomainEventLogCountArgs<ExtArgs>
+            result: $Utils.Optional<DomainEventLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      OutboxQueue: {
+        payload: Prisma.$OutboxQueuePayload<ExtArgs>
+        fields: Prisma.OutboxQueueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OutboxQueueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OutboxQueueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>
+          }
+          findFirst: {
+            args: Prisma.OutboxQueueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OutboxQueueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>
+          }
+          findMany: {
+            args: Prisma.OutboxQueueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>[]
+          }
+          create: {
+            args: Prisma.OutboxQueueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>
+          }
+          createMany: {
+            args: Prisma.OutboxQueueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OutboxQueueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>[]
+          }
+          delete: {
+            args: Prisma.OutboxQueueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>
+          }
+          update: {
+            args: Prisma.OutboxQueueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>
+          }
+          deleteMany: {
+            args: Prisma.OutboxQueueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OutboxQueueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OutboxQueueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutboxQueuePayload>
+          }
+          aggregate: {
+            args: Prisma.OutboxQueueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOutboxQueue>
+          }
+          groupBy: {
+            args: Prisma.OutboxQueueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OutboxQueueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OutboxQueueCountArgs<ExtArgs>
+            result: $Utils.Optional<OutboxQueueCountAggregateOutputType> | number
+          }
+        }
+      }
+      IdempotencyRecord: {
+        payload: Prisma.$IdempotencyRecordPayload<ExtArgs>
+        fields: Prisma.IdempotencyRecordFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IdempotencyRecordFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IdempotencyRecordFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>
+          }
+          findFirst: {
+            args: Prisma.IdempotencyRecordFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IdempotencyRecordFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>
+          }
+          findMany: {
+            args: Prisma.IdempotencyRecordFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>[]
+          }
+          create: {
+            args: Prisma.IdempotencyRecordCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>
+          }
+          createMany: {
+            args: Prisma.IdempotencyRecordCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IdempotencyRecordCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>[]
+          }
+          delete: {
+            args: Prisma.IdempotencyRecordDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>
+          }
+          update: {
+            args: Prisma.IdempotencyRecordUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>
+          }
+          deleteMany: {
+            args: Prisma.IdempotencyRecordDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IdempotencyRecordUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.IdempotencyRecordUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IdempotencyRecordPayload>
+          }
+          aggregate: {
+            args: Prisma.IdempotencyRecordAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIdempotencyRecord>
+          }
+          groupBy: {
+            args: Prisma.IdempotencyRecordGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IdempotencyRecordGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IdempotencyRecordCountArgs<ExtArgs>
+            result: $Utils.Optional<IdempotencyRecordCountAggregateOutputType> | number
           }
         }
       }
@@ -102878,6 +103150,2836 @@ export namespace Prisma {
 
 
   /**
+   * Model DomainEventLog
+   */
+
+  export type AggregateDomainEventLog = {
+    _count: DomainEventLogCountAggregateOutputType | null
+    _avg: DomainEventLogAvgAggregateOutputType | null
+    _sum: DomainEventLogSumAggregateOutputType | null
+    _min: DomainEventLogMinAggregateOutputType | null
+    _max: DomainEventLogMaxAggregateOutputType | null
+  }
+
+  export type DomainEventLogAvgAggregateOutputType = {
+    version: number | null
+  }
+
+  export type DomainEventLogSumAggregateOutputType = {
+    version: number | null
+  }
+
+  export type DomainEventLogMinAggregateOutputType = {
+    eventId: string | null
+    eventType: string | null
+    aggregateId: string | null
+    aggregateType: string | null
+    version: number | null
+    occurredAt: Date | null
+    correlationId: string | null
+    causationId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type DomainEventLogMaxAggregateOutputType = {
+    eventId: string | null
+    eventType: string | null
+    aggregateId: string | null
+    aggregateType: string | null
+    version: number | null
+    occurredAt: Date | null
+    correlationId: string | null
+    causationId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+  }
+
+  export type DomainEventLogCountAggregateOutputType = {
+    eventId: number
+    eventType: number
+    aggregateId: number
+    aggregateType: number
+    version: number
+    occurredAt: number
+    correlationId: number
+    causationId: number
+    tenantId: number
+    payload: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DomainEventLogAvgAggregateInputType = {
+    version?: true
+  }
+
+  export type DomainEventLogSumAggregateInputType = {
+    version?: true
+  }
+
+  export type DomainEventLogMinAggregateInputType = {
+    eventId?: true
+    eventType?: true
+    aggregateId?: true
+    aggregateType?: true
+    version?: true
+    occurredAt?: true
+    correlationId?: true
+    causationId?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type DomainEventLogMaxAggregateInputType = {
+    eventId?: true
+    eventType?: true
+    aggregateId?: true
+    aggregateType?: true
+    version?: true
+    occurredAt?: true
+    correlationId?: true
+    causationId?: true
+    tenantId?: true
+    createdAt?: true
+  }
+
+  export type DomainEventLogCountAggregateInputType = {
+    eventId?: true
+    eventType?: true
+    aggregateId?: true
+    aggregateType?: true
+    version?: true
+    occurredAt?: true
+    correlationId?: true
+    causationId?: true
+    tenantId?: true
+    payload?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DomainEventLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DomainEventLog to aggregate.
+     */
+    where?: DomainEventLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DomainEventLogs to fetch.
+     */
+    orderBy?: DomainEventLogOrderByWithRelationInput | DomainEventLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DomainEventLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DomainEventLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DomainEventLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DomainEventLogs
+    **/
+    _count?: true | DomainEventLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DomainEventLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DomainEventLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DomainEventLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DomainEventLogMaxAggregateInputType
+  }
+
+  export type GetDomainEventLogAggregateType<T extends DomainEventLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateDomainEventLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDomainEventLog[P]>
+      : GetScalarType<T[P], AggregateDomainEventLog[P]>
+  }
+
+
+
+
+  export type DomainEventLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DomainEventLogWhereInput
+    orderBy?: DomainEventLogOrderByWithAggregationInput | DomainEventLogOrderByWithAggregationInput[]
+    by: DomainEventLogScalarFieldEnum[] | DomainEventLogScalarFieldEnum
+    having?: DomainEventLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DomainEventLogCountAggregateInputType | true
+    _avg?: DomainEventLogAvgAggregateInputType
+    _sum?: DomainEventLogSumAggregateInputType
+    _min?: DomainEventLogMinAggregateInputType
+    _max?: DomainEventLogMaxAggregateInputType
+  }
+
+  export type DomainEventLogGroupByOutputType = {
+    eventId: string
+    eventType: string
+    aggregateId: string
+    aggregateType: string
+    version: number
+    occurredAt: Date
+    correlationId: string
+    causationId: string | null
+    tenantId: string
+    payload: JsonValue
+    createdAt: Date
+    _count: DomainEventLogCountAggregateOutputType | null
+    _avg: DomainEventLogAvgAggregateOutputType | null
+    _sum: DomainEventLogSumAggregateOutputType | null
+    _min: DomainEventLogMinAggregateOutputType | null
+    _max: DomainEventLogMaxAggregateOutputType | null
+  }
+
+  type GetDomainEventLogGroupByPayload<T extends DomainEventLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DomainEventLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DomainEventLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DomainEventLogGroupByOutputType[P]>
+            : GetScalarType<T[P], DomainEventLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DomainEventLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    eventId?: boolean
+    eventType?: boolean
+    aggregateId?: boolean
+    aggregateType?: boolean
+    version?: boolean
+    occurredAt?: boolean
+    correlationId?: boolean
+    causationId?: boolean
+    tenantId?: boolean
+    payload?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["domainEventLog"]>
+
+  export type DomainEventLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    eventId?: boolean
+    eventType?: boolean
+    aggregateId?: boolean
+    aggregateType?: boolean
+    version?: boolean
+    occurredAt?: boolean
+    correlationId?: boolean
+    causationId?: boolean
+    tenantId?: boolean
+    payload?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["domainEventLog"]>
+
+  export type DomainEventLogSelectScalar = {
+    eventId?: boolean
+    eventType?: boolean
+    aggregateId?: boolean
+    aggregateType?: boolean
+    version?: boolean
+    occurredAt?: boolean
+    correlationId?: boolean
+    causationId?: boolean
+    tenantId?: boolean
+    payload?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $DomainEventLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DomainEventLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      eventId: string
+      eventType: string
+      aggregateId: string
+      aggregateType: string
+      version: number
+      occurredAt: Date
+      correlationId: string
+      causationId: string | null
+      tenantId: string
+      payload: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["domainEventLog"]>
+    composites: {}
+  }
+
+  type DomainEventLogGetPayload<S extends boolean | null | undefined | DomainEventLogDefaultArgs> = $Result.GetResult<Prisma.$DomainEventLogPayload, S>
+
+  type DomainEventLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DomainEventLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DomainEventLogCountAggregateInputType | true
+    }
+
+  export interface DomainEventLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DomainEventLog'], meta: { name: 'DomainEventLog' } }
+    /**
+     * Find zero or one DomainEventLog that matches the filter.
+     * @param {DomainEventLogFindUniqueArgs} args - Arguments to find a DomainEventLog
+     * @example
+     * // Get one DomainEventLog
+     * const domainEventLog = await prisma.domainEventLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DomainEventLogFindUniqueArgs>(args: SelectSubset<T, DomainEventLogFindUniqueArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DomainEventLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DomainEventLogFindUniqueOrThrowArgs} args - Arguments to find a DomainEventLog
+     * @example
+     * // Get one DomainEventLog
+     * const domainEventLog = await prisma.domainEventLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DomainEventLogFindUniqueOrThrowArgs>(args: SelectSubset<T, DomainEventLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DomainEventLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogFindFirstArgs} args - Arguments to find a DomainEventLog
+     * @example
+     * // Get one DomainEventLog
+     * const domainEventLog = await prisma.domainEventLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DomainEventLogFindFirstArgs>(args?: SelectSubset<T, DomainEventLogFindFirstArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DomainEventLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogFindFirstOrThrowArgs} args - Arguments to find a DomainEventLog
+     * @example
+     * // Get one DomainEventLog
+     * const domainEventLog = await prisma.domainEventLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DomainEventLogFindFirstOrThrowArgs>(args?: SelectSubset<T, DomainEventLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DomainEventLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DomainEventLogs
+     * const domainEventLogs = await prisma.domainEventLog.findMany()
+     * 
+     * // Get first 10 DomainEventLogs
+     * const domainEventLogs = await prisma.domainEventLog.findMany({ take: 10 })
+     * 
+     * // Only select the `eventId`
+     * const domainEventLogWithEventIdOnly = await prisma.domainEventLog.findMany({ select: { eventId: true } })
+     * 
+     */
+    findMany<T extends DomainEventLogFindManyArgs>(args?: SelectSubset<T, DomainEventLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DomainEventLog.
+     * @param {DomainEventLogCreateArgs} args - Arguments to create a DomainEventLog.
+     * @example
+     * // Create one DomainEventLog
+     * const DomainEventLog = await prisma.domainEventLog.create({
+     *   data: {
+     *     // ... data to create a DomainEventLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends DomainEventLogCreateArgs>(args: SelectSubset<T, DomainEventLogCreateArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DomainEventLogs.
+     * @param {DomainEventLogCreateManyArgs} args - Arguments to create many DomainEventLogs.
+     * @example
+     * // Create many DomainEventLogs
+     * const domainEventLog = await prisma.domainEventLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DomainEventLogCreateManyArgs>(args?: SelectSubset<T, DomainEventLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DomainEventLogs and returns the data saved in the database.
+     * @param {DomainEventLogCreateManyAndReturnArgs} args - Arguments to create many DomainEventLogs.
+     * @example
+     * // Create many DomainEventLogs
+     * const domainEventLog = await prisma.domainEventLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DomainEventLogs and only return the `eventId`
+     * const domainEventLogWithEventIdOnly = await prisma.domainEventLog.createManyAndReturn({ 
+     *   select: { eventId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DomainEventLogCreateManyAndReturnArgs>(args?: SelectSubset<T, DomainEventLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DomainEventLog.
+     * @param {DomainEventLogDeleteArgs} args - Arguments to delete one DomainEventLog.
+     * @example
+     * // Delete one DomainEventLog
+     * const DomainEventLog = await prisma.domainEventLog.delete({
+     *   where: {
+     *     // ... filter to delete one DomainEventLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DomainEventLogDeleteArgs>(args: SelectSubset<T, DomainEventLogDeleteArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DomainEventLog.
+     * @param {DomainEventLogUpdateArgs} args - Arguments to update one DomainEventLog.
+     * @example
+     * // Update one DomainEventLog
+     * const domainEventLog = await prisma.domainEventLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DomainEventLogUpdateArgs>(args: SelectSubset<T, DomainEventLogUpdateArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DomainEventLogs.
+     * @param {DomainEventLogDeleteManyArgs} args - Arguments to filter DomainEventLogs to delete.
+     * @example
+     * // Delete a few DomainEventLogs
+     * const { count } = await prisma.domainEventLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DomainEventLogDeleteManyArgs>(args?: SelectSubset<T, DomainEventLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DomainEventLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DomainEventLogs
+     * const domainEventLog = await prisma.domainEventLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DomainEventLogUpdateManyArgs>(args: SelectSubset<T, DomainEventLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DomainEventLog.
+     * @param {DomainEventLogUpsertArgs} args - Arguments to update or create a DomainEventLog.
+     * @example
+     * // Update or create a DomainEventLog
+     * const domainEventLog = await prisma.domainEventLog.upsert({
+     *   create: {
+     *     // ... data to create a DomainEventLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DomainEventLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DomainEventLogUpsertArgs>(args: SelectSubset<T, DomainEventLogUpsertArgs<ExtArgs>>): Prisma__DomainEventLogClient<$Result.GetResult<Prisma.$DomainEventLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DomainEventLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogCountArgs} args - Arguments to filter DomainEventLogs to count.
+     * @example
+     * // Count the number of DomainEventLogs
+     * const count = await prisma.domainEventLog.count({
+     *   where: {
+     *     // ... the filter for the DomainEventLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends DomainEventLogCountArgs>(
+      args?: Subset<T, DomainEventLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DomainEventLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DomainEventLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DomainEventLogAggregateArgs>(args: Subset<T, DomainEventLogAggregateArgs>): Prisma.PrismaPromise<GetDomainEventLogAggregateType<T>>
+
+    /**
+     * Group by DomainEventLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DomainEventLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DomainEventLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DomainEventLogGroupByArgs['orderBy'] }
+        : { orderBy?: DomainEventLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DomainEventLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDomainEventLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DomainEventLog model
+   */
+  readonly fields: DomainEventLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DomainEventLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DomainEventLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DomainEventLog model
+   */ 
+  interface DomainEventLogFieldRefs {
+    readonly eventId: FieldRef<"DomainEventLog", 'String'>
+    readonly eventType: FieldRef<"DomainEventLog", 'String'>
+    readonly aggregateId: FieldRef<"DomainEventLog", 'String'>
+    readonly aggregateType: FieldRef<"DomainEventLog", 'String'>
+    readonly version: FieldRef<"DomainEventLog", 'Int'>
+    readonly occurredAt: FieldRef<"DomainEventLog", 'DateTime'>
+    readonly correlationId: FieldRef<"DomainEventLog", 'String'>
+    readonly causationId: FieldRef<"DomainEventLog", 'String'>
+    readonly tenantId: FieldRef<"DomainEventLog", 'String'>
+    readonly payload: FieldRef<"DomainEventLog", 'Json'>
+    readonly createdAt: FieldRef<"DomainEventLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DomainEventLog findUnique
+   */
+  export type DomainEventLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * Filter, which DomainEventLog to fetch.
+     */
+    where: DomainEventLogWhereUniqueInput
+  }
+
+  /**
+   * DomainEventLog findUniqueOrThrow
+   */
+  export type DomainEventLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * Filter, which DomainEventLog to fetch.
+     */
+    where: DomainEventLogWhereUniqueInput
+  }
+
+  /**
+   * DomainEventLog findFirst
+   */
+  export type DomainEventLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * Filter, which DomainEventLog to fetch.
+     */
+    where?: DomainEventLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DomainEventLogs to fetch.
+     */
+    orderBy?: DomainEventLogOrderByWithRelationInput | DomainEventLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DomainEventLogs.
+     */
+    cursor?: DomainEventLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DomainEventLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DomainEventLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DomainEventLogs.
+     */
+    distinct?: DomainEventLogScalarFieldEnum | DomainEventLogScalarFieldEnum[]
+  }
+
+  /**
+   * DomainEventLog findFirstOrThrow
+   */
+  export type DomainEventLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * Filter, which DomainEventLog to fetch.
+     */
+    where?: DomainEventLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DomainEventLogs to fetch.
+     */
+    orderBy?: DomainEventLogOrderByWithRelationInput | DomainEventLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DomainEventLogs.
+     */
+    cursor?: DomainEventLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DomainEventLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DomainEventLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DomainEventLogs.
+     */
+    distinct?: DomainEventLogScalarFieldEnum | DomainEventLogScalarFieldEnum[]
+  }
+
+  /**
+   * DomainEventLog findMany
+   */
+  export type DomainEventLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * Filter, which DomainEventLogs to fetch.
+     */
+    where?: DomainEventLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DomainEventLogs to fetch.
+     */
+    orderBy?: DomainEventLogOrderByWithRelationInput | DomainEventLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DomainEventLogs.
+     */
+    cursor?: DomainEventLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DomainEventLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DomainEventLogs.
+     */
+    skip?: number
+    distinct?: DomainEventLogScalarFieldEnum | DomainEventLogScalarFieldEnum[]
+  }
+
+  /**
+   * DomainEventLog create
+   */
+  export type DomainEventLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * The data needed to create a DomainEventLog.
+     */
+    data: XOR<DomainEventLogCreateInput, DomainEventLogUncheckedCreateInput>
+  }
+
+  /**
+   * DomainEventLog createMany
+   */
+  export type DomainEventLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DomainEventLogs.
+     */
+    data: DomainEventLogCreateManyInput | DomainEventLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DomainEventLog createManyAndReturn
+   */
+  export type DomainEventLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DomainEventLogs.
+     */
+    data: DomainEventLogCreateManyInput | DomainEventLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DomainEventLog update
+   */
+  export type DomainEventLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * The data needed to update a DomainEventLog.
+     */
+    data: XOR<DomainEventLogUpdateInput, DomainEventLogUncheckedUpdateInput>
+    /**
+     * Choose, which DomainEventLog to update.
+     */
+    where: DomainEventLogWhereUniqueInput
+  }
+
+  /**
+   * DomainEventLog updateMany
+   */
+  export type DomainEventLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DomainEventLogs.
+     */
+    data: XOR<DomainEventLogUpdateManyMutationInput, DomainEventLogUncheckedUpdateManyInput>
+    /**
+     * Filter which DomainEventLogs to update
+     */
+    where?: DomainEventLogWhereInput
+  }
+
+  /**
+   * DomainEventLog upsert
+   */
+  export type DomainEventLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * The filter to search for the DomainEventLog to update in case it exists.
+     */
+    where: DomainEventLogWhereUniqueInput
+    /**
+     * In case the DomainEventLog found by the `where` argument doesn't exist, create a new DomainEventLog with this data.
+     */
+    create: XOR<DomainEventLogCreateInput, DomainEventLogUncheckedCreateInput>
+    /**
+     * In case the DomainEventLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DomainEventLogUpdateInput, DomainEventLogUncheckedUpdateInput>
+  }
+
+  /**
+   * DomainEventLog delete
+   */
+  export type DomainEventLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+    /**
+     * Filter which DomainEventLog to delete.
+     */
+    where: DomainEventLogWhereUniqueInput
+  }
+
+  /**
+   * DomainEventLog deleteMany
+   */
+  export type DomainEventLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DomainEventLogs to delete
+     */
+    where?: DomainEventLogWhereInput
+  }
+
+  /**
+   * DomainEventLog without action
+   */
+  export type DomainEventLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DomainEventLog
+     */
+    select?: DomainEventLogSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OutboxQueue
+   */
+
+  export type AggregateOutboxQueue = {
+    _count: OutboxQueueCountAggregateOutputType | null
+    _avg: OutboxQueueAvgAggregateOutputType | null
+    _sum: OutboxQueueSumAggregateOutputType | null
+    _min: OutboxQueueMinAggregateOutputType | null
+    _max: OutboxQueueMaxAggregateOutputType | null
+  }
+
+  export type OutboxQueueAvgAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type OutboxQueueSumAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type OutboxQueueMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    status: $Enums.OutboxStatus | null
+    attempts: number | null
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    errorMessage: string | null
+    aggregateId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OutboxQueueMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    status: $Enums.OutboxStatus | null
+    attempts: number | null
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    errorMessage: string | null
+    aggregateId: string | null
+    tenantId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OutboxQueueCountAggregateOutputType = {
+    id: number
+    eventId: number
+    status: number
+    attempts: number
+    lastAttemptAt: number
+    nextAttemptAt: number
+    errorMessage: number
+    aggregateId: number
+    tenantId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OutboxQueueAvgAggregateInputType = {
+    attempts?: true
+  }
+
+  export type OutboxQueueSumAggregateInputType = {
+    attempts?: true
+  }
+
+  export type OutboxQueueMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    status?: true
+    attempts?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    errorMessage?: true
+    aggregateId?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OutboxQueueMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    status?: true
+    attempts?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    errorMessage?: true
+    aggregateId?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OutboxQueueCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    status?: true
+    attempts?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    errorMessage?: true
+    aggregateId?: true
+    tenantId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OutboxQueueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OutboxQueue to aggregate.
+     */
+    where?: OutboxQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutboxQueues to fetch.
+     */
+    orderBy?: OutboxQueueOrderByWithRelationInput | OutboxQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OutboxQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutboxQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutboxQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OutboxQueues
+    **/
+    _count?: true | OutboxQueueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OutboxQueueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OutboxQueueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OutboxQueueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OutboxQueueMaxAggregateInputType
+  }
+
+  export type GetOutboxQueueAggregateType<T extends OutboxQueueAggregateArgs> = {
+        [P in keyof T & keyof AggregateOutboxQueue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOutboxQueue[P]>
+      : GetScalarType<T[P], AggregateOutboxQueue[P]>
+  }
+
+
+
+
+  export type OutboxQueueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutboxQueueWhereInput
+    orderBy?: OutboxQueueOrderByWithAggregationInput | OutboxQueueOrderByWithAggregationInput[]
+    by: OutboxQueueScalarFieldEnum[] | OutboxQueueScalarFieldEnum
+    having?: OutboxQueueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OutboxQueueCountAggregateInputType | true
+    _avg?: OutboxQueueAvgAggregateInputType
+    _sum?: OutboxQueueSumAggregateInputType
+    _min?: OutboxQueueMinAggregateInputType
+    _max?: OutboxQueueMaxAggregateInputType
+  }
+
+  export type OutboxQueueGroupByOutputType = {
+    id: string
+    eventId: string
+    status: $Enums.OutboxStatus
+    attempts: number
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    errorMessage: string | null
+    aggregateId: string
+    tenantId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: OutboxQueueCountAggregateOutputType | null
+    _avg: OutboxQueueAvgAggregateOutputType | null
+    _sum: OutboxQueueSumAggregateOutputType | null
+    _min: OutboxQueueMinAggregateOutputType | null
+    _max: OutboxQueueMaxAggregateOutputType | null
+  }
+
+  type GetOutboxQueueGroupByPayload<T extends OutboxQueueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OutboxQueueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OutboxQueueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OutboxQueueGroupByOutputType[P]>
+            : GetScalarType<T[P], OutboxQueueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OutboxQueueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    status?: boolean
+    attempts?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    errorMessage?: boolean
+    aggregateId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["outboxQueue"]>
+
+  export type OutboxQueueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    status?: boolean
+    attempts?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    errorMessage?: boolean
+    aggregateId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["outboxQueue"]>
+
+  export type OutboxQueueSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    status?: boolean
+    attempts?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    errorMessage?: boolean
+    aggregateId?: boolean
+    tenantId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $OutboxQueuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OutboxQueue"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      status: $Enums.OutboxStatus
+      attempts: number
+      lastAttemptAt: Date | null
+      nextAttemptAt: Date | null
+      errorMessage: string | null
+      aggregateId: string
+      tenantId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["outboxQueue"]>
+    composites: {}
+  }
+
+  type OutboxQueueGetPayload<S extends boolean | null | undefined | OutboxQueueDefaultArgs> = $Result.GetResult<Prisma.$OutboxQueuePayload, S>
+
+  type OutboxQueueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OutboxQueueFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OutboxQueueCountAggregateInputType | true
+    }
+
+  export interface OutboxQueueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OutboxQueue'], meta: { name: 'OutboxQueue' } }
+    /**
+     * Find zero or one OutboxQueue that matches the filter.
+     * @param {OutboxQueueFindUniqueArgs} args - Arguments to find a OutboxQueue
+     * @example
+     * // Get one OutboxQueue
+     * const outboxQueue = await prisma.outboxQueue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OutboxQueueFindUniqueArgs>(args: SelectSubset<T, OutboxQueueFindUniqueArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OutboxQueue that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OutboxQueueFindUniqueOrThrowArgs} args - Arguments to find a OutboxQueue
+     * @example
+     * // Get one OutboxQueue
+     * const outboxQueue = await prisma.outboxQueue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OutboxQueueFindUniqueOrThrowArgs>(args: SelectSubset<T, OutboxQueueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OutboxQueue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueFindFirstArgs} args - Arguments to find a OutboxQueue
+     * @example
+     * // Get one OutboxQueue
+     * const outboxQueue = await prisma.outboxQueue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OutboxQueueFindFirstArgs>(args?: SelectSubset<T, OutboxQueueFindFirstArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OutboxQueue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueFindFirstOrThrowArgs} args - Arguments to find a OutboxQueue
+     * @example
+     * // Get one OutboxQueue
+     * const outboxQueue = await prisma.outboxQueue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OutboxQueueFindFirstOrThrowArgs>(args?: SelectSubset<T, OutboxQueueFindFirstOrThrowArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OutboxQueues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OutboxQueues
+     * const outboxQueues = await prisma.outboxQueue.findMany()
+     * 
+     * // Get first 10 OutboxQueues
+     * const outboxQueues = await prisma.outboxQueue.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const outboxQueueWithIdOnly = await prisma.outboxQueue.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OutboxQueueFindManyArgs>(args?: SelectSubset<T, OutboxQueueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OutboxQueue.
+     * @param {OutboxQueueCreateArgs} args - Arguments to create a OutboxQueue.
+     * @example
+     * // Create one OutboxQueue
+     * const OutboxQueue = await prisma.outboxQueue.create({
+     *   data: {
+     *     // ... data to create a OutboxQueue
+     *   }
+     * })
+     * 
+     */
+    create<T extends OutboxQueueCreateArgs>(args: SelectSubset<T, OutboxQueueCreateArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OutboxQueues.
+     * @param {OutboxQueueCreateManyArgs} args - Arguments to create many OutboxQueues.
+     * @example
+     * // Create many OutboxQueues
+     * const outboxQueue = await prisma.outboxQueue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OutboxQueueCreateManyArgs>(args?: SelectSubset<T, OutboxQueueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OutboxQueues and returns the data saved in the database.
+     * @param {OutboxQueueCreateManyAndReturnArgs} args - Arguments to create many OutboxQueues.
+     * @example
+     * // Create many OutboxQueues
+     * const outboxQueue = await prisma.outboxQueue.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OutboxQueues and only return the `id`
+     * const outboxQueueWithIdOnly = await prisma.outboxQueue.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OutboxQueueCreateManyAndReturnArgs>(args?: SelectSubset<T, OutboxQueueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OutboxQueue.
+     * @param {OutboxQueueDeleteArgs} args - Arguments to delete one OutboxQueue.
+     * @example
+     * // Delete one OutboxQueue
+     * const OutboxQueue = await prisma.outboxQueue.delete({
+     *   where: {
+     *     // ... filter to delete one OutboxQueue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OutboxQueueDeleteArgs>(args: SelectSubset<T, OutboxQueueDeleteArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OutboxQueue.
+     * @param {OutboxQueueUpdateArgs} args - Arguments to update one OutboxQueue.
+     * @example
+     * // Update one OutboxQueue
+     * const outboxQueue = await prisma.outboxQueue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OutboxQueueUpdateArgs>(args: SelectSubset<T, OutboxQueueUpdateArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OutboxQueues.
+     * @param {OutboxQueueDeleteManyArgs} args - Arguments to filter OutboxQueues to delete.
+     * @example
+     * // Delete a few OutboxQueues
+     * const { count } = await prisma.outboxQueue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OutboxQueueDeleteManyArgs>(args?: SelectSubset<T, OutboxQueueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OutboxQueues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OutboxQueues
+     * const outboxQueue = await prisma.outboxQueue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OutboxQueueUpdateManyArgs>(args: SelectSubset<T, OutboxQueueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OutboxQueue.
+     * @param {OutboxQueueUpsertArgs} args - Arguments to update or create a OutboxQueue.
+     * @example
+     * // Update or create a OutboxQueue
+     * const outboxQueue = await prisma.outboxQueue.upsert({
+     *   create: {
+     *     // ... data to create a OutboxQueue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OutboxQueue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OutboxQueueUpsertArgs>(args: SelectSubset<T, OutboxQueueUpsertArgs<ExtArgs>>): Prisma__OutboxQueueClient<$Result.GetResult<Prisma.$OutboxQueuePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OutboxQueues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueCountArgs} args - Arguments to filter OutboxQueues to count.
+     * @example
+     * // Count the number of OutboxQueues
+     * const count = await prisma.outboxQueue.count({
+     *   where: {
+     *     // ... the filter for the OutboxQueues we want to count
+     *   }
+     * })
+    **/
+    count<T extends OutboxQueueCountArgs>(
+      args?: Subset<T, OutboxQueueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OutboxQueueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OutboxQueue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OutboxQueueAggregateArgs>(args: Subset<T, OutboxQueueAggregateArgs>): Prisma.PrismaPromise<GetOutboxQueueAggregateType<T>>
+
+    /**
+     * Group by OutboxQueue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutboxQueueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OutboxQueueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OutboxQueueGroupByArgs['orderBy'] }
+        : { orderBy?: OutboxQueueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OutboxQueueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOutboxQueueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OutboxQueue model
+   */
+  readonly fields: OutboxQueueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OutboxQueue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OutboxQueueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OutboxQueue model
+   */ 
+  interface OutboxQueueFieldRefs {
+    readonly id: FieldRef<"OutboxQueue", 'String'>
+    readonly eventId: FieldRef<"OutboxQueue", 'String'>
+    readonly status: FieldRef<"OutboxQueue", 'OutboxStatus'>
+    readonly attempts: FieldRef<"OutboxQueue", 'Int'>
+    readonly lastAttemptAt: FieldRef<"OutboxQueue", 'DateTime'>
+    readonly nextAttemptAt: FieldRef<"OutboxQueue", 'DateTime'>
+    readonly errorMessage: FieldRef<"OutboxQueue", 'String'>
+    readonly aggregateId: FieldRef<"OutboxQueue", 'String'>
+    readonly tenantId: FieldRef<"OutboxQueue", 'String'>
+    readonly createdAt: FieldRef<"OutboxQueue", 'DateTime'>
+    readonly updatedAt: FieldRef<"OutboxQueue", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OutboxQueue findUnique
+   */
+  export type OutboxQueueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * Filter, which OutboxQueue to fetch.
+     */
+    where: OutboxQueueWhereUniqueInput
+  }
+
+  /**
+   * OutboxQueue findUniqueOrThrow
+   */
+  export type OutboxQueueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * Filter, which OutboxQueue to fetch.
+     */
+    where: OutboxQueueWhereUniqueInput
+  }
+
+  /**
+   * OutboxQueue findFirst
+   */
+  export type OutboxQueueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * Filter, which OutboxQueue to fetch.
+     */
+    where?: OutboxQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutboxQueues to fetch.
+     */
+    orderBy?: OutboxQueueOrderByWithRelationInput | OutboxQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OutboxQueues.
+     */
+    cursor?: OutboxQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutboxQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutboxQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OutboxQueues.
+     */
+    distinct?: OutboxQueueScalarFieldEnum | OutboxQueueScalarFieldEnum[]
+  }
+
+  /**
+   * OutboxQueue findFirstOrThrow
+   */
+  export type OutboxQueueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * Filter, which OutboxQueue to fetch.
+     */
+    where?: OutboxQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutboxQueues to fetch.
+     */
+    orderBy?: OutboxQueueOrderByWithRelationInput | OutboxQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OutboxQueues.
+     */
+    cursor?: OutboxQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutboxQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutboxQueues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OutboxQueues.
+     */
+    distinct?: OutboxQueueScalarFieldEnum | OutboxQueueScalarFieldEnum[]
+  }
+
+  /**
+   * OutboxQueue findMany
+   */
+  export type OutboxQueueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * Filter, which OutboxQueues to fetch.
+     */
+    where?: OutboxQueueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutboxQueues to fetch.
+     */
+    orderBy?: OutboxQueueOrderByWithRelationInput | OutboxQueueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OutboxQueues.
+     */
+    cursor?: OutboxQueueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutboxQueues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutboxQueues.
+     */
+    skip?: number
+    distinct?: OutboxQueueScalarFieldEnum | OutboxQueueScalarFieldEnum[]
+  }
+
+  /**
+   * OutboxQueue create
+   */
+  export type OutboxQueueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * The data needed to create a OutboxQueue.
+     */
+    data: XOR<OutboxQueueCreateInput, OutboxQueueUncheckedCreateInput>
+  }
+
+  /**
+   * OutboxQueue createMany
+   */
+  export type OutboxQueueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OutboxQueues.
+     */
+    data: OutboxQueueCreateManyInput | OutboxQueueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OutboxQueue createManyAndReturn
+   */
+  export type OutboxQueueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OutboxQueues.
+     */
+    data: OutboxQueueCreateManyInput | OutboxQueueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OutboxQueue update
+   */
+  export type OutboxQueueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * The data needed to update a OutboxQueue.
+     */
+    data: XOR<OutboxQueueUpdateInput, OutboxQueueUncheckedUpdateInput>
+    /**
+     * Choose, which OutboxQueue to update.
+     */
+    where: OutboxQueueWhereUniqueInput
+  }
+
+  /**
+   * OutboxQueue updateMany
+   */
+  export type OutboxQueueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OutboxQueues.
+     */
+    data: XOR<OutboxQueueUpdateManyMutationInput, OutboxQueueUncheckedUpdateManyInput>
+    /**
+     * Filter which OutboxQueues to update
+     */
+    where?: OutboxQueueWhereInput
+  }
+
+  /**
+   * OutboxQueue upsert
+   */
+  export type OutboxQueueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * The filter to search for the OutboxQueue to update in case it exists.
+     */
+    where: OutboxQueueWhereUniqueInput
+    /**
+     * In case the OutboxQueue found by the `where` argument doesn't exist, create a new OutboxQueue with this data.
+     */
+    create: XOR<OutboxQueueCreateInput, OutboxQueueUncheckedCreateInput>
+    /**
+     * In case the OutboxQueue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OutboxQueueUpdateInput, OutboxQueueUncheckedUpdateInput>
+  }
+
+  /**
+   * OutboxQueue delete
+   */
+  export type OutboxQueueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+    /**
+     * Filter which OutboxQueue to delete.
+     */
+    where: OutboxQueueWhereUniqueInput
+  }
+
+  /**
+   * OutboxQueue deleteMany
+   */
+  export type OutboxQueueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OutboxQueues to delete
+     */
+    where?: OutboxQueueWhereInput
+  }
+
+  /**
+   * OutboxQueue without action
+   */
+  export type OutboxQueueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutboxQueue
+     */
+    select?: OutboxQueueSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model IdempotencyRecord
+   */
+
+  export type AggregateIdempotencyRecord = {
+    _count: IdempotencyRecordCountAggregateOutputType | null
+    _min: IdempotencyRecordMinAggregateOutputType | null
+    _max: IdempotencyRecordMaxAggregateOutputType | null
+  }
+
+  export type IdempotencyRecordMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    consumer: string | null
+    createdAt: Date | null
+  }
+
+  export type IdempotencyRecordMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    consumer: string | null
+    createdAt: Date | null
+  }
+
+  export type IdempotencyRecordCountAggregateOutputType = {
+    id: number
+    eventId: number
+    consumer: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type IdempotencyRecordMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    consumer?: true
+    createdAt?: true
+  }
+
+  export type IdempotencyRecordMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    consumer?: true
+    createdAt?: true
+  }
+
+  export type IdempotencyRecordCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    consumer?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type IdempotencyRecordAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdempotencyRecord to aggregate.
+     */
+    where?: IdempotencyRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdempotencyRecords to fetch.
+     */
+    orderBy?: IdempotencyRecordOrderByWithRelationInput | IdempotencyRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IdempotencyRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdempotencyRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdempotencyRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned IdempotencyRecords
+    **/
+    _count?: true | IdempotencyRecordCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IdempotencyRecordMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IdempotencyRecordMaxAggregateInputType
+  }
+
+  export type GetIdempotencyRecordAggregateType<T extends IdempotencyRecordAggregateArgs> = {
+        [P in keyof T & keyof AggregateIdempotencyRecord]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIdempotencyRecord[P]>
+      : GetScalarType<T[P], AggregateIdempotencyRecord[P]>
+  }
+
+
+
+
+  export type IdempotencyRecordGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IdempotencyRecordWhereInput
+    orderBy?: IdempotencyRecordOrderByWithAggregationInput | IdempotencyRecordOrderByWithAggregationInput[]
+    by: IdempotencyRecordScalarFieldEnum[] | IdempotencyRecordScalarFieldEnum
+    having?: IdempotencyRecordScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IdempotencyRecordCountAggregateInputType | true
+    _min?: IdempotencyRecordMinAggregateInputType
+    _max?: IdempotencyRecordMaxAggregateInputType
+  }
+
+  export type IdempotencyRecordGroupByOutputType = {
+    id: string
+    eventId: string
+    consumer: string
+    createdAt: Date
+    _count: IdempotencyRecordCountAggregateOutputType | null
+    _min: IdempotencyRecordMinAggregateOutputType | null
+    _max: IdempotencyRecordMaxAggregateOutputType | null
+  }
+
+  type GetIdempotencyRecordGroupByPayload<T extends IdempotencyRecordGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IdempotencyRecordGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IdempotencyRecordGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IdempotencyRecordGroupByOutputType[P]>
+            : GetScalarType<T[P], IdempotencyRecordGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IdempotencyRecordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    consumer?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["idempotencyRecord"]>
+
+  export type IdempotencyRecordSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    consumer?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["idempotencyRecord"]>
+
+  export type IdempotencyRecordSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    consumer?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $IdempotencyRecordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "IdempotencyRecord"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      consumer: string
+      createdAt: Date
+    }, ExtArgs["result"]["idempotencyRecord"]>
+    composites: {}
+  }
+
+  type IdempotencyRecordGetPayload<S extends boolean | null | undefined | IdempotencyRecordDefaultArgs> = $Result.GetResult<Prisma.$IdempotencyRecordPayload, S>
+
+  type IdempotencyRecordCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<IdempotencyRecordFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: IdempotencyRecordCountAggregateInputType | true
+    }
+
+  export interface IdempotencyRecordDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['IdempotencyRecord'], meta: { name: 'IdempotencyRecord' } }
+    /**
+     * Find zero or one IdempotencyRecord that matches the filter.
+     * @param {IdempotencyRecordFindUniqueArgs} args - Arguments to find a IdempotencyRecord
+     * @example
+     * // Get one IdempotencyRecord
+     * const idempotencyRecord = await prisma.idempotencyRecord.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IdempotencyRecordFindUniqueArgs>(args: SelectSubset<T, IdempotencyRecordFindUniqueArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one IdempotencyRecord that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {IdempotencyRecordFindUniqueOrThrowArgs} args - Arguments to find a IdempotencyRecord
+     * @example
+     * // Get one IdempotencyRecord
+     * const idempotencyRecord = await prisma.idempotencyRecord.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IdempotencyRecordFindUniqueOrThrowArgs>(args: SelectSubset<T, IdempotencyRecordFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first IdempotencyRecord that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordFindFirstArgs} args - Arguments to find a IdempotencyRecord
+     * @example
+     * // Get one IdempotencyRecord
+     * const idempotencyRecord = await prisma.idempotencyRecord.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IdempotencyRecordFindFirstArgs>(args?: SelectSubset<T, IdempotencyRecordFindFirstArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first IdempotencyRecord that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordFindFirstOrThrowArgs} args - Arguments to find a IdempotencyRecord
+     * @example
+     * // Get one IdempotencyRecord
+     * const idempotencyRecord = await prisma.idempotencyRecord.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IdempotencyRecordFindFirstOrThrowArgs>(args?: SelectSubset<T, IdempotencyRecordFindFirstOrThrowArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more IdempotencyRecords that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all IdempotencyRecords
+     * const idempotencyRecords = await prisma.idempotencyRecord.findMany()
+     * 
+     * // Get first 10 IdempotencyRecords
+     * const idempotencyRecords = await prisma.idempotencyRecord.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const idempotencyRecordWithIdOnly = await prisma.idempotencyRecord.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IdempotencyRecordFindManyArgs>(args?: SelectSubset<T, IdempotencyRecordFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a IdempotencyRecord.
+     * @param {IdempotencyRecordCreateArgs} args - Arguments to create a IdempotencyRecord.
+     * @example
+     * // Create one IdempotencyRecord
+     * const IdempotencyRecord = await prisma.idempotencyRecord.create({
+     *   data: {
+     *     // ... data to create a IdempotencyRecord
+     *   }
+     * })
+     * 
+     */
+    create<T extends IdempotencyRecordCreateArgs>(args: SelectSubset<T, IdempotencyRecordCreateArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many IdempotencyRecords.
+     * @param {IdempotencyRecordCreateManyArgs} args - Arguments to create many IdempotencyRecords.
+     * @example
+     * // Create many IdempotencyRecords
+     * const idempotencyRecord = await prisma.idempotencyRecord.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IdempotencyRecordCreateManyArgs>(args?: SelectSubset<T, IdempotencyRecordCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many IdempotencyRecords and returns the data saved in the database.
+     * @param {IdempotencyRecordCreateManyAndReturnArgs} args - Arguments to create many IdempotencyRecords.
+     * @example
+     * // Create many IdempotencyRecords
+     * const idempotencyRecord = await prisma.idempotencyRecord.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many IdempotencyRecords and only return the `id`
+     * const idempotencyRecordWithIdOnly = await prisma.idempotencyRecord.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IdempotencyRecordCreateManyAndReturnArgs>(args?: SelectSubset<T, IdempotencyRecordCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a IdempotencyRecord.
+     * @param {IdempotencyRecordDeleteArgs} args - Arguments to delete one IdempotencyRecord.
+     * @example
+     * // Delete one IdempotencyRecord
+     * const IdempotencyRecord = await prisma.idempotencyRecord.delete({
+     *   where: {
+     *     // ... filter to delete one IdempotencyRecord
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IdempotencyRecordDeleteArgs>(args: SelectSubset<T, IdempotencyRecordDeleteArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one IdempotencyRecord.
+     * @param {IdempotencyRecordUpdateArgs} args - Arguments to update one IdempotencyRecord.
+     * @example
+     * // Update one IdempotencyRecord
+     * const idempotencyRecord = await prisma.idempotencyRecord.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IdempotencyRecordUpdateArgs>(args: SelectSubset<T, IdempotencyRecordUpdateArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more IdempotencyRecords.
+     * @param {IdempotencyRecordDeleteManyArgs} args - Arguments to filter IdempotencyRecords to delete.
+     * @example
+     * // Delete a few IdempotencyRecords
+     * const { count } = await prisma.idempotencyRecord.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IdempotencyRecordDeleteManyArgs>(args?: SelectSubset<T, IdempotencyRecordDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more IdempotencyRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many IdempotencyRecords
+     * const idempotencyRecord = await prisma.idempotencyRecord.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IdempotencyRecordUpdateManyArgs>(args: SelectSubset<T, IdempotencyRecordUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one IdempotencyRecord.
+     * @param {IdempotencyRecordUpsertArgs} args - Arguments to update or create a IdempotencyRecord.
+     * @example
+     * // Update or create a IdempotencyRecord
+     * const idempotencyRecord = await prisma.idempotencyRecord.upsert({
+     *   create: {
+     *     // ... data to create a IdempotencyRecord
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the IdempotencyRecord we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IdempotencyRecordUpsertArgs>(args: SelectSubset<T, IdempotencyRecordUpsertArgs<ExtArgs>>): Prisma__IdempotencyRecordClient<$Result.GetResult<Prisma.$IdempotencyRecordPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of IdempotencyRecords.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordCountArgs} args - Arguments to filter IdempotencyRecords to count.
+     * @example
+     * // Count the number of IdempotencyRecords
+     * const count = await prisma.idempotencyRecord.count({
+     *   where: {
+     *     // ... the filter for the IdempotencyRecords we want to count
+     *   }
+     * })
+    **/
+    count<T extends IdempotencyRecordCountArgs>(
+      args?: Subset<T, IdempotencyRecordCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IdempotencyRecordCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a IdempotencyRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IdempotencyRecordAggregateArgs>(args: Subset<T, IdempotencyRecordAggregateArgs>): Prisma.PrismaPromise<GetIdempotencyRecordAggregateType<T>>
+
+    /**
+     * Group by IdempotencyRecord.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IdempotencyRecordGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IdempotencyRecordGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IdempotencyRecordGroupByArgs['orderBy'] }
+        : { orderBy?: IdempotencyRecordGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IdempotencyRecordGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIdempotencyRecordGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the IdempotencyRecord model
+   */
+  readonly fields: IdempotencyRecordFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for IdempotencyRecord.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IdempotencyRecordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the IdempotencyRecord model
+   */ 
+  interface IdempotencyRecordFieldRefs {
+    readonly id: FieldRef<"IdempotencyRecord", 'String'>
+    readonly eventId: FieldRef<"IdempotencyRecord", 'String'>
+    readonly consumer: FieldRef<"IdempotencyRecord", 'String'>
+    readonly createdAt: FieldRef<"IdempotencyRecord", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * IdempotencyRecord findUnique
+   */
+  export type IdempotencyRecordFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * Filter, which IdempotencyRecord to fetch.
+     */
+    where: IdempotencyRecordWhereUniqueInput
+  }
+
+  /**
+   * IdempotencyRecord findUniqueOrThrow
+   */
+  export type IdempotencyRecordFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * Filter, which IdempotencyRecord to fetch.
+     */
+    where: IdempotencyRecordWhereUniqueInput
+  }
+
+  /**
+   * IdempotencyRecord findFirst
+   */
+  export type IdempotencyRecordFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * Filter, which IdempotencyRecord to fetch.
+     */
+    where?: IdempotencyRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdempotencyRecords to fetch.
+     */
+    orderBy?: IdempotencyRecordOrderByWithRelationInput | IdempotencyRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdempotencyRecords.
+     */
+    cursor?: IdempotencyRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdempotencyRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdempotencyRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdempotencyRecords.
+     */
+    distinct?: IdempotencyRecordScalarFieldEnum | IdempotencyRecordScalarFieldEnum[]
+  }
+
+  /**
+   * IdempotencyRecord findFirstOrThrow
+   */
+  export type IdempotencyRecordFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * Filter, which IdempotencyRecord to fetch.
+     */
+    where?: IdempotencyRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdempotencyRecords to fetch.
+     */
+    orderBy?: IdempotencyRecordOrderByWithRelationInput | IdempotencyRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for IdempotencyRecords.
+     */
+    cursor?: IdempotencyRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdempotencyRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdempotencyRecords.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of IdempotencyRecords.
+     */
+    distinct?: IdempotencyRecordScalarFieldEnum | IdempotencyRecordScalarFieldEnum[]
+  }
+
+  /**
+   * IdempotencyRecord findMany
+   */
+  export type IdempotencyRecordFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * Filter, which IdempotencyRecords to fetch.
+     */
+    where?: IdempotencyRecordWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of IdempotencyRecords to fetch.
+     */
+    orderBy?: IdempotencyRecordOrderByWithRelationInput | IdempotencyRecordOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing IdempotencyRecords.
+     */
+    cursor?: IdempotencyRecordWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` IdempotencyRecords from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` IdempotencyRecords.
+     */
+    skip?: number
+    distinct?: IdempotencyRecordScalarFieldEnum | IdempotencyRecordScalarFieldEnum[]
+  }
+
+  /**
+   * IdempotencyRecord create
+   */
+  export type IdempotencyRecordCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * The data needed to create a IdempotencyRecord.
+     */
+    data: XOR<IdempotencyRecordCreateInput, IdempotencyRecordUncheckedCreateInput>
+  }
+
+  /**
+   * IdempotencyRecord createMany
+   */
+  export type IdempotencyRecordCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many IdempotencyRecords.
+     */
+    data: IdempotencyRecordCreateManyInput | IdempotencyRecordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IdempotencyRecord createManyAndReturn
+   */
+  export type IdempotencyRecordCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many IdempotencyRecords.
+     */
+    data: IdempotencyRecordCreateManyInput | IdempotencyRecordCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * IdempotencyRecord update
+   */
+  export type IdempotencyRecordUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * The data needed to update a IdempotencyRecord.
+     */
+    data: XOR<IdempotencyRecordUpdateInput, IdempotencyRecordUncheckedUpdateInput>
+    /**
+     * Choose, which IdempotencyRecord to update.
+     */
+    where: IdempotencyRecordWhereUniqueInput
+  }
+
+  /**
+   * IdempotencyRecord updateMany
+   */
+  export type IdempotencyRecordUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update IdempotencyRecords.
+     */
+    data: XOR<IdempotencyRecordUpdateManyMutationInput, IdempotencyRecordUncheckedUpdateManyInput>
+    /**
+     * Filter which IdempotencyRecords to update
+     */
+    where?: IdempotencyRecordWhereInput
+  }
+
+  /**
+   * IdempotencyRecord upsert
+   */
+  export type IdempotencyRecordUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * The filter to search for the IdempotencyRecord to update in case it exists.
+     */
+    where: IdempotencyRecordWhereUniqueInput
+    /**
+     * In case the IdempotencyRecord found by the `where` argument doesn't exist, create a new IdempotencyRecord with this data.
+     */
+    create: XOR<IdempotencyRecordCreateInput, IdempotencyRecordUncheckedCreateInput>
+    /**
+     * In case the IdempotencyRecord was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IdempotencyRecordUpdateInput, IdempotencyRecordUncheckedUpdateInput>
+  }
+
+  /**
+   * IdempotencyRecord delete
+   */
+  export type IdempotencyRecordDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+    /**
+     * Filter which IdempotencyRecord to delete.
+     */
+    where: IdempotencyRecordWhereUniqueInput
+  }
+
+  /**
+   * IdempotencyRecord deleteMany
+   */
+  export type IdempotencyRecordDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which IdempotencyRecords to delete
+     */
+    where?: IdempotencyRecordWhereInput
+  }
+
+  /**
+   * IdempotencyRecord without action
+   */
+  export type IdempotencyRecordDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IdempotencyRecord
+     */
+    select?: IdempotencyRecordSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -104155,6 +107257,50 @@ export namespace Prisma {
   export type AdmissionReviewScalarFieldEnum = (typeof AdmissionReviewScalarFieldEnum)[keyof typeof AdmissionReviewScalarFieldEnum]
 
 
+  export const DomainEventLogScalarFieldEnum: {
+    eventId: 'eventId',
+    eventType: 'eventType',
+    aggregateId: 'aggregateId',
+    aggregateType: 'aggregateType',
+    version: 'version',
+    occurredAt: 'occurredAt',
+    correlationId: 'correlationId',
+    causationId: 'causationId',
+    tenantId: 'tenantId',
+    payload: 'payload',
+    createdAt: 'createdAt'
+  };
+
+  export type DomainEventLogScalarFieldEnum = (typeof DomainEventLogScalarFieldEnum)[keyof typeof DomainEventLogScalarFieldEnum]
+
+
+  export const OutboxQueueScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    status: 'status',
+    attempts: 'attempts',
+    lastAttemptAt: 'lastAttemptAt',
+    nextAttemptAt: 'nextAttemptAt',
+    errorMessage: 'errorMessage',
+    aggregateId: 'aggregateId',
+    tenantId: 'tenantId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OutboxQueueScalarFieldEnum = (typeof OutboxQueueScalarFieldEnum)[keyof typeof OutboxQueueScalarFieldEnum]
+
+
+  export const IdempotencyRecordScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    consumer: 'consumer',
+    createdAt: 'createdAt'
+  };
+
+  export type IdempotencyRecordScalarFieldEnum = (typeof IdempotencyRecordScalarFieldEnum)[keyof typeof IdempotencyRecordScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -104639,6 +107785,20 @@ export namespace Prisma {
    * Reference to a field of type 'RecommendationStatus[]'
    */
   export type ListEnumRecommendationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RecommendationStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'OutboxStatus'
+   */
+  export type EnumOutboxStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutboxStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'OutboxStatus[]'
+   */
+  export type ListEnumOutboxStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutboxStatus[]'>
     
 
 
@@ -111617,6 +114777,221 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"AdmissionReview"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"AdmissionReview"> | Date | string | null
     deletedBy?: StringNullableWithAggregatesFilter<"AdmissionReview"> | string | null
+  }
+
+  export type DomainEventLogWhereInput = {
+    AND?: DomainEventLogWhereInput | DomainEventLogWhereInput[]
+    OR?: DomainEventLogWhereInput[]
+    NOT?: DomainEventLogWhereInput | DomainEventLogWhereInput[]
+    eventId?: StringFilter<"DomainEventLog"> | string
+    eventType?: StringFilter<"DomainEventLog"> | string
+    aggregateId?: StringFilter<"DomainEventLog"> | string
+    aggregateType?: StringFilter<"DomainEventLog"> | string
+    version?: IntFilter<"DomainEventLog"> | number
+    occurredAt?: DateTimeFilter<"DomainEventLog"> | Date | string
+    correlationId?: StringFilter<"DomainEventLog"> | string
+    causationId?: StringNullableFilter<"DomainEventLog"> | string | null
+    tenantId?: StringFilter<"DomainEventLog"> | string
+    payload?: JsonFilter<"DomainEventLog">
+    createdAt?: DateTimeFilter<"DomainEventLog"> | Date | string
+  }
+
+  export type DomainEventLogOrderByWithRelationInput = {
+    eventId?: SortOrder
+    eventType?: SortOrder
+    aggregateId?: SortOrder
+    aggregateType?: SortOrder
+    version?: SortOrder
+    occurredAt?: SortOrder
+    correlationId?: SortOrder
+    causationId?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DomainEventLogWhereUniqueInput = Prisma.AtLeast<{
+    eventId?: string
+    AND?: DomainEventLogWhereInput | DomainEventLogWhereInput[]
+    OR?: DomainEventLogWhereInput[]
+    NOT?: DomainEventLogWhereInput | DomainEventLogWhereInput[]
+    eventType?: StringFilter<"DomainEventLog"> | string
+    aggregateId?: StringFilter<"DomainEventLog"> | string
+    aggregateType?: StringFilter<"DomainEventLog"> | string
+    version?: IntFilter<"DomainEventLog"> | number
+    occurredAt?: DateTimeFilter<"DomainEventLog"> | Date | string
+    correlationId?: StringFilter<"DomainEventLog"> | string
+    causationId?: StringNullableFilter<"DomainEventLog"> | string | null
+    tenantId?: StringFilter<"DomainEventLog"> | string
+    payload?: JsonFilter<"DomainEventLog">
+    createdAt?: DateTimeFilter<"DomainEventLog"> | Date | string
+  }, "eventId">
+
+  export type DomainEventLogOrderByWithAggregationInput = {
+    eventId?: SortOrder
+    eventType?: SortOrder
+    aggregateId?: SortOrder
+    aggregateType?: SortOrder
+    version?: SortOrder
+    occurredAt?: SortOrder
+    correlationId?: SortOrder
+    causationId?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    _count?: DomainEventLogCountOrderByAggregateInput
+    _avg?: DomainEventLogAvgOrderByAggregateInput
+    _max?: DomainEventLogMaxOrderByAggregateInput
+    _min?: DomainEventLogMinOrderByAggregateInput
+    _sum?: DomainEventLogSumOrderByAggregateInput
+  }
+
+  export type DomainEventLogScalarWhereWithAggregatesInput = {
+    AND?: DomainEventLogScalarWhereWithAggregatesInput | DomainEventLogScalarWhereWithAggregatesInput[]
+    OR?: DomainEventLogScalarWhereWithAggregatesInput[]
+    NOT?: DomainEventLogScalarWhereWithAggregatesInput | DomainEventLogScalarWhereWithAggregatesInput[]
+    eventId?: StringWithAggregatesFilter<"DomainEventLog"> | string
+    eventType?: StringWithAggregatesFilter<"DomainEventLog"> | string
+    aggregateId?: StringWithAggregatesFilter<"DomainEventLog"> | string
+    aggregateType?: StringWithAggregatesFilter<"DomainEventLog"> | string
+    version?: IntWithAggregatesFilter<"DomainEventLog"> | number
+    occurredAt?: DateTimeWithAggregatesFilter<"DomainEventLog"> | Date | string
+    correlationId?: StringWithAggregatesFilter<"DomainEventLog"> | string
+    causationId?: StringNullableWithAggregatesFilter<"DomainEventLog"> | string | null
+    tenantId?: StringWithAggregatesFilter<"DomainEventLog"> | string
+    payload?: JsonWithAggregatesFilter<"DomainEventLog">
+    createdAt?: DateTimeWithAggregatesFilter<"DomainEventLog"> | Date | string
+  }
+
+  export type OutboxQueueWhereInput = {
+    AND?: OutboxQueueWhereInput | OutboxQueueWhereInput[]
+    OR?: OutboxQueueWhereInput[]
+    NOT?: OutboxQueueWhereInput | OutboxQueueWhereInput[]
+    id?: StringFilter<"OutboxQueue"> | string
+    eventId?: StringFilter<"OutboxQueue"> | string
+    status?: EnumOutboxStatusFilter<"OutboxQueue"> | $Enums.OutboxStatus
+    attempts?: IntFilter<"OutboxQueue"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"OutboxQueue"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"OutboxQueue"> | Date | string | null
+    errorMessage?: StringNullableFilter<"OutboxQueue"> | string | null
+    aggregateId?: StringFilter<"OutboxQueue"> | string
+    tenantId?: StringFilter<"OutboxQueue"> | string
+    createdAt?: DateTimeFilter<"OutboxQueue"> | Date | string
+    updatedAt?: DateTimeFilter<"OutboxQueue"> | Date | string
+  }
+
+  export type OutboxQueueOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    lastAttemptAt?: SortOrderInput | SortOrder
+    nextAttemptAt?: SortOrderInput | SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    aggregateId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutboxQueueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    eventId?: string
+    AND?: OutboxQueueWhereInput | OutboxQueueWhereInput[]
+    OR?: OutboxQueueWhereInput[]
+    NOT?: OutboxQueueWhereInput | OutboxQueueWhereInput[]
+    status?: EnumOutboxStatusFilter<"OutboxQueue"> | $Enums.OutboxStatus
+    attempts?: IntFilter<"OutboxQueue"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"OutboxQueue"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"OutboxQueue"> | Date | string | null
+    errorMessage?: StringNullableFilter<"OutboxQueue"> | string | null
+    aggregateId?: StringFilter<"OutboxQueue"> | string
+    tenantId?: StringFilter<"OutboxQueue"> | string
+    createdAt?: DateTimeFilter<"OutboxQueue"> | Date | string
+    updatedAt?: DateTimeFilter<"OutboxQueue"> | Date | string
+  }, "id" | "eventId">
+
+  export type OutboxQueueOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    lastAttemptAt?: SortOrderInput | SortOrder
+    nextAttemptAt?: SortOrderInput | SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    aggregateId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OutboxQueueCountOrderByAggregateInput
+    _avg?: OutboxQueueAvgOrderByAggregateInput
+    _max?: OutboxQueueMaxOrderByAggregateInput
+    _min?: OutboxQueueMinOrderByAggregateInput
+    _sum?: OutboxQueueSumOrderByAggregateInput
+  }
+
+  export type OutboxQueueScalarWhereWithAggregatesInput = {
+    AND?: OutboxQueueScalarWhereWithAggregatesInput | OutboxQueueScalarWhereWithAggregatesInput[]
+    OR?: OutboxQueueScalarWhereWithAggregatesInput[]
+    NOT?: OutboxQueueScalarWhereWithAggregatesInput | OutboxQueueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OutboxQueue"> | string
+    eventId?: StringWithAggregatesFilter<"OutboxQueue"> | string
+    status?: EnumOutboxStatusWithAggregatesFilter<"OutboxQueue"> | $Enums.OutboxStatus
+    attempts?: IntWithAggregatesFilter<"OutboxQueue"> | number
+    lastAttemptAt?: DateTimeNullableWithAggregatesFilter<"OutboxQueue"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableWithAggregatesFilter<"OutboxQueue"> | Date | string | null
+    errorMessage?: StringNullableWithAggregatesFilter<"OutboxQueue"> | string | null
+    aggregateId?: StringWithAggregatesFilter<"OutboxQueue"> | string
+    tenantId?: StringWithAggregatesFilter<"OutboxQueue"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"OutboxQueue"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OutboxQueue"> | Date | string
+  }
+
+  export type IdempotencyRecordWhereInput = {
+    AND?: IdempotencyRecordWhereInput | IdempotencyRecordWhereInput[]
+    OR?: IdempotencyRecordWhereInput[]
+    NOT?: IdempotencyRecordWhereInput | IdempotencyRecordWhereInput[]
+    id?: StringFilter<"IdempotencyRecord"> | string
+    eventId?: StringFilter<"IdempotencyRecord"> | string
+    consumer?: StringFilter<"IdempotencyRecord"> | string
+    createdAt?: DateTimeFilter<"IdempotencyRecord"> | Date | string
+  }
+
+  export type IdempotencyRecordOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    consumer?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IdempotencyRecordWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: IdempotencyRecordWhereInput | IdempotencyRecordWhereInput[]
+    OR?: IdempotencyRecordWhereInput[]
+    NOT?: IdempotencyRecordWhereInput | IdempotencyRecordWhereInput[]
+    eventId?: StringFilter<"IdempotencyRecord"> | string
+    consumer?: StringFilter<"IdempotencyRecord"> | string
+    createdAt?: DateTimeFilter<"IdempotencyRecord"> | Date | string
+  }, "id">
+
+  export type IdempotencyRecordOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    consumer?: SortOrder
+    createdAt?: SortOrder
+    _count?: IdempotencyRecordCountOrderByAggregateInput
+    _max?: IdempotencyRecordMaxOrderByAggregateInput
+    _min?: IdempotencyRecordMinOrderByAggregateInput
+  }
+
+  export type IdempotencyRecordScalarWhereWithAggregatesInput = {
+    AND?: IdempotencyRecordScalarWhereWithAggregatesInput | IdempotencyRecordScalarWhereWithAggregatesInput[]
+    OR?: IdempotencyRecordScalarWhereWithAggregatesInput[]
+    NOT?: IdempotencyRecordScalarWhereWithAggregatesInput | IdempotencyRecordScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"IdempotencyRecord"> | string
+    eventId?: StringWithAggregatesFilter<"IdempotencyRecord"> | string
+    consumer?: StringWithAggregatesFilter<"IdempotencyRecord"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"IdempotencyRecord"> | Date | string
   }
 
   export type PlatformPlanCreateInput = {
@@ -118987,6 +122362,251 @@ export namespace Prisma {
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type DomainEventLogCreateInput = {
+    eventId: string
+    eventType: string
+    aggregateId: string
+    aggregateType: string
+    version?: number
+    occurredAt?: Date | string
+    correlationId: string
+    causationId?: string | null
+    tenantId: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type DomainEventLogUncheckedCreateInput = {
+    eventId: string
+    eventType: string
+    aggregateId: string
+    aggregateType: string
+    version?: number
+    occurredAt?: Date | string
+    correlationId: string
+    causationId?: string | null
+    tenantId: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type DomainEventLogUpdateInput = {
+    eventId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    aggregateType?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    correlationId?: StringFieldUpdateOperationsInput | string
+    causationId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DomainEventLogUncheckedUpdateInput = {
+    eventId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    aggregateType?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    correlationId?: StringFieldUpdateOperationsInput | string
+    causationId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DomainEventLogCreateManyInput = {
+    eventId: string
+    eventType: string
+    aggregateId: string
+    aggregateType: string
+    version?: number
+    occurredAt?: Date | string
+    correlationId: string
+    causationId?: string | null
+    tenantId: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type DomainEventLogUpdateManyMutationInput = {
+    eventId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    aggregateType?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    correlationId?: StringFieldUpdateOperationsInput | string
+    causationId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DomainEventLogUncheckedUpdateManyInput = {
+    eventId?: StringFieldUpdateOperationsInput | string
+    eventType?: StringFieldUpdateOperationsInput | string
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    aggregateType?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    correlationId?: StringFieldUpdateOperationsInput | string
+    causationId?: NullableStringFieldUpdateOperationsInput | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutboxQueueCreateInput = {
+    id?: string
+    eventId: string
+    status?: $Enums.OutboxStatus
+    attempts?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    errorMessage?: string | null
+    aggregateId: string
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutboxQueueUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    status?: $Enums.OutboxStatus
+    attempts?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    errorMessage?: string | null
+    aggregateId: string
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutboxQueueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOutboxStatusFieldUpdateOperationsInput | $Enums.OutboxStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutboxQueueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOutboxStatusFieldUpdateOperationsInput | $Enums.OutboxStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutboxQueueCreateManyInput = {
+    id?: string
+    eventId: string
+    status?: $Enums.OutboxStatus
+    attempts?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    errorMessage?: string | null
+    aggregateId: string
+    tenantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutboxQueueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOutboxStatusFieldUpdateOperationsInput | $Enums.OutboxStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutboxQueueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    status?: EnumOutboxStatusFieldUpdateOperationsInput | $Enums.OutboxStatus
+    attempts?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    aggregateId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdempotencyRecordCreateInput = {
+    id: string
+    eventId: string
+    consumer: string
+    createdAt?: Date | string
+  }
+
+  export type IdempotencyRecordUncheckedCreateInput = {
+    id: string
+    eventId: string
+    consumer: string
+    createdAt?: Date | string
+  }
+
+  export type IdempotencyRecordUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    consumer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdempotencyRecordUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    consumer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdempotencyRecordCreateManyInput = {
+    id: string
+    eventId: string
+    consumer: string
+    createdAt?: Date | string
+  }
+
+  export type IdempotencyRecordUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    consumer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IdempotencyRecordUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    consumer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -124170,6 +127790,142 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRecommendationStatusFilter<$PrismaModel>
     _max?: NestedEnumRecommendationStatusFilter<$PrismaModel>
+  }
+
+  export type DomainEventLogCountOrderByAggregateInput = {
+    eventId?: SortOrder
+    eventType?: SortOrder
+    aggregateId?: SortOrder
+    aggregateType?: SortOrder
+    version?: SortOrder
+    occurredAt?: SortOrder
+    correlationId?: SortOrder
+    causationId?: SortOrder
+    tenantId?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DomainEventLogAvgOrderByAggregateInput = {
+    version?: SortOrder
+  }
+
+  export type DomainEventLogMaxOrderByAggregateInput = {
+    eventId?: SortOrder
+    eventType?: SortOrder
+    aggregateId?: SortOrder
+    aggregateType?: SortOrder
+    version?: SortOrder
+    occurredAt?: SortOrder
+    correlationId?: SortOrder
+    causationId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DomainEventLogMinOrderByAggregateInput = {
+    eventId?: SortOrder
+    eventType?: SortOrder
+    aggregateId?: SortOrder
+    aggregateType?: SortOrder
+    version?: SortOrder
+    occurredAt?: SortOrder
+    correlationId?: SortOrder
+    causationId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DomainEventLogSumOrderByAggregateInput = {
+    version?: SortOrder
+  }
+
+  export type EnumOutboxStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutboxStatus | EnumOutboxStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutboxStatusFilter<$PrismaModel> | $Enums.OutboxStatus
+  }
+
+  export type OutboxQueueCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    errorMessage?: SortOrder
+    aggregateId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutboxQueueAvgOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type OutboxQueueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    errorMessage?: SortOrder
+    aggregateId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutboxQueueMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    status?: SortOrder
+    attempts?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    errorMessage?: SortOrder
+    aggregateId?: SortOrder
+    tenantId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutboxQueueSumOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type EnumOutboxStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutboxStatus | EnumOutboxStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutboxStatusWithAggregatesFilter<$PrismaModel> | $Enums.OutboxStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOutboxStatusFilter<$PrismaModel>
+    _max?: NestedEnumOutboxStatusFilter<$PrismaModel>
+  }
+
+  export type IdempotencyRecordCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    consumer?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IdempotencyRecordMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    consumer?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type IdempotencyRecordMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    consumer?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type TenantCreateNestedManyWithoutPlanInput = {
@@ -131838,6 +135594,10 @@ export namespace Prisma {
     update?: XOR<XOR<AdmissionWorkflowStageUpdateToOneWithWhereWithoutReviewsInput, AdmissionWorkflowStageUpdateWithoutReviewsInput>, AdmissionWorkflowStageUncheckedUpdateWithoutReviewsInput>
   }
 
+  export type EnumOutboxStatusFieldUpdateOperationsInput = {
+    set?: $Enums.OutboxStatus
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -132577,6 +136337,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRecommendationStatusFilter<$PrismaModel>
     _max?: NestedEnumRecommendationStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumOutboxStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutboxStatus | EnumOutboxStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutboxStatusFilter<$PrismaModel> | $Enums.OutboxStatus
+  }
+
+  export type NestedEnumOutboxStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutboxStatus | EnumOutboxStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutboxStatus[] | ListEnumOutboxStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutboxStatusWithAggregatesFilter<$PrismaModel> | $Enums.OutboxStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOutboxStatusFilter<$PrismaModel>
+    _max?: NestedEnumOutboxStatusFilter<$PrismaModel>
   }
 
   export type TenantCreateWithoutPlanInput = {
@@ -169997,6 +173774,18 @@ export namespace Prisma {
      * @deprecated Use AdmissionReviewDefaultArgs instead
      */
     export type AdmissionReviewArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdmissionReviewDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DomainEventLogDefaultArgs instead
+     */
+    export type DomainEventLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DomainEventLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OutboxQueueDefaultArgs instead
+     */
+    export type OutboxQueueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OutboxQueueDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use IdempotencyRecordDefaultArgs instead
+     */
+    export type IdempotencyRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IdempotencyRecordDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

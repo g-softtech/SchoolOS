@@ -62,7 +62,7 @@ export class PageService {
     if (!page) throw new NotFoundException('Page not found');
 
     return this.pageRepo.transaction(async (repo) => {
-      const updated = await repo.update(id, tenantId, { status: 'PUBLISHED' });
+      const updated = await repo.update(id, tenantId, { isPublished: true });
 
       // Critical Event: Triggers Edge Cache Invalidation & Search Indexing
       await this.outboxService.appendEvent(repo.prisma, {
@@ -80,7 +80,7 @@ export class PageService {
 
   async archivePage(tenantId: string, id: string) {
     return this.pageRepo.transaction(async (repo) => {
-      const updated = await repo.update(id, tenantId, { status: 'ARCHIVED' });
+      const updated = await repo.update(id, tenantId, { isPublished: false });
 
       await this.outboxService.appendEvent(repo.prisma, {
         eventType: 'Website.PageArchived',

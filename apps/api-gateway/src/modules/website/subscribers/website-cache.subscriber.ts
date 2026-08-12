@@ -1,7 +1,7 @@
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
+import type { Cache } from 'cache-manager';
 import { DomainEvent } from '@saas/core-platform';
 import { WebsiteRepository } from '../repositories/website.repository';
 
@@ -28,8 +28,8 @@ export class WebsiteCacheSubscriber {
       const website = await this.websiteRepo.findByTenant(tenantId);
       
       if (website && website.domains) {
-        for (const d of website.domains) {
-          const cacheKey = `website:resolve:${d.domain}:${slug}`;
+        for (const domain of website.domains) {
+          const cacheKey = `website:resolve:${domain.domainName}:${slug}`;
           await this.cacheManager.del(cacheKey);
           this.logger.debug(`Invalidated cache key: ${cacheKey}`);
         }

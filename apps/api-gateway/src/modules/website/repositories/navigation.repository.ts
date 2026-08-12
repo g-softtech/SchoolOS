@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Prisma } from '@saas/core-platform';
+import { NavigationMenu, PrismaClient, Prisma } from '@saas/core-platform';
 import { BaseRepository } from '../../shared/repositories/base.repository';
 
 @Injectable()
 export class NavigationRepository extends BaseRepository<
-  Prisma.NavigationMenuDelegate<any>,
+  NavigationMenu,
   Prisma.NavigationMenuCreateArgs,
   Prisma.NavigationMenuUpdateArgs
 > {

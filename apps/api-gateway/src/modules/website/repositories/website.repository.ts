@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Prisma } from '@saas/core-platform';
+import { Website, PrismaClient, Prisma } from '@saas/core-platform';
 import { BaseRepository } from '../../shared/repositories/base.repository';
 
 @Injectable()
 export class WebsiteRepository extends BaseRepository<
-  Prisma.WebsiteDelegate<any>,
+  Website,
   Prisma.WebsiteCreateArgs,
   Prisma.WebsiteUpdateArgs
 > {
@@ -21,7 +21,10 @@ export class WebsiteRepository extends BaseRepository<
   }
 
   async findByTenant(tenantId: string) {
-    return this.findFirst({ where: { tenantId, deletedAt: null } });
+    return this.prisma.website.findFirst({ 
+      where: { tenantId, deletedAt: null },
+      include: { domains: true }
+    });
   }
 
   async findByDomain(domain: string) {
