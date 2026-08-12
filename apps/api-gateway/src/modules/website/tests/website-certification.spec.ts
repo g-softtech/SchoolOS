@@ -90,8 +90,8 @@ describe('Website Integration & Edge Delivery Certification', () => {
   });
 
   it('1. HTTP Boundary: Should miss cache, hit DB, and structure public response', async () => {
-    (websiteRepo.findByDomain as jest.Mock).mockResolvedValue({ tenantId: 'tenant-1', themeId: 'theme-x', branding: {} });
-    (pageRepo.findBySlug as jest.Mock).mockResolvedValue({ slug: 'home', title: 'Home', status: 'PUBLISHED', contentBlocks: [], seoMetadata: {}, version: 5, deletedBy: null });
+    (websiteRepo.findByDomain as jest.Mock).mockResolvedValue({ tenantId: 'tenant-1', themeColors: {}, heroConfig: {}, seoMeta: {} });
+    (pageRepo.findBySlug as jest.Mock).mockResolvedValue({ slug: 'home', title: 'Home', isPublished: true, contentBlocks: [], version: 5, deletedBy: null });
 
     const startTimeMiss = performance.now();
     const resMiss = await request(app.getHttpServer())
@@ -130,7 +130,7 @@ describe('Website Integration & Edge Delivery Certification', () => {
 
   it('3. HTTP Boundary: Should enforce tenant isolation and status rules', async () => {
     (websiteRepo.findByDomain as jest.Mock).mockResolvedValue({ tenantId: 'tenant-1' });
-    (pageRepo.findBySlug as jest.Mock).mockResolvedValue({ slug: 'draft-page', status: 'DRAFT' });
+    (pageRepo.findBySlug as jest.Mock).mockResolvedValue({ slug: 'draft-page', isPublished: false });
 
     await request(app.getHttpServer())
       .get('/api/v1/public/website/resolve?domain=school.com&path=draft-page')
@@ -144,7 +144,7 @@ describe('Website Integration & Edge Delivery Certification', () => {
 
     // Setup mocks for page publish
     (pageRepo.findById as jest.Mock).mockResolvedValue({ id: 'page-1', slug: 'home' });
-    (pageRepo.update as jest.Mock).mockResolvedValue({ id: 'page-1', slug: 'home', status: 'PUBLISHED' });
+    (pageRepo.update as jest.Mock).mockResolvedValue({ id: 'page-1', slug: 'home', isPublished: true });
     
     // Setup mock for cache subscriber resolving tenant domains
     (websiteRepo.findByTenant as jest.Mock).mockResolvedValue({ tenantId: 'tenant-1', domains: [{ domainName: 'school.com' }] });
