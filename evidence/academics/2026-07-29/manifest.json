@@ -1,0 +1,48 @@
+{
+  "module": "academics",
+  "commit": "local-dev",
+  "generatedAt": "2026-07-29T16:26:09.377Z",
+  "certificationVersion": "2.0.0",
+  "toolVersions": {
+    "node": "v22.16.0"
+  },
+  "checks": {
+    "typescript": {
+      "status": "pass",
+      "message": "No compilation errors",
+      "artifactPath": "evidence/tsc-log.txt"
+    },
+    "eslint": {
+      "status": "pass",
+      "message": "No lint errors",
+      "artifactPath": "evidence/eslint-report.txt"
+    },
+    "architecture": {
+      "status": "fail",
+      "message": "Invalid JSON in audit report"
+    },
+    "prisma": {
+      "status": "pass",
+      "message": "Migrations verified",
+      "artifactPath": "evidence/prisma-migration-log.txt"
+    },
+    "tests": {
+      "status": "pass",
+      "message": "All tests passed",
+      "artifactPath": "evidence/test-runner-log.txt"
+    },
+    "coverage": {
+      "status": "fail",
+      "message": "Invalid JSON in coverage summary"
+    },
+    "mutation": {
+      "status": "pass",
+      "message": "Mutation threshold met",
+      "artifactPath": "evidence/stryker-log.txt"
+    },
+    "benchmark": {
+      "status": "fail",
+      "message": "Invalid JSON in benchmark"
+    }
+  }
+}

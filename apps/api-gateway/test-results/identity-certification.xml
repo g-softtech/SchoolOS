@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="16" failures="0" errors="0" time="0.906">
+  <testsuite name="Level 7: Event Consistency" errors="0" failures="0" skipped="0" timestamp="2026-07-31T15:35:56" time="0.845" tests="16">
+    <testcase classname="Level 7: Event Consistency 1. Atomic Emission appends events natively into the transaction client without floating memory emissions" name="Level 7: Event Consistency 1. Atomic Emission appends events natively into the transaction client without floating memory emissions" time="0.002">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 2. Guaranteed Ordering pulls events strictly ordered by createdAt" name="Level 7: Event Consistency 2. Guaranteed Ordering pulls events strictly ordered by createdAt" time="0.001">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 3. Correlation &amp; Causation Tracking preserves correlationId and causationId through the outbox" name="Level 7: Event Consistency 3. Correlation &amp; Causation Tracking preserves correlationId and causationId through the outbox" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 4. Idempotent Consumers bypasses duplicate execution if the idempotency record already exists" name="Level 7: Event Consistency 4. Idempotent Consumers bypasses duplicate execution if the idempotency record already exists" time="0.001">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 5. Safe Retries executes consumer and creates idempotency record in the exact same transaction" name="Level 7: Event Consistency 5. Safe Retries executes consumer and creates idempotency record in the exact same transaction" time="0.001">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 6. Failed Consumer Isolation marks outbox message as FAILED without mutating the payload or dropping it" name="Level 7: Event Consistency 6. Failed Consumer Isolation marks outbox message as FAILED without mutating the payload or dropping it" time="0.018">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 7. Predictable Replay resets failed events back to PENDING for retry loops" name="Level 7: Event Consistency 7. Predictable Replay resets failed events back to PENDING for retry loops" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 8. Backward Compatibility event payloads structurally require a version integer" name="Level 7: Event Consistency 8. Backward Compatibility event payloads structurally require a version integer" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 9. Duplicate Dispatcher Execution relies on idempotency keys downstream, so duplicate dispatch is safe" name="Level 7: Event Consistency 9. Duplicate Dispatcher Execution relies on idempotency keys downstream, so duplicate dispatch is safe" time="0.001">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 10. Crash Recovery leaves events in PENDING state if the dispatcher crashes mid-flight" name="Level 7: Event Consistency 10. Crash Recovery leaves events in PENDING state if the dispatcher crashes mid-flight" time="0.001">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 11. Aggregate Ordering maintains causal history by preserving occurredAt and version sequence" name="Level 7: Event Consistency 11. Aggregate Ordering maintains causal history by preserving occurredAt and version sequence" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 12. Tenant Isolation preserves tenantId on the DomainEventLog" name="Level 7: Event Consistency 12. Tenant Isolation preserves tenantId on the DomainEventLog" time="0.001">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 13. Schema Validation rejects appending events without required structural fields" name="Level 7: Event Consistency 13. Schema Validation rejects appending events without required structural fields" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 14. Outbox Cleanup Policy safely sweeps PROCESSED outbox records older than the cutoff" name="Level 7: Event Consistency 14. Outbox Cleanup Policy safely sweeps PROCESSED outbox records older than the cutoff" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 15. Replay Determinism the domain event log serves as the absolute permanent history" name="Level 7: Event Consistency 15. Replay Determinism the domain event log serves as the absolute permanent history" time="0">
+    </testcase>
+    <testcase classname="Level 7: Event Consistency 16. Poison Quarantine dispatcher isolates poison pills by marking FAILED without halting the batch loop" name="Level 7: Event Consistency 16. Poison Quarantine dispatcher isolates poison pills by marking FAILED without halting the batch loop" time="0.001">
+    </testcase>
+  </testsuite>
+</testsuites>

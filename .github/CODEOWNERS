@@ -1,0 +1,5 @@
+* @gbemi
+
+# Platform Team owns shared packages and gateway setup
+/packages/* @platform-team
+/apps/api-gateway/* @platform-team

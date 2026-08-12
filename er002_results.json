@@ -1,0 +1,13 @@
+{
+  "prisma_format": true,
+  "prisma_validate": false,
+  "prisma_generate": true,
+  "tscCount": 271,
+  "build": false,
+  "test": {
+    "passed": 0,
+    "failed": 0,
+    "success": false
+  },
+  "architecture": false
+}

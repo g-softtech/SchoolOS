@@ -1,6 +1,6 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
-import { SubStatus } from '@prisma/client';
+import { SubStatus } from '@saas/core-platform';
 
 @Injectable()
 export class LicensingService {

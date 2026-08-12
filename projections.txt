@@ -1,0 +1,89 @@
+// ==================================================
+// DOMAIN 9: SPECIALIZED PROJECTIONS
+// ==================================================
+
+model ApplicationListProjection {
+  id                    String    @id @default(uuid())
+  tenantId              String
+  applicationId         String    @unique
+  applicantName         String
+  status                String
+  campaignName          String
+  submittedAt           DateTime?
+  
+  // Projection Metadata
+  projectionVersion     Int       @default(1)
+  builtFromEventVersion Int       @default(0)
+  lastRebuild           DateTime?
+  lastEventApplied      DateTime?
+  healthStatus          String    @default("HEALTHY")
+  
+  @@index([tenantId])
+  @@map("prj_application_list")
+}
+
+model ReviewerQueueProjection {
+  id                    String    @id @default(uuid())
+  tenantId              String
+  applicationId         String    @unique
+  applicantName         String
+  assignedReviewerId    String?
+  priority              Int       @default(0)
+  timeInQueueMs         Int       @default(0)
+  
+  projectionVersion     Int       @default(1)
+  builtFromEventVersion Int       @default(0)
+  lastRebuild           DateTime?
+  lastEventApplied      DateTime?
+  healthStatus          String    @default("HEALTHY")
+  
+  @@index([tenantId, assignedReviewerId])
+  @@map("prj_reviewer_queue")
+}
+
+model AdmissionDashboardProjection {
+  id                    String    @id @default(uuid())
+  tenantId              String    @unique
+  totalApplications     Int       @default(0)
+  pendingReviews        Int       @default(0)
+  conversionRate        Float     @default(0.0)
+  
+  projectionVersion     Int       @default(1)
+  builtFromEventVersion Int       @default(0)
+  lastRebuild           DateTime?
+  lastEventApplied      DateTime?
+  healthStatus          String    @default("HEALTHY")
+  
+  @@map("prj_admission_dashboard")
+}
+
+model AdmissionAnalyticsProjection {
+  id                    String    @id @default(uuid())
+  tenantId              String    @unique
+  metricsJson           Json      // Contains daily trends
+  
+  projectionVersion     Int       @default(1)
+  builtFromEventVersion Int       @default(0)
+  lastRebuild           DateTime?
+  lastEventApplied      DateTime?
+  healthStatus          String    @default("HEALTHY")
+  
+  @@map("prj_admission_analytics")
+}
+
+model AcceptanceTrendProjection {
+  id                    String    @id @default(uuid())
+  tenantId              String
+  month                 String    // e.g., '2026-07'
+  acceptedCount         Int       @default(0)
+  rejectedCount         Int       @default(0)
+  
+  projectionVersion     Int       @default(1)
+  builtFromEventVersion Int       @default(0)
+  lastRebuild           DateTime?
+  lastEventApplied      DateTime?
+  healthStatus          String    @default("HEALTHY")
+  
+  @@unique([tenantId, month])
+  @@map("prj_acceptance_trend")
+}

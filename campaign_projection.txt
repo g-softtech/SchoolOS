@@ -1,0 +1,17 @@
+model CampaignCapacityProjection {
+  id                    String    @id @default(uuid())
+  tenantId              String
+  campaignId            String    @unique
+  campaignName          String
+  targetCapacity        Int       @default(0)
+  enrolledCount         Int       @default(0)
+  
+  projectionVersion     Int       @default(1)
+  builtFromEventVersion Int       @default(0)
+  lastRebuild           DateTime?
+  lastEventApplied      DateTime?
+  healthStatus          String    @default("HEALTHY")
+  
+  @@index([tenantId])
+  @@map("prj_campaign_capacity")
+}

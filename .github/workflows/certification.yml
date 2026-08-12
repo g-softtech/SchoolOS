@@ -1,0 +1,84 @@
+name: Platform Certification Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  certify-module:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: schoolos
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: schoolos_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://schoolos:password@localhost:5432/schoolos_test?schema=public
+      CI: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript Compilation (Static Analysis)
+        run: npx tsc --noEmit | tee evidence/tsc-log.txt
+
+      - name: ESLint (Static Analysis)
+        run: npm run lint | tee evidence/eslint-report.txt
+
+      - name: Architecture Audit
+        run: npx tsx scripts/audit-architecture.ts | tee evidence/audit-report.json
+
+      - name: Database Validation & Migration
+        run: |
+          npx prisma validate
+          npx prisma migrate deploy | tee evidence/prisma-migration-log.txt
+
+      - name: Unit, Integration, and E2E Tests
+        run: npm run test:cov | tee evidence/test-runner-log.txt
+
+      - name: Mutation Testing (Stryker)
+        run: npx stryker run | tee evidence/stryker-log.txt
+
+      - name: Run Benchmarks
+        run: npm run benchmark | tee evidence/benchmark-log.txt
+
+      - name: Execute Certification Orchestrator
+        run: npx tsx scripts/certify-module.ts students
+
+      - name: Generate Platform Health Dashboard
+        run: npx tsx scripts/generate-platform-health.ts
+
+      - name: Upload Evidence Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: certification-evidence
+          path: |
+            evidence/
+            coverage/
+            benchmark.json
+            reports/mutation/
+            docs/architecture/PLATFORM_HEALTH.md

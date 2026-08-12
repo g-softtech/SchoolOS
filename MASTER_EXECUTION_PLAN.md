@@ -20,9 +20,10 @@ This document is the "Constitution" of the SchoolOS project. It is the single so
 | Infrastructure     | ✅ Complete |
 | Platform Kernel    | ✅ Complete |
 | Migration Engine   | ✅ Complete |
-| Platform Lock      | 🔄 Current |
-| Authentication     | ⏳ Pending  |
-| Admissions         | ⏳ Pending  |
+| Platform Lock      | 🟢 Complete |
+| Authentication     | 🟡 Impl. Complete (Cert Pending) |
+| Platform Testing   | 🔴 Not Started |
+| Admissions         | 🟢 CERTIFIED |
 | Student Management | ⏳ Pending  |
 | Academics          | ⏳ Pending  |
 | Finance            | ⏳ Pending  |
@@ -59,9 +60,23 @@ The foundation is **FROZEN**. Nobody touches the Database structure, Platform Se
 ## 6. Execution Phases
 1. **Phases 1-5.9:** Platform Foundation & Lock (Current)
 2. **Phase 6:** Identity, Authentication, Tenant Memberships, RBAC, School Creation Wizard
-3. **Phase 7:** Website Builder and CMS
-4. **Phase 8-18:** Vertical Business Modules (Admissions, Students, Finance, etc.)
-5. **Phase 19+:** Post-Launch Enhancements (AI, Analytics, Mobile)
+   - *Status:* Implementation Complete. Freeze deferred until Phase 6B.
+3. **Phase 6B:** Platform Certification & Testing (NEW)
+   - *Scope:* Dedicated verification phase for Identity, Admissions, and subsequent modules. Includes Unit, Integration, E2E, Load Testing, and constitutional certification. No module is Frozen until this phase produces evidence.
+4. **Phase 7:** Website Builder and CMS (Next)
+5. **Phase 8:** Admissions
+6. **Phase 9:** Student Management
+7. **Phase 10:** Academics
+8. **Phase 11:** Timetables
+9. **Phase 12:** Staff
+10. **Phase 13:** Attendance
+11. **Phase 14:** Examinations
+12. **Phase 15:** Finance
+13. **Phase 16:** ID Cards
+14. **Phase 17:** Library
+15. **Phase 18:** Transport
+16. **Phase 19:** Hostel
+17. **Phase 20:** Reporting
 
 ## 7. Module Lifecycle
 Every module MUST pass through these 8 steps before being marked complete:
@@ -112,8 +127,19 @@ When an AI agent (Claude, Gemini, ChatGPT) contributes to this repository, it MU
 - **Every module must support feature flags:** To enable Marketplace toggling.
 - **Every module must be marketplace-compatible:** No hardcoded inter-module dependencies.
 - **Every module must follow the 8-step lifecycle:** Do not skip to Tests or Docs.
+- **No module may implement authentication, authorization, or tenant resolution directly.** All identity concerns must flow through the Identity Platform.
 
-## 15. Future Roadmap
+## 15. Sprint Completion Checklist
+From Phase 6 forward, no sprint is considered complete until it is production-ready. Every sprint must satisfy:
+1. **Architecture:** Follows Engineering Constitution, no architectural violations, uses Platform Kernel correctly.
+2. **Security:** Tenant isolation, RBAC, Feature Flags, Marketplace, and Entitlements enforced.
+3. **Analytics:** Every new feature must emit analytics events natively.
+4. **Audit:** Every sensitive action must create an Audit Log automatically.
+5. **Events:** Every business action emits a domain event (e.g., `UserLoggedInEvent`).
+6. **Documentation:** Update `MODULE_STATUS.md`, ADRs, and `MASTER_EXECUTION_PLAN.md` before closing.
+7. **Tests:** Must include Unit, Integration, and E2E Tests. No exceptions.
+
+## 16. Future Roadmap
 - Parent/Teacher Mobile Apps
 - AI Lesson Planning & Analytics Chatbots
 - Advanced Real-time Reporting Engine

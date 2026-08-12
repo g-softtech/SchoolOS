@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "packageManager": "npm",
+  "reporters": [
+    "html",
+    "clear-text",
+    "progress",
+    "json"
+  ],
+  "testRunner": "jest",
+  "testRunner_comment": "Take a look at https://stryker-mutator.io/docs/stryker-js/jest-runner for information about the jest plugin.",
+  "coverageAnalysis": "perTest",
+  "jest": {
+    "projectType": "custom",
+    "configFile": "jest.config.js",
+    "enableFindRelatedTests": true
+  },
+  "mutate": [
+    "apps/api-gateway/src/modules/**/*.ts",
+    "!apps/api-gateway/src/modules/**/*.spec.ts",
+    "!apps/api-gateway/src/modules/**/*.e2e-spec.ts",
+    "!apps/api-gateway/src/modules/**/*.dto.ts",
+    "!apps/api-gateway/src/modules/**/*.module.ts"
+  ],
+  "thresholds": {
+    "high": 90,
+    "low": 85,
+    "break": 80
+  },
+  "symlinkNodeModules": true
+}

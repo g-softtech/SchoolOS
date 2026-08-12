@@ -1,0 +1,17 @@
+{
+  "module": "website",
+  "timestamp": "2026-07-29T10:57:28.858Z",
+  "certificationVersion": "1.0.0",
+  "results": {
+    "architectureAudit": true,
+    "testsPass": true,
+    "coveragePass": true,
+    "staticAnalysisPass": true,
+    "benchmarksPass": true
+  },
+  "artifacts": {
+    "auditLog": "./architecture.json",
+    "coverageJson": "./coverage.json",
+    "benchmarkJson": "./benchmark.json"
+  }
+}

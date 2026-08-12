@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { REQUIRE_FEATURE_KEY } from '../decorators/require-feature.decorator';
+import { REQUIRE_FEATURE_KEY } from '../../decorators/require-feature.decorator';
 import { FeatureFlagsService } from '../../feature-flags.service';
 
 @Injectable()

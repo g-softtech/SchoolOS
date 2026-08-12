@@ -1,0 +1,27 @@
+{
+  "Controllers": {
+    "match": "*.controller.ts",
+    "forbidden": [
+      "@prisma/client",
+      "../repositories"
+    ],
+    "requiredDecorators": ["@Controller"]
+  },
+  "Services": {
+    "match": "*.service.ts",
+    "forbidden": [
+      "@prisma/client",
+      "@nestjs/common/Request",
+      "@nestjs/common/Response"
+    ],
+    "requiredDecorators": ["@Injectable"]
+  },
+  "Repositories": {
+    "match": "*.repository.ts",
+    "forbidden": [
+      "@saas/core-platform/PlatformEventBus",
+      "@nestjs/axios"
+    ],
+    "requiredDecorators": ["@Injectable"]
+  }
+}
