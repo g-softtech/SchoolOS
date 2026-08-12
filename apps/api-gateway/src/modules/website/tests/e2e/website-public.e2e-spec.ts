@@ -1,7 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { WebsiteModule } from '../website.module';
+import { WebsiteModule } from '../../website.module';
+import { WebsiteRepository } from '../../repositories/website.repository';
+import { PageRepository } from '../../repositories/page.repository';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 describe('Website Public Edge Delivery (e2e)', () => {
   let app: INestApplication;

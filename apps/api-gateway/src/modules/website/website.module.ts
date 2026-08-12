@@ -12,6 +12,7 @@ import { WebsiteRepository } from './repositories/website.repository';
 import { PageRepository } from './repositories/page.repository';
 import { NavigationRepository } from './repositories/navigation.repository';
 import { AssetRepository } from './repositories/asset.repository';
+import { WebsiteCacheSubscriber } from './subscribers/website-cache.subscriber';
 import { CorePlatformModule } from '@saas/core-platform';
 
 @Module({
@@ -32,6 +33,7 @@ import { CorePlatformModule } from '@saas/core-platform';
     PageRepository,
     NavigationRepository,
     AssetRepository,
+    WebsiteCacheSubscriber,
   ],
   exports: [WebsiteService, PageService],
 })
