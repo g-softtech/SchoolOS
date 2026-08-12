@@ -28,8 +28,8 @@ export class WebsiteCacheSubscriber {
       const website = await this.websiteRepo.findByTenant(tenantId);
       
       if (website && website.domains) {
-        for (const domain of website.domains) {
-          const cacheKey = `website:resolve:${domain.domainName}:${slug}`;
+        for (const d of website.domains) {
+          const cacheKey = `website:resolve:${d.domain}:${slug}`;
           await this.cacheManager.del(cacheKey);
           this.logger.debug(`Invalidated cache key: ${cacheKey}`);
         }
