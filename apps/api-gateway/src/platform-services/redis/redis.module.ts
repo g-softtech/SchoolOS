@@ -1,5 +1,5 @@
 import { Module, Global } from '@nestjs/common';
-import { CacheModule } from '@nestjs/cache-manager';
+import { CacheModule, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-ioredis-yet';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
@@ -22,6 +22,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       },
     }),
   ],
-  exports: [CacheModule],
+  providers: [
+    {
+      provide: 'CACHE_PROVIDER',
+      useExisting: CACHE_MANAGER,
+    }
+  ],
+  exports: [CacheModule, 'CACHE_PROVIDER'],
 })
 export class RedisCacheModule {}

@@ -1,7 +1,18 @@
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import Google from "next-auth/providers/google";
 import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
 import Credentials from "next-auth/providers/credentials";
+
+declare module "next-auth" {
+  interface User {
+    id?: string;
+    accessToken?: string;
+  }
+  interface Session {
+    accessToken?: string;
+    user: User & DefaultSession["user"];
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [

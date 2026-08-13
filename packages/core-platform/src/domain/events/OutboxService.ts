@@ -27,6 +27,12 @@ export class OutboxService {
     // Serialize payload cleanly for the outbox
     const payload = event.payload as unknown as any;
 
+    // 1. Enforce strict tenant isolation
+    const SYSTEM_AGGREGATES = ['System', 'Platform', 'TenantRoot'];
+    if (!event.tenantId && !SYSTEM_AGGREGATES.includes(event.aggregateType)) {
+      throw new Error(`Tenant Isolation Violation: Event '${event.eventType}' for aggregate '${event.aggregateType}' requires a tenantId.`);
+    }
+
     try {
       // 1. Permanent Historical Record
       await tx.domainEventLog.create({

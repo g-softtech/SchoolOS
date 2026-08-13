@@ -36,6 +36,6 @@ export class PageRepository extends BaseRepository<
     if (result.count === 0) {
       throw new Error('OptimisticLockException: Page was modified by another transaction');
     }
-    return this.findById(id, tenantId);
+    return this.findById(tenantId, id);
   }
 }

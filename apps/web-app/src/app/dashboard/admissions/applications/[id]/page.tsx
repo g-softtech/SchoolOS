@@ -11,7 +11,7 @@ export default async function ApplicationDetailsPage({ params }: { params: { id:
       <div className="border rounded-lg p-12 text-center text-muted-foreground bg-slate-50 dark:bg-slate-900">
         Workflow Timeline Client Component goes here.
         <br/><br/>
-        Displays: Submitter, Approver, Timestamp, Transition Reason (e.g. DRAFT -> SUBMITTED)
+        Displays: Submitter, Approver, Timestamp, Transition Reason (e.g. DRAFT to SUBMITTED)
       </div>
     </div>
   );

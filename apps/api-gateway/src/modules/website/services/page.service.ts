@@ -58,7 +58,7 @@ export class PageService {
   }
 
   async publishPage(tenantId: string, id: string) {
-    const page = await this.pageRepo.findById(id, tenantId);
+    const page = await this.pageRepo.findById(tenantId, id);
     if (!page) throw new NotFoundException('Page not found');
 
     return this.pageRepo.transaction(async (repo) => {

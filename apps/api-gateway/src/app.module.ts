@@ -11,6 +11,7 @@ import { EntitlementsModule } from './platform-services/entitlements/entitlement
 import { LicensingModule } from './platform-services/licensing/licensing.module';
 import { StorageModule } from './platform-services/storage/storage.module';
 import { AuditModule } from './platform-services/audit/audit.module';
+import { IdentityModule } from './modules/identity/identity.module';
 import { WebsiteModule } from './modules/website/website.module';
 
 @Module({
@@ -23,6 +24,7 @@ import { WebsiteModule } from './modules/website/website.module';
     LicensingModule,
     StorageModule,
     AuditModule,
+    IdentityModule,
     WebsiteModule,
   ],
   controllers: [AppController],
