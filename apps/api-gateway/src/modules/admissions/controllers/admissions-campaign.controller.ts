@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, Param, Put } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Param, Put, Get, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AdmissionCampaignService } from '../services/admission-campaign.service';
 import { CreateCampaignDto } from '../dto/create/create-campaign.dto';
@@ -7,11 +7,16 @@ import { RequirePermission } from '../../../auth/decorators/auth.decorators';
 import { CurrentWorkspace } from '../../shared/decorators/current-workspace.decorator';
 import { WorkspaceContext } from '@saas/core-platform';
 
+import { AdmissionCampaignRepository } from '../repositories/admission-campaign.repository';
+
 @ApiTags('Admissions - Campaigns')
 @ApiBearerAuth()
 @Controller({ path: 'admissions/campaigns', version: '1' })
 export class AdmissionsCampaignController {
-  constructor(private readonly campaignService: AdmissionCampaignService) {}
+  constructor(
+    private readonly campaignService: AdmissionCampaignService,
+    private readonly campaignRepo: AdmissionCampaignRepository
+  ) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
@@ -45,5 +50,42 @@ export class AdmissionsCampaignController {
   ) {
     const activated = await this.campaignService.activateCampaign(ctx, id);
     return new ApiResponseDto(true, activated, { message: 'Campaign activated' });
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'List Admission Campaigns' })
+  @ApiOkResponse({ type: ApiResponseDto })
+  @RequirePermission('admissions.campaign.read')
+  async listCampaigns(
+    @CurrentWorkspace() ctx: WorkspaceContext,
+    @Query('status') status?: string,
+    @Query('academicYearId') academicYearId?: string,
+    @Query('skip') skip?: number,
+    @Query('take') take?: number,
+  ) {
+    const result = await this.campaignRepo.searchCampaigns(ctx.tenantId, {
+      status,
+      academicYearId,
+      skip: skip ? Number(skip) : 0,
+      take: take ? Number(take) : 20,
+    });
+    return new ApiResponseDto(true, result, { message: 'Campaigns retrieved' });
+  }
+
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Get an Admission Campaign' })
+  @ApiOkResponse({ type: ApiResponseDto })
+  @RequirePermission('admissions.campaign.read')
+  async getCampaign(
+    @CurrentWorkspace() ctx: WorkspaceContext,
+    @Param('id') id: string
+  ) {
+    const campaign = await this.campaignRepo.findById(ctx.tenantId, id);
+    if (!campaign) {
+      return new ApiResponseDto(false, null, { message: 'Campaign not found' });
+    }
+    return new ApiResponseDto(true, campaign, { message: 'Campaign retrieved' });
   }
 }
