@@ -4,6 +4,8 @@ import { fetchApi } from '../../../../lib/api';
 import Link from 'next/link';
 import StudentStatusClient from './StudentStatusClient';
 import AddGuardianClient from './AddGuardianClient';
+import EditMedicalClient from './EditMedicalClient';
+import AddDisciplineClient from './AddDisciplineClient';
 
 interface ProfileData {
   firstName: string;
@@ -23,6 +25,22 @@ interface GuardianData {
   };
 }
 
+interface MedicalData {
+  bloodGroup?: string;
+  genotype?: string;
+  allergies?: string;
+  medicalConditions?: string;
+  notes?: string;
+}
+
+interface DisciplineData {
+  id: string;
+  incidentDate: string;
+  severity: string;
+  description: string;
+  actionTaken?: string;
+}
+
 interface StudentData {
   id: string;
   admissionNumber: string;
@@ -36,13 +54,31 @@ export default async function StudentProfilePage({ params }: { params: { id: str
   const studentId = params.id;
   
   let student: Record<string, unknown> | null = null;
-  try {
-    const res = await fetchApi<{ data: Record<string, unknown> }>(`/api/v1/students/${studentId}`, {
-      token: session?.accessToken,
-    });
-    student = res.data;
-  } catch (error) {
-    console.error('Failed to fetch student details', error);
+  let medicalRecord: MedicalData | null = null;
+  let disciplineRecords: DisciplineData[] = [];
+
+  const [studentRes, medRes, discRes] = await Promise.allSettled([
+    fetchApi<{ data: Record<string, unknown> }>(`/api/v1/students/${studentId}`, { token: session?.accessToken }),
+    fetchApi<{ data: MedicalData }>(`/api/v1/students/${studentId}/medical`, { token: session?.accessToken }),
+    fetchApi<{ data: DisciplineData[] }>(`/api/v1/students/${studentId}/discipline`, { token: session?.accessToken })
+  ]);
+
+  if (studentRes.status === 'fulfilled') {
+    student = studentRes.value.data;
+  } else {
+    console.error('Failed to fetch student details', studentRes.reason);
+  }
+
+  if (medRes.status === 'fulfilled' && medRes.value.data) {
+    medicalRecord = medRes.value.data;
+  } else if (medRes.status === 'rejected') {
+    console.error('Failed to fetch medical details', medRes.reason);
+  }
+
+  if (discRes.status === 'fulfilled' && discRes.value.data) {
+    disciplineRecords = discRes.value.data;
+  } else if (discRes.status === 'rejected') {
+    console.error('Failed to fetch discipline details', discRes.reason);
   }
 
   if (!student) {
@@ -135,6 +171,76 @@ export default async function StudentProfilePage({ params }: { params: { id: str
                   </li>
                 );
               })}
+            </ul>
+          )}
+        </div>
+      </div>
+
+      <div className="bg-white shadow rounded-lg overflow-hidden mt-6">
+        <div className="px-4 py-5 sm:px-6 border-b border-gray-200 flex justify-between items-center">
+          <h3 className="text-lg leading-6 font-medium text-gray-900">Medical Information</h3>
+          <EditMedicalClient studentId={studentData.id} initialData={medicalRecord} />
+        </div>
+        <div className="px-4 py-5 sm:p-6">
+          <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Blood Group</dt>
+              <dd className="mt-1 text-sm text-gray-900">{medicalRecord?.bloodGroup || 'Not specified'}</dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Genotype</dt>
+              <dd className="mt-1 text-sm text-gray-900">{medicalRecord?.genotype || 'Not specified'}</dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Allergies</dt>
+              <dd className="mt-1 text-sm text-gray-900">{medicalRecord?.allergies || 'None'}</dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Medical Conditions</dt>
+              <dd className="mt-1 text-sm text-gray-900">{medicalRecord?.medicalConditions || 'None'}</dd>
+            </div>
+            <div className="sm:col-span-2">
+              <dt className="text-sm font-medium text-gray-500">Additional Notes</dt>
+              <dd className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{medicalRecord?.notes || 'No additional notes'}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div className="bg-white shadow rounded-lg overflow-hidden mt-6">
+        <div className="px-4 py-5 sm:px-6 border-b border-gray-200 flex justify-between items-center">
+          <h3 className="text-lg leading-6 font-medium text-gray-900">Discipline History</h3>
+          <AddDisciplineClient studentId={studentData.id} />
+        </div>
+        <div className="px-4 py-5 sm:p-6">
+          {disciplineRecords.length === 0 ? (
+            <p className="text-sm text-gray-500">No discipline records found.</p>
+          ) : (
+            <ul className="divide-y divide-gray-200">
+              {disciplineRecords.map((d: DisciplineData) => (
+                <li key={d.id} className="py-4">
+                  <div className="flex justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">
+                        {new Date(d.incidentDate).toLocaleDateString()}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">{d.description}</p>
+                      {d.actionTaken && (
+                        <p className="text-sm text-gray-500 mt-1"><span className="font-medium text-gray-700">Action:</span> {d.actionTaken}</p>
+                      )}
+                    </div>
+                    <div>
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        d.severity === 'SEVERE' ? 'bg-red-100 text-red-800' :
+                        d.severity === 'MAJOR' ? 'bg-orange-100 text-orange-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {d.severity}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              ))}
             </ul>
           )}
         </div>
