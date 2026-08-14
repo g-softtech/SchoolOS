@@ -82,7 +82,9 @@ describe('Students Lifecycle (Real E2E)', () => {
         id: tenantId,
         name: 'E2E Student Tenant',
         slug: `e2e-student-${tenantSuffix}`,
-        domain: `e2estudent-${tenantSuffix}.schoolos.com`,
+        domains: {
+          create: { domain: `e2estudent-${tenantSuffix}.schoolos.com` }
+        },
         status: 'ACTIVE',
         planId,
         subscriptions: {
@@ -124,12 +126,17 @@ describe('Students Lifecycle (Real E2E)', () => {
       });
 
       // Give event loop time to process the async event
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const surrogateEmail = `student-${applicationId}@${tenantId}.system.internal`;
+      let user: any = null;
+      for (let i = 0; i < 20; i++) {
+        user = await prisma.user.findUnique({ where: { email: surrogateEmail } });
+        if (user) break;
+        await new Promise(resolve => setTimeout(resolve, 250));
+      }
 
       // 2. Verify User
-      const surrogateEmail = `student-${applicationId}@${tenantId}.system.internal`;
-      const user = await prisma.user.findUnique({ where: { email: surrogateEmail } });
       expect(user).toBeDefined();
+      expect(user).not.toBeNull();
       expect(user?.globalRole).toBe('USER');
 
       // 3. Verify Membership and Profile

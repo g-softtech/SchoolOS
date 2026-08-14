@@ -86,7 +86,7 @@ export class IdentityProvisioningService {
       });
 
       return membership;
-    });
+    }, { timeout: 30000 });
   }
 
   /**

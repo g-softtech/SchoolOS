@@ -3,7 +3,7 @@ import { GuardianService } from '../services/guardian.service';
 import { RequirePermission } from '../../../auth/decorators/auth.decorators';
 import { CurrentWorkspace } from '../../shared/decorators/current-workspace.decorator';
 import { WorkspaceContext } from '@saas/core-platform';
-import { GuardianRelationshipType } from '../dto/student.types';
+import { GuardianRelationshipType, ProvisionGuardianDto } from '../dto/student.types';
 
 @Controller('api/v1/students')
 export class GuardianController {
@@ -14,13 +14,22 @@ export class GuardianController {
   async linkGuardian(
     @CurrentWorkspace() ctx: WorkspaceContext,
     @Param('studentId') studentId: string,
-    @Body() body: { guardianId: string, relationshipType: GuardianRelationshipType }
+    @Body() body: ProvisionGuardianDto | { guardianId: string, relationshipType: GuardianRelationshipType }
   ) {
-    return this.guardianService.linkGuardian(
-      ctx.tenantId,
-      studentId,
-      body.guardianId,
-      body.relationshipType
-    );
+    if ('guardianId' in body && body.guardianId) {
+      return this.guardianService.linkGuardian(
+        ctx.tenantId,
+        studentId,
+        body.guardianId,
+        body.relationshipType
+      );
+    } else {
+      const provisionDto = body as ProvisionGuardianDto;
+      return this.guardianService.provisionAndLinkGuardian(
+        ctx.tenantId,
+        studentId,
+        provisionDto
+      );
+    }
   }
 }

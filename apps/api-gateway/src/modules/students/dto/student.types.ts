@@ -3,9 +3,18 @@
 export enum GuardianRelationshipType {
   FATHER = 'FATHER',
   MOTHER = 'MOTHER',
-  GUARDIAN = 'GUARDIAN',
-  EMERGENCY_CONTACT = 'EMERGENCY_CONTACT',
-  SPONSOR = 'SPONSOR'
+  SIBLING = 'SIBLING',
+  UNCLE = 'UNCLE',
+  AUNT = 'AUNT',
+  GRANDPARENT = 'GRANDPARENT',
+  OTHER = 'OTHER'
+}
+
+export interface ProvisionGuardianDto {
+  firstName: string;
+  lastName: string;
+  email: string;
+  relationshipType: GuardianRelationshipType;
 }
 
 export interface CreateStudentProfileDto {

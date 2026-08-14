@@ -21,6 +21,12 @@ export class GuardianRepository {
     });
   }
 
+  async findByMembershipId(membershipId: string, tenantId: string): Promise<Guardian | null> {
+    return this.prisma.guardian.findUnique({
+      where: { membershipId },
+    });
+  }
+
   async update(id: string, tenantId: string, data: Prisma.GuardianUpdateInput): Promise<Guardian> {
     return this.prisma.guardian.update({
       where: { id, tenantId },
