@@ -1765,22 +1765,24 @@ enum RecommendationStatus {
 }
 
 model AdmissionCampaign {
-  id               String         @id @default(uuid())
+  id               String             @id @default(uuid())
   tenantId         String
-  tenant           Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant           Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   academicYearId   String
-  academicYear     AcademicYear   @relation(fields: [academicYearId], references: [id], onDelete: Restrict)
+  academicYear     AcademicYear       @relation(fields: [academicYearId], references: [id], onDelete: Restrict)
   name             String
   startDate        DateTime
   endDate          DateTime
-  status           CampaignStatus @default(DRAFT)
+  status           CampaignStatus     @default(DRAFT)
   applicationFee   Decimal?
   maxApplicants    Int?
   allowedClasses   Json
-  portalVisibility Boolean        @default(true)
-  version          Int            @default(1)
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  portalVisibility Boolean            @default(true)
+  version          Int                @default(1)
+  workflowId       String?
+  workflow         AdmissionWorkflow? @relation(fields: [workflowId], references: [id], onDelete: SetNull)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
   deletedAt        DateTime?
   deletedBy        String?
 
@@ -1803,7 +1805,8 @@ model AdmissionWorkflow {
   deletedAt DateTime?
   deletedBy String?
 
-  stages AdmissionWorkflowStage[]
+  campaigns AdmissionCampaign[]
+  stages    AdmissionWorkflowStage[]
 
   @@index([tenantId])
   @@map("adm_workflows")
