@@ -22,11 +22,15 @@ export class EnrollmentSubscriber {
     this.logger.log(`Received Enrollment Event for Application: ${payload.applicationId}`);
 
     try {
-      const student = await this.studentService.createStudent(payload.tenantId, {
-        firstName: payload.studentFirstName,
-        lastName: payload.studentLastName,
-        dateOfBirth: new Date(payload.studentDateOfBirth)
-      });
+      const student = await this.studentService.enrollStudentFromApplication(
+        payload.tenantId,
+        payload.applicationId,
+        {
+          firstName: payload.studentFirstName,
+          lastName: payload.studentLastName,
+          dateOfBirth: new Date(payload.studentDateOfBirth)
+        }
+      );
       
       this.logger.log(`Canonical Student Created: ${student.admissionNumber}`);
     } catch (err: any) {

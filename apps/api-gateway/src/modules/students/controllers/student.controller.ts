@@ -2,8 +2,8 @@ import { Controller, Get, Param, Patch, Body, Post, Query } from '@nestjs/common
 import { StudentService } from '../services/student.service';
 import { StudentLifecycleService } from '../services/student-lifecycle.service';
 import { StudentSearchService } from '../services/student-search.service';
-import { RequirePermission } from '@saas/core-platform';
-import { CurrentWorkspace } from '@saas/core-platform';
+import { RequirePermission } from '../../../auth/decorators/auth.decorators';
+import { CurrentWorkspace } from '../../shared/decorators/current-workspace.decorator';
 import { WorkspaceContext } from '@saas/core-platform';
 import { StudentStatus } from '../dto/student.types';
 

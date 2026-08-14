@@ -15,6 +15,7 @@ import { RoleService } from './services/role.service';
 import { SessionService } from './services/session.service';
 import { TenantService } from './services/tenant.service';
 import { WorkspaceService } from './services/workspace.service';
+import { IdentityProvisioningService } from './services/identity-provisioning.service';
 // Security & Interceptors & Subscribers
 import { PoliciesGuard } from './security/policies.guard';
 import { WorkspaceContextInterceptor } from './interceptors/workspace-context.interceptor';
@@ -41,6 +42,7 @@ import { TenantWizardController } from './controllers/tenant-wizard.controller';
     SessionService,
     TenantService,
     WorkspaceService,
+    IdentityProvisioningService,
     PoliciesGuard,
     WorkspaceContextInterceptor,
     AnalyticsSubscriber,
@@ -60,6 +62,7 @@ import { TenantWizardController } from './controllers/tenant-wizard.controller';
     SessionService,
     TenantService,
     WorkspaceService,
+    IdentityProvisioningService,
     PoliciesGuard,
     WorkspaceContextInterceptor,
   ],

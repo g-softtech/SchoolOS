@@ -1,7 +1,7 @@
 import { Controller, Post, Param, Body } from '@nestjs/common';
 import { GuardianService } from '../services/guardian.service';
-import { RequirePermission } from '@saas/core-platform';
-import { CurrentWorkspace } from '@saas/core-platform';
+import { RequirePermission } from '../../../auth/decorators/auth.decorators';
+import { CurrentWorkspace } from '../../shared/decorators/current-workspace.decorator';
 import { WorkspaceContext } from '@saas/core-platform';
 import { GuardianRelationshipType } from '../dto/student.types';
 

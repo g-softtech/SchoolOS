@@ -14,6 +14,7 @@ import { AuditModule } from './platform-services/audit/audit.module';
 import { IdentityModule } from './modules/identity/identity.module';
 import { WebsiteModule } from './modules/website/website.module';
 import { AdmissionsModule } from './modules/admissions/admissions.module';
+import { StudentsModule } from './modules/students/students.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AdmissionsModule } from './modules/admissions/admissions.module';
     IdentityModule,
     WebsiteModule,
     AdmissionsModule,
+    StudentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
