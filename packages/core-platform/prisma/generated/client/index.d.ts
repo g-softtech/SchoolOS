@@ -10890,10 +10890,12 @@ export namespace Prisma {
    */
 
   export type AdmissionWorkflowCountOutputType = {
+    campaigns: number
     stages: number
   }
 
   export type AdmissionWorkflowCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campaigns?: boolean | AdmissionWorkflowCountOutputTypeCountCampaignsArgs
     stages?: boolean | AdmissionWorkflowCountOutputTypeCountStagesArgs
   }
 
@@ -10906,6 +10908,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the AdmissionWorkflowCountOutputType
      */
     select?: AdmissionWorkflowCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AdmissionWorkflowCountOutputType without action
+   */
+  export type AdmissionWorkflowCountOutputTypeCountCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdmissionCampaignWhereInput
   }
 
   /**
@@ -92697,6 +92706,7 @@ export namespace Prisma {
     maxApplicants: number | null
     portalVisibility: boolean | null
     version: number | null
+    workflowId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -92715,6 +92725,7 @@ export namespace Prisma {
     maxApplicants: number | null
     portalVisibility: boolean | null
     version: number | null
+    workflowId: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -92734,6 +92745,7 @@ export namespace Prisma {
     allowedClasses: number
     portalVisibility: number
     version: number
+    workflowId: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -92766,6 +92778,7 @@ export namespace Prisma {
     maxApplicants?: true
     portalVisibility?: true
     version?: true
+    workflowId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -92784,6 +92797,7 @@ export namespace Prisma {
     maxApplicants?: true
     portalVisibility?: true
     version?: true
+    workflowId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -92803,6 +92817,7 @@ export namespace Prisma {
     allowedClasses?: true
     portalVisibility?: true
     version?: true
+    workflowId?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -92909,6 +92924,7 @@ export namespace Prisma {
     allowedClasses: JsonValue
     portalVisibility: boolean
     version: number
+    workflowId: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -92947,12 +92963,14 @@ export namespace Prisma {
     allowedClasses?: boolean
     portalVisibility?: boolean
     version?: boolean
+    workflowId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     deletedBy?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    workflow?: boolean | AdmissionCampaign$workflowArgs<ExtArgs>
     forms?: boolean | AdmissionCampaign$formsArgs<ExtArgs>
     applications?: boolean | AdmissionCampaign$applicationsArgs<ExtArgs>
     _count?: boolean | AdmissionCampaignCountOutputTypeDefaultArgs<ExtArgs>
@@ -92971,12 +92989,14 @@ export namespace Prisma {
     allowedClasses?: boolean
     portalVisibility?: boolean
     version?: boolean
+    workflowId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     deletedBy?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    workflow?: boolean | AdmissionCampaign$workflowArgs<ExtArgs>
   }, ExtArgs["result"]["admissionCampaign"]>
 
   export type AdmissionCampaignSelectScalar = {
@@ -92992,6 +93012,7 @@ export namespace Prisma {
     allowedClasses?: boolean
     portalVisibility?: boolean
     version?: boolean
+    workflowId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -93001,6 +93022,7 @@ export namespace Prisma {
   export type AdmissionCampaignInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    workflow?: boolean | AdmissionCampaign$workflowArgs<ExtArgs>
     forms?: boolean | AdmissionCampaign$formsArgs<ExtArgs>
     applications?: boolean | AdmissionCampaign$applicationsArgs<ExtArgs>
     _count?: boolean | AdmissionCampaignCountOutputTypeDefaultArgs<ExtArgs>
@@ -93008,6 +93030,7 @@ export namespace Prisma {
   export type AdmissionCampaignIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    workflow?: boolean | AdmissionCampaign$workflowArgs<ExtArgs>
   }
 
   export type $AdmissionCampaignPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -93015,6 +93038,7 @@ export namespace Prisma {
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
       academicYear: Prisma.$AcademicYearPayload<ExtArgs>
+      workflow: Prisma.$AdmissionWorkflowPayload<ExtArgs> | null
       forms: Prisma.$AdmissionFormPayload<ExtArgs>[]
       applications: Prisma.$AdmissionApplicationPayload<ExtArgs>[]
     }
@@ -93031,6 +93055,7 @@ export namespace Prisma {
       allowedClasses: Prisma.JsonValue
       portalVisibility: boolean
       version: number
+      workflowId: string | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -93401,6 +93426,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     academicYear<T extends AcademicYearDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicYearDefaultArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    workflow<T extends AdmissionCampaign$workflowArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionCampaign$workflowArgs<ExtArgs>>): Prisma__AdmissionWorkflowClient<$Result.GetResult<Prisma.$AdmissionWorkflowPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     forms<T extends AdmissionCampaign$formsArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionCampaign$formsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionFormPayload<ExtArgs>, T, "findMany"> | Null>
     applications<T extends AdmissionCampaign$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionCampaign$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionApplicationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -93444,6 +93470,7 @@ export namespace Prisma {
     readonly allowedClasses: FieldRef<"AdmissionCampaign", 'Json'>
     readonly portalVisibility: FieldRef<"AdmissionCampaign", 'Boolean'>
     readonly version: FieldRef<"AdmissionCampaign", 'Int'>
+    readonly workflowId: FieldRef<"AdmissionCampaign", 'String'>
     readonly createdAt: FieldRef<"AdmissionCampaign", 'DateTime'>
     readonly updatedAt: FieldRef<"AdmissionCampaign", 'DateTime'>
     readonly deletedAt: FieldRef<"AdmissionCampaign", 'DateTime'>
@@ -93766,6 +93793,21 @@ export namespace Prisma {
   }
 
   /**
+   * AdmissionCampaign.workflow
+   */
+  export type AdmissionCampaign$workflowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionWorkflow
+     */
+    select?: AdmissionWorkflowSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionWorkflowInclude<ExtArgs> | null
+    where?: AdmissionWorkflowWhereInput
+  }
+
+  /**
    * AdmissionCampaign.forms
    */
   export type AdmissionCampaign$formsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -94051,6 +94093,7 @@ export namespace Prisma {
     deletedAt?: boolean
     deletedBy?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    campaigns?: boolean | AdmissionWorkflow$campaignsArgs<ExtArgs>
     stages?: boolean | AdmissionWorkflow$stagesArgs<ExtArgs>
     _count?: boolean | AdmissionWorkflowCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admissionWorkflow"]>
@@ -94082,6 +94125,7 @@ export namespace Prisma {
 
   export type AdmissionWorkflowInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    campaigns?: boolean | AdmissionWorkflow$campaignsArgs<ExtArgs>
     stages?: boolean | AdmissionWorkflow$stagesArgs<ExtArgs>
     _count?: boolean | AdmissionWorkflowCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -94093,6 +94137,7 @@ export namespace Prisma {
     name: "AdmissionWorkflow"
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
+      campaigns: Prisma.$AdmissionCampaignPayload<ExtArgs>[]
       stages: Prisma.$AdmissionWorkflowStagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -94470,6 +94515,7 @@ export namespace Prisma {
   export interface Prisma__AdmissionWorkflowClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    campaigns<T extends AdmissionWorkflow$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionWorkflow$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionCampaignPayload<ExtArgs>, T, "findMany"> | Null>
     stages<T extends AdmissionWorkflow$stagesArgs<ExtArgs> = {}>(args?: Subset<T, AdmissionWorkflow$stagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionWorkflowStagePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -94824,6 +94870,26 @@ export namespace Prisma {
      * Filter which AdmissionWorkflows to delete
      */
     where?: AdmissionWorkflowWhereInput
+  }
+
+  /**
+   * AdmissionWorkflow.campaigns
+   */
+  export type AdmissionWorkflow$campaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdmissionCampaign
+     */
+    select?: AdmissionCampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdmissionCampaignInclude<ExtArgs> | null
+    where?: AdmissionCampaignWhereInput
+    orderBy?: AdmissionCampaignOrderByWithRelationInput | AdmissionCampaignOrderByWithRelationInput[]
+    cursor?: AdmissionCampaignWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdmissionCampaignScalarFieldEnum | AdmissionCampaignScalarFieldEnum[]
   }
 
   /**
@@ -107110,6 +107176,7 @@ export namespace Prisma {
     allowedClasses: 'allowedClasses',
     portalVisibility: 'portalVisibility',
     version: 'version',
+    workflowId: 'workflowId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
@@ -113932,12 +113999,14 @@ export namespace Prisma {
     allowedClasses?: JsonFilter<"AdmissionCampaign">
     portalVisibility?: BoolFilter<"AdmissionCampaign"> | boolean
     version?: IntFilter<"AdmissionCampaign"> | number
+    workflowId?: StringNullableFilter<"AdmissionCampaign"> | string | null
     createdAt?: DateTimeFilter<"AdmissionCampaign"> | Date | string
     updatedAt?: DateTimeFilter<"AdmissionCampaign"> | Date | string
     deletedAt?: DateTimeNullableFilter<"AdmissionCampaign"> | Date | string | null
     deletedBy?: StringNullableFilter<"AdmissionCampaign"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     academicYear?: XOR<AcademicYearRelationFilter, AcademicYearWhereInput>
+    workflow?: XOR<AdmissionWorkflowNullableRelationFilter, AdmissionWorkflowWhereInput> | null
     forms?: AdmissionFormListRelationFilter
     applications?: AdmissionApplicationListRelationFilter
   }
@@ -113955,12 +114024,14 @@ export namespace Prisma {
     allowedClasses?: SortOrder
     portalVisibility?: SortOrder
     version?: SortOrder
+    workflowId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
     deletedBy?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     academicYear?: AcademicYearOrderByWithRelationInput
+    workflow?: AdmissionWorkflowOrderByWithRelationInput
     forms?: AdmissionFormOrderByRelationAggregateInput
     applications?: AdmissionApplicationOrderByRelationAggregateInput
   }
@@ -113981,12 +114052,14 @@ export namespace Prisma {
     allowedClasses?: JsonFilter<"AdmissionCampaign">
     portalVisibility?: BoolFilter<"AdmissionCampaign"> | boolean
     version?: IntFilter<"AdmissionCampaign"> | number
+    workflowId?: StringNullableFilter<"AdmissionCampaign"> | string | null
     createdAt?: DateTimeFilter<"AdmissionCampaign"> | Date | string
     updatedAt?: DateTimeFilter<"AdmissionCampaign"> | Date | string
     deletedAt?: DateTimeNullableFilter<"AdmissionCampaign"> | Date | string | null
     deletedBy?: StringNullableFilter<"AdmissionCampaign"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     academicYear?: XOR<AcademicYearRelationFilter, AcademicYearWhereInput>
+    workflow?: XOR<AdmissionWorkflowNullableRelationFilter, AdmissionWorkflowWhereInput> | null
     forms?: AdmissionFormListRelationFilter
     applications?: AdmissionApplicationListRelationFilter
   }, "id">
@@ -114004,6 +114077,7 @@ export namespace Prisma {
     allowedClasses?: SortOrder
     portalVisibility?: SortOrder
     version?: SortOrder
+    workflowId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -114031,6 +114105,7 @@ export namespace Prisma {
     allowedClasses?: JsonWithAggregatesFilter<"AdmissionCampaign">
     portalVisibility?: BoolWithAggregatesFilter<"AdmissionCampaign"> | boolean
     version?: IntWithAggregatesFilter<"AdmissionCampaign"> | number
+    workflowId?: StringNullableWithAggregatesFilter<"AdmissionCampaign"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AdmissionCampaign"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AdmissionCampaign"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"AdmissionCampaign"> | Date | string | null
@@ -114051,6 +114126,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"AdmissionWorkflow"> | Date | string | null
     deletedBy?: StringNullableFilter<"AdmissionWorkflow"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    campaigns?: AdmissionCampaignListRelationFilter
     stages?: AdmissionWorkflowStageListRelationFilter
   }
 
@@ -114065,6 +114141,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     deletedBy?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
+    campaigns?: AdmissionCampaignOrderByRelationAggregateInput
     stages?: AdmissionWorkflowStageOrderByRelationAggregateInput
   }
 
@@ -114082,6 +114159,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"AdmissionWorkflow"> | Date | string | null
     deletedBy?: StringNullableFilter<"AdmissionWorkflow"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    campaigns?: AdmissionCampaignListRelationFilter
     stages?: AdmissionWorkflowStageListRelationFilter
   }, "id">
 
@@ -121445,6 +121523,7 @@ export namespace Prisma {
     deletedBy?: string | null
     tenant: TenantCreateNestedOneWithoutAdmissionCampaignInput
     academicYear: AcademicYearCreateNestedOneWithoutAdmissionCampaignsInput
+    workflow?: AdmissionWorkflowCreateNestedOneWithoutCampaignsInput
     forms?: AdmissionFormCreateNestedManyWithoutCampaignInput
     applications?: AdmissionApplicationCreateNestedManyWithoutCampaignInput
   }
@@ -121462,6 +121541,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -121487,6 +121567,7 @@ export namespace Prisma {
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutAdmissionCampaignNestedInput
     academicYear?: AcademicYearUpdateOneRequiredWithoutAdmissionCampaignsNestedInput
+    workflow?: AdmissionWorkflowUpdateOneWithoutCampaignsNestedInput
     forms?: AdmissionFormUpdateManyWithoutCampaignNestedInput
     applications?: AdmissionApplicationUpdateManyWithoutCampaignNestedInput
   }
@@ -121504,6 +121585,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -121525,6 +121607,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -121561,6 +121644,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -121577,6 +121661,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     deletedBy?: string | null
     tenant: TenantCreateNestedOneWithoutAdmissionWorkflowInput
+    campaigns?: AdmissionCampaignCreateNestedManyWithoutWorkflowInput
     stages?: AdmissionWorkflowStageCreateNestedManyWithoutWorkflowInput
   }
 
@@ -121590,6 +121675,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     deletedBy?: string | null
+    campaigns?: AdmissionCampaignUncheckedCreateNestedManyWithoutWorkflowInput
     stages?: AdmissionWorkflowStageUncheckedCreateNestedManyWithoutWorkflowInput
   }
 
@@ -121603,6 +121689,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutAdmissionWorkflowNestedInput
+    campaigns?: AdmissionCampaignUpdateManyWithoutWorkflowNestedInput
     stages?: AdmissionWorkflowStageUpdateManyWithoutWorkflowNestedInput
   }
 
@@ -121616,6 +121703,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    campaigns?: AdmissionCampaignUncheckedUpdateManyWithoutWorkflowNestedInput
     stages?: AdmissionWorkflowStageUncheckedUpdateManyWithoutWorkflowNestedInput
   }
 
@@ -127189,6 +127277,11 @@ export namespace Prisma {
     not?: NestedEnumCampaignStatusFilter<$PrismaModel> | $Enums.CampaignStatus
   }
 
+  export type AdmissionWorkflowNullableRelationFilter = {
+    is?: AdmissionWorkflowWhereInput | null
+    isNot?: AdmissionWorkflowWhereInput | null
+  }
+
   export type AdmissionCampaignCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -127202,6 +127295,7 @@ export namespace Prisma {
     allowedClasses?: SortOrder
     portalVisibility?: SortOrder
     version?: SortOrder
+    workflowId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -127226,6 +127320,7 @@ export namespace Prisma {
     maxApplicants?: SortOrder
     portalVisibility?: SortOrder
     version?: SortOrder
+    workflowId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -127244,6 +127339,7 @@ export namespace Prisma {
     maxApplicants?: SortOrder
     portalVisibility?: SortOrder
     version?: SortOrder
+    workflowId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -134942,6 +135038,12 @@ export namespace Prisma {
     connect?: AcademicYearWhereUniqueInput
   }
 
+  export type AdmissionWorkflowCreateNestedOneWithoutCampaignsInput = {
+    create?: XOR<AdmissionWorkflowCreateWithoutCampaignsInput, AdmissionWorkflowUncheckedCreateWithoutCampaignsInput>
+    connectOrCreate?: AdmissionWorkflowCreateOrConnectWithoutCampaignsInput
+    connect?: AdmissionWorkflowWhereUniqueInput
+  }
+
   export type AdmissionFormCreateNestedManyWithoutCampaignInput = {
     create?: XOR<AdmissionFormCreateWithoutCampaignInput, AdmissionFormUncheckedCreateWithoutCampaignInput> | AdmissionFormCreateWithoutCampaignInput[] | AdmissionFormUncheckedCreateWithoutCampaignInput[]
     connectOrCreate?: AdmissionFormCreateOrConnectWithoutCampaignInput | AdmissionFormCreateOrConnectWithoutCampaignInput[]
@@ -134988,6 +135090,16 @@ export namespace Prisma {
     upsert?: AcademicYearUpsertWithoutAdmissionCampaignsInput
     connect?: AcademicYearWhereUniqueInput
     update?: XOR<XOR<AcademicYearUpdateToOneWithWhereWithoutAdmissionCampaignsInput, AcademicYearUpdateWithoutAdmissionCampaignsInput>, AcademicYearUncheckedUpdateWithoutAdmissionCampaignsInput>
+  }
+
+  export type AdmissionWorkflowUpdateOneWithoutCampaignsNestedInput = {
+    create?: XOR<AdmissionWorkflowCreateWithoutCampaignsInput, AdmissionWorkflowUncheckedCreateWithoutCampaignsInput>
+    connectOrCreate?: AdmissionWorkflowCreateOrConnectWithoutCampaignsInput
+    upsert?: AdmissionWorkflowUpsertWithoutCampaignsInput
+    disconnect?: AdmissionWorkflowWhereInput | boolean
+    delete?: AdmissionWorkflowWhereInput | boolean
+    connect?: AdmissionWorkflowWhereUniqueInput
+    update?: XOR<XOR<AdmissionWorkflowUpdateToOneWithWhereWithoutCampaignsInput, AdmissionWorkflowUpdateWithoutCampaignsInput>, AdmissionWorkflowUncheckedUpdateWithoutCampaignsInput>
   }
 
   export type AdmissionFormUpdateManyWithoutCampaignNestedInput = {
@@ -135052,11 +135164,25 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput
   }
 
+  export type AdmissionCampaignCreateNestedManyWithoutWorkflowInput = {
+    create?: XOR<AdmissionCampaignCreateWithoutWorkflowInput, AdmissionCampaignUncheckedCreateWithoutWorkflowInput> | AdmissionCampaignCreateWithoutWorkflowInput[] | AdmissionCampaignUncheckedCreateWithoutWorkflowInput[]
+    connectOrCreate?: AdmissionCampaignCreateOrConnectWithoutWorkflowInput | AdmissionCampaignCreateOrConnectWithoutWorkflowInput[]
+    createMany?: AdmissionCampaignCreateManyWorkflowInputEnvelope
+    connect?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+  }
+
   export type AdmissionWorkflowStageCreateNestedManyWithoutWorkflowInput = {
     create?: XOR<AdmissionWorkflowStageCreateWithoutWorkflowInput, AdmissionWorkflowStageUncheckedCreateWithoutWorkflowInput> | AdmissionWorkflowStageCreateWithoutWorkflowInput[] | AdmissionWorkflowStageUncheckedCreateWithoutWorkflowInput[]
     connectOrCreate?: AdmissionWorkflowStageCreateOrConnectWithoutWorkflowInput | AdmissionWorkflowStageCreateOrConnectWithoutWorkflowInput[]
     createMany?: AdmissionWorkflowStageCreateManyWorkflowInputEnvelope
     connect?: AdmissionWorkflowStageWhereUniqueInput | AdmissionWorkflowStageWhereUniqueInput[]
+  }
+
+  export type AdmissionCampaignUncheckedCreateNestedManyWithoutWorkflowInput = {
+    create?: XOR<AdmissionCampaignCreateWithoutWorkflowInput, AdmissionCampaignUncheckedCreateWithoutWorkflowInput> | AdmissionCampaignCreateWithoutWorkflowInput[] | AdmissionCampaignUncheckedCreateWithoutWorkflowInput[]
+    connectOrCreate?: AdmissionCampaignCreateOrConnectWithoutWorkflowInput | AdmissionCampaignCreateOrConnectWithoutWorkflowInput[]
+    createMany?: AdmissionCampaignCreateManyWorkflowInputEnvelope
+    connect?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
   }
 
   export type AdmissionWorkflowStageUncheckedCreateNestedManyWithoutWorkflowInput = {
@@ -135074,6 +135200,20 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAdmissionWorkflowInput, TenantUpdateWithoutAdmissionWorkflowInput>, TenantUncheckedUpdateWithoutAdmissionWorkflowInput>
   }
 
+  export type AdmissionCampaignUpdateManyWithoutWorkflowNestedInput = {
+    create?: XOR<AdmissionCampaignCreateWithoutWorkflowInput, AdmissionCampaignUncheckedCreateWithoutWorkflowInput> | AdmissionCampaignCreateWithoutWorkflowInput[] | AdmissionCampaignUncheckedCreateWithoutWorkflowInput[]
+    connectOrCreate?: AdmissionCampaignCreateOrConnectWithoutWorkflowInput | AdmissionCampaignCreateOrConnectWithoutWorkflowInput[]
+    upsert?: AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput | AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput[]
+    createMany?: AdmissionCampaignCreateManyWorkflowInputEnvelope
+    set?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    disconnect?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    delete?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    connect?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    update?: AdmissionCampaignUpdateWithWhereUniqueWithoutWorkflowInput | AdmissionCampaignUpdateWithWhereUniqueWithoutWorkflowInput[]
+    updateMany?: AdmissionCampaignUpdateManyWithWhereWithoutWorkflowInput | AdmissionCampaignUpdateManyWithWhereWithoutWorkflowInput[]
+    deleteMany?: AdmissionCampaignScalarWhereInput | AdmissionCampaignScalarWhereInput[]
+  }
+
   export type AdmissionWorkflowStageUpdateManyWithoutWorkflowNestedInput = {
     create?: XOR<AdmissionWorkflowStageCreateWithoutWorkflowInput, AdmissionWorkflowStageUncheckedCreateWithoutWorkflowInput> | AdmissionWorkflowStageCreateWithoutWorkflowInput[] | AdmissionWorkflowStageUncheckedCreateWithoutWorkflowInput[]
     connectOrCreate?: AdmissionWorkflowStageCreateOrConnectWithoutWorkflowInput | AdmissionWorkflowStageCreateOrConnectWithoutWorkflowInput[]
@@ -135086,6 +135226,20 @@ export namespace Prisma {
     update?: AdmissionWorkflowStageUpdateWithWhereUniqueWithoutWorkflowInput | AdmissionWorkflowStageUpdateWithWhereUniqueWithoutWorkflowInput[]
     updateMany?: AdmissionWorkflowStageUpdateManyWithWhereWithoutWorkflowInput | AdmissionWorkflowStageUpdateManyWithWhereWithoutWorkflowInput[]
     deleteMany?: AdmissionWorkflowStageScalarWhereInput | AdmissionWorkflowStageScalarWhereInput[]
+  }
+
+  export type AdmissionCampaignUncheckedUpdateManyWithoutWorkflowNestedInput = {
+    create?: XOR<AdmissionCampaignCreateWithoutWorkflowInput, AdmissionCampaignUncheckedCreateWithoutWorkflowInput> | AdmissionCampaignCreateWithoutWorkflowInput[] | AdmissionCampaignUncheckedCreateWithoutWorkflowInput[]
+    connectOrCreate?: AdmissionCampaignCreateOrConnectWithoutWorkflowInput | AdmissionCampaignCreateOrConnectWithoutWorkflowInput[]
+    upsert?: AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput | AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput[]
+    createMany?: AdmissionCampaignCreateManyWorkflowInputEnvelope
+    set?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    disconnect?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    delete?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    connect?: AdmissionCampaignWhereUniqueInput | AdmissionCampaignWhereUniqueInput[]
+    update?: AdmissionCampaignUpdateWithWhereUniqueWithoutWorkflowInput | AdmissionCampaignUpdateWithWhereUniqueWithoutWorkflowInput[]
+    updateMany?: AdmissionCampaignUpdateManyWithWhereWithoutWorkflowInput | AdmissionCampaignUpdateManyWithWhereWithoutWorkflowInput[]
+    deleteMany?: AdmissionCampaignScalarWhereInput | AdmissionCampaignScalarWhereInput[]
   }
 
   export type AdmissionWorkflowStageUncheckedUpdateManyWithoutWorkflowNestedInput = {
@@ -138395,6 +138549,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     deletedBy?: string | null
     academicYear: AcademicYearCreateNestedOneWithoutAdmissionCampaignsInput
+    workflow?: AdmissionWorkflowCreateNestedOneWithoutCampaignsInput
     forms?: AdmissionFormCreateNestedManyWithoutCampaignInput
     applications?: AdmissionApplicationCreateNestedManyWithoutCampaignInput
   }
@@ -138411,6 +138566,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -138438,6 +138594,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     deletedBy?: string | null
+    campaigns?: AdmissionCampaignCreateNestedManyWithoutWorkflowInput
     stages?: AdmissionWorkflowStageCreateNestedManyWithoutWorkflowInput
   }
 
@@ -138450,6 +138607,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     deletedBy?: string | null
+    campaigns?: AdmissionCampaignUncheckedCreateNestedManyWithoutWorkflowInput
     stages?: AdmissionWorkflowStageUncheckedCreateNestedManyWithoutWorkflowInput
   }
 
@@ -140301,6 +140459,7 @@ export namespace Prisma {
     allowedClasses?: JsonFilter<"AdmissionCampaign">
     portalVisibility?: BoolFilter<"AdmissionCampaign"> | boolean
     version?: IntFilter<"AdmissionCampaign"> | number
+    workflowId?: StringNullableFilter<"AdmissionCampaign"> | string | null
     createdAt?: DateTimeFilter<"AdmissionCampaign"> | Date | string
     updatedAt?: DateTimeFilter<"AdmissionCampaign"> | Date | string
     deletedAt?: DateTimeNullableFilter<"AdmissionCampaign"> | Date | string | null
@@ -145085,6 +145244,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     deletedBy?: string | null
     tenant: TenantCreateNestedOneWithoutAdmissionCampaignInput
+    workflow?: AdmissionWorkflowCreateNestedOneWithoutCampaignsInput
     forms?: AdmissionFormCreateNestedManyWithoutCampaignInput
     applications?: AdmissionApplicationCreateNestedManyWithoutCampaignInput
   }
@@ -145101,6 +145261,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -164783,6 +164944,37 @@ export namespace Prisma {
     create: XOR<AcademicYearCreateWithoutAdmissionCampaignsInput, AcademicYearUncheckedCreateWithoutAdmissionCampaignsInput>
   }
 
+  export type AdmissionWorkflowCreateWithoutCampaignsInput = {
+    id?: string
+    name: string
+    isDefault?: boolean
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    tenant: TenantCreateNestedOneWithoutAdmissionWorkflowInput
+    stages?: AdmissionWorkflowStageCreateNestedManyWithoutWorkflowInput
+  }
+
+  export type AdmissionWorkflowUncheckedCreateWithoutCampaignsInput = {
+    id?: string
+    tenantId: string
+    name: string
+    isDefault?: boolean
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    stages?: AdmissionWorkflowStageUncheckedCreateNestedManyWithoutWorkflowInput
+  }
+
+  export type AdmissionWorkflowCreateOrConnectWithoutCampaignsInput = {
+    where: AdmissionWorkflowWhereUniqueInput
+    create: XOR<AdmissionWorkflowCreateWithoutCampaignsInput, AdmissionWorkflowUncheckedCreateWithoutCampaignsInput>
+  }
+
   export type AdmissionFormCreateWithoutCampaignInput = {
     id?: string
     version?: number
@@ -165055,6 +165247,43 @@ export namespace Prisma {
     terms?: TermUncheckedUpdateManyWithoutAcademicYearNestedInput
   }
 
+  export type AdmissionWorkflowUpsertWithoutCampaignsInput = {
+    update: XOR<AdmissionWorkflowUpdateWithoutCampaignsInput, AdmissionWorkflowUncheckedUpdateWithoutCampaignsInput>
+    create: XOR<AdmissionWorkflowCreateWithoutCampaignsInput, AdmissionWorkflowUncheckedCreateWithoutCampaignsInput>
+    where?: AdmissionWorkflowWhereInput
+  }
+
+  export type AdmissionWorkflowUpdateToOneWithWhereWithoutCampaignsInput = {
+    where?: AdmissionWorkflowWhereInput
+    data: XOR<AdmissionWorkflowUpdateWithoutCampaignsInput, AdmissionWorkflowUncheckedUpdateWithoutCampaignsInput>
+  }
+
+  export type AdmissionWorkflowUpdateWithoutCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant?: TenantUpdateOneRequiredWithoutAdmissionWorkflowNestedInput
+    stages?: AdmissionWorkflowStageUpdateManyWithoutWorkflowNestedInput
+  }
+
+  export type AdmissionWorkflowUncheckedUpdateWithoutCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    stages?: AdmissionWorkflowStageUncheckedUpdateManyWithoutWorkflowNestedInput
+  }
+
   export type AdmissionFormUpsertWithWhereUniqueWithoutCampaignInput = {
     where: AdmissionFormWhereUniqueInput
     update: XOR<AdmissionFormUpdateWithoutCampaignInput, AdmissionFormUncheckedUpdateWithoutCampaignInput>
@@ -165230,6 +165459,58 @@ export namespace Prisma {
   export type TenantCreateOrConnectWithoutAdmissionWorkflowInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutAdmissionWorkflowInput, TenantUncheckedCreateWithoutAdmissionWorkflowInput>
+  }
+
+  export type AdmissionCampaignCreateWithoutWorkflowInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.CampaignStatus
+    applicationFee?: Decimal | DecimalJsLike | number | string | null
+    maxApplicants?: number | null
+    allowedClasses: JsonNullValueInput | InputJsonValue
+    portalVisibility?: boolean
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    tenant: TenantCreateNestedOneWithoutAdmissionCampaignInput
+    academicYear: AcademicYearCreateNestedOneWithoutAdmissionCampaignsInput
+    forms?: AdmissionFormCreateNestedManyWithoutCampaignInput
+    applications?: AdmissionApplicationCreateNestedManyWithoutCampaignInput
+  }
+
+  export type AdmissionCampaignUncheckedCreateWithoutWorkflowInput = {
+    id?: string
+    tenantId: string
+    academicYearId: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.CampaignStatus
+    applicationFee?: Decimal | DecimalJsLike | number | string | null
+    maxApplicants?: number | null
+    allowedClasses: JsonNullValueInput | InputJsonValue
+    portalVisibility?: boolean
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+    forms?: AdmissionFormUncheckedCreateNestedManyWithoutCampaignInput
+    applications?: AdmissionApplicationUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type AdmissionCampaignCreateOrConnectWithoutWorkflowInput = {
+    where: AdmissionCampaignWhereUniqueInput
+    create: XOR<AdmissionCampaignCreateWithoutWorkflowInput, AdmissionCampaignUncheckedCreateWithoutWorkflowInput>
+  }
+
+  export type AdmissionCampaignCreateManyWorkflowInputEnvelope = {
+    data: AdmissionCampaignCreateManyWorkflowInput | AdmissionCampaignCreateManyWorkflowInput[]
+    skipDuplicates?: boolean
   }
 
   export type AdmissionWorkflowStageCreateWithoutWorkflowInput = {
@@ -165419,6 +165700,22 @@ export namespace Prisma {
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
+  export type AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput = {
+    where: AdmissionCampaignWhereUniqueInput
+    update: XOR<AdmissionCampaignUpdateWithoutWorkflowInput, AdmissionCampaignUncheckedUpdateWithoutWorkflowInput>
+    create: XOR<AdmissionCampaignCreateWithoutWorkflowInput, AdmissionCampaignUncheckedCreateWithoutWorkflowInput>
+  }
+
+  export type AdmissionCampaignUpdateWithWhereUniqueWithoutWorkflowInput = {
+    where: AdmissionCampaignWhereUniqueInput
+    data: XOR<AdmissionCampaignUpdateWithoutWorkflowInput, AdmissionCampaignUncheckedUpdateWithoutWorkflowInput>
+  }
+
+  export type AdmissionCampaignUpdateManyWithWhereWithoutWorkflowInput = {
+    where: AdmissionCampaignScalarWhereInput
+    data: XOR<AdmissionCampaignUpdateManyMutationInput, AdmissionCampaignUncheckedUpdateManyWithoutWorkflowInput>
+  }
+
   export type AdmissionWorkflowStageUpsertWithWhereUniqueWithoutWorkflowInput = {
     where: AdmissionWorkflowStageWhereUniqueInput
     update: XOR<AdmissionWorkflowStageUpdateWithoutWorkflowInput, AdmissionWorkflowStageUncheckedUpdateWithoutWorkflowInput>
@@ -165460,6 +165757,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     deletedBy?: string | null
     tenant: TenantCreateNestedOneWithoutAdmissionWorkflowInput
+    campaigns?: AdmissionCampaignCreateNestedManyWithoutWorkflowInput
   }
 
   export type AdmissionWorkflowUncheckedCreateWithoutStagesInput = {
@@ -165472,6 +165770,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     deletedBy?: string | null
+    campaigns?: AdmissionCampaignUncheckedCreateNestedManyWithoutWorkflowInput
   }
 
   export type AdmissionWorkflowCreateOrConnectWithoutStagesInput = {
@@ -165590,6 +165889,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutAdmissionWorkflowNestedInput
+    campaigns?: AdmissionCampaignUpdateManyWithoutWorkflowNestedInput
   }
 
   export type AdmissionWorkflowUncheckedUpdateWithoutStagesInput = {
@@ -165602,6 +165902,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    campaigns?: AdmissionCampaignUncheckedUpdateManyWithoutWorkflowNestedInput
   }
 
   export type AdmissionApplicationUpsertWithWhereUniqueWithoutCurrentStageInput = {
@@ -165816,6 +166117,7 @@ export namespace Prisma {
     deletedBy?: string | null
     tenant: TenantCreateNestedOneWithoutAdmissionCampaignInput
     academicYear: AcademicYearCreateNestedOneWithoutAdmissionCampaignsInput
+    workflow?: AdmissionWorkflowCreateNestedOneWithoutCampaignsInput
     applications?: AdmissionApplicationCreateNestedManyWithoutCampaignInput
   }
 
@@ -165832,6 +166134,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -166057,6 +166360,7 @@ export namespace Prisma {
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutAdmissionCampaignNestedInput
     academicYear?: AcademicYearUpdateOneRequiredWithoutAdmissionCampaignsNestedInput
+    workflow?: AdmissionWorkflowUpdateOneWithoutCampaignsNestedInput
     applications?: AdmissionApplicationUpdateManyWithoutCampaignNestedInput
   }
 
@@ -166073,6 +166377,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -166802,6 +167107,7 @@ export namespace Prisma {
     deletedBy?: string | null
     tenant: TenantCreateNestedOneWithoutAdmissionCampaignInput
     academicYear: AcademicYearCreateNestedOneWithoutAdmissionCampaignsInput
+    workflow?: AdmissionWorkflowCreateNestedOneWithoutCampaignsInput
     forms?: AdmissionFormCreateNestedManyWithoutCampaignInput
   }
 
@@ -166818,6 +167124,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -167106,6 +167413,7 @@ export namespace Prisma {
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutAdmissionCampaignNestedInput
     academicYear?: AcademicYearUpdateOneRequiredWithoutAdmissionCampaignsNestedInput
+    workflow?: AdmissionWorkflowUpdateOneWithoutCampaignsNestedInput
     forms?: AdmissionFormUpdateManyWithoutCampaignNestedInput
   }
 
@@ -167122,6 +167430,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -168261,6 +168570,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -170017,6 +170327,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     academicYear?: AcademicYearUpdateOneRequiredWithoutAdmissionCampaignsNestedInput
+    workflow?: AdmissionWorkflowUpdateOneWithoutCampaignsNestedInput
     forms?: AdmissionFormUpdateManyWithoutCampaignNestedInput
     applications?: AdmissionApplicationUpdateManyWithoutCampaignNestedInput
   }
@@ -170033,6 +170344,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -170053,6 +170365,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -170068,6 +170381,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    campaigns?: AdmissionCampaignUpdateManyWithoutWorkflowNestedInput
     stages?: AdmissionWorkflowStageUpdateManyWithoutWorkflowNestedInput
   }
 
@@ -170080,6 +170394,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    campaigns?: AdmissionCampaignUncheckedUpdateManyWithoutWorkflowNestedInput
     stages?: AdmissionWorkflowStageUncheckedUpdateManyWithoutWorkflowNestedInput
   }
 
@@ -170676,6 +170991,7 @@ export namespace Prisma {
     allowedClasses: JsonNullValueInput | InputJsonValue
     portalVisibility?: boolean
     version?: number
+    workflowId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -170734,6 +171050,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
     tenant?: TenantUpdateOneRequiredWithoutAdmissionCampaignNestedInput
+    workflow?: AdmissionWorkflowUpdateOneWithoutCampaignsNestedInput
     forms?: AdmissionFormUpdateManyWithoutCampaignNestedInput
     applications?: AdmissionApplicationUpdateManyWithoutCampaignNestedInput
   }
@@ -170750,6 +171067,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -170770,6 +171088,7 @@ export namespace Prisma {
     allowedClasses?: JsonNullValueInput | InputJsonValue
     portalVisibility?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+    workflowId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -172879,6 +173198,25 @@ export namespace Prisma {
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type AdmissionCampaignCreateManyWorkflowInput = {
+    id?: string
+    tenantId: string
+    academicYearId: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.CampaignStatus
+    applicationFee?: Decimal | DecimalJsLike | number | string | null
+    maxApplicants?: number | null
+    allowedClasses: JsonNullValueInput | InputJsonValue
+    portalVisibility?: boolean
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    deletedBy?: string | null
+  }
+
   export type AdmissionWorkflowStageCreateManyWorkflowInput = {
     id?: string
     name: string
@@ -172888,6 +173226,67 @@ export namespace Prisma {
     permissions?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type AdmissionCampaignUpdateWithoutWorkflowInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    applicationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    maxApplicants?: NullableIntFieldUpdateOperationsInput | number | null
+    allowedClasses?: JsonNullValueInput | InputJsonValue
+    portalVisibility?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    tenant?: TenantUpdateOneRequiredWithoutAdmissionCampaignNestedInput
+    academicYear?: AcademicYearUpdateOneRequiredWithoutAdmissionCampaignsNestedInput
+    forms?: AdmissionFormUpdateManyWithoutCampaignNestedInput
+    applications?: AdmissionApplicationUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type AdmissionCampaignUncheckedUpdateWithoutWorkflowInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    applicationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    maxApplicants?: NullableIntFieldUpdateOperationsInput | number | null
+    allowedClasses?: JsonNullValueInput | InputJsonValue
+    portalVisibility?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    forms?: AdmissionFormUncheckedUpdateManyWithoutCampaignNestedInput
+    applications?: AdmissionApplicationUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type AdmissionCampaignUncheckedUpdateManyWithoutWorkflowInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    applicationFee?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    maxApplicants?: NullableIntFieldUpdateOperationsInput | number | null
+    allowedClasses?: JsonNullValueInput | InputJsonValue
+    portalVisibility?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdmissionWorkflowStageUpdateWithoutWorkflowInput = {

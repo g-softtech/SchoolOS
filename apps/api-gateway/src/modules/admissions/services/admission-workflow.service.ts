@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { AdmissionWorkflowRepository, AdmissionApplicationRepository } from '../repositories';
-import { PlatformEventBus } from '@saas/core-platform';
+import { OutboxService } from '@saas/core-platform';
 import { WorkspaceContext } from '@saas/core-platform';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class AdmissionWorkflowService {
   constructor(
     private readonly workflowRepo: AdmissionWorkflowRepository,
     private readonly applicationRepo: AdmissionApplicationRepository,
-    private readonly eventBus: PlatformEventBus,
+    private readonly outboxService: OutboxService,
   ) {}
 
   /**
@@ -24,53 +24,64 @@ export class AdmissionWorkflowService {
     const application = await this.applicationRepo.findById(ctx.tenantId, applicationId);
     if (!application) throw new NotFoundException('Application not found');
 
-    const workflow = await this.workflowRepo.findWithStages(ctx.tenantId, application.campaignId); // Assuming Campaign is linked to a workflow, though schema links workflow directly or via Campaign. 
-    // Wait, looking at schema, Application has currentStageId. We need to find the target stage.
+    const campaign = await this.workflowRepo.prisma.admissionCampaign.findUnique({
+      where: { id: application.campaignId }
+    });
 
-    // Let's just verify the targetStage belongs to a valid workflow
-    const targetStage = await this.workflowRepo.prisma.admissionWorkflowStage.findUnique({
-      where: { id: targetStageId }
+    if (!campaign || !campaign.workflowId) {
+      throw new BadRequestException('Campaign does not have an associated workflow');
+    }
+
+    const workflow = await this.workflowRepo.findWithStages(ctx.tenantId, campaign.workflowId);
+
+    // Verify the targetStage belongs to this workflow
+    const targetStage = await this.workflowRepo.prisma.admissionWorkflowStage.findFirst({
+      where: { id: targetStageId, workflowId: campaign.workflowId }
     });
 
     if (!targetStage) throw new NotFoundException('Target stage not found');
 
-    // Optimistically lock and update
-    const updated = await this.applicationRepo.updateStageWithLock(
-      ctx.tenantId,
-      applicationId,
-      targetStageId,
-      version
-    );
-
-    // Emit generic transition event
-    await this.eventBus.publish({
-      type: 'WorkflowTransitioned',
-      producer: 'AdmissionsModule',
-      tenantId: ctx.tenantId,
-      payload: {
+    return this.applicationRepo.transaction(async (repo) => {
+      // Optimistically lock and update
+      const updated = await repo.updateStageWithLock(
+        ctx.tenantId,
         applicationId,
-        fromStageId: application.currentStageId,
-        toStageId: targetStageId,
-        actorId: ctx.userId,
-      },
-      version: 1
-    });
+        targetStageId,
+        version
+      );
 
-    // Audit Log
-    await this.eventBus.publish({
-      type: 'AuditLog',
-      producer: 'AdmissionsModule',
-      tenantId: ctx.tenantId,
-      payload: {
-        action: 'WORKFLOW_TRANSITION',
-        entity: 'AdmissionApplication',
-        entityId: applicationId,
-        userId: ctx.userId,
-        metadata: { from: application.currentStageId, to: targetStageId }
-      },
-      version: 1
-    });
+      // Emit generic transition event
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'Admissions.Workflow.Transitioned',
+        aggregateId: application.id,
+        aggregateType: 'AdmissionApplication',
+        tenantId: ctx.tenantId,
+        payload: {
+          applicationId,
+          fromStageId: application.currentStageId,
+          toStageId: targetStageId,
+          actorId: ctx.userId,
+        },
+        version: 1
+      });
 
-    return updated;
+      // Audit Log
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'AuditLog',
+        aggregateId: application.id,
+        aggregateType: 'SYSTEM',
+        tenantId: ctx.tenantId,
+        payload: {
+          action: 'WORKFLOW_TRANSITION',
+          entity: 'AdmissionApplication',
+          entityId: applicationId,
+          userId: ctx.userId,
+          metadata: { from: application.currentStageId, to: targetStageId }
+        },
+        version: 1
+      });
+
+      return updated;
+    });
   }
 }

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CorePlatformModule } from '@saas/core-platform';
 
 // Controllers
 import { AdmissionsCampaignController } from './controllers/admissions-campaign.controller';
@@ -9,6 +10,8 @@ import { AdmissionWorkflowController } from './controllers/admission-workflow.co
 import { AdmissionApplicationRepository } from './repositories/admission-application.repository';
 import { AdmissionCampaignRepository } from './repositories/admission-campaign.repository';
 import { AdmissionWorkflowRepository } from './repositories/admission-workflow.repository';
+import { AdmissionReviewRepository } from './repositories/admission-review.repository';
+import { AdmissionFormRepository } from './repositories/admission-form.repository';
 
 // Services
 import { AdmissionApplicationService } from './services/admission-application.service';
@@ -20,7 +23,7 @@ import { AdmissionFormService } from './services/admission-form.service';
 import { AdmissionNumberService } from './services/admission-number.service';
 
 @Module({
-  imports: [], // Add DatabaseModule, WorkspaceModule etc. when hooking up to core
+  imports: [CorePlatformModule],
   controllers: [
     AdmissionsCampaignController,
     AdmissionApplicationController,
@@ -31,6 +34,8 @@ import { AdmissionNumberService } from './services/admission-number.service';
     AdmissionApplicationRepository,
     AdmissionCampaignRepository,
     AdmissionWorkflowRepository,
+    AdmissionReviewRepository,
+    AdmissionFormRepository,
     // Services
     AdmissionApplicationService,
     AdmissionCampaignService,

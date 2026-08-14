@@ -999,6 +999,7 @@ exports.Prisma.AdmissionCampaignScalarFieldEnum = {
   allowedClasses: 'allowedClasses',
   portalVisibility: 'portalVisibility',
   version: 'version',
+  workflowId: 'workflowId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',

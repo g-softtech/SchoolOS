@@ -1,19 +1,16 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { AdmissionCampaignRepository } from '../repositories/admission-campaign.repository';
-import { WorkspaceContext } from '@saas/core-platform';
-
+import { WorkspaceContext, OutboxService } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionCampaignService {
   constructor(
     private readonly campaignRepo: AdmissionCampaignRepository,
-    private readonly eventEmitter: EventEmitter2,
-    private readonly workspace: WorkspaceContext,
+    private readonly outboxService: OutboxService,
   ) {}
 
-  async createCampaign(data: { name: string; academicYearId: string; startDate: Date; endDate: Date; maxApplicants?: number; applicationFee?: number; allowedClasses?: any }) {
-    const tenantId = this.workspace.tenantId;
+  async createCampaign(ctx: WorkspaceContext, data: { name: string; academicYearId: string; startDate: Date; endDate: Date; maxApplicants?: number; applicationFee?: number; allowedClasses?: any; workflowId?: string }) {
+    const tenantId = ctx.tenantId;
 
     if (data.startDate >= data.endDate) {
       throw new BadRequestException('Start date must be before end date.');
@@ -27,27 +24,46 @@ export class AdmissionCampaignService {
       endDate: data.endDate,
       maxApplicants: data.maxApplicants,
       applicationFee: data.applicationFee ? data.applicationFee : null,
-      allowedClasses: data.allowedClasses,
+      allowedClasses: data.allowedClasses ?? [],
       status: 'DRAFT',
-      actorId: this.workspace.userId,
+      workflowId: data.workflowId,
     };
 
-    const campaign = await this.campaignRepo.create(payload);
+    return this.campaignRepo.transaction(async (repo) => {
+      const campaign = await repo.create({ data: payload });
 
-    this.eventEmitter.emit('Admissions.Campaign.Created', { tenantId, campaignId: campaign.id });
-    
-    return campaign;
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'Admissions.Campaign.Created',
+        aggregateId: campaign.id,
+        aggregateType: 'AdmissionCampaign',
+        tenantId,
+        version: 1,
+        payload: { tenantId, campaignId: campaign.id, actorId: ctx.userId }
+      });
+
+      return campaign;
+    });
   }
 
-  async activateCampaign(campaignId: string) {
-    const tenantId = this.workspace.tenantId;
-    
-    const updated = await this.campaignRepo.update(campaignId, tenantId, {
-      status: 'ACTIVE',
-      updatedBy: this.workspace.userId,
-    });
+  async activateCampaign(ctx: WorkspaceContext, campaignId: string) {
+    const tenantId = ctx.tenantId;
 
-    this.eventEmitter.emit('Admissions.Campaign.Activated', { tenantId, campaignId: updated.id });
-    return updated;
+    return this.campaignRepo.transaction(async (repo) => {
+      const updated = await repo.update(campaignId, tenantId, {
+        status: 'ACTIVE',
+        updatedBy: ctx.userId,
+      });
+
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'Admissions.Campaign.Activated',
+        aggregateId: updated.id,
+        aggregateType: 'AdmissionCampaign',
+        tenantId,
+        version: 1,
+        payload: { tenantId, campaignId: updated.id }
+      });
+
+      return updated;
+    });
   }
 }

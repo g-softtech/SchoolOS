@@ -13,6 +13,7 @@ import { StorageModule } from './platform-services/storage/storage.module';
 import { AuditModule } from './platform-services/audit/audit.module';
 import { IdentityModule } from './modules/identity/identity.module';
 import { WebsiteModule } from './modules/website/website.module';
+import { AdmissionsModule } from './modules/admissions/admissions.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { WebsiteModule } from './modules/website/website.module';
     AuditModule,
     IdentityModule,
     WebsiteModule,
+    AdmissionsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

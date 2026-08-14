@@ -1,10 +1,13 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { AdmissionFormRepository } from '../repositories';
-import { WorkspaceContext } from '@saas/core-platform';
+import { WorkspaceContext, OutboxService } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionFormService {
-  constructor(private readonly formRepo: AdmissionFormRepository) {}
+  constructor(
+    private readonly formRepo: AdmissionFormRepository,
+    private readonly outboxService: OutboxService,
+  ) {}
 
   /**
    * Fetches a specific version of a form to ensure older applications
@@ -59,6 +62,31 @@ export class AdmissionFormService {
             }))
           }
         }
+      });
+
+      await this.outboxService.appendEvent(tx, {
+        eventType: 'Admissions.Form.Published',
+        aggregateId: newForm.id,
+        aggregateType: 'AdmissionForm',
+        tenantId: ctx.tenantId,
+        payload: { formId: newForm.id, campaignId, version: nextVersion },
+        version: 1
+      });
+
+      // Audit Log
+      await this.outboxService.appendEvent(tx, {
+        eventType: 'AuditLog',
+        aggregateId: newForm.id,
+        aggregateType: 'SYSTEM',
+        tenantId: ctx.tenantId,
+        payload: {
+          action: 'FORM_PUBLISHED',
+          entity: 'AdmissionForm',
+          entityId: newForm.id,
+          userId: ctx.userId,
+          metadata: { campaignId, version: nextVersion }
+        },
+        version: 1
       });
 
       return newForm;

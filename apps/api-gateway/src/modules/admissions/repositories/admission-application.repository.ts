@@ -12,8 +12,16 @@ export class AdmissionApplicationRepository extends BaseRepository<
   Prisma.AdmissionApplicationFindFirstArgs,
   Prisma.AdmissionApplicationFindManyArgs
 > {
-  constructor(prisma: PrismaService) {
+  constructor(public readonly prisma: PrismaService) {
     super(prisma, prisma.admissionApplication);
+  }
+
+  // Support for transactions
+  async transaction<T>(action: (repo: AdmissionApplicationRepository) => Promise<T>): Promise<T> {
+    return this.prisma.$transaction(async (tx: any) => {
+      const repo = new AdmissionApplicationRepository(tx as PrismaService);
+      return action(repo);
+    });
   }
 
   async searchApplications(tenantId: string, params: {

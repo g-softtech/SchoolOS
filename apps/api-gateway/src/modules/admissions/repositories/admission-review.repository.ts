@@ -12,8 +12,16 @@ export class AdmissionReviewRepository extends BaseRepository<
   Prisma.AdmissionReviewFindFirstArgs,
   Prisma.AdmissionReviewFindManyArgs
 > {
-  constructor(prisma: PrismaService) {
+  constructor(public readonly prisma: PrismaService) {
     super(prisma, prisma.admissionReview);
+  }
+
+  // Support for transactions
+  async transaction<T>(action: (repo: AdmissionReviewRepository) => Promise<T>): Promise<T> {
+    return this.prisma.$transaction(async (tx: any) => {
+      const repo = new AdmissionReviewRepository(tx as PrismaService);
+      return action(repo);
+    });
   }
 
   async findExistingReview(applicationId: string, reviewerId: string, stageId: string): Promise<AdmissionReview | null> {

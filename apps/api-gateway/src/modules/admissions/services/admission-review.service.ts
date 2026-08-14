@@ -1,13 +1,12 @@
 import { Injectable, BadRequestException, ConflictException } from '@nestjs/common';
 import { AdmissionReviewRepository } from '../repositories';
-import { WorkspaceContext } from '@saas/core-platform';
-import { PlatformEventBus } from '@saas/core-platform';
+import { WorkspaceContext, OutboxService } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionReviewService {
   constructor(
     private readonly reviewRepo: AdmissionReviewRepository,
-    private readonly eventBus: PlatformEventBus,
+    private readonly outboxService: OutboxService,
   ) {}
 
   /**
@@ -27,42 +26,46 @@ export class AdmissionReviewService {
       throw new ConflictException('You have already submitted a review for this application in this stage. Overwrites are forbidden.');
     }
 
-    const review = await this.reviewRepo.create({
-      data: {
-        applicationId,
-        reviewerId,
-        stageId,
-        score: payload.score,
-        comments: payload.comments,
-        recommendation: payload.recommendation,
+    return this.reviewRepo.transaction(async (repo) => {
+      const review = await repo.create({
+        data: {
+          applicationId,
+          reviewerId,
+          stageId,
+          score: payload.score,
+          comments: payload.comments,
+          recommendation: payload.recommendation,
+          version: 1
+        }
+      });
+
+      // Audit Log
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'AuditLog',
+        aggregateId: review.id,
+        aggregateType: 'SYSTEM',
+        tenantId: ctx.tenantId,
+        payload: {
+          action: 'REVIEW_COMPLETED',
+          entity: 'AdmissionReview',
+          entityId: review.id,
+          userId: ctx.userId,
+          metadata: { applicationId, stageId, recommendation: payload.recommendation }
+        },
         version: 1
-      }
-    });
+      });
 
-    // Audit Log
-    await this.eventBus.publish({
-      type: 'AuditLog',
-      producer: 'AdmissionsModule',
-      tenantId: ctx.tenantId,
-      payload: {
-        action: 'REVIEW_COMPLETED',
-        entity: 'AdmissionReview',
-        entityId: review.id,
-        userId: ctx.userId,
-        metadata: { applicationId, stageId, recommendation: payload.recommendation }
-      },
-      version: 1
-    });
+      // Domain Event
+      await this.outboxService.appendEvent(repo.prisma, {
+        eventType: 'Admissions.Review.Completed',
+        aggregateId: review.id,
+        aggregateType: 'AdmissionReview',
+        tenantId: ctx.tenantId,
+        payload: { reviewId: review.id, applicationId, stageId },
+        version: 1
+      });
 
-    // Domain Event
-    await this.eventBus.publish({
-      type: 'ReviewCompleted',
-      producer: 'AdmissionsModule',
-      tenantId: ctx.tenantId,
-      payload: { reviewId: review.id, applicationId, stageId },
-      version: 1
+      return review;
     });
-
-    return review;
   }
 }

@@ -3,15 +3,15 @@ import { WorkspaceContext } from '@saas/core-platform';
 
 @Injectable()
 export class AdmissionNumberService {
-  constructor(private readonly workspace: WorkspaceContext) {}
+  constructor() {}
 
   /**
    * Generates a deterministic admission number based on tenant configuration.
    * Supports configurable prefixes, yearly resets, and check digits.
    * Format example: '{PREFIX}-{YEAR}-{SEQ}' -> 'ADM-2027-0001'
    */
-  async generateAdmissionNumber(campaignId: string, sequence: number, formatTemplate: string = 'ADM-{YYYY}-{SEQ}'): Promise<string> {
-    const tenantId = this.workspace.tenantId;
+  async generateAdmissionNumber(ctx: WorkspaceContext, campaignId: string, sequence: number, formatTemplate: string = 'ADM-{YYYY}-{SEQ}'): Promise<string> {
+    const tenantId = ctx.tenantId;
     
     const year = new Date().getFullYear().toString();
     const formattedSequence = sequence.toString().padStart(4, '0');
