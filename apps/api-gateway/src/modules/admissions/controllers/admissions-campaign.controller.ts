@@ -8,6 +8,7 @@ import { CurrentWorkspace } from '../../shared/decorators/current-workspace.deco
 import { WorkspaceContext } from '@saas/core-platform';
 
 import { AdmissionCampaignRepository } from '../repositories/admission-campaign.repository';
+import { AdmissionFormRepository } from '../repositories/admission-form.repository';
 
 @ApiTags('Admissions - Campaigns')
 @ApiBearerAuth()
@@ -15,7 +16,8 @@ import { AdmissionCampaignRepository } from '../repositories/admission-campaign.
 export class AdmissionsCampaignController {
   constructor(
     private readonly campaignService: AdmissionCampaignService,
-    private readonly campaignRepo: AdmissionCampaignRepository
+    private readonly campaignRepo: AdmissionCampaignRepository,
+    private readonly formRepo: AdmissionFormRepository
   ) {}
 
   @Post()
@@ -87,5 +89,21 @@ export class AdmissionsCampaignController {
       return new ApiResponseDto(false, null, { message: 'Campaign not found' });
     }
     return new ApiResponseDto(true, campaign, { message: 'Campaign retrieved' });
+  }
+
+  @Get(':id/form')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Get Published Admission Form for Campaign' })
+  @ApiOkResponse({ type: ApiResponseDto })
+  @RequirePermission('admissions.campaign.read')
+  async getCampaignForm(
+    @CurrentWorkspace() ctx: WorkspaceContext,
+    @Param('id') id: string
+  ) {
+    const form = await this.formRepo.findPublishedForm(ctx.tenantId, id);
+    if (!form) {
+      return new ApiResponseDto(false, null, { message: 'Form not found or not published' });
+    }
+    return new ApiResponseDto(true, form, { message: 'Form retrieved' });
   }
 }

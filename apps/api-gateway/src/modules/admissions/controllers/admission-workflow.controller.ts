@@ -35,4 +35,13 @@ export class AdmissionWorkflowController {
     }
     return { success: true, data: workflow };
   }
+
+  @Get()
+  @RequirePermission('admissions.workflow.read')
+  async listWorkflows(
+    @CurrentWorkspace() ctx: WorkspaceContext
+  ) {
+    const workflows = await this.workflowRepo.findMany({ where: { tenantId: ctx.tenantId, deletedAt: null } });
+    return { success: true, data: workflows };
+  }
 }

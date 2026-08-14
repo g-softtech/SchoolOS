@@ -33,8 +33,18 @@ export default async function ApplicationsPage() {
 
   return (
     <div className="p-8 space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">Admissions Applications</h1>
-      <p className="text-muted-foreground">Review and manage all submitted applications.</p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Admissions Applications</h1>
+          <p className="text-muted-foreground">Review and manage all submitted applications.</p>
+        </div>
+        <Link
+          href="/dashboard/admissions/wizard"
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium"
+        >
+          New Application
+        </Link>
+      </div>
       
       {applications.length === 0 ? (
         <div className="border rounded-lg p-12 text-center text-muted-foreground bg-slate-50 dark:bg-slate-900">
