@@ -12,13 +12,12 @@ export class GuardianService {
     private readonly eventBus: PlatformEventBus
   ) {}
 
-  async linkGuardian(tenantId: string, studentId: string, guardianId: string, relationshipType: GuardianRelationshipType, isPrimary: boolean = false) {
+  async linkGuardian(tenantId: string, studentId: string, guardianId: string, relationshipType: GuardianRelationshipType) {
     const link = await this.prisma.studentGuardian.create({
       data: {
         studentId,
         guardianId,
-        relationship: relationshipType,
-        isPrimary
+        relationship: relationshipType as any, // Cast since GuardianRelationshipType doesn't exactly match Prisma Enum yet unless aligned
       }
     });
 

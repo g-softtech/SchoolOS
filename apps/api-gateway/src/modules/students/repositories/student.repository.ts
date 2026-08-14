@@ -10,7 +10,7 @@ export class StudentRepository {
     return this.prisma.student.create({ data });
   }
 
-  async findById(id: string, tenantId: string): Promise<Student | null> {
+  async findById(id: string, tenantId: string): Promise<any> {
     return this.prisma.student.findUnique({
       where: { id, tenantId },
       include: {
@@ -18,7 +18,11 @@ export class StudentRepository {
           include: { profile: true }
         },
         guardians: {
-          include: { guardian: true }
+          include: { 
+            guardian: {
+              include: { membership: { include: { profile: true } } }
+            }
+          }
         }
       }
     });
@@ -38,7 +42,7 @@ export class StudentRepository {
       limit?: number;
       where?: Prisma.StudentWhereInput;
     }
-  ): Promise<Student[]> {
+  ): Promise<any[]> {
     const { cursor, limit = 50, where } = params;
     return this.prisma.student.findMany({
       where: { ...where, tenantId },
@@ -51,4 +55,14 @@ export class StudentRepository {
       },
     });
   }
+
+  async findByMembershipId(membershipId: string, tenantId: string): Promise<any> {
+    return this.prisma.student.findUnique({
+      where: { membershipId, tenantId },
+      include: {
+        membership: { include: { profile: true } }
+      }
+    });
+  }
 }
+

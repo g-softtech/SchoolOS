@@ -1,12 +1,4 @@
-export enum StudentStatus {
-  PENDING = 'PENDING',
-  ACTIVE = 'ACTIVE',
-  SUSPENDED = 'SUSPENDED',
-  WITHDRAWN = 'WITHDRAWN',
-  GRADUATED = 'GRADUATED',
-  ALUMNI = 'ALUMNI',
-  ARCHIVED = 'ARCHIVED'
-}
+
 
 export enum GuardianRelationshipType {
   FATHER = 'FATHER',

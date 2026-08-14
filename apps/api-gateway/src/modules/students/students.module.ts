@@ -9,7 +9,6 @@ import { GuardianController } from './controllers/guardian.controller';
 // Repositories
 import { StudentRepository } from './repositories/student.repository';
 import { GuardianRepository } from './repositories/guardian.repository';
-import { StudentStatusLogRepository } from './repositories/student-status-log.repository';
 
 // Services
 import { StudentService } from './services/student.service';
@@ -27,7 +26,6 @@ import { EnrollmentSubscriber } from './subscribers/admission-enrolled.subscribe
   providers: [
     StudentRepository,
     GuardianRepository,
-    StudentStatusLogRepository,
     StudentService,
     StudentLifecycleService,
     StudentSearchService,

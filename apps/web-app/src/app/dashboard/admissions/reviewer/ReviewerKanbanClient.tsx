@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function ReviewerKanbanClient({ campaigns, token }: { campaigns: { id: string; name: string; workflowId?: string }[], token: string | undefined }) {
-  const router = useRouter();
   const [selectedCampaignId, setSelectedCampaignId] = useState('');
   const [workflow, setWorkflow] = useState<{ id: string; name: string; stages: { id: string; name: string }[] } | null>(null);
   const [applications, setApplications] = useState<{ id: string; studentFirstName: string; studentLastName: string; admissionNumber?: string; currentStageId?: string }[]>([]);

@@ -1,4 +1,6 @@
-process.env.DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/schoolos_test?schema=public";
+import * as dotenv from 'dotenv';
+dotenv.config({ path: 'c:\\my_school_app\\saas-platform\\.env' });
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, Module, Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -32,7 +34,8 @@ describe('Students Lifecycle (Real E2E)', () => {
   let eventBus: PlatformEventBus;
   let membershipRepo: TenantMembershipRepository;
 
-  const tenantId = 'e2e-std-tenant-1';
+  const tenantSuffix = Date.now().toString();
+  const tenantId = `e2e-std-tenant-${tenantSuffix}`;
   let planId: string;
 
   beforeAll(async () => {
@@ -78,10 +81,11 @@ describe('Students Lifecycle (Real E2E)', () => {
       create: {
         id: tenantId,
         name: 'E2E Student Tenant',
-        slug: 'e2e-student',
-        domain: 'e2estudent.schoolos.com',
+        slug: `e2e-student-${tenantSuffix}`,
+        domain: `e2estudent-${tenantSuffix}.schoolos.com`,
         status: 'ACTIVE',
-        subscription: {
+        planId,
+        subscriptions: {
           create: {
             planId,
             currentPeriodEnd: new Date(Date.now() + 30 * 86400000)

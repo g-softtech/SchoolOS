@@ -10,14 +10,14 @@ export class StudentSearchService {
     const where: any = {};
     
     if (query.status) {
-      where.status = query.status;
+      where.membership = { state: query.status };
     }
 
     if (query.q) {
       where.OR = [
-        { studentNumber: { contains: query.q, mode: 'insensitive' } },
-        { profile: { firstName: { contains: query.q, mode: 'insensitive' } } },
-        { profile: { lastName: { contains: query.q, mode: 'insensitive' } } }
+        { admissionNumber: { contains: query.q, mode: 'insensitive' } },
+        { membership: { profile: { firstName: { contains: query.q, mode: 'insensitive' } } } },
+        { membership: { profile: { lastName: { contains: query.q, mode: 'insensitive' } } } }
       ];
     }
 

@@ -4,8 +4,7 @@ import { StudentLifecycleService } from '../services/student-lifecycle.service';
 import { StudentSearchService } from '../services/student-search.service';
 import { RequirePermission } from '../../../auth/decorators/auth.decorators';
 import { CurrentWorkspace } from '../../shared/decorators/current-workspace.decorator';
-import { WorkspaceContext } from '@saas/core-platform';
-import { StudentStatus } from '../dto/student.types';
+import { WorkspaceContext, IdentityState } from '@saas/core-platform';
 
 @Controller('api/v1/students')
 export class StudentController {
@@ -43,8 +42,8 @@ export class StudentController {
   async updateStatus(
     @CurrentWorkspace() ctx: WorkspaceContext,
     @Param('id') id: string,
-    @Body() body: { targetStatus: StudentStatus, reason?: string }
+    @Body() body: { targetStatus: IdentityState, reason?: string }
   ) {
-    return this.lifecycleService.transitionStatus(id, ctx.tenantId, body.targetStatus, ctx.userId, body.reason);
+    return this.lifecycleService.transitionStatus(id, ctx.tenantId, body.targetStatus, ctx.userId as string, body.reason);
   }
 }

@@ -88,4 +88,53 @@ export class IdentityProvisioningService {
       return membership;
     });
   }
+
+  /**
+   * Transitions the state of a TenantMembership and records the transition in LifecycleTransition.
+   */
+  async transitionMembershipState(
+    tenantMembershipId: string,
+    tenantId: string,
+    newState: string, // IdentityState
+    actorId?: string,
+    reason?: string
+  ): Promise<TenantMembership> {
+    return this.prisma.$transaction(async (tx) => {
+      const membership = await tx.tenantMembership.findUnique({
+        where: { id: tenantMembershipId }
+      });
+
+      if (!membership || membership.tenantId !== tenantId) {
+        throw new Error('Membership not found or tenant mismatch');
+      }
+
+      if (membership.state === newState) {
+        return membership;
+      }
+
+      const previousState = membership.state;
+
+      // Update membership state
+      const updated = await tx.tenantMembership.update({
+        where: { id: tenantMembershipId },
+        data: {
+          state: newState as any,
+          version: { increment: 1 }
+        }
+      });
+
+      // Record transition
+      await tx.lifecycleTransition.create({
+        data: {
+          tenantMembershipId,
+          fromState: previousState,
+          toState: newState,
+          actorId,
+          reason
+        }
+      });
+
+      return updated;
+    });
+  }
 }

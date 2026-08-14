@@ -14,14 +14,13 @@ export class GuardianController {
   async linkGuardian(
     @CurrentWorkspace() ctx: WorkspaceContext,
     @Param('studentId') studentId: string,
-    @Body() body: { guardianId: string, relationshipType: GuardianRelationshipType, isPrimary: boolean }
+    @Body() body: { guardianId: string, relationshipType: GuardianRelationshipType }
   ) {
     return this.guardianService.linkGuardian(
       ctx.tenantId,
       studentId,
       body.guardianId,
-      body.relationshipType,
-      body.isPrimary
+      body.relationshipType
     );
   }
 }

@@ -29,9 +29,7 @@ export class StudentService {
     });
 
     // 3. Ensure we don't duplicate the student record
-    const existingStudent = await this.studentRepo.findFirst({
-      where: { membershipId: membership.id, tenantId }
-    });
+    const existingStudent = await this.studentRepo.findByMembershipId(membership.id, tenantId);
 
     if (existingStudent) {
       return existingStudent;
