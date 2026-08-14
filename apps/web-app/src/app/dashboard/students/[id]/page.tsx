@@ -3,6 +3,7 @@ import { auth } from '../../../../../auth';
 import { fetchApi } from '../../../../lib/api';
 import Link from 'next/link';
 import StudentStatusClient from './StudentStatusClient';
+import AddGuardianClient from './AddGuardianClient';
 
 interface ProfileData {
   firstName: string;
@@ -114,8 +115,9 @@ export default async function StudentProfilePage({ params }: { params: { id: str
       </div>
 
       <div className="bg-white shadow rounded-lg overflow-hidden mt-6">
-        <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <div className="px-4 py-5 sm:px-6 border-b border-gray-200 flex justify-between items-center">
           <h3 className="text-lg leading-6 font-medium text-gray-900">Guardians</h3>
+          <AddGuardianClient studentId={studentData.id} />
         </div>
         <div className="px-4 py-5 sm:p-6">
           {guardians.length === 0 ? (
