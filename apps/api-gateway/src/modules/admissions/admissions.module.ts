@@ -5,6 +5,7 @@ import { CorePlatformModule } from '@saas/core-platform';
 import { AdmissionsCampaignController } from './controllers/admissions-campaign.controller';
 import { AdmissionApplicationController } from './controllers/admission-application.controller';
 import { AdmissionWorkflowController } from './controllers/admission-workflow.controller';
+import { AdmissionReviewController } from './controllers/admission-review.controller';
 
 // Repositories
 import { AdmissionApplicationRepository } from './repositories/admission-application.repository';
@@ -28,6 +29,7 @@ import { AdmissionNumberService } from './services/admission-number.service';
     AdmissionsCampaignController,
     AdmissionApplicationController,
     AdmissionWorkflowController,
+    AdmissionReviewController,
   ],
   providers: [
     // Repositories

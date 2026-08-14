@@ -1,6 +1,7 @@
 import React from 'react';
 import { auth } from '../../../../../../auth';
 import { fetchApi } from '../../../../../lib/api';
+import ApplicationTransitionClient from './ApplicationTransitionClient';
 
 interface Stage {
   id: string;
@@ -114,6 +115,13 @@ export default async function ApplicationDetailsPage({ params }: { params: { id:
               })}
             </ul>
           )}
+
+          <ApplicationTransitionClient
+            applicationId={application.id}
+            currentStageId={application.currentStageId}
+            stages={stages}
+            token={session?.accessToken}
+          />
         </div>
       </div>
     </div>
