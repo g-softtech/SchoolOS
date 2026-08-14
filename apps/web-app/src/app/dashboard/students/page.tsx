@@ -2,6 +2,7 @@ import React from 'react';
 import { auth } from '../../../../auth';
 import { fetchApi } from '../../../lib/api';
 import Link from 'next/link';
+import StudentSearchFilters from './StudentSearchFilters';
 
 interface Student {
   id: string;
@@ -15,12 +16,21 @@ interface Student {
   };
 }
 
-export default async function StudentsPage() {
+export default async function StudentsPage({
+  searchParams,
+}: {
+  searchParams: { q?: string; status?: string };
+}) {
   const session = await auth();
   
   let students: Student[] = [];
   try {
-    const res = await fetchApi<{ data: { data: Student[] } }>('/api/v1/students/search', {
+    const params = new URLSearchParams();
+    if (searchParams.q) params.set('q', searchParams.q);
+    if (searchParams.status) params.set('status', searchParams.status);
+    const queryString = params.toString() ? `?${params.toString()}` : '';
+
+    const res = await fetchApi<{ data: { data: Student[] } }>(`/api/v1/students/search${queryString}`, {
       token: session?.accessToken,
     });
     students = res.data?.data || [];
@@ -36,6 +46,8 @@ export default async function StudentsPage() {
           <p className="text-muted-foreground">Search and manage enrolled students.</p>
         </div>
       </div>
+
+      <StudentSearchFilters />
       
       {students.length === 0 ? (
         <div className="border rounded-lg p-12 text-center text-muted-foreground bg-slate-50 dark:bg-slate-900">
