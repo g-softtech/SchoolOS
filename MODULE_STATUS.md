@@ -11,7 +11,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Parent Portal (BFF) | 🟡 Architecture Complete |
 | Finance | 🟡 Feature Complete (Certification Pending) |
 | Identity Platform | 🟡 Under Certification |
-| Students | ⬜ Pending |
+| Students | ✅ Certified |
 | Academics | ⬜ Pending |
 | Attendance | ⬜ Pending |
 | Exams & CBT | ⬜ Pending |

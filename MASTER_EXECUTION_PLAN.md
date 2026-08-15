@@ -24,7 +24,7 @@ This document is the "Constitution" of the SchoolOS project. It is the single so
 | Authentication     | 🟡 Impl. Complete (Cert Pending) |
 | Platform Testing   | 🔴 Not Started |
 | Admissions         | 🟢 CERTIFIED |
-| Student Management | ⏳ Pending  |
+| Student Management | 🟢 CERTIFIED |
 | Academics          | ⏳ Pending  |
 | Finance            | ⏳ Pending  |
 | HR                 | ⏳ Pending  |
