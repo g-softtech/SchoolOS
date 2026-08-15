@@ -22,6 +22,7 @@
 - **Unit & E2E Test Coverage:** PASS (31/31 unit tests passing)
 - **Identity Provisioning Transaction:** PASS (Fixed in M7.2a)
 - **Neon Connection E2E Limits:** DEFERRED (M7.2b)
+- **Academics Dead Code:** DEFERRED (Discovered scaffolded `AcademicsModule` uses non-existent `academicSession` Prisma model; needs rewrite in Phase 10 M10.1).
 
 ---
 
