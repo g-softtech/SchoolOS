@@ -1,65 +1,119 @@
 import { StudentRepository } from '../repositories/student.repository';
 import { PrismaService } from '@saas/core-platform';
-import { StudentStatus } from '../dto/student.types';
+import { mockDeep, mockReset } from 'jest-mock-extended';
 
-describe('StudentRepository Integration', () => {
-  let prisma: PrismaService;
+describe('StudentRepository', () => {
+  const mockPrisma = mockDeep<PrismaService>();
   let repository: StudentRepository;
-  const tenantId = 'test-tenant';
 
-  beforeAll(async () => {
-    prisma = new PrismaService();
-    repository = new StudentRepository(prisma);
+  beforeEach(() => {
+    mockReset(mockPrisma);
+    repository = new StudentRepository(mockPrisma);
   });
 
-  afterAll(async () => {
-    await prisma.$disconnect();
-  });
+  describe('create', () => {
+    it('should call prisma.student.create with provided data', async () => {
+      const inputData: any = {
+        tenant: { connect: { id: 'tenant-1' } },
+        admissionNumber: 'STU-001',
+        membership: { connect: { id: 'mem-1' } }
+      };
+      const mockResult: any = { id: 'stu-1', tenantId: 'tenant-1', admissionNumber: 'STU-001' };
+      mockPrisma.student.create.mockResolvedValue(mockResult);
 
-  describe('create and findById', () => {
-    it('should create a student and fetch it with profile', async () => {
-      // Setup - optionally clean up old data if needed, assuming isolated test db
-      const studentNumber = `STU-TEST-${Date.now()}`;
-      
-      const created = await repository.create({
-        tenantId,
-        studentNumber,
-        status: StudentStatus.PENDING,
-        profile: {
-          create: {
-            firstName: 'Integration',
-            lastName: 'Test',
-            dateOfBirth: new Date('2015-01-01')
-          }
-        }
-      });
+      const result = await repository.create(inputData);
 
-      expect(created.id).toBeDefined();
-      expect(created.studentNumber).toBe(studentNumber);
-      
-      const fetched = await repository.findById(created.id, tenantId);
-      expect(fetched).not.toBeNull();
-      expect(fetched!.profile).not.toBeNull();
-      expect(fetched!.profile!.firstName).toBe('Integration');
+      expect(mockPrisma.student.create).toHaveBeenCalledWith({ data: inputData });
+      expect(result).toEqual(mockResult);
     });
   });
 
-  describe('update (Optimistic Locking / Ledger simulation)', () => {
-    it('should update a student', async () => {
-      const studentNumber = `STU-TEST-${Date.now()}`;
-      const created = await repository.create({
-        tenantId,
-        studentNumber,
-        status: StudentStatus.PENDING
-      });
+  describe('findById', () => {
+    it('should return a student with membership and guardians when found', async () => {
+      const mockStudent: any = {
+        id: 'stu-1',
+        tenantId: 'tenant-1',
+        admissionNumber: 'STU-001',
+        membership: { profile: { firstName: 'Jane', lastName: 'Doe' }, state: 'ACTIVE' },
+        guardians: []
+      };
+      mockPrisma.student.findUnique.mockResolvedValue(mockStudent);
 
-      const updated = await repository.update(created.id, tenantId, { status: StudentStatus.ACTIVE });
-      
-      expect(updated.status).toBe(StudentStatus.ACTIVE);
-      
-      // Verify via fetch
-      const fetched = await repository.findById(created.id, tenantId);
-      expect(fetched!.status).toBe(StudentStatus.ACTIVE);
+      const result = await repository.findById('stu-1', 'tenant-1');
+
+      expect(mockPrisma.student.findUnique).toHaveBeenCalledWith(
+        expect.objectContaining({ where: { id: 'stu-1', tenantId: 'tenant-1' } })
+      );
+      expect(result).toEqual(mockStudent);
+    });
+
+    it('should return null when student is not found', async () => {
+      mockPrisma.student.findUnique.mockResolvedValue(null);
+
+      const result = await repository.findById('not-exist', 'tenant-1');
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('findByMembershipId', () => {
+    it('should return a student matched by membershipId and tenantId', async () => {
+      const mockStudent: any = { id: 'stu-1', membershipId: 'mem-1', tenantId: 'tenant-1' };
+      mockPrisma.student.findUnique.mockResolvedValue(mockStudent);
+
+      const result = await repository.findByMembershipId('mem-1', 'tenant-1');
+
+      expect(mockPrisma.student.findUnique).toHaveBeenCalledWith(
+        expect.objectContaining({ where: { membershipId: 'mem-1', tenantId: 'tenant-1' } })
+      );
+      expect(result).toEqual(mockStudent);
+    });
+  });
+
+  describe('findManyWithPagination', () => {
+    it('should pass tenantId and pagination params to prisma', async () => {
+      const mockStudents: any[] = [
+        { id: 'stu-1', tenantId: 'tenant-1' },
+        { id: 'stu-2', tenantId: 'tenant-1' }
+      ];
+      mockPrisma.student.findMany.mockResolvedValue(mockStudents);
+
+      const result = await repository.findManyWithPagination('tenant-1', { limit: 10 });
+
+      expect(mockPrisma.student.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({ tenantId: 'tenant-1' }),
+          take: 10
+        })
+      );
+      expect(result).toEqual(mockStudents);
+    });
+
+    it('should apply cursor pagination when cursor is provided', async () => {
+      mockPrisma.student.findMany.mockResolvedValue([]);
+
+      await repository.findManyWithPagination('tenant-1', { cursor: 'stu-cursor-1', limit: 5 });
+
+      expect(mockPrisma.student.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          cursor: { id: 'stu-cursor-1' },
+          skip: 1,
+          take: 5
+        })
+      );
+    });
+  });
+
+  describe('update', () => {
+    it('should call prisma.student.update with correct args', async () => {
+      const mockUpdated: any = { id: 'stu-1', tenantId: 'tenant-1' };
+      mockPrisma.student.update.mockResolvedValue(mockUpdated);
+
+      const result = await repository.update('stu-1', 'tenant-1', { enrollmentDate: new Date() } as any);
+
+      expect(mockPrisma.student.update).toHaveBeenCalledWith(
+        expect.objectContaining({ where: { id: 'stu-1', tenantId: 'tenant-1' } })
+      );
+      expect(result).toEqual(mockUpdated);
     });
   });
 });

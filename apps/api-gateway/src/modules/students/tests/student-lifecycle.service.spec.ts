@@ -1,27 +1,27 @@
 import { StudentLifecycleService } from '../services/student-lifecycle.service';
-import { StudentStatus } from '../dto/student.types';
+import { IdentityState } from '@saas/core-platform';
 import { mockDeep, mockReset } from 'jest-mock-extended';
 import { PlatformEventBus } from '@saas/core-platform';
-import { StudentStatusLogRepository } from '../repositories/student-status-log.repository';
 import { StudentRepository } from '../repositories/student.repository';
+import { IdentityProvisioningService } from '../../identity/services/identity-provisioning.service';
 import { BadRequestException } from '@nestjs/common';
 
 describe('StudentLifecycleService', () => {
-  const mockStatusLogRepo = mockDeep<StudentStatusLogRepository>();
   const mockStudentRepo = mockDeep<StudentRepository>();
   const mockEventBus = mockDeep<PlatformEventBus>();
+  const mockIdentityService = mockDeep<IdentityProvisioningService>();
 
   let service: StudentLifecycleService;
 
   beforeEach(() => {
-    mockReset(mockStatusLogRepo);
     mockReset(mockStudentRepo);
     mockReset(mockEventBus);
-    
+    mockReset(mockIdentityService);
+
     service = new StudentLifecycleService(
-      mockStatusLogRepo,
       mockStudentRepo,
-      mockEventBus
+      mockEventBus,
+      mockIdentityService
     );
   });
 
@@ -30,56 +30,69 @@ describe('StudentLifecycleService', () => {
       mockStudentRepo.findById.mockResolvedValue(null);
 
       await expect(
-        service.transitionStatus('123', 'tenant-1', StudentStatus.ACTIVE, 'actor-1')
+        service.transitionStatus('123', 'tenant-1', IdentityState.ACTIVE, 'actor-1')
       ).rejects.toThrow(BadRequestException);
     });
 
-    it('should return existing student if status is already target status', async () => {
-      const mockStudent: any = { id: '123', status: StudentStatus.ACTIVE };
+    it('should return existing student without transition if status is already target status', async () => {
+      const mockStudent: any = {
+        id: '123',
+        membershipId: 'mem-1',
+        admissionNumber: 'STU-001',
+        membership: { state: IdentityState.ACTIVE }
+      };
       mockStudentRepo.findById.mockResolvedValue(mockStudent);
 
-      const result = await service.transitionStatus('123', 'tenant-1', StudentStatus.ACTIVE, 'actor-1');
-      
+      const result = await service.transitionStatus('123', 'tenant-1', IdentityState.ACTIVE, 'actor-1');
+
       expect(result).toEqual(mockStudent);
-      expect(mockStatusLogRepo.create).not.toHaveBeenCalled();
+      expect(mockIdentityService.transitionMembershipState).not.toHaveBeenCalled();
       expect(mockEventBus.publish).not.toHaveBeenCalled();
     });
 
-    it('should append to status history, update aggregate, and publish base event', async () => {
-      const mockStudent: any = { id: '123', status: StudentStatus.PENDING, studentNumber: 'STU-001' };
-      const updatedStudent: any = { ...mockStudent, status: StudentStatus.SUSPENDED };
+    it('should call transitionMembershipState and publish Student.StatusChanged event', async () => {
+      const mockStudent: any = {
+        id: '123',
+        membershipId: 'mem-1',
+        admissionNumber: 'STU-001',
+        membership: { state: IdentityState.PROVISIONED }
+      };
+      const updatedStudent: any = {
+        ...mockStudent,
+        membership: { state: IdentityState.SUSPENDED }
+      };
 
-      mockStudentRepo.findById.mockResolvedValue(mockStudent);
-      mockStudentRepo.update.mockResolvedValue(updatedStudent);
+      mockStudentRepo.findById
+        .mockResolvedValueOnce(mockStudent)   // first call to verify existence
+        .mockResolvedValueOnce(updatedStudent); // second call to return updated
 
-      await service.transitionStatus('123', 'tenant-1', StudentStatus.SUSPENDED, 'actor-1', 'Violation');
+      mockIdentityService.transitionMembershipState.mockResolvedValue(undefined as any);
 
-      expect(mockStatusLogRepo.create).toHaveBeenCalledWith({
-        studentId: '123',
-        previousStatus: StudentStatus.PENDING,
-        newStatus: StudentStatus.SUSPENDED,
-        reason: 'Violation',
-        actorId: 'actor-1'
-      });
+      await service.transitionStatus('123', 'tenant-1', IdentityState.SUSPENDED, 'actor-1', 'Violation');
 
-      expect(mockStudentRepo.update).toHaveBeenCalledWith('123', 'tenant-1', { status: StudentStatus.SUSPENDED });
-
+      expect(mockIdentityService.transitionMembershipState).toHaveBeenCalledWith(
+        'mem-1', 'tenant-1', IdentityState.SUSPENDED, 'actor-1', 'Violation'
+      );
       expect(mockEventBus.publish).toHaveBeenCalledWith('Student.StatusChanged', {
         tenantId: 'tenant-1',
         studentId: '123',
-        previousStatus: StudentStatus.PENDING,
-        newStatus: StudentStatus.SUSPENDED
+        previousStatus: IdentityState.PROVISIONED,
+        newStatus: IdentityState.SUSPENDED,
+        reason: 'Violation'
       });
     });
 
-    it('should publish Student.Activated event when status changes to ACTIVE', async () => {
-      const mockStudent: any = { id: '123', status: StudentStatus.PENDING, studentNumber: 'STU-001' };
-      const updatedStudent: any = { ...mockStudent, status: StudentStatus.ACTIVE };
-
+    it('should publish Student.Activated event when transitioning to ACTIVE', async () => {
+      const mockStudent: any = {
+        id: '123',
+        membershipId: 'mem-1',
+        admissionNumber: 'STU-001',
+        membership: { state: IdentityState.PENDING_ACTIVATION }
+      };
       mockStudentRepo.findById.mockResolvedValue(mockStudent);
-      mockStudentRepo.update.mockResolvedValue(updatedStudent);
+      mockIdentityService.transitionMembershipState.mockResolvedValue(undefined as any);
 
-      await service.transitionStatus('123', 'tenant-1', StudentStatus.ACTIVE, 'actor-1');
+      await service.transitionStatus('123', 'tenant-1', IdentityState.ACTIVE, 'actor-1');
 
       expect(mockEventBus.publish).toHaveBeenCalledWith('Student.Activated', {
         tenantId: 'tenant-1',
@@ -88,18 +101,22 @@ describe('StudentLifecycleService', () => {
       });
     });
 
-    it('should publish Student.Archived event when status changes to ARCHIVED', async () => {
-      const mockStudent: any = { id: '123', status: StudentStatus.WITHDRAWN, studentNumber: 'STU-001' };
-      const updatedStudent: any = { ...mockStudent, status: StudentStatus.ARCHIVED };
-
+    it('should publish Student.Archived event when transitioning to ARCHIVED', async () => {
+      const mockStudent: any = {
+        id: '123',
+        membershipId: 'mem-1',
+        admissionNumber: 'STU-001',
+        membership: { state: IdentityState.SUSPENDED }
+      };
       mockStudentRepo.findById.mockResolvedValue(mockStudent);
-      mockStudentRepo.update.mockResolvedValue(updatedStudent);
+      mockIdentityService.transitionMembershipState.mockResolvedValue(undefined as any);
 
-      await service.transitionStatus('123', 'tenant-1', StudentStatus.ARCHIVED, 'actor-1');
+      await service.transitionStatus('123', 'tenant-1', IdentityState.ARCHIVED, 'actor-1');
 
       expect(mockEventBus.publish).toHaveBeenCalledWith('Student.Archived', {
         tenantId: 'tenant-1',
-        studentId: '123'
+        studentId: '123',
+        studentNumber: 'STU-001'
       });
     });
   });
