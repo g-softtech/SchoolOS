@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { GuardianRepository } from '../repositories/guardian.repository';
 import { PrismaService } from '@saas/core-platform';
 import { PlatformEventBus } from '@saas/core-platform';
@@ -17,11 +17,23 @@ export class GuardianService {
   ) {}
 
   async linkGuardian(tenantId: string, studentId: string, guardianId: string, relationshipType: GuardianRelationshipType) {
+    // Verify the student belongs to the calling tenant
+    const student = await this.prisma.student.findUnique({ where: { id: studentId } });
+    if (!student || student.tenantId !== tenantId) {
+      throw new NotFoundException('Student not found or tenant mismatch');
+    }
+
+    // Verify the guardian belongs to the same tenant
+    const guardian = await this.prisma.guardian.findUnique({ where: { id: guardianId } });
+    if (!guardian || guardian.tenantId !== tenantId) {
+      throw new NotFoundException('Guardian not found or tenant mismatch');
+    }
+
     const link = await this.prisma.studentGuardian.create({
       data: {
         studentId,
         guardianId,
-        relationship: relationshipType as any, // Cast since GuardianRelationshipType doesn't exactly match Prisma Enum yet unless aligned
+        relationship: relationshipType as any,
       }
     });
 
