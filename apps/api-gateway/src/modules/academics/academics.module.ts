@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AcademicsController } from './academics.controller';
-import { AcademicsService } from './academics.service';
+import { AcademicCalendarController } from './controllers/academic-calendar.controller';
+import { AcademicCalendarService } from './services/academic-calendar.service';
 import { PrismaModule } from '@saas/core-platform';
 
 @Module({
   imports: [PrismaModule],
-  controllers: [AcademicsController],
-  providers: [AcademicsService],
-  exports: [AcademicsService],
+  controllers: [AcademicCalendarController],
+  providers: [AcademicCalendarService],
+  exports: [AcademicCalendarService],
 })
 export class AcademicsModule {}

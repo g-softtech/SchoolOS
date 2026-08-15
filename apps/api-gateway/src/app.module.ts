@@ -15,6 +15,7 @@ import { IdentityModule } from './modules/identity/identity.module';
 import { WebsiteModule } from './modules/website/website.module';
 import { AdmissionsModule } from './modules/admissions/admissions.module';
 import { StudentsModule } from './modules/students/students.module';
+import { AcademicsModule } from './modules/academics/academics.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { StudentsModule } from './modules/students/students.module';
     WebsiteModule,
     AdmissionsModule,
     StudentsModule,
+    AcademicsModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
