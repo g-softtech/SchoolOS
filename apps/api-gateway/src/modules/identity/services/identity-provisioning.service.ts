@@ -39,22 +39,22 @@ export class IdentityProvisioningService {
       return existingUser.memberships[0];
     }
 
-    // Resolve the role for the tenant
-    let role = await this.prisma.role.findFirst({
-      where: { tenantId: dto.tenantId, name: dto.roleName }
-    });
-
-    if (!role) {
-      role = await this.prisma.role.create({
-        data: {
-          tenantId: dto.tenantId,
-          name: dto.roleName
-        }
-      });
-    }
-
-    // Atomically create User (if not exists), Profile, and Membership
+    // Atomically create Role, User (if not exists), Profile, and Membership
     return this.prisma.$transaction(async (tx) => {
+      // Resolve the role for the tenant inside the transaction
+      let role = await tx.role.findFirst({
+        where: { tenantId: dto.tenantId, name: dto.roleName }
+      });
+
+      if (!role) {
+        role = await tx.role.create({
+          data: {
+            tenantId: dto.tenantId,
+            name: dto.roleName
+          }
+        });
+      }
+
       let userId = existingUser?.id;
 
       if (!userId) {
