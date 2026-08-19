@@ -1,13 +1,21 @@
 import { Module } from '@nestjs/common';
 import { BellSchedulesController } from './controllers/bell-schedules.controller';
+import { TimetablesController } from './controllers/timetables.controller';
 import { BellScheduleService } from './services/bell-schedule.service';
+import { TimetableService } from './services/timetable.service';
 import { BellScheduleRepository } from './repositories/bell-schedule.repository';
+import { TimetableRepository } from './repositories/timetable.repository';
 import { CorePlatformModule } from '@saas/core-platform';
 
 @Module({
   imports: [CorePlatformModule],
-  controllers: [BellSchedulesController],
-  providers: [BellScheduleService, BellScheduleRepository],
-  exports: [BellScheduleService],
+  controllers: [BellSchedulesController, TimetablesController],
+  providers: [
+    BellScheduleService,
+    BellScheduleRepository,
+    TimetableService,
+    TimetableRepository,
+  ],
+  exports: [BellScheduleService, TimetableService],
 })
 export class TimetablesModule {}
