@@ -1,12 +1,14 @@
 # Phase 11: Timetable Generation/Management — Handoff & State
 
 **Date:** 2026-08-19
-**Status:** M11.3 Completed & Certified
-**Current Focus:** Awaiting approval to start M11.4 Frontend Timetable Builder.
+**Status:** M11.4 Completed & Certified
+**Current Focus:** Ready for next Phase 11 milestone (if any) or Handoff.
 
 ## 1. Current Phase 11 Status
 * **M11.1 Completed & Certified:** Bell Schedules CRUD, domain events, constants, tests.
-* **M11.2 Completed & Certified:** (Commit `da66c15`) Timetable Grid Backend. Implemented Timetable initialization, bulk slot validation, and tenant isolation using robust sequential transactions.
+* **M11.2 Completed & Certified:** Timetables CRUD, slot management, tenant isolation, tests, and robust sequential transactions.
+* **M11.3 Completed & Certified:** Bell Schedules UI (Frontend).
+* **M11.4 Completed & Certified:** Timetable Builder UI (Frontend) with Grid management and Backend `GET /lookup` endpoint.
 
 ## 2. Files Inspected
 * `packages/core-platform/prisma/schema.prisma` (for Timetable, TimetableSlot, BellSchedule structures)
@@ -14,6 +16,7 @@
 * `docs/PHASE_10_HANDOFF.md` and `MASTER_EXECUTION_PLAN.md` (for dependency & scope constraints)
 
 ## 3. Discoveries & Decisions
+* **Timetable Lookup (M11.4):** Added a `GET /api/v1/academics/timetables/lookup?armId=&termId=` endpoint to `TimetablesController` because there was no way for the frontend to fetch an existing timetable. Kept Prisma schema untouched. Re-certified E2E tests for tenant isolation.
 * **Strict Scope:** Phase 11 will ONLY handle Bell Schedules, Timetables, and allocating Subjects to Time Slots for specific Classes/Arms.
 * **Staff Assignments (Phase 12):** Bypassed by using a sentinel value `"UNASSIGNED"` for `TimetableSlot.teacherId`. Centralized in `timetables.constants.ts`.
 * **Class ID Derivation:** `TimetableSlot.classId` is retrieved explicitly via the `Arm` → `Class` relationship during timetable generation on the backend.

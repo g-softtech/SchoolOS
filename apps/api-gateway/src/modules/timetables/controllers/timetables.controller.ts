@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { TimetableService } from '../services/timetable.service';
 import { CreateTimetableDto, BulkUpdateSlotsDto } from '../dto/timetable.dto';
@@ -20,6 +20,18 @@ export class TimetablesController {
     @Body() createDto: CreateTimetableDto,
   ) {
     const data = await this.timetableService.create(ctx.tenantId, createDto);
+    return { data };
+  }
+
+  @Get('lookup')
+  @ApiOperation({ summary: 'Lookup a timetable by armId and termId' })
+  @RequirePermission('academics.read')
+  async lookup(
+    @CurrentWorkspace() ctx: WorkspaceContext,
+    @Query('armId') armId: string,
+    @Query('termId') termId: string,
+  ) {
+    const data = await this.timetableService.findByArmAndTermWithSlots(armId, termId, ctx.tenantId);
     return { data };
   }
 

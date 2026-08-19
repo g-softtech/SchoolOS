@@ -167,5 +167,25 @@ describe('Timetables Grid (Real E2E)', () => {
       expect(slots[0].classId).toBe(t1Class.id); // Derived from Arm automatically
       expect(slots[0].teacherId).toBe('UNASSIGNED'); // Phase 11 sentinel
     });
+
+    it('should lookup timetable by armId and termId successfully', async () => {
+      const timetable = await service.findByArmAndTermWithSlots(t1Arm.id, t1Term.id, tenant1);
+      expect(timetable.id).toBe(t1Timetable.id);
+      expect(timetable.TimetableSlot).toBeDefined();
+      expect(timetable.TimetableSlot.length).toBe(1);
+      expect(timetable.TimetableSlot[0].subjectId).toBe(t1Subject.id);
+    });
+
+    it('should block looking up another tenants timetable', async () => {
+      await expect(
+        service.findByArmAndTermWithSlots(t1Arm.id, t1Term.id, tenant2)
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('should throw NotFound when timetable does not exist', async () => {
+      await expect(
+        service.findByArmAndTermWithSlots(t2Arm.id, t2Term.id, tenant2) // Has not been created yet
+      ).rejects.toThrow(NotFoundException);
+    });
   });
 });

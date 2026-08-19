@@ -58,6 +58,12 @@ export class TimetableService {
     return timetable;
   }
 
+  async findByArmAndTermWithSlots(armId: string, termId: string, tenantId: string) {
+    const timetable = await this.timetableRepo.findByArmAndTerm(tenantId, armId, termId);
+    if (!timetable) throw new NotFoundException('Timetable not found for the specified Arm and Term');
+    return this.findOneWithSlots(timetable.id, tenantId);
+  }
+
   async bulkUpdateSlots(id: string, tenantId: string, dto: BulkUpdateSlotsDto) {
     // 1. Get Timetable and Arm/Class relationship
     const timetable = await this.timetableRepo.findById(id, tenantId);
