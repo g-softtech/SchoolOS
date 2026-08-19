@@ -75,6 +75,7 @@ export default function CalendarClient({
     } else {
       setTerms([]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYearId]);
 
   const handleCreateYear = async (e: React.FormEvent) => {
