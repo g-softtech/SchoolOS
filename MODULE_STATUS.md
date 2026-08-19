@@ -12,7 +12,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Finance | 🟡 Feature Complete (Certification Pending) |
 | Identity Platform | 🟡 Under Certification |
 | Students | ✅ Certified |
-| Academics | ⬜ Pending |
+| Academics | ✅ Certified |
 | Attendance | ⬜ Pending |
 | Exams & CBT | ⬜ Pending |
 | Results | ⬜ Pending |

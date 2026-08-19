@@ -11,5 +11,6 @@ The architecture is currently mature. Most future work involves adding domains r
 | Reporting | ⚪ Certified Frozen |
 | Credentials | ⚪ Certified Frozen |
 | Student Management | ⚪ Certified Frozen |
+| Academics | ⚪ Certified Frozen |
 | Parent Portal BFF | 🟡 Architected/Scaffolded |
 | Remaining domains | Planned |
