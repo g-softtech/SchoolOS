@@ -1,14 +1,14 @@
 # Phase 11: Timetable Generation/Management — Handoff & State
 
 **Date:** 2026-08-19
-**Status:** M11.4 Completed & Certified
-**Current Focus:** Ready for next Phase 11 milestone (if any) or Handoff.
+**Status:** CLOSED / CERTIFIED (Phase 11 Timetable Management)
+**Current Focus:** Awaiting Phase 12 Staff Assignment.
 
 ## 1. Current Phase 11 Status
 * **M11.1 Completed & Certified:** Bell Schedules CRUD, domain events, constants, tests.
 * **M11.2 Completed & Certified:** Timetables CRUD, slot management, tenant isolation, tests, and robust sequential transactions.
 * **M11.3 Completed & Certified:** Bell Schedules UI (Frontend).
-* **M11.4 Completed & Certified:** Timetable Builder UI (Frontend) with Grid management and Backend `GET /lookup` endpoint.
+* **M11.4 Completed & Certified:** (Commit `a5c94f1`) Timetable Builder UI (Frontend) with Grid management and Backend `GET /lookup` endpoint.
 
 ## 2. Files Inspected
 * `packages/core-platform/prisma/schema.prisma` (for Timetable, TimetableSlot, BellSchedule structures)

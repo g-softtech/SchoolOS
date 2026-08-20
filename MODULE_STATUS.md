@@ -13,6 +13,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Identity Platform | 🟡 Under Certification |
 | Students | ✅ Certified |
 | Academics | ✅ Certified |
+| Phase 11: Timetable Management   | ✅ Certified |
 | Attendance | ⬜ Pending |
 | Exams & CBT | ⬜ Pending |
 | Results | ⬜ Pending |
