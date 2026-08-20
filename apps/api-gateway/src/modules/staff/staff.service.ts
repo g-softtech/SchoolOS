@@ -1,128 +1,59 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '@saas/core-platform';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import { StaffRepository } from './staff.repository';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-
-/**
- * StaffService owns the Employee lifecycle, Department hierarchy, and Position management.
- * It does NOT manage credentials (see CredentialService) or user accounts (Identity module).
- *
- * Employment lifecycle transitions:
- *   DRAFT -> ACTIVE -> ON_LEAVE | SUSPENDED -> TERMINATED -> ARCHIVED
- */
-
-const ALLOWED_TRANSITIONS: Record<string, string[]> = {
-  DRAFT: ['ACTIVE'],
-  ACTIVE: ['ON_LEAVE', 'SUSPENDED', 'TERMINATED'],
-  ON_LEAVE: ['ACTIVE', 'TERMINATED'],
-  SUSPENDED: ['ACTIVE', 'TERMINATED'],
-  TERMINATED: ['ARCHIVED'],
-  ARCHIVED: [],
-};
+import { CreateDepartmentDto, HireStaffDto, UpdateEmploymentDto } from './dto/staff.dto';
 
 @Injectable()
 export class StaffService {
   constructor(
-    private readonly prisma: PrismaService,
+    private readonly staffRepo: StaffRepository,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  // ─── Departments ────────────────────────────────────────────────────
-
-  async createDepartment(tenantId: string, name: string, description?: string, parentId?: string) {
-    const department = await this.prisma.department.create({
-      data: { tenantId, name, description, parentId },
-    });
-    return department;
+  // --- Departments ---
+  async createDepartment(tenantId: string, dto: CreateDepartmentDto) {
+    return this.staffRepo.createDepartment(tenantId, dto);
   }
 
   async listDepartments(tenantId: string) {
-    return this.prisma.department.findMany({
-      where: { tenantId },
-      include: { children: true },
-      orderBy: { name: 'asc' },
-    });
+    return this.staffRepo.listDepartments(tenantId);
   }
 
-  // ─── Positions ───────────────────────────────────────────────────────
-
-  async createPosition(tenantId: string, departmentId: string, title: string, isTeachingRole: boolean, description?: string) {
-    return this.prisma.position.create({
-      data: { tenantId, departmentId, title, isTeachingRole, description },
-    });
-  }
-
-  // ─── Employees ───────────────────────────────────────────────────────
-
-  async hireEmployee(tenantId: string, data: {
-    employeeNumber: string;
-    firstName: string;
-    lastName: string;
-    email?: string;
-    phone?: string;
-    dateOfHire: Date;
-    positionId?: string;
-  }) {
-    const employee = await this.prisma.employee.create({
-      data: {
-        tenantId,
-        ...data,
-        status: 'DRAFT',
-      },
-    });
-
-    // Record initial position history
-    if (data.positionId) {
-      const position = await this.prisma.position.findUnique({ where: { id: data.positionId } });
-      if (position) {
-        await this.prisma.employeePositionHistory.create({
-          data: {
-            tenantId,
-            employeeId: employee.id,
-            positionId: data.positionId,
-            departmentId: position.departmentId,
-            effectiveFrom: data.dateOfHire,
-            reason: 'Initial Hire',
-          },
-        });
-      }
-    }
-
-    this.eventEmitter.emit('Staff.Employee.Created', {
+  // --- Staff & Employment ---
+  async hireStaff(tenantId: string, dto: HireStaffDto) {
+    // We could add membership validation here if needed, but Prisma will throw if membershipId doesn't exist
+    const staff = await this.staffRepo.hireStaff(tenantId, dto);
+    
+    this.eventEmitter.emit('Staff.Hired', {
       tenantId,
-      employeeId: employee.id,
-      employeeNumber: employee.employeeNumber,
+      staffId: staff.id,
+      membershipId: staff.membershipId,
     });
-
-    return employee;
+    
+    return staff;
   }
 
-  async transitionStatus(tenantId: string, employeeId: string, newStatus: string, reason: string) {
-    const employee = await this.prisma.employee.findFirst({
-      where: { id: employeeId, tenantId },
-    });
-    if (!employee) throw new NotFoundException('Employee not found');
+  async getStaffList(tenantId: string) {
+    return this.staffRepo.getStaffList(tenantId);
+  }
 
-    const allowed = ALLOWED_TRANSITIONS[employee.status] ?? [];
-    if (!allowed.includes(newStatus)) {
-      throw new BadRequestException(
-        `Cannot transition from ${employee.status} to ${newStatus}. Allowed: ${allowed.join(', ') || 'none'}`,
-      );
+  async updateEmploymentStatus(tenantId: string, staffId: string, dto: UpdateEmploymentDto) {
+    if (dto.status === 'TERMINATED' && !dto.terminationDate) {
+      throw new BadRequestException('terminationDate is required when status is TERMINATED');
     }
 
-    const updated = await this.prisma.employee.update({
-      where: { id: employeeId },
-      data: { status: newStatus },
-    });
-
+    const updated = await this.staffRepo.updateEmploymentStatus(tenantId, staffId, dto);
+    
     const eventMap: Record<string, string> = {
-      ACTIVE: 'Staff.Employee.Activated',
-      SUSPENDED: 'Staff.Employee.Suspended',
-      TERMINATED: 'Staff.Employee.Terminated',
+      ACTIVE: 'Staff.Employment.Activated',
+      SUSPENDED: 'Staff.Employment.Suspended',
+      TERMINATED: 'Staff.Employment.Terminated',
+      ON_LEAVE: 'Staff.Employment.OnLeave'
     };
 
-    const event = eventMap[newStatus];
+    const event = eventMap[dto.status];
     if (event) {
-      this.eventEmitter.emit(event, { tenantId, employeeId, reason });
+      this.eventEmitter.emit(event, { tenantId, staffId, status: dto.status });
     }
 
     return updated;
