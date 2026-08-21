@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { AcademicYear } from '../calendar/page';
-import { Campus, Class, Arm } from '../structure/page';
+import { Campus, Class } from '../structure/page';
 import { Subject } from '../subjects/page';
 import { BellSchedule } from '../bell-schedules/page';
 import TimetableGrid from './TimetableGrid';
@@ -55,9 +55,21 @@ export default function TimetableBuilderClient({
   const [activeTimetable, setActiveTimetable] = useState<Timetable | null>(null);
   const [slots, setSlots] = useState<TimetableSlot[]>([]);
   
+interface EligibleTeacher {
+  id: string;
+  membership?: {
+    profile?: {
+      firstName: string;
+      lastName: string;
+    }
+  }
+}
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedBellIdForInit, setSelectedBellIdForInit] = useState('');
+
+  const [eligibleTeachers, setEligibleTeachers] = useState<EligibleTeacher[]>([]);
 
   // Fetch terms when year changes
   useEffect(() => {
@@ -69,6 +81,26 @@ export default function TimetableBuilderClient({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYearId]);
+
+  // Fetch eligible teachers on mount
+  useEffect(() => {
+    fetchEligibleTeachers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchEligibleTeachers = async () => {
+    try {
+      const res = await fetch(`/api/v1/staff/assignment/eligible-teachers`, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setEligibleTeachers(data.data || []);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const fetchTerms = async (yearId: string) => {
     try {
@@ -299,6 +331,7 @@ export default function TimetableBuilderClient({
               slots={slots}
               subjects={subjects}
               bellSchedules={bellSchedules}
+              eligibleTeachers={eligibleTeachers}
               onSave={handleSaveSlots}
               isSaving={loading}
             />

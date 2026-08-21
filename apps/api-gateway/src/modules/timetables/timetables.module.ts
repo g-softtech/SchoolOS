@@ -6,9 +6,10 @@ import { TimetableService } from './services/timetable.service';
 import { BellScheduleRepository } from './repositories/bell-schedule.repository';
 import { TimetableRepository } from './repositories/timetable.repository';
 import { CorePlatformModule } from '@saas/core-platform';
+import { StaffModule } from '../staff/staff.module';
 
 @Module({
-  imports: [CorePlatformModule],
+  imports: [CorePlatformModule, StaffModule],
   controllers: [BellSchedulesController, TimetablesController],
   providers: [
     BellScheduleService,

@@ -10,51 +10,51 @@ export class StaffController {
   // ─── Departments ────────────────────────────────────────────────────
   @Post('departments')
   @RequirePermission('staff.manage')
-  createDepartment(@Request() req, @Body() body: CreateDepartmentDto) {
+  createDepartment(@Request() req: any, @Body() body: CreateDepartmentDto) {
     return this.staffService.createDepartment(req.user.tenantId, body);
   }
 
   @Get('departments')
   @RequirePermission('staff.read')
-  listDepartments(@Request() req) {
+  listDepartments(@Request() req: any) {
     return this.staffService.listDepartments(req.user.tenantId);
   }
 
   // ─── Staff & Employment ─────────────────────────────────────────────
   @Post()
   @RequirePermission('staff.manage')
-  hireStaff(@Request() req, @Body() body: HireStaffDto) {
+  hireStaff(@Request() req: any, @Body() body: HireStaffDto) {
     return this.staffService.hireStaff(req.user.tenantId, body);
   }
 
   @Get()
   @RequirePermission('staff.read')
-  getStaffList(@Request() req) {
+  getStaffList(@Request() req: any) {
     return this.staffService.getStaffList(req.user.tenantId);
   }
 
   @Get('eligible-memberships')
   @RequirePermission('staff.manage')
-  getEligibleMemberships(@Request() req) {
+  getEligibleMemberships(@Request() req: any) {
     return this.staffService.getEligibleMemberships(req.user.tenantId);
   }
 
   @Get(':staffId')
   @RequirePermission('staff.read')
-  getStaffById(@Request() req, @Param('staffId') staffId: string) {
+  getStaffById(@Request() req: any, @Param('staffId') staffId: string) {
     return this.staffService.getStaffById(req.user.tenantId, staffId);
   }
 
   @Get('assignment/eligible-teachers')
   @RequirePermission('staff.read')
-  getEligibleTeachers(@Request() req) {
+  getEligibleTeachers(@Request() req: any) {
     return this.staffService.getEligibleTeachers(req.user.tenantId);
   }
 
   @Patch(':staffId/employment/status')
   @RequirePermission('staff.manage')
   updateEmploymentStatus(
-    @Request() req,
+    @Request() req: any,
     @Param('staffId') staffId: string,
     @Body() body: UpdateEmploymentDto,
   ) {

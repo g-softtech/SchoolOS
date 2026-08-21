@@ -8,6 +8,6 @@ import { PrismaModule } from '@saas/core-platform';
   imports: [PrismaModule],
   controllers: [StaffController],
   providers: [StaffService, StaffRepository],
-  exports: [StaffService],
+  exports: [StaffService, StaffRepository],
 })
 export class StaffModule {}

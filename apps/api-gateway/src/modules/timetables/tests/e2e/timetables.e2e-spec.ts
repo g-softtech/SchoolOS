@@ -5,8 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, Module, Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { DatabaseModule } from '../../../../database/database.module';
-import { PrismaService } from '../../../../database/prisma.service';
+import { PrismaModule, PrismaService } from '@saas/core-platform';
 import { TimetablesModule } from '../../timetables.module';
 import { TimetableService } from '../../services/timetable.service';
 import { NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
@@ -33,12 +32,13 @@ describe('Timetables Grid (Real E2E)', () => {
   
   let t1Arm: any, t1Term: any, t1Bell: any, t1Subject: any, t1Class: any;
   let t2Arm: any, t2Term: any, t2Bell: any, t2Subject: any, t2Class: any;
+  let t1StaffId: string, t2StaffId: string, t1TerminatedStaffId: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({ isGlobal: true }),
-        DatabaseModule,
+        PrismaModule,
         GlobalCacheModule,
         EventEmitterModule.forRoot(),
         TimetablesModule,
@@ -110,6 +110,28 @@ describe('Timetables Grid (Real E2E)', () => {
     t2Bell = await prisma.bellSchedule.create({
       data: { tenantId: tenant2, name: 'T2 Bell', periods: [{ id: 'p1', name: 'P1', startTime: '08:00', endTime: '08:45' }] }
     });
+
+    // 4. Staff Data
+    // T1 Active Staff
+    const t1StaffUser = await prisma.user.create({ data: { email: `t1-staff-${tenantSuffix}@test.com`, name: 'T1 Staff', authProviderId: 'dummy' }});
+    const t1StaffProfile = await prisma.profile.create({ data: { firstName: 'T1', lastName: 'Staff', dateOfBirth: new Date() }});
+    const t1StaffMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant1, userId: t1StaffUser.id, roleId: (await prisma.role.findFirst({ where: { name: 'STAFF' }})).id, profileId: t1StaffProfile.id, state: 'ACTIVE' }});
+    const t1Staff = await prisma.staff.create({ data: { tenantId: tenant1, membershipId: t1StaffMembership.id, staffIdNumber: 'T1-001', employment: { create: { status: 'ACTIVE', startDate: new Date() } } }});
+    t1StaffId = t1Staff.id;
+
+    // T2 Active Staff (for cross-tenant test)
+    const t2StaffUser = await prisma.user.create({ data: { email: `t2-staff-${tenantSuffix}@test.com`, name: 'T2 Staff', authProviderId: 'dummy' }});
+    const t2StaffProfile = await prisma.profile.create({ data: { firstName: 'T2', lastName: 'Staff', dateOfBirth: new Date() }});
+    const t2StaffMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant2, userId: t2StaffUser.id, roleId: (await prisma.role.findFirst({ where: { name: 'STAFF' }})).id, profileId: t2StaffProfile.id, state: 'ACTIVE' }});
+    const t2Staff = await prisma.staff.create({ data: { tenantId: tenant2, membershipId: t2StaffMembership.id, staffIdNumber: 'T2-001', employment: { create: { status: 'ACTIVE', startDate: new Date() } } }});
+    t2StaffId = t2Staff.id;
+
+    // T1 Terminated Staff
+    const t1TermUser = await prisma.user.create({ data: { email: `t1-term-${tenantSuffix}@test.com`, name: 'T1 Term', authProviderId: 'dummy' }});
+    const t1TermProfile = await prisma.profile.create({ data: { firstName: 'T1', lastName: 'Term', dateOfBirth: new Date() }});
+    const t1TermMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant1, userId: t1TermUser.id, roleId: (await prisma.role.findFirst({ where: { name: 'STAFF' }})).id, profileId: t1TermProfile.id, state: 'ACTIVE' }});
+    const t1TermStaff = await prisma.staff.create({ data: { tenantId: tenant1, membershipId: t1TermMembership.id, staffIdNumber: 'T1-002', employment: { create: { status: 'TERMINATED', startDate: new Date(), endDate: new Date() } } }});
+    t1TerminatedStaffId = t1TermStaff.id;
   });
 
   afterAll(async () => {
@@ -168,12 +190,47 @@ describe('Timetables Grid (Real E2E)', () => {
       expect(slots[0].teacherId).toBe('UNASSIGNED'); // Phase 11 sentinel
     });
 
+    it('should reject assigning a cross-tenant Staff ID', async () => {
+      await expect(
+        service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+          slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t2StaffId }]
+        })
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('should reject assigning a terminated Staff ID', async () => {
+      await expect(
+        service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+          slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t1TerminatedStaffId }]
+        })
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('should successfully assign a valid ACTIVE Staff ID', async () => {
+      const slots = await service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+        slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t1StaffId }]
+      });
+      expect(slots.length).toBe(1);
+      expect(slots[0].teacherId).toBe(t1StaffId);
+    });
+
+    it('should enforce UNASSIGNED if slot has no subject', async () => {
+      const slots = await service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+        slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: '', teacherId: t1StaffId }]
+      });
+      expect(slots.length).toBe(1);
+      expect(slots[0].subjectId).toBe('');
+      expect(slots[0].teacherId).toBe('UNASSIGNED'); // Enforced by backend safety rule
+    });
+
     it('should lookup timetable by armId and termId successfully', async () => {
       const timetable = await service.findByArmAndTermWithSlots(t1Arm.id, t1Term.id, tenant1);
       expect(timetable.id).toBe(t1Timetable.id);
       expect(timetable.TimetableSlot).toBeDefined();
       expect(timetable.TimetableSlot.length).toBe(1);
-      expect(timetable.TimetableSlot[0].subjectId).toBe(t1Subject.id);
+      // It should have the state from the last valid update (no subject, UNASSIGNED)
+      expect(timetable.TimetableSlot[0].subjectId).toBe('');
+      expect(timetable.TimetableSlot[0].teacherId).toBe('UNASSIGNED');
     });
 
     it('should block looking up another tenants timetable', async () => {

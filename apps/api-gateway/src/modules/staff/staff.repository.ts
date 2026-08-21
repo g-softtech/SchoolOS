@@ -142,4 +142,26 @@ export class StaffRepository {
       orderBy: { staffIdNumber: 'asc' },
     });
   }
+
+  /**
+   * Used for validating an array of teacher IDs efficiently.
+   * Only returns the IDs that are valid and eligible for the tenant.
+   */
+  async verifyEligibleTeachers(tenantId: string, teacherIds: string[]): Promise<string[]> {
+    if (teacherIds.length === 0) return [];
+    
+    const validStaff = await this.prisma.staff.findMany({
+      where: {
+        tenantId,
+        id: { in: teacherIds },
+        employment: { status: 'ACTIVE' },
+        membership: {
+          state: 'ACTIVE',
+        },
+      },
+      select: { id: true },
+    });
+
+    return validStaff.map(s => s.id);
+  }
 }

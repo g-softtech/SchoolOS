@@ -50,13 +50,13 @@ To be assigned as a timetable teacher, a Staff member must:
   - Verification: `pnpm --filter web-app run build` succeeded without type errors. `git diff --check` clean.
 ### M12.3 — Staff Eligibility & Assignment API (CERTIFIED)
 * **Goal:** Implement the backend eligibility layer for timetable teacher assignment.
-* **Status:** **CERTIFIED**. (Ready to commit)
+* **Status:** **CERTIFIED**. (Commit hash: `6a151d6`)
 * **Rules Enforced:**
   - Staff must exist in the current tenant.
   - Employment record must have `status = ACTIVE`.
-  - `TenantMembership` state must be unrevoked/active.
+  - `TenantMembership` state must be unrevoked/active (tested via E2E REVOKED test).
   - "UNASSIGNED" logic will remain intact for Phase 11 compatibility.
-  - Verified tests pass, tenant isolation works, and unassigned Sentinel is protected. E2E flaky Prisma connection limits avoided.
+  - Verified tests pass, tenant isolation works, and unassigned Sentinel is protected. E2E flaky Prisma Serverless connection limits were bypassed/managed via timeout rules.
 
 * **M12.4 — Timetable Staff Integration:** Update the Timetable Builder UI and backend validation to replace `"UNASSIGNED"` with real staff IDs.
 * **M12.5 — Testing & Certification:** E2E validation, conflict checks, tenant isolation checks.

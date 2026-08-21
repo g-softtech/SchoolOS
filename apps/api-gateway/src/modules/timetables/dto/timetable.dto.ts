@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsArray, ValidateNested, IsInt, Min, Max } from 'class-validator';
+import { IsString, IsNotEmpty, IsArray, ValidateNested, IsInt, Min, Max, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -35,6 +35,11 @@ export class TimetableSlotDto {
   @IsString()
   @IsNotEmpty()
   subjectId: string;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  teacherId?: string;
 }
 
 export class BulkUpdateSlotsDto {

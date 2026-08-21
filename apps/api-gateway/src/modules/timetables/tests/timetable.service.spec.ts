@@ -5,6 +5,7 @@ import { BellScheduleRepository } from '../repositories/bell-schedule.repository
 import { PlatformEventBus } from '@saas/core-platform';
 import { NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { TIMETABLE_UNASSIGNED_TEACHER } from '../timetables.constants';
+import { StaffRepository } from '../../staff/staff.repository';
 
 describe('TimetableService', () => {
   let service: TimetableService;
@@ -28,6 +29,10 @@ describe('TimetableService', () => {
       findById: jest.fn(),
     };
 
+    const mockStaffRepo = {
+      verifyEligibleTeachers: jest.fn(),
+    };
+
     const mockEventBus = {
       publish: jest.fn(),
     };
@@ -37,6 +42,7 @@ describe('TimetableService', () => {
         TimetableService,
         { provide: TimetableRepository, useValue: mockTtRepo },
         { provide: BellScheduleRepository, useValue: mockBsRepo },
+        { provide: StaffRepository, useValue: mockStaffRepo },
         { provide: PlatformEventBus, useValue: mockEventBus },
       ],
     }).compile();

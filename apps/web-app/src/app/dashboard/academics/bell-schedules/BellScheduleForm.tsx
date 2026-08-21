@@ -164,8 +164,8 @@ export default function BellScheduleForm({
                 </button>
               </div>
 
-              <div className="space-y-3">
-                {periods.map((period, index) => (
+              <div className="space-y-3 mb-6">
+                {periods.map((period) => (
                   <div key={period.id} className="flex flex-col sm:flex-row gap-3 p-3 bg-gray-50 border rounded-md relative items-start sm:items-center">
                     
                     <div className="flex-1 w-full sm:w-auto">
