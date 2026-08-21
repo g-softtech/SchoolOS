@@ -29,14 +29,25 @@ To be assigned as a timetable teacher, a Staff member must:
 * **Cross-Tenant Validation:** When `teacherId !== "UNASSIGNED"`, the backend `PUT /slots` endpoint will strictly verify `prisma.staff.findFirst({ where: { id: teacherId, tenantId: currentTenantId, employment: { status: 'ACTIVE' } } })` to ensure the staff member belongs to the tenant and is eligible.
 
 ### E. Schema Freeze
-* **Zero schema modifications will be made.** The broken models in the existing `staff.service.ts`
+* **Zero schema modifications will be made.** The broken models in the existing `staff.service.ts` (`Employee`, `Position`) have been entirely deleted/rewritten to conform to the frozen `schema.prisma` (`Staff`, `Employment`, `Department`).
 
-### M12.1 — Staff Foundation (VERIFYING)
+### M12.1 — Staff Foundation (CERTIFIED)
 - **Goal:** Replace broken legacy code (`Employee`, `Position`) with new Prisma models (`Staff`, `Employment`, `Department`). Ensure correct tenant scoping.
-- **Status:** **VERIFYING**. Code is implemented. Currently writing and executing robust E2E tests for tenant isolation, department behavior, and unauthorized access rejection to genuinely certify this phase before moving to M12.2.
+- **Status:** **CERTIFIED**. (Commit hash: `ec51917`).
+  - Unit tests: `pnpm --filter api-gateway run test src/modules/staff/tests/staff.service.spec.ts` (4 passed)
+  - E2E tests: `pnpm --filter api-gateway run test src/modules/staff/tests/e2e/staff.e2e-spec.ts --runInBand` (4 passed). Covered: Staff creation, tenant isolation, employment/status behavior, department behavior, cross-tenant rejection.
+  - API Build: `pnpm --filter api-gateway build` (Success)
+  - Diff Check: `git diff --check` (Clean)
 
-### M12.2 — Staff Directory & Profiles (NEXT)
-* Build the missing frontend `/dashboard/staff` UI.
+### M12.2 — Staff Directory & Profiles (CERTIFIED)
+* **Goal:** Build the missing frontend `/dashboard/staff` UI.
+* **Status:** **CERTIFIED**. (Commit hash: `661e25e`)
+  - Added new `GET /api/v1/staff/eligible-memberships` and `GET /api/v1/staff/:staffId` to the backend.
+  - Implemented Client API `src/lib/api/staff.ts`.
+  - Built `/dashboard/staff` directory view with client-side filtering.
+  - Built `/dashboard/staff/hire` with a 2-step hiring flow using existing `TenantMembership`.
+  - Built `/dashboard/staff/[staffId]` profile view with employment status updates.
+  - Verification: `pnpm --filter web-app run build` succeeded without type errors. `git diff --check` clean.
 * **M12.3 — Staff Eligibility & Assignment API:** Implement API endpoints to determine and fetch which staff can be assigned as timetable teachers.
 * **M12.4 — Timetable Staff Integration:** Update the Timetable Builder UI and backend validation to replace `"UNASSIGNED"` with real staff IDs.
 * **M12.5 — Testing & Certification:** E2E validation, conflict checks, tenant isolation checks.

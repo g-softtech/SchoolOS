@@ -72,6 +72,24 @@ export class StaffRepository {
     });
   }
 
+  async getStaffById(tenantId: string, staffId: string) {
+    const staff = await this.prisma.staff.findFirst({
+      where: { id: staffId, tenantId },
+      include: {
+        employment: true,
+        department: true,
+        membership: {
+          include: {
+            profile: true,
+            user: { select: { email: true } },
+          },
+        },
+      },
+    });
+    if (!staff) throw new NotFoundException('Staff not found');
+    return staff;
+  }
+
   async updateEmploymentStatus(tenantId: string, staffId: string, dto: UpdateEmploymentDto) {
     const staff = await this.prisma.staff.findFirst({
       where: { id: staffId, tenantId },
@@ -87,6 +105,20 @@ export class StaffRepository {
       data: {
         status: dto.status,
         terminationDate: dto.terminationDate ? new Date(dto.terminationDate) : undefined,
+      },
+    });
+  }
+
+  async getEligibleMemberships(tenantId: string) {
+    return this.prisma.tenantMembership.findMany({
+      where: {
+        tenantId,
+        role: { name: 'STAFF' },
+        staff: null, // Memberships that do not have a Staff record yet
+      },
+      include: {
+        profile: true,
+        user: { select: { email: true } },
       },
     });
   }

@@ -33,6 +33,18 @@ export class StaffController {
     return this.staffService.getStaffList(req.user.tenantId);
   }
 
+  @Get('eligible-memberships')
+  @RequirePermission('staff.manage')
+  getEligibleMemberships(@Request() req) {
+    return this.staffService.getEligibleMemberships(req.user.tenantId);
+  }
+
+  @Get(':staffId')
+  @RequirePermission('staff.read')
+  getStaffById(@Request() req, @Param('staffId') staffId: string) {
+    return this.staffService.getStaffById(req.user.tenantId, staffId);
+  }
+
   @Patch(':staffId/employment/status')
   @RequirePermission('staff.manage')
   updateEmploymentStatus(
