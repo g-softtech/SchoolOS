@@ -58,8 +58,11 @@ To be assigned as a timetable teacher, a Staff member must:
   - "UNASSIGNED" logic will remain intact for Phase 11 compatibility.
   - Verified tests pass, tenant isolation works, and unassigned Sentinel is protected. E2E flaky Prisma Serverless connection limits were bypassed/managed via timeout rules.
 
-* **M12.4 — Timetable Staff Integration:** Update the Timetable Builder UI and backend validation to replace `"UNASSIGNED"` with real staff IDs.
-* **M12.5 — Testing & Certification:** E2E validation, conflict checks, tenant isolation checks.
+* **M12.4 — Timetable Staff Integration:** **CERTIFIED** (Commit hash: `e1f1b2c`).
+  - Added backend validation for staff eligibility (`StaffRepository.verifyEligibleTeachers`) directly from Timetable `bulkUpdateSlots`.
+  - Frontend integration: Updated `TimetableBuilderClient` to fetch eligible teachers and `TimetableGrid` to show an optional teacher `<select>` for each slot.
+  - "UNASSIGNED" logic fully maintained. E2E tests for assignment added (cross-tenant, invalid, valid cases).
+* **M12.5 — Testing & Certification:** Final E2E checks and isolation.
 
 ## 4. Exact Next Action for Next Agent
-* **Wait for user confirmation.** The next logical step is M12.4 — Timetable Staff Integration. Do not proceed until approved.
+* **Wait for user confirmation.** The next logical step is M12.5 — Testing & Certification, or final review of Phase 12. Do not proceed until instructed.
