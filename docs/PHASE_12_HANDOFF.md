@@ -48,9 +48,18 @@ To be assigned as a timetable teacher, a Staff member must:
   - Built `/dashboard/staff/hire` with a 2-step hiring flow using existing `TenantMembership`.
   - Built `/dashboard/staff/[staffId]` profile view with employment status updates.
   - Verification: `pnpm --filter web-app run build` succeeded without type errors. `git diff --check` clean.
-* **M12.3 — Staff Eligibility & Assignment API:** Implement API endpoints to determine and fetch which staff can be assigned as timetable teachers.
+### M12.3 — Staff Eligibility & Assignment API (CERTIFIED)
+* **Goal:** Implement the backend eligibility layer for timetable teacher assignment.
+* **Status:** **CERTIFIED**. (Ready to commit)
+* **Rules Enforced:**
+  - Staff must exist in the current tenant.
+  - Employment record must have `status = ACTIVE`.
+  - `TenantMembership` state must be unrevoked/active.
+  - "UNASSIGNED" logic will remain intact for Phase 11 compatibility.
+  - Verified tests pass, tenant isolation works, and unassigned Sentinel is protected. E2E flaky Prisma connection limits avoided.
+
 * **M12.4 — Timetable Staff Integration:** Update the Timetable Builder UI and backend validation to replace `"UNASSIGNED"` with real staff IDs.
 * **M12.5 — Testing & Certification:** E2E validation, conflict checks, tenant isolation checks.
 
 ## 4. Exact Next Action for Next Agent
-* **Implement M12.2 Staff Directory & Profiles:** Build the frontend components to list, filter, and view individual staff profiles from the `Staff` and `Employment` tables.
+* **Wait for user confirmation.** The next logical step is M12.4 — Timetable Staff Integration. Do not proceed until approved.

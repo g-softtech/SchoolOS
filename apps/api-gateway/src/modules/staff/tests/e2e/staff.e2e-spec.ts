@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+
 const request = require('supertest');
 import { StaffModule } from '../../staff.module';
 import { PrismaService, PrismaModule } from '@saas/core-platform';
@@ -71,8 +72,12 @@ describe('StaffController (e2e)', () => {
   }, 60000);
 
   afterAll(async () => {
-    // Cleanup
     if (prisma) {
+      await prisma.employment.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+      await prisma.staff.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+      await prisma.department.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+      await prisma.tenantMembership.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+      await prisma.role.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
       await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
       await prisma.user.deleteMany({ where: { email: { contains: 'tenant-e2e' } } });
     }
@@ -155,6 +160,81 @@ describe('StaffController (e2e)', () => {
         .expect(200);
         
       expect(res.body.status).toBe('ON_LEAVE');
+    });
+  });
+
+  describe('Timetable Eligibility (M12.3)', () => {
+    it('GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership', async () => {
+      // Set staff back to ACTIVE
+      const staffList = await request(app.getHttpServer())
+        .get('/api/v1/staff')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .expect(200);
+
+      const activeStaffId = staffList.body[0].id;
+
+      await request(app.getHttpServer())
+        .patch(`/api/v1/staff/${activeStaffId}/employment/status`)
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ status: 'ACTIVE' })
+        .expect(200);
+
+      // Fetch eligible teachers
+      const res = await request(app.getHttpServer())
+        .get('/api/v1/staff/assignment/eligible-teachers')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .expect(200);
+
+      expect(res.body.length).toBe(1);
+      expect(res.body[0].id).toBe(activeStaffId);
+      expect(res.body[0].employment.status).toBe('ACTIVE');
+      expect(res.body[0].membership.state).toBe('ACTIVE');
+
+      // Tenant isolation
+      const resT2 = await request(app.getHttpServer())
+        .get('/api/v1/staff/assignment/eligible-teachers')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .expect(200);
+      expect(resT2.body.length).toBe(0);
+
+      // Now set to TERMINATED, should be excluded
+      await request(app.getHttpServer())
+        .patch(`/api/v1/staff/${activeStaffId}/employment/status`)
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ status: 'TERMINATED', terminationDate: '2023-12-31T00:00:00Z' })
+        .expect(200);
+
+      const resAfterTermination = await request(app.getHttpServer())
+        .get('/api/v1/staff/assignment/eligible-teachers')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .expect(200);
+
+      expect(resAfterTermination.body.length).toBe(0);
+
+      // Now set back to ACTIVE, but revoke membership
+      await request(app.getHttpServer())
+        .patch(`/api/v1/staff/${activeStaffId}/employment/status`)
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ status: 'ACTIVE' })
+        .expect(200);
+
+      // Directly update the membership via prisma to REVOKED
+      const staffMember = await prisma.staff.findUnique({
+        where: { id: activeStaffId },
+      });
+      if (staffMember?.membershipId) {
+        await prisma.tenantMembership.update({
+          where: { id: staffMember.membershipId },
+          data: { state: 'REVOKED' },
+        });
+      }
+
+      const resAfterRevoked = await request(app.getHttpServer())
+        .get('/api/v1/staff/assignment/eligible-teachers')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .expect(200);
+
+      expect(resAfterRevoked.body.length).toBe(0);
     });
   });
 });

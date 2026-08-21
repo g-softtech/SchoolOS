@@ -52,7 +52,7 @@ export class StaffRepository {
       });
 
       return staff;
-    });
+    }, { timeout: 15000 });
   }
 
   async getStaffList(tenantId: string) {
@@ -120,6 +120,26 @@ export class StaffRepository {
         profile: true,
         user: { select: { email: true } },
       },
+    });
+  }
+
+  async getEligibleTeachers(tenantId: string) {
+    return this.prisma.staff.findMany({
+      where: {
+        tenantId,
+        employment: { status: 'ACTIVE' },
+        membership: {
+          state: 'ACTIVE',
+        },
+      },
+      include: {
+        employment: true,
+        department: true,
+        membership: {
+          include: { profile: true },
+        },
+      },
+      orderBy: { staffIdNumber: 'asc' },
     });
   }
 }

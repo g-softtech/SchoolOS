@@ -1,8 +1,8 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "rootDir": "..",
   "testEnvironment": "node",
-  "globalSetup": "<rootDir>/identity-certification/setup/certification.setup.ts",
+  "globalSetup": "<rootDir>/test/identity-certification/setup/certification.setup.ts",
   "testRegex": ".*\\.(e2e-spec|spec)\\.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"

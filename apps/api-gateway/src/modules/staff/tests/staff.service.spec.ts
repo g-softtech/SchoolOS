@@ -93,4 +93,15 @@ describe('StaffService', () => {
       expect(result).toEqual(mockResult);
     });
   });
+
+  describe('getEligibleTeachers', () => {
+    it('should call repository with correct tenantId', async () => {
+      const mockResult = [{ id: 'staff-1' }];
+      repo.getEligibleTeachers = jest.fn().mockResolvedValue(mockResult);
+
+      const result = await service.getEligibleTeachers('tenant-1');
+      expect(repo.getEligibleTeachers).toHaveBeenCalledWith('tenant-1');
+      expect(result).toEqual(mockResult);
+    });
+  });
 });

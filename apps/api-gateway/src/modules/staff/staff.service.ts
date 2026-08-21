@@ -45,6 +45,10 @@ export class StaffService {
     return this.staffRepo.getEligibleMemberships(tenantId);
   }
 
+  async getEligibleTeachers(tenantId: string) {
+    return this.staffRepo.getEligibleTeachers(tenantId);
+  }
+
   async updateEmploymentStatus(tenantId: string, staffId: string, dto: UpdateEmploymentDto) {
     if (dto.status === 'TERMINATED' && !dto.terminationDate) {
       throw new BadRequestException('terminationDate is required when status is TERMINATED');

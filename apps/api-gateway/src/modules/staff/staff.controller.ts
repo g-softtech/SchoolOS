@@ -45,6 +45,12 @@ export class StaffController {
     return this.staffService.getStaffById(req.user.tenantId, staffId);
   }
 
+  @Get('assignment/eligible-teachers')
+  @RequirePermission('staff.read')
+  getEligibleTeachers(@Request() req) {
+    return this.staffService.getEligibleTeachers(req.user.tenantId);
+  }
+
   @Patch(':staffId/employment/status')
   @RequirePermission('staff.manage')
   updateEmploymentStatus(
