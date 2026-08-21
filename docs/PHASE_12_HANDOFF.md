@@ -31,9 +31,9 @@ To be assigned as a timetable teacher, a Staff member must:
 ### E. Schema Freeze
 * **Zero schema modifications will be made.** The broken models in the existing `staff.service.ts`
 
-### M12.1 — Staff Foundation (COMPLETED)
+### M12.1 — Staff Foundation (VERIFYING)
 - **Goal:** Replace broken legacy code (`Employee`, `Position`) with new Prisma models (`Staff`, `Employment`, `Department`). Ensure correct tenant scoping.
-- **Status:** **DONE**. Created `StaffRepository`, updated `StaffService`, `StaffController`, `staff.dto.ts`. Replaced `credential.service.ts` logic. Unit tests and E2E isolation tests added.
+- **Status:** **VERIFYING**. Code is implemented. Currently writing and executing robust E2E tests for tenant isolation, department behavior, and unauthorized access rejection to genuinely certify this phase before moving to M12.2.
 
 ### M12.2 — Staff Directory & Profiles (NEXT)
 * Build the missing frontend `/dashboard/staff` UI.

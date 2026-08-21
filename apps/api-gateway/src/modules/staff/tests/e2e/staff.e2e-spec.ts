@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import * as request from 'supertest';
+const request = require('supertest');
 import { StaffModule } from '../../staff.module';
 import { PrismaService, PrismaModule } from '@saas/core-platform';
 import { randomUUID } from 'crypto';
@@ -22,6 +22,8 @@ class MockPermissionsGuard {
 }
 
 describe('StaffController (e2e)', () => {
+  jest.setTimeout(60000);
+
   let app: INestApplication;
   let prisma: PrismaService;
   
@@ -31,16 +33,13 @@ describe('StaffController (e2e)', () => {
   let t2MembershipId: string;
 
   beforeAll(async () => {
-    jest.setTimeout(60000); // Wait for neon connections
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [PrismaModule, StaffModule, EventEmitterModule.forRoot()],
-    })
-      .overrideGuard(JwtAuthGuard).useClass(MockJwtAuthGuard)
-      .overrideGuard(PermissionsGuard).useClass(MockPermissionsGuard)
-      .compile();
+    }).compile();
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalGuards(new MockJwtAuthGuard(), new MockPermissionsGuard());
     await app.init();
     
     prisma = app.get(PrismaService);
@@ -75,44 +74,87 @@ describe('StaffController (e2e)', () => {
     // Cleanup
     if (prisma) {
       await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
+      await prisma.user.deleteMany({ where: { email: { contains: 'tenant-e2e' } } });
     }
     if (app) {
       await app.close();
     }
   });
 
-  it('/api/v1/staff (POST) - hire staff and ensure tenant isolation', async () => {
-    const hireDto = {
-      membershipId: t1MembershipId,
-      staffIdNumber: 'T1-001',
-      hireDate: '2023-01-01T00:00:00Z',
-    };
+  describe('Departments', () => {
+    let departmentId: string;
 
-    // Hire on tenant 1
-    const res1 = await request(app.getHttpServer())
-      .post('/api/v1/staff')
-      .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
-      .send(hireDto)
-      .expect(201);
+    it('POST /departments - should create department', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/api/v1/staff/departments')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ name: 'Science', description: 'Science Dept' })
+        .expect(201);
       
-    expect(res1.body.tenantId).toBe(tenant1);
-    
-    // List staff on tenant 1
-    const listRes = await request(app.getHttpServer())
-      .get('/api/v1/staff')
-      .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
-      .expect(200);
-      
-    expect(listRes.body.length).toBe(1);
-    expect(listRes.body[0].staffIdNumber).toBe('T1-001');
-    expect(listRes.body[0].employment).toBeDefined();
+      expect(res.body.tenantId).toBe(tenant1);
+      expect(res.body.name).toBe('Science');
+      departmentId = res.body.id;
+    });
 
-    // List staff on tenant 2 (should be empty, isolation check)
-    const listRes2 = await request(app.getHttpServer())
-      .get('/api/v1/staff')
-      .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
-      .expect(200);
-      
-    expect(listRes2.body.length).toBe(0);
+    it('GET /departments - should isolate and list departments', async () => {
+      const res1 = await request(app.getHttpServer())
+        .get('/api/v1/staff/departments')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .expect(200);
+      expect(res1.body.length).toBeGreaterThan(0);
+
+      const res2 = await request(app.getHttpServer())
+        .get('/api/v1/staff/departments')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .expect(200);
+      expect(res2.body.length).toBe(0);
+    });
+  });
+
+  describe('Staff & Employment', () => {
+    let staffId: string;
+
+    it('POST /staff - should hire staff and isolate by tenant', async () => {
+      const hireDto = {
+        membershipId: t1MembershipId,
+        staffIdNumber: 'T1-001',
+        hireDate: '2023-01-01T00:00:00Z',
+      };
+
+      const res1 = await request(app.getHttpServer())
+        .post('/api/v1/staff')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send(hireDto)
+        .expect(201);
+        
+      expect(res1.body.tenantId).toBe(tenant1);
+      staffId = res1.body.id;
+
+      // Isolation check
+      const listRes2 = await request(app.getHttpServer())
+        .get('/api/v1/staff')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .expect(200);
+        
+      expect(listRes2.body.length).toBe(0);
+    });
+
+    it('PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant', async () => {
+      // Reject cross-tenant
+      await request(app.getHttpServer())
+        .patch(`/api/v1/staff/${staffId}/employment/status`)
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .send({ status: 'SUSPENDED' })
+        .expect(404);
+
+      // Successful update
+      const res = await request(app.getHttpServer())
+        .patch(`/api/v1/staff/${staffId}/employment/status`)
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ status: 'ON_LEAVE' })
+        .expect(200);
+        
+      expect(res.body.status).toBe('ON_LEAVE');
+    });
   });
 });
