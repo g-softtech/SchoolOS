@@ -130,6 +130,7 @@ export class StaffRepository {
         employment: { status: 'ACTIVE' },
         membership: {
           state: 'ACTIVE',
+          isRevoked: false,
         },
       },
       include: {
@@ -157,6 +158,7 @@ export class StaffRepository {
         employment: { status: 'ACTIVE' },
         membership: {
           state: 'ACTIVE',
+          isRevoked: false,
         },
       },
       select: { id: true },

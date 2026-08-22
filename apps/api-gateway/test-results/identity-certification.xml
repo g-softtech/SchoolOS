@@ -1,90 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="5" errors="0" time="7.022">
-  <testsuite name="StaffController (e2e)" errors="0" failures="5" skipped="0" timestamp="2026-08-22T03:42:53" time="6.621" tests="5">
-    <testcase classname="StaffController (e2e) Departments POST /departments - should create department" name="StaffController (e2e) Departments POST /departments - should create department" time="0.004">
-      <failure>PrismaClientInitializationError: error: Environment variable not found: DATABASE_URL.
-  --&gt;  schema.prisma:3
-   | 
- 2 |   provider = &quot;postgresql&quot;
- 3 |   url      = env(&quot;DATABASE_URL&quot;)
-   | 
-
-Validation Error Count: 1
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+<testsuites name="jest tests" tests="13" failures="0" errors="0" time="47.247">
+  <testsuite name="Timetables Grid (Real E2E)" errors="0" failures="0" skipped="0" timestamp="2026-08-22T05:58:12" time="47.067" tests="13">
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should create timetable for T1" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should create timetable for T1" time="2.712">
     </testcase>
-    <testcase classname="StaffController (e2e) Departments GET /departments - should isolate and list departments" name="StaffController (e2e) Departments GET /departments - should isolate and list departments" time="0.001">
-      <failure>PrismaClientInitializationError: error: Environment variable not found: DATABASE_URL.
-  --&gt;  schema.prisma:3
-   | 
- 2 |   provider = &quot;postgresql&quot;
- 3 |   url      = env(&quot;DATABASE_URL&quot;)
-   | 
-
-Validation Error Count: 1
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating another timetable for same Arm/Term" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating another timetable for same Arm/Term" time="1.834">
     </testcase>
-    <testcase classname="StaffController (e2e) Staff &amp; Employment POST /staff - should hire staff and isolate by tenant" name="StaffController (e2e) Staff &amp; Employment POST /staff - should hire staff and isolate by tenant" time="0.001">
-      <failure>PrismaClientInitializationError: error: Environment variable not found: DATABASE_URL.
-  --&gt;  schema.prisma:3
-   | 
- 2 |   provider = &quot;postgresql&quot;
- 3 |   url      = env(&quot;DATABASE_URL&quot;)
-   | 
-
-Validation Error Count: 1
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating timetable using another tenants Arm" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating timetable using another tenants Arm" time="0.592">
     </testcase>
-    <testcase classname="StaffController (e2e) Staff &amp; Employment PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant" name="StaffController (e2e) Staff &amp; Employment PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant" time="0.001">
-      <failure>PrismaClientInitializationError: error: Environment variable not found: DATABASE_URL.
-  --&gt;  schema.prisma:3
-   | 
- 2 |   provider = &quot;postgresql&quot;
- 3 |   url      = env(&quot;DATABASE_URL&quot;)
-   | 
-
-Validation Error Count: 1
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots with another tenants subject" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots with another tenants subject" time="1.555">
     </testcase>
-    <testcase classname="StaffController (e2e) Timetable Eligibility (M12.3) GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership" name="StaffController (e2e) Timetable Eligibility (M12.3) GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership" time="0.001">
-      <failure>PrismaClientInitializationError: error: Environment variable not found: DATABASE_URL.
-  --&gt;  schema.prisma:3
-   | 
- 2 |   provider = &quot;postgresql&quot;
- 3 |   url      = env(&quot;DATABASE_URL&quot;)
-   | 
-
-Validation Error Count: 1
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots for a timetable owned by someone else" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots for a timetable owned by someone else" time="0.216">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully update slots and derive classId and unassigned teacher" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully update slots and derive classId and unassigned teacher" time="3.037">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a cross-tenant Staff ID" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a cross-tenant Staff ID" time="3.11">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a terminated Staff ID" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a terminated Staff ID" time="1.741">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully assign a valid ACTIVE Staff ID" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully assign a valid ACTIVE Staff ID" time="2.763">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should enforce UNASSIGNED if slot has no subject" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should enforce UNASSIGNED if slot has no subject" time="3.25">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should lookup timetable by armId and termId successfully" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should lookup timetable by armId and termId successfully" time="1.046">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block looking up another tenants timetable" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block looking up another tenants timetable" time="0.258">
+    </testcase>
+    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should throw NotFound when timetable does not exist" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should throw NotFound when timetable does not exist" time="0.245">
     </testcase>
   </testsuite>
 </testsuites>

@@ -112,31 +112,37 @@ describe('Timetables Grid (Real E2E)', () => {
     });
 
     // 4. Staff Data
+    // Create Roles first
+    const r1 = await prisma.role.create({ data: { tenantId: tenant1, name: 'STAFF', isSystem: false } });
+    const r2 = await prisma.role.create({ data: { tenantId: tenant2, name: 'STAFF', isSystem: false } });
+
     // T1 Active Staff
-    const t1StaffUser = await prisma.user.create({ data: { email: `t1-staff-${tenantSuffix}@test.com`, name: 'T1 Staff', authProviderId: 'dummy' }});
-    const t1StaffProfile = await prisma.profile.create({ data: { firstName: 'T1', lastName: 'Staff', dateOfBirth: new Date() }});
-    const t1StaffMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant1, userId: t1StaffUser.id, roleId: (await prisma.role.findFirst({ where: { name: 'STAFF' }})).id, profileId: t1StaffProfile.id, state: 'ACTIVE' }});
-    const t1Staff = await prisma.staff.create({ data: { tenantId: tenant1, membershipId: t1StaffMembership.id, staffIdNumber: 'T1-001', employment: { create: { status: 'ACTIVE', startDate: new Date() } } }});
+    const t1StaffUser = await prisma.user.create({ data: { email: `t1-staff-${tenantSuffix}@test.com` }});
+    const t1StaffMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant1, userId: t1StaffUser.id, roleId: r1.id, state: 'ACTIVE' }});
+    await prisma.profile.create({ data: { tenantMembershipId: t1StaffMembership.id, firstName: 'T1', lastName: 'Staff', dob: new Date() }});
+    const t1Staff = await prisma.staff.create({ data: { tenantId: tenant1, membershipId: t1StaffMembership.id, staffIdNumber: 'T1-001', employment: { create: { tenantId: tenant1, status: 'ACTIVE', hireDate: new Date() } } }});
     t1StaffId = t1Staff.id;
 
     // T2 Active Staff (for cross-tenant test)
-    const t2StaffUser = await prisma.user.create({ data: { email: `t2-staff-${tenantSuffix}@test.com`, name: 'T2 Staff', authProviderId: 'dummy' }});
-    const t2StaffProfile = await prisma.profile.create({ data: { firstName: 'T2', lastName: 'Staff', dateOfBirth: new Date() }});
-    const t2StaffMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant2, userId: t2StaffUser.id, roleId: (await prisma.role.findFirst({ where: { name: 'STAFF' }})).id, profileId: t2StaffProfile.id, state: 'ACTIVE' }});
-    const t2Staff = await prisma.staff.create({ data: { tenantId: tenant2, membershipId: t2StaffMembership.id, staffIdNumber: 'T2-001', employment: { create: { status: 'ACTIVE', startDate: new Date() } } }});
+    const t2StaffUser = await prisma.user.create({ data: { email: `t2-staff-${tenantSuffix}@test.com` }});
+    const t2StaffMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant2, userId: t2StaffUser.id, roleId: r2.id, state: 'ACTIVE' }});
+    await prisma.profile.create({ data: { tenantMembershipId: t2StaffMembership.id, firstName: 'T2', lastName: 'Staff', dob: new Date() }});
+    const t2Staff = await prisma.staff.create({ data: { tenantId: tenant2, membershipId: t2StaffMembership.id, staffIdNumber: 'T2-001', employment: { create: { tenantId: tenant2, status: 'ACTIVE', hireDate: new Date() } } }});
     t2StaffId = t2Staff.id;
 
     // T1 Terminated Staff
-    const t1TermUser = await prisma.user.create({ data: { email: `t1-term-${tenantSuffix}@test.com`, name: 'T1 Term', authProviderId: 'dummy' }});
-    const t1TermProfile = await prisma.profile.create({ data: { firstName: 'T1', lastName: 'Term', dateOfBirth: new Date() }});
-    const t1TermMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant1, userId: t1TermUser.id, roleId: (await prisma.role.findFirst({ where: { name: 'STAFF' }})).id, profileId: t1TermProfile.id, state: 'ACTIVE' }});
-    const t1TermStaff = await prisma.staff.create({ data: { tenantId: tenant1, membershipId: t1TermMembership.id, staffIdNumber: 'T1-002', employment: { create: { status: 'TERMINATED', startDate: new Date(), endDate: new Date() } } }});
+    const t1TermUser = await prisma.user.create({ data: { email: `t1-term-${tenantSuffix}@test.com` }});
+    const t1TermMembership = await prisma.tenantMembership.create({ data: { tenantId: tenant1, userId: t1TermUser.id, roleId: r1.id, state: 'ACTIVE' }});
+    await prisma.profile.create({ data: { tenantMembershipId: t1TermMembership.id, firstName: 'T1', lastName: 'Term', dob: new Date() }});
+    const t1TermStaff = await prisma.staff.create({ data: { tenantId: tenant1, membershipId: t1TermMembership.id, staffIdNumber: 'T1-002', employment: { create: { tenantId: tenant1, status: 'TERMINATED', hireDate: new Date(), terminationDate: new Date() } } }});
     t1TerminatedStaffId = t1TermStaff.id;
   });
 
   afterAll(async () => {
     try {
       if (prisma) {
+        await prisma.timetableSlot.deleteMany({ where: { timetable: { tenantId: { in: [tenant1, tenant2] } } } });
+        await prisma.timetable.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
         await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
       }
     } catch (e) {

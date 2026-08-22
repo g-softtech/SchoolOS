@@ -27,7 +27,7 @@ This document is the "Constitution" of the SchoolOS project. It is the single so
 | Student Management | 🟢 CERTIFIED |
 | Academics          | 🟢 CERTIFIED |
 | Finance            | ⏳ Pending  |
-| HR                 | ⏳ Pending  |
+| HR                 | 🟢 CERTIFIED |
 | Website Builder    | ⏳ Pending  |
 | AI                 | ⏳ Pending  |
 | Marketplace        | ⏳ Pending  |
@@ -68,7 +68,7 @@ The foundation is **FROZEN**. Nobody touches the Database structure, Platform Se
 6. **Phase 9:** Student Management
 7. **Phase 10:** Academics
 8. **Phase 11:** Timetables
-9. **Phase 12:** Staff (CERTIFICATION-BLOCKED)
+9. **Phase 12:** Staff (CERTIFIED)
 10. **Phase 13:** Attendance
 11. **Phase 14:** Examinations
 12. **Phase 15:** Finance

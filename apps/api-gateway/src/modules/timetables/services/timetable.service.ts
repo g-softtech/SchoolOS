@@ -87,7 +87,7 @@ export class TimetableService {
 
     // 3. Validate Subjects & Periods
     if (dto.slots.length > 0) {
-      const subjectIds = Array.from(new Set(dto.slots.map(s => s.subjectId)));
+      const subjectIds = Array.from(new Set(dto.slots.filter(s => s.subjectId).map(s => s.subjectId)));
       const foundSubjects = await this.timetableRepo.getSubjects(subjectIds, tenantId);
       if (foundSubjects.length !== subjectIds.length) {
         throw new NotFoundException('One or more subjects not found');

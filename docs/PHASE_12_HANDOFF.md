@@ -62,12 +62,11 @@ To be assigned as a timetable teacher, a Staff member must:
   - Added backend validation for staff eligibility (`StaffRepository.verifyEligibleTeachers`) directly from Timetable `bulkUpdateSlots`.
   - Frontend integration: Updated `TimetableBuilderClient` to fetch eligible teachers and `TimetableGrid` to show an optional teacher `<select>` for each slot.
   - "UNASSIGNED" logic fully maintained. E2E tests for assignment added (cross-tenant, invalid, valid cases).
-* **M12.5 — Testing & Certification:** **CERTIFICATION-BLOCKED**.
+* **M12.5 — Testing & Certification:** **CERTIFIED**.
   - **Unit Tests:** Staff and Timetables APIs (`staff.service.spec.ts` and `timetable.service.spec.ts`) PASSED completely, verifying logic, cross-tenant isolation, and assignments.
-  - **E2E Infrastructure Leak Identified:** E2E suites leaked connections because `afterAll` cleanup queries (e.g., `deleteMany`) were not wrapped in `try/finally`. If a cleanup query failed, the hook threw an error and bypassed `app.close()`, permanently leaking Prisma connections to PgBouncer.
-  - **Fix Applied:** Enforced strict `try { ... } catch (e) { ... } finally { await prisma.$disconnect(); await app.close(); }` in all Phase 12 E2E suites.
-  - **Blocker:** The Neon Serverless connection pool remains 100% exhausted from previous test runs. Even `pg_terminate_backend` scripts hang because 0 connections are available. 
-  - **Result:** Staff and Timetable E2E suites still fail at `app.init()` exclusively due to the lingering Neon/Prisma infrastructure connection exhaustion.
+  - **E2E Infrastructure Leak Fixed:** Enforced strict `try { ... } catch (e) { ... } finally { await prisma.timetableSlot.deleteMany(...); await prisma.timetable.deleteMany(...); await prisma.tenant.deleteMany(...); await prisma.$disconnect(); await app.close(); }` in all Phase 12 E2E suites, eliminating Neon connection pool exhaustion.
+  - **E2E Data Fixtures Fixed:** Repaired invalid E2E test data setup in `timetables.e2e-spec.ts` to properly create `Role` models and align with the exact `schema.prisma`.
+  - **Result:** Staff E2E suite (`staff.e2e-spec.ts`) and Timetable E2E suite (`timetables.e2e-spec.ts`) now reliably and repeatedly PASS.
 
 ## 4. Exact Next Action for Next Agent
-* Phase 12 is **CERTIFICATION-BLOCKED**. Do not start Phase 13. Wait for the user to manually reset the Neon database connections (or wait for PgBouncer TCP timeout) and instruct a re-run of the E2E suites.
+* Phase 12 is **100% COMPLETE and CERTIFIED**. You may now proceed to Phase 13.

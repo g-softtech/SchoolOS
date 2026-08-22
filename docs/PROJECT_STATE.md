@@ -13,6 +13,6 @@ The architecture is currently mature. Most future work involves adding domains r
 | Student Management | ⚪ Certified Frozen |
 | Academics | ⚪ Certified Frozen |
 | Timetables | ⚪ Certified Frozen |
-| Staff (Phase 12) | 🔴 Certification Blocked (Infrastructure) |
+| Staff (Phase 12) | ⚪ Certified Frozen |
 | Parent Portal BFF | 🟡 Architected/Scaffolded |
 | Remaining domains | Planned |

@@ -233,7 +233,7 @@ describe('StaffController (e2e)', () => {
       if (staffMember?.membershipId) {
         await prisma.tenantMembership.update({
           where: { id: staffMember.membershipId },
-          data: { state: 'REVOKED' },
+          data: { isRevoked: true },
         });
       }
 
