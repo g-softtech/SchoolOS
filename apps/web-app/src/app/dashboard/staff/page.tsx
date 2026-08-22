@@ -45,12 +45,20 @@ export default async function StaffPage({
           <h1 className="text-3xl font-bold tracking-tight">Staff Directory</h1>
           <p className="text-muted-foreground">Manage and view all staff members.</p>
         </div>
-        <Link 
-          href="/dashboard/staff/hire" 
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors"
-        >
-          Hire Staff
-        </Link>
+        <div className="flex space-x-3">
+          <Link 
+            href="/dashboard/staff/leave" 
+            className="bg-white hover:bg-gray-50 text-gray-700 dark:bg-slate-800 dark:text-gray-200 dark:hover:bg-slate-700 border border-gray-300 dark:border-slate-700 px-4 py-2 rounded-md font-medium text-sm transition-colors shadow-sm"
+          >
+            Leave Management
+          </Link>
+          <Link 
+            href="/dashboard/staff/hire" 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors shadow-sm"
+          >
+            Hire Staff
+          </Link>
+        </div>
       </div>
 
       <StaffSearchFilters departments={departments} />

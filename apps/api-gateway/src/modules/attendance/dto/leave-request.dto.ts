@@ -23,6 +23,24 @@ export class SubmitLeaveRequestDto {
   reason?: string;
 }
 
+export class SubmitMyLeaveRequestDto {
+  @IsNotEmpty()
+  @IsEnum(LeaveType)
+  type: LeaveType;
+
+  @IsNotEmpty()
+  @IsDateString()
+  startDate: string;
+
+  @IsNotEmpty()
+  @IsDateString()
+  endDate: string;
+
+  @IsOptional()
+  @IsString()
+  reason?: string;
+}
+
 export class ReviewLeaveRequestDto {
   @IsNotEmpty()
   @IsEnum(LeaveStatus)

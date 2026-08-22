@@ -1,9 +1,9 @@
-import { Controller, Post, Body, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Query, UseGuards, UnauthorizedException } from '@nestjs/common';
 import { LeaveStatus, WorkspaceContext } from '@saas/core-platform';
 import { RequirePermission } from '../../../auth/decorators/auth.decorators';
 import { CurrentWorkspace } from '../../shared/decorators/current-workspace.decorator';
 import { LeaveService } from '../services/leave.service';
-import { SubmitLeaveRequestDto, ReviewLeaveRequestDto } from '../dto/leave-request.dto';
+import { SubmitLeaveRequestDto, SubmitMyLeaveRequestDto, ReviewLeaveRequestDto } from '../dto/leave-request.dto';
 
 @Controller('api/v1/leave')
 export class LeaveController {
@@ -46,5 +46,34 @@ export class LeaveController {
   ) {
     const tenantId = ctx.tenantId;
     return this.leaveService.getLeaveRequests(tenantId, status);
+  }
+
+  @Post('me')
+  @RequirePermission('leave.request')
+  async submitMyLeaveRequest(
+    @CurrentWorkspace() ctx: WorkspaceContext,
+    @Body() dto: SubmitMyLeaveRequestDto
+  ) {
+    if (!ctx.userId) throw new UnauthorizedException('User ID not found in context');
+    
+    return this.leaveService.submitMyLeaveRequest(
+      ctx.tenantId, 
+      ctx.userId, 
+      dto.type, 
+      new Date(dto.startDate), 
+      new Date(dto.endDate), 
+      dto.reason
+    );
+  }
+
+  @Get('me')
+  @RequirePermission('leave.request')
+  async getMyLeaveRequests(
+    @CurrentWorkspace() ctx: WorkspaceContext,
+    @Query('status') status?: LeaveStatus
+  ) {
+    if (!ctx.userId) throw new UnauthorizedException('User ID not found in context');
+    
+    return this.leaveService.getMyLeaveRequests(ctx.tenantId, ctx.userId, status);
   }
 }

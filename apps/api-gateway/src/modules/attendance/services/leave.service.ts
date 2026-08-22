@@ -96,4 +96,58 @@ export class LeaveService {
       }
     });
   }
+
+  /**
+   * Submits a leave request for the currently authenticated user.
+   */
+  async submitMyLeaveRequest(
+    tenantId: string, 
+    userId: string, 
+    type: LeaveType, 
+    startDate: Date, 
+    endDate: Date, 
+    reason?: string
+  ) {
+    const staff = await this.prisma.staff.findFirst({
+      where: { tenantId, membership: { userId } }
+    });
+    
+    if (!staff) {
+      throw new NotFoundException('Staff profile not found for user');
+    }
+
+    return this.submitLeaveRequest(tenantId, staff.id, type, startDate, endDate, reason);
+  }
+
+  /**
+   * Retrieves leave requests for the currently authenticated user.
+   */
+  async getMyLeaveRequests(tenantId: string, userId: string, status?: LeaveStatus) {
+    const staff = await this.prisma.staff.findFirst({
+      where: { tenantId, membership: { userId } }
+    });
+    
+    if (!staff) {
+      return [];
+    }
+
+    const whereClause: any = { tenantId, staffId: staff.id };
+    if (status) {
+      whereClause.status = status;
+    }
+    
+    return this.prisma.leaveRequest.findMany({
+      where: whereClause,
+      include: {
+        staff: {
+          include: {
+            membership: {
+              include: { profile: true }
+            }
+          }
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+  }
 }
