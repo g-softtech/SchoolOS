@@ -1,15 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="0" errors="0" time="69.328">
-  <testsuite name="Attendance Module (Real E2E)" errors="0" failures="0" skipped="0" timestamp="2026-08-22T07:19:26" time="69.218" tests="5">
-    <testcase classname="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should successfully record attendance for valid arm and students" name="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should successfully record attendance for valid arm and students" time="5.353">
+<testsuites name="jest tests" tests="6" failures="6" errors="0" time="28.115">
+  <testsuite name="Scanner Module (Real E2E)" errors="0" failures="6" skipped="0" timestamp="2026-08-22T08:03:24" time="28.032" tests="6">
+    <testcase classname="Scanner Module (Real E2E) Arrival Scan should successfully process a valid arrival scan" name="Scanner Module (Real E2E) Arrival Scan should successfully process a valid arrival scan" time="0.001">
+      <failure>PrismaClientKnownRequestError: 
+Invalid `prisma.user.create()` invocation in
+C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+
+  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
+  64 });
+  65 
+→ 66 const stUser = await prisma.user.create(
+Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
+    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
+    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
+    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
     </testcase>
-    <testcase classname="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Arm belongs to another tenant" name="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Arm belongs to another tenant" time="0.282">
+    <testcase classname="Scanner Module (Real E2E) Arrival Scan should block duplicate arrival scans" name="Scanner Module (Real E2E) Arrival Scan should block duplicate arrival scans" time="0">
+      <failure>PrismaClientKnownRequestError: 
+Invalid `prisma.user.create()` invocation in
+C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+
+  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
+  64 });
+  65 
+→ 66 const stUser = await prisma.user.create(
+Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
+    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
+    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
+    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
     </testcase>
-    <testcase classname="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Student belongs to another tenant" name="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Student belongs to another tenant" time="0.455">
+    <testcase classname="Scanner Module (Real E2E) Arrival Scan should fail when using a cross-tenant admission number" name="Scanner Module (Real E2E) Arrival Scan should fail when using a cross-tenant admission number" time="0">
+      <failure>PrismaClientKnownRequestError: 
+Invalid `prisma.user.create()` invocation in
+C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+
+  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
+  64 });
+  65 
+→ 66 const stUser = await prisma.user.create(
+Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
+    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
+    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
+    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
     </testcase>
-    <testcase classname="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should submit leave request for valid staff" name="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should submit leave request for valid staff" time="0.98">
+    <testcase classname="Scanner Module (Real E2E) Arrival Scan should fail when student does not exist" name="Scanner Module (Real E2E) Arrival Scan should fail when student does not exist" time="0">
+      <failure>PrismaClientKnownRequestError: 
+Invalid `prisma.user.create()` invocation in
+C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+
+  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
+  64 });
+  65 
+→ 66 const stUser = await prisma.user.create(
+Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
+    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
+    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
+    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
     </testcase>
-    <testcase classname="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should reject leave request if Staff belongs to another tenant" name="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should reject leave request if Staff belongs to another tenant" time="0.256">
+    <testcase classname="Scanner Module (Real E2E) Pickup Scan should successfully process a valid pickup scan" name="Scanner Module (Real E2E) Pickup Scan should successfully process a valid pickup scan" time="0">
+      <failure>PrismaClientKnownRequestError: 
+Invalid `prisma.user.create()` invocation in
+C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+
+  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
+  64 });
+  65 
+→ 66 const stUser = await prisma.user.create(
+Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
+    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
+    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
+    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
+    </testcase>
+    <testcase classname="Scanner Module (Real E2E) Pickup Scan should block duplicate pickup scans" name="Scanner Module (Real E2E) Pickup Scan should block duplicate pickup scans" time="0">
+      <failure>PrismaClientKnownRequestError: 
+Invalid `prisma.user.create()` invocation in
+C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+
+  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
+  64 });
+  65 
+→ 66 const stUser = await prisma.user.create(
+Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
+    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
+    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
+    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
+    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
     </testcase>
   </testsuite>
 </testsuites>
