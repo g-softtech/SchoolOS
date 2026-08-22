@@ -62,10 +62,12 @@ To be assigned as a timetable teacher, a Staff member must:
   - Added backend validation for staff eligibility (`StaffRepository.verifyEligibleTeachers`) directly from Timetable `bulkUpdateSlots`.
   - Frontend integration: Updated `TimetableBuilderClient` to fetch eligible teachers and `TimetableGrid` to show an optional teacher `<select>` for each slot.
   - "UNASSIGNED" logic fully maintained. E2E tests for assignment added (cross-tenant, invalid, valid cases).
-* **M12.5 — Testing & Certification:** **CERTIFIED**.
-  - Ran comprehensive unit testing for both Staff and Timetables APIs (`staff.service.spec.ts` and `timetable.service.spec.ts`). All tests passed successfully, guaranteeing adherence to tenant isolation and cross-tenant validation rules.
-  - E2E tests for Staff and Timetables faced Prisma Serverless/Neon connection pool exhaustion. Test suites are certified at the logic/unit boundary. 
-  - Complete Phase 12 Architecture Audit performed. Staff model schema aligns exactly with frozen specifications.
+* **M12.5 — Testing & Certification:** **CERTIFICATION-BLOCKED**.
+  - **Unit Tests:** Staff and Timetables APIs (`staff.service.spec.ts` and `timetable.service.spec.ts`) PASSED completely, verifying logic, cross-tenant isolation, and assignments.
+  - **E2E Infrastructure Leak Identified:** E2E suites leaked connections because `afterAll` cleanup queries (e.g., `deleteMany`) were not wrapped in `try/finally`. If a cleanup query failed, the hook threw an error and bypassed `app.close()`, permanently leaking Prisma connections to PgBouncer.
+  - **Fix Applied:** Enforced strict `try { ... } catch (e) { ... } finally { await prisma.$disconnect(); await app.close(); }` in all Phase 12 E2E suites.
+  - **Blocker:** The Neon Serverless connection pool remains 100% exhausted from previous test runs. Even `pg_terminate_backend` scripts hang because 0 connections are available. 
+  - **Result:** Staff and Timetable E2E suites still fail at `app.init()` exclusively due to the lingering Neon/Prisma infrastructure connection exhaustion.
 
 ## 4. Exact Next Action for Next Agent
-* Phase 12 is fully CERTIFIED and FROZEN. Wait for the user to initiate Phase 13 (Attendance). Do not start new work without explicit instruction.
+* Phase 12 is **CERTIFICATION-BLOCKED**. Do not start Phase 13. Wait for the user to manually reset the Neon database connections (or wait for PgBouncer TCP timeout) and instruct a re-run of the E2E suites.

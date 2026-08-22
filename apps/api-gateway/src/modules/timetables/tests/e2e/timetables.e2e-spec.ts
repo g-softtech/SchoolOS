@@ -136,12 +136,18 @@ describe('Timetables Grid (Real E2E)', () => {
 
   afterAll(async () => {
     try {
-      await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
+      if (prisma) {
+        await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
+      }
     } catch (e) {
-      console.error(e);
-    }
-    if (app) {
-      await app.close();
+      console.error('Cleanup error:', e);
+    } finally {
+      if (prisma) {
+        await prisma.$disconnect();
+      }
+      if (app) {
+        await app.close();
+      }
     }
   });
 

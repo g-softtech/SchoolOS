@@ -72,17 +72,25 @@ describe('StaffController (e2e)', () => {
   }, 60000);
 
   afterAll(async () => {
-    if (prisma) {
-      await prisma.employment.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
-      await prisma.staff.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
-      await prisma.department.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
-      await prisma.tenantMembership.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
-      await prisma.role.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
-      await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
-      await prisma.user.deleteMany({ where: { email: { contains: 'tenant-e2e' } } });
-    }
-    if (app) {
-      await app.close();
+    try {
+      if (prisma) {
+        await prisma.employment.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+        await prisma.staff.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+        await prisma.department.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+        await prisma.tenantMembership.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+        await prisma.role.deleteMany({ where: { tenantId: { in: [tenant1, tenant2] } } });
+        await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
+        await prisma.user.deleteMany({ where: { email: { contains: 'tenant-e2e' } } });
+      }
+    } catch (e) {
+      console.error('Cleanup error:', e);
+    } finally {
+      if (prisma) {
+        await prisma.$disconnect();
+      }
+      if (app) {
+        await app.close();
+      }
     }
   });
 
