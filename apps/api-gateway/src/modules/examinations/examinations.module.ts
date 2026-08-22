@@ -1,20 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AssessmentSeriesService } from './services/assessment-series.service';
-import { ExamCycleService } from './services/exam-cycle.service';
-import { ExamResultService } from './services/exam-result.service';
-import { CorePlatformModule } from '@saas/core-platform';
+import { ExamService } from './services/exam.service';
+import { ResultService } from './services/result.service';
+import { ExamController } from './controllers/exam.controller';
+import { ResultController } from './controllers/result.controller';
+import { PrismaModule } from '@saas/core-platform';
 
 @Module({
-  imports: [CorePlatformModule],
-  providers: [
-    AssessmentSeriesService,
-    ExamCycleService,
-    ExamResultService,
-  ],
-  exports: [
-    AssessmentSeriesService,
-    ExamCycleService,
-    ExamResultService,
-  ],
+  imports: [PrismaModule],
+  controllers: [ExamController, ResultController],
+  providers: [ExamService, ResultService],
+  exports: [ExamService, ResultService],
 })
 export class ExaminationsModule {}
