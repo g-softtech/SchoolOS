@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@saas/core-platform';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { PrismaService, LeaveType, LeaveStatus } from '@saas/core-platform';
 
 @Injectable()
 export class LeaveService {
@@ -8,13 +8,29 @@ export class LeaveService {
   constructor(private readonly prisma: PrismaService) {}
 
   /**
-   * Submits a leave request.
+   * Submits a leave request for a staff member.
    */
-  async submitLeaveRequest(tenantId: string, employeeId: string, type: string, startDate: Date, endDate: Date, reason?: string) {
-    return this.prisma.leaveRequest.create({
+  async submitLeaveRequest(
+    tenantId: string, 
+    staffId: string, 
+    type: LeaveType, 
+    startDate: Date, 
+    endDate: Date, 
+    reason?: string
+  ) {
+    // 1. Verify staff belongs to tenant
+    const staff = await this.prisma.staff.findFirst({
+      where: { id: staffId, tenantId },
+    });
+    
+    if (!staff) {
+      throw new NotFoundException('Staff member not found');
+    }
+
+    const leaveRequest = await this.prisma.leaveRequest.create({
       data: {
         tenantId,
-        employeeId,
+        staffId,
         type,
         startDate,
         endDate,
@@ -22,15 +38,62 @@ export class LeaveService {
         status: 'PENDING',
       },
     });
+
+    this.logger.log(`Leave request submitted for staff ${staffId} from ${startDate} to ${endDate}`);
+    return leaveRequest;
   }
 
   /**
    * Approves or rejects a leave request.
-   * Emits 'Attendance.Leave.Approved' domain event if approved.
    */
-  async reviewLeaveRequest(tenantId: string, requestId: string, status: 'APPROVED' | 'REJECTED', reviewerId: string) {
-    this.logger.log(`Leave request ${requestId} reviewed: ${status} by ${reviewerId}`);
-    // return this.prisma.leaveRequest.update(...)
-    // EventBus.emit('Attendance.Leave.Approved', payload)
+  async reviewLeaveRequest(
+    tenantId: string, 
+    requestId: string, 
+    status: LeaveStatus, 
+    reviewerId: string
+  ) {
+    const existing = await this.prisma.leaveRequest.findFirst({
+      where: { id: requestId, tenantId }
+    });
+
+    if (!existing) {
+      throw new NotFoundException('Leave request not found');
+    }
+
+    const updated = await this.prisma.leaveRequest.update({
+      where: { id: requestId },
+      data: { status },
+    });
+
+    this.logger.log(`Leave request ${requestId} reviewed: ${status} by user ${reviewerId}`);
+    return updated;
+  }
+
+  /**
+   * Retrieves leave requests for a tenant.
+   */
+  async getLeaveRequests(tenantId: string, status?: LeaveStatus) {
+    const whereClause: any = { tenantId };
+    if (status) {
+      whereClause.status = status;
+    }
+    
+    return this.prisma.leaveRequest.findMany({
+      where: whereClause,
+      include: {
+        staff: {
+          include: {
+            membership: {
+              include: {
+                profile: true
+              }
+            }
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
   }
 }

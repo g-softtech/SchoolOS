@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="13" failures="0" errors="0" time="47.247">
-  <testsuite name="Timetables Grid (Real E2E)" errors="0" failures="0" skipped="0" timestamp="2026-08-22T05:58:12" time="47.067" tests="13">
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should create timetable for T1" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should create timetable for T1" time="2.712">
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="69.328">
+  <testsuite name="Attendance Module (Real E2E)" errors="0" failures="0" skipped="0" timestamp="2026-08-22T07:19:26" time="69.218" tests="5">
+    <testcase classname="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should successfully record attendance for valid arm and students" name="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should successfully record attendance for valid arm and students" time="5.353">
     </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating another timetable for same Arm/Term" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating another timetable for same Arm/Term" time="1.834">
+    <testcase classname="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Arm belongs to another tenant" name="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Arm belongs to another tenant" time="0.282">
     </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating timetable using another tenants Arm" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block creating timetable using another tenants Arm" time="0.592">
+    <testcase classname="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Student belongs to another tenant" name="Attendance Module (Real E2E) AttendanceService (Tenant Isolation) should reject recording attendance if Student belongs to another tenant" time="0.455">
     </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots with another tenants subject" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots with another tenants subject" time="1.555">
+    <testcase classname="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should submit leave request for valid staff" name="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should submit leave request for valid staff" time="0.98">
     </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots for a timetable owned by someone else" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block bulk updating slots for a timetable owned by someone else" time="0.216">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully update slots and derive classId and unassigned teacher" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully update slots and derive classId and unassigned teacher" time="3.037">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a cross-tenant Staff ID" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a cross-tenant Staff ID" time="3.11">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a terminated Staff ID" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should reject assigning a terminated Staff ID" time="1.741">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully assign a valid ACTIVE Staff ID" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should successfully assign a valid ACTIVE Staff ID" time="2.763">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should enforce UNASSIGNED if slot has no subject" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should enforce UNASSIGNED if slot has no subject" time="3.25">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should lookup timetable by armId and termId successfully" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should lookup timetable by armId and termId successfully" time="1.046">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block looking up another tenants timetable" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should block looking up another tenants timetable" time="0.258">
-    </testcase>
-    <testcase classname="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should throw NotFound when timetable does not exist" name="Timetables Grid (Real E2E) Timetable Creation &amp; Tenant Isolation should throw NotFound when timetable does not exist" time="0.245">
+    <testcase classname="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should reject leave request if Staff belongs to another tenant" name="Attendance Module (Real E2E) LeaveService (Tenant Isolation) should reject leave request if Staff belongs to another tenant" time="0.256">
     </testcase>
   </testsuite>
 </testsuites>
