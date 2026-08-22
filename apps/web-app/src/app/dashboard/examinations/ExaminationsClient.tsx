@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Exam, examinationsApi } from '../../../lib/api/examinations';
 
 interface ExaminationsClientProps {
@@ -248,7 +249,13 @@ export default function ExaminationsClient({
                         <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-600/20">Written</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-6 py-4 text-right space-x-3">
+                      <Link 
+                        href={`/dashboard/examinations/${exam.id}`}
+                        className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+                      >
+                        Grade
+                      </Link>
                       <button 
                         onClick={() => handleDelete(exam.id)}
                         className="text-red-600 hover:text-red-800 font-medium text-sm transition-colors"

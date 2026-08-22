@@ -31,6 +31,27 @@ export interface CreateExamDto {
   date: string;
 }
 
+export interface EligibleCandidate {
+  id: string; // result ID (could be new or existing)
+  studentId: string;
+  examId: string;
+  student: {
+    id: string;
+    admissionNumber: string;
+    user: {
+      firstName: string;
+      lastName: string;
+    };
+  };
+  score: number | null;
+  isNew: boolean;
+}
+
+export interface BatchEnterResultItem {
+  studentId: string;
+  score: number;
+}
+
 export const examinationsApi = {
   getExams: (token?: string) => {
     return fetchApi<Exam[]>('/api/v1/exams', { method: 'GET', token });
@@ -50,5 +71,17 @@ export const examinationsApi = {
 
   deleteExam: (id: string, token?: string) => {
     return fetchApi<void>(`/api/v1/exams/${id}`, { method: 'DELETE', token });
+  },
+
+  getEligibleCandidates: (examId: string, token?: string) => {
+    return fetchApi<EligibleCandidate[]>(`/api/v1/exams/${examId}/results/eligible`, { method: 'GET', token });
+  },
+
+  batchEnterResults: (examId: string, results: BatchEnterResultItem[], token?: string) => {
+    return fetchApi<unknown>(`/api/v1/exams/${examId}/results/batch`, {
+      method: 'POST',
+      body: JSON.stringify({ results }),
+      token,
+    });
   },
 };
