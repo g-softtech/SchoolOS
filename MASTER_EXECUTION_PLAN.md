@@ -69,7 +69,7 @@ The foundation is **FROZEN**. Nobody touches the Database structure, Platform Se
 7. **Phase 10:** Academics
 8. **Phase 11:** Timetables
 9. **Phase 12:** Staff (CERTIFIED)
-10. **Phase 13:** Attendance
+10. **Phase 13:** Attendance (CERTIFIED)
 11. **Phase 14:** Examinations
 12. **Phase 15:** Finance
 13. **Phase 16:** ID Cards

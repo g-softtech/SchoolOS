@@ -14,7 +14,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Students | ✅ Certified |
 | Academics | ✅ Certified |
 | Phase 11: Timetable Management   | ✅ Certified |
-| Attendance | ⬜ Pending |
+| Attendance | ✅ Certified |
 | Exams & CBT | ⬜ Pending |
 | Results | ⬜ Pending |
 | HR & Staff (Phase 12) | ✅ Certified |

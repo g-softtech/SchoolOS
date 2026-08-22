@@ -14,5 +14,6 @@ The architecture is currently mature. Most future work involves adding domains r
 | Academics | ⚪ Certified Frozen |
 | Timetables | ⚪ Certified Frozen |
 | Staff (Phase 12) | ⚪ Certified Frozen |
+| Attendance (Phase 13) | ⚪ Certified Frozen |
 | Parent Portal BFF | 🟡 Architected/Scaffolded |
 | Remaining domains | Planned |
