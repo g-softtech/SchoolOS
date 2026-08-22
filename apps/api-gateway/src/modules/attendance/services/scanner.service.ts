@@ -1,6 +1,11 @@
 import { Injectable, Logger, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { PrismaService, NotificationChannel } from '@saas/core-platform';
 import { AttendanceService } from './attendance.service';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { Inject } from '@nestjs/common';
 
 @Injectable()
 export class ScannerService {
@@ -9,6 +14,8 @@ export class ScannerService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly attendanceService: AttendanceService,
+    @InjectQueue('notifications') private readonly notificationQueue: Queue,
+    @Inject('CACHE_PROVIDER') private readonly cacheManager: any,
   ) {}
 
   /**
@@ -155,6 +162,31 @@ export class ScannerService {
     // 2. Check Idempotency based on tenant timezone
     const { startOfDay, endOfDay } = await this.getTenantTodayBounds(tenantId);
     
+    // Concurrency Lock: Use Redis to prevent double-scans from bypassing the DB check
+    const lockKey = `lock:scan:${tenantId}:${student.id}:${startOfDay.toISOString()}:ARRIVED`;
+    try {
+      const client = (this.cacheManager as any).store?.client;
+      if (client) {
+        const acquired = await client.set(lockKey, '1', 'NX', 'EX', 10);
+        if (!acquired) {
+          return {
+            status: 'already_checked_in',
+            event: 'STUDENT_ARRIVED',
+            message: 'Scan is currently being processed.',
+            timestamp: new Date(),
+            student: {
+              id: student.id,
+              name: `${student.membership.profile?.firstName} ${student.membership.profile?.lastName}`,
+              admissionNumber: student.admissionNumber
+            }
+          };
+        }
+      }
+    } catch (err: any) {
+      // D. Redis becomes unavailable - SWALLOW ERROR
+      this.logger.error(`Redis lock failed, continuing with DB authoritative check: ${err.message}`);
+    }
+    
     const existingArrival = await this.prisma.auditLog.findFirst({
       where: {
         tenantId,
@@ -215,12 +247,12 @@ export class ScannerService {
         },
         update: {
           status: 'PRESENT',
-          armId: student.currentArmId,
+          armId: student.currentArmId as string,
         },
         create: {
           tenantId,
           studentId: student.id,
-          armId: student.currentArmId,
+          armId: student.currentArmId as string,
           date: startOfDay,
           status: 'PRESENT',
           remarks: 'Arrival Scanned',
@@ -228,36 +260,52 @@ export class ScannerService {
       });
 
       // Enqueue Notification
-      let notificationQueued = false;
+      let notificationRecord = null;
       if (guardianContact) {
-        await prisma.notificationQueue.create({
+        notificationRecord = await prisma.notificationQueue.create({
           data: {
             tenantId,
             userId: guardianContact.userId,
             channel: guardianContact.channel,
-            status: 'PENDING', // M13.2 limitation: queue only, no delivery yet
+            status: 'PENDING',
             payload: {
               subject: 'Student Arrival',
               body: `${studentName} arrived at school at ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}.`
             }
           }
         });
-        notificationQueued = true;
       }
 
       return {
         auditLog,
-        notificationQueued,
+        notificationId: notificationRecord?.id || null,
         channel: guardianContact?.channel
       };
     });
+
+    if (result.notificationId) {
+      try {
+        await this.notificationQueue.add('send', {
+          notificationQueueId: result.notificationId,
+          tenantId,
+        }, {
+          jobId: result.notificationId,
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 60000 },
+          removeOnComplete: { age: 7 * 24 * 3600 },
+          removeOnFail: { age: 7 * 24 * 3600 },
+        });
+      } catch (err: any) {
+        this.logger.error(`Failed to enqueue arrival notification to BullMQ: ${err.message}`);
+      }
+    }
 
     return {
       status: 'success',
       event: 'STUDENT_ARRIVED',
       timestamp: result.auditLog.createdAt,
       attendanceStatus: 'PRESENT',
-      notificationQueued: result.notificationQueued,
+      notificationQueued: !!result.notificationId,
       notificationChannel: result.channel,
       student: {
         id: student.id,
@@ -297,6 +345,31 @@ export class ScannerService {
     // 2. Check Idempotency based on tenant timezone
     const { startOfDay, endOfDay } = await this.getTenantTodayBounds(tenantId);
     
+    // Concurrency Lock: Use Redis to prevent double-scans from bypassing the DB check
+    const lockKey = `lock:scan:${tenantId}:${student.id}:${startOfDay.toISOString()}:PICKED_UP`;
+    try {
+      const client = (this.cacheManager as any).store?.client;
+      if (client) {
+        const acquired = await client.set(lockKey, '1', 'NX', 'EX', 10);
+        if (!acquired) {
+          return {
+            status: 'already_checked_in',
+            event: 'STUDENT_PICKED_UP',
+            message: 'Scan is currently being processed.',
+            timestamp: new Date(),
+            student: {
+              id: student.id,
+              name: `${student.membership.profile?.firstName} ${student.membership.profile?.lastName}`,
+              admissionNumber: student.admissionNumber
+            }
+          };
+        }
+      }
+    } catch (err: any) {
+      // D. Redis becomes unavailable - SWALLOW ERROR
+      this.logger.error(`Redis lock failed, continuing with DB authoritative check: ${err.message}`);
+    }
+
     const existingPickup = await this.prisma.auditLog.findFirst({
       where: {
         tenantId,
@@ -348,35 +421,52 @@ export class ScannerService {
       });
 
       // Enqueue Notification
-      let notificationQueued = false;
+      let notificationRecord = null;
       if (guardianContact) {
-        await prisma.notificationQueue.create({
+        notificationRecord = await prisma.notificationQueue.create({
           data: {
             tenantId,
             userId: guardianContact.userId,
             channel: guardianContact.channel,
-            status: 'PENDING', // M13.2 limitation: queue only
+            status: 'PENDING',
             payload: {
               subject: 'Student Pickup',
               body: `${studentName} was picked up from school at ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}.`
             }
           }
         });
-        notificationQueued = true;
       }
 
       return {
         auditLog,
-        notificationQueued,
+        notificationId: notificationRecord?.id || null,
         channel: guardianContact?.channel
       };
     });
+
+    // Enqueue to BullMQ after successful DB commit
+    if (result.notificationId) {
+      try {
+        await this.notificationQueue.add('send', {
+          notificationQueueId: result.notificationId,
+          tenantId,
+        }, {
+          jobId: result.notificationId,
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 60000 },
+          removeOnComplete: { age: 7 * 24 * 3600 },
+          removeOnFail: { age: 7 * 24 * 3600 },
+        });
+      } catch (err: any) {
+        this.logger.error(`Failed to enqueue notification to BullMQ: ${err.message}`);
+      }
+    }
 
     return {
       status: 'success',
       event: 'STUDENT_PICKED_UP',
       timestamp: result.auditLog.createdAt,
-      notificationQueued: result.notificationQueued,
+      notificationQueued: !!result.notificationId,
       notificationChannel: result.channel,
       student: {
         id: student.id,

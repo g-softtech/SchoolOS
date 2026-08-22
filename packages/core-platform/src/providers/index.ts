@@ -31,10 +31,17 @@ export interface NotificationPayload {
   data?: Record<string, any>;
 }
 
+export interface DeliveryReceipt {
+  success: boolean;
+  providerMessageId?: string;
+  error?: string;
+}
+
 export interface NotificationProvider {
-  sendEmail(payload: NotificationPayload): Promise<boolean>;
-  sendSms(to: string, message: string): Promise<boolean>;
-  sendPush(userId: string, title: string, body: string): Promise<boolean>;
+  sendEmail(payload: NotificationPayload): Promise<DeliveryReceipt>;
+  sendSms(to: string, message: string): Promise<DeliveryReceipt>;
+  sendWhatsApp(to: string, message: string): Promise<DeliveryReceipt>;
+  sendPush(userId: string, title: string, body: string): Promise<DeliveryReceipt>;
 }
 
 export interface ReportProvider {

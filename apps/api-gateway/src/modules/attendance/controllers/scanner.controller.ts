@@ -21,7 +21,7 @@ export class ScannerController {
     @CurrentUser() user: any
   ) {
     return this.scannerService.processArrival(
-      workspace.tenant.id, 
+      (workspace.tenantId || (workspace as any).tenant?.id), 
       dto.admissionNumber,
       user.id,
       dto.scanMethod
@@ -37,7 +37,7 @@ export class ScannerController {
     @CurrentUser() user: any
   ) {
     return this.scannerService.processPickup(
-      workspace.tenant.id, 
+      (workspace.tenantId || (workspace as any).tenant?.id), 
       dto.admissionNumber,
       user.id,
       dto.scanMethod

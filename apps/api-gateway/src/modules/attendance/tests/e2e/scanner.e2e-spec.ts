@@ -2,6 +2,8 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: 'c:\\my_school_app\\saas-platform\\.env', override: true });
 
 import { Test, TestingModule } from '@nestjs/testing';
+import RedisMock from 'ioredis-mock';
+jest.mock('ioredis', () => require('ioredis-mock'));
 import { INestApplication, ValidationPipe, Module, Global } from '@nestjs/common';
 const request = require('supertest');
 import { ConfigModule } from '@nestjs/config';
@@ -238,7 +240,7 @@ describe('ScannerController (e2e)', () => {
         .post('/api/v1/attendance/scan/arrival')
         .set('x-mock-user', validUser(tenant1))
         .send({ admissionNumber: t1Student.admissionNumber })
-        .expect(201);
+        .expect((res) => { if (res.status === 500) console.log(res.body); }).expect(201);
 
       expect(res.body.status).toBe('success');
       expect(res.body.event).toBe('STUDENT_ARRIVED');
@@ -267,7 +269,7 @@ describe('ScannerController (e2e)', () => {
         .post('/api/v1/attendance/scan/arrival')
         .set('x-mock-user', validUser(tenant1))
         .send({ admissionNumber: t1Student.admissionNumber })
-        .expect(201);
+        .expect((res) => { if (res.status === 500) console.log(res.body); }).expect(201);
 
       expect(res.body.status).toBe('already_checked_in');
 
@@ -292,7 +294,7 @@ describe('ScannerController (e2e)', () => {
         .post('/api/v1/attendance/scan/pickup')
         .set('x-mock-user', validUser(tenant1))
         .send({ admissionNumber: t1Student.admissionNumber })
-        .expect(201);
+        .expect((res) => { if (res.status === 500) console.log(res.body); }).expect(201);
 
       expect(res.body.status).toBe('success');
       expect(res.body.event).toBe('STUDENT_PICKED_UP');
@@ -318,7 +320,7 @@ describe('ScannerController (e2e)', () => {
         .post('/api/v1/attendance/scan/pickup')
         .set('x-mock-user', validUser(tenant1))
         .send({ admissionNumber: t1Student.admissionNumber })
-        .expect(201);
+        .expect((res) => { if (res.status === 500) console.log(res.body); }).expect(201);
 
       expect(res.body.status).toBe('already_picked_up');
 
@@ -346,7 +348,7 @@ describe('ScannerController (e2e)', () => {
         .post('/api/v1/attendance/scan/arrival')
         .set('x-mock-user', validUser(tenant2))
         .send({ admissionNumber: t2Student.admissionNumber })
-        .expect(201);
+        .expect((res) => { if (res.status === 500) console.log(res.body); }).expect(201);
 
       expect(arrRes.body.notificationChannel).toBe('EMAIL');
       const emailNotifs = await prisma.notificationQueue.findMany({ where: { tenantId: tenant2, channel: 'EMAIL' } });
@@ -364,7 +366,7 @@ describe('ScannerController (e2e)', () => {
         .post('/api/v1/attendance/scan/pickup')
         .set('x-mock-user', validUser(tenant2))
         .send({ admissionNumber: t2Student.admissionNumber })
-        .expect(201);
+        .expect((res) => { if (res.status === 500) console.log(res.body); }).expect(201);
 
       expect(pickRes.body.notificationQueued).toBe(false);
     });

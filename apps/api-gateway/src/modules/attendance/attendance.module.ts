@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaModule } from '@saas/core-platform';
+import { BullModule } from '@nestjs/bullmq';
 import { AttendanceService } from './services/attendance.service';
 import { LeaveService } from './services/leave.service';
 import { ScannerService } from './services/scanner.service';
@@ -8,7 +9,10 @@ import { LeaveController } from './controllers/leave.controller';
 import { ScannerController } from './controllers/scanner.controller';
 
 @Module({
-  imports: [PrismaModule], 
+  imports: [
+    PrismaModule,
+    BullModule.registerQueue({ name: 'notifications' })
+  ], 
   controllers: [
     AttendanceController,
     LeaveController,

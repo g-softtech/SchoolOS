@@ -16,6 +16,9 @@ import { WebsiteModule } from './modules/website/website.module';
 import { AdmissionsModule } from './modules/admissions/admissions.module';
 import { StudentsModule } from './modules/students/students.module';
 import { AcademicsModule } from './modules/academics/academics.module';
+import { AttendanceModule } from './modules/attendance/attendance.module';
+import { BullModule } from '@nestjs/bullmq';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -32,6 +35,18 @@ import { AcademicsModule } from './modules/academics/academics.module';
     AdmissionsModule,
     StudentsModule,
     AcademicsModule,
+    AttendanceModule,
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        connection: {
+          host: configService.get('REDIS_HOST') || 'localhost',
+          port: parseInt(configService.get<string>('REDIS_PORT') || '6379', 10),
+          password: configService.get('REDIS_PASSWORD'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

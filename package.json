@@ -21,6 +21,7 @@
     "@types/supertest": "^7.0.0",
     "dependency-cruiser": "latest",
     "husky": "latest",
+    "ioredis-mock": "^8.13.1",
     "jest": "^30.0.0",
     "jest-junit": "^17.0.0",
     "jest-mock-extended": "^4.0.1",

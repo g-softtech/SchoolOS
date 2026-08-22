@@ -35,7 +35,7 @@ export class LeaveController {
   ) {
     const tenantId = ctx.tenantId;
     const reviewerId = ctx.userId;
-    return this.leaveService.reviewLeaveRequest(tenantId, id, dto.status, reviewerId);
+    return this.leaveService.reviewLeaveRequest(tenantId, id, dto.status, reviewerId || '');
   }
 
   @Get()
