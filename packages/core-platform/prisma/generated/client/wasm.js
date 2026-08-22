@@ -864,6 +864,66 @@ exports.Prisma.PaymentPlanVersionScalarFieldEnum = {
   paymentPlanId: 'paymentPlanId'
 };
 
+exports.Prisma.ChartOfAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  code: 'code',
+  name: 'name',
+  type: 'type',
+  isActive: 'isActive',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BankAccountScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ledgerAccountId: 'ledgerAccountId',
+  name: 'name',
+  accountNumber: 'accountNumber',
+  bankName: 'bankName',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AccountingPeriodScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  closedAt: 'closedAt',
+  closedBy: 'closedBy',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.FinancialTransactionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  periodId: 'periodId',
+  reference: 'reference',
+  type: 'type',
+  source: 'source',
+  description: 'description',
+  transactionDate: 'transactionDate',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.JournalEntryLineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  transactionId: 'transactionId',
+  accountId: 'accountId',
+  debit: 'debit',
+  credit: 'credit',
+  memo: 'memo',
+  dimensionStudentId: 'dimensionStudentId',
+  dimensionInvoiceId: 'dimensionInvoiceId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ApprovalWorkflowScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1337,6 +1397,34 @@ exports.NotificationStatus = exports.$Enums.NotificationStatus = {
   FAILED: 'FAILED'
 };
 
+exports.AccountType = exports.$Enums.AccountType = {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  EQUITY: 'EQUITY',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+};
+
+exports.PeriodStatus = exports.$Enums.PeriodStatus = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  INVOICE_ISSUE: 'INVOICE_ISSUE',
+  PAYMENT_RECEIPT: 'PAYMENT_RECEIPT',
+  ALLOCATION: 'ALLOCATION',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT',
+  REVERSAL: 'REVERSAL',
+  TRANSFER: 'TRANSFER'
+};
+
+exports.TransactionStatus = exports.$Enums.TransactionStatus = {
+  POSTED: 'POSTED',
+  VOIDED: 'VOIDED'
+};
+
 exports.CampaignStatus = exports.$Enums.CampaignStatus = {
   DRAFT: 'DRAFT',
   ACTIVE: 'ACTIVE',
@@ -1439,6 +1527,11 @@ exports.Prisma.ModelName = {
   PaymentAttempt: 'PaymentAttempt',
   PaymentAllocation: 'PaymentAllocation',
   PaymentPlanVersion: 'PaymentPlanVersion',
+  ChartOfAccount: 'ChartOfAccount',
+  BankAccount: 'BankAccount',
+  AccountingPeriod: 'AccountingPeriod',
+  FinancialTransaction: 'FinancialTransaction',
+  JournalEntryLine: 'JournalEntryLine',
   ApprovalWorkflow: 'ApprovalWorkflow',
   ApprovalStep: 'ApprovalStep',
   ScheduledJob: 'ScheduledJob',

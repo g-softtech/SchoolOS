@@ -102,6 +102,12 @@ model Tenant {
   AdmissionRequiredDocument AdmissionRequiredDocument[]
   AdmissionApplication      AdmissionApplication[]
 
+  ChartOfAccount       ChartOfAccount[]
+  BankAccount          BankAccount[]
+  AccountingPeriod     AccountingPeriod[]
+  FinancialTransaction FinancialTransaction[]
+  JournalEntryLine     JournalEntryLine[]
+
   @@map("plt_tenants")
 }
 
@@ -660,6 +666,8 @@ model Student {
   BedAllocation BedAllocation[]
   BookBorrowing BookBorrowing[]
 
+  journalLines JournalEntryLine[]
+
   @@unique([tenantId, admissionNumber])
   @@index([tenantId])
   @@map("std_students")
@@ -967,8 +975,9 @@ model Invoice {
   status        InvoiceStatus @default(DRAFT)
   dueDate       DateTime
 
-  items    InvoiceItem[]
-  payments Payment[]
+  items        InvoiceItem[]
+  payments     Payment[]
+  journalLines JournalEntryLine[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -1012,8 +1021,8 @@ model Payment {
   tenantId String
   tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  invoiceId String
-  invoice   Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoiceId String?
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 
   amount      Decimal
   method      PaymentMethod
@@ -1528,20 +1537,20 @@ model PaymentAttempt {
   updatedAt DateTime @updatedAt
   paymentId String?
 
-  @@index([tenantId, reference])
+  @@unique([tenantId, reference])
   @@map("finance_payment_attempts")
 }
 
 model PaymentAllocation {
-  id            String      @id @default(uuid())
+  id            String                @id @default(uuid())
   tenantId      String
-  tenant        Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant        Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   paymentId     String
-  payment       Payment     @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  payment       Payment               @relation(fields: [paymentId], references: [id], onDelete: Cascade)
   invoiceItemId String
-  invoiceItem   InvoiceItem @relation(fields: [invoiceItemId], references: [id])
-  transactionId String
-  // transaction FinancialTransaction relation commented out
+  invoiceItem   InvoiceItem           @relation(fields: [invoiceItemId], references: [id])
+  transactionId String?
+  transaction   FinancialTransaction? @relation(fields: [transactionId], references: [id], onDelete: Restrict)
   amount        Decimal
 
   createdAt DateTime @default(now())
@@ -1559,6 +1568,139 @@ model PaymentPlanVersion {
 
   // paymentPlan PaymentPlan relation commented out
   @@map("finance_payment_plan_versions")
+}
+
+model ChartOfAccount {
+  id          String      @id @default(uuid())
+  tenantId    String
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  code        String
+  name        String
+  type        AccountType
+  isActive    Boolean     @default(true)
+  description String?
+  createdAt   DateTime    @default(now())
+
+  lines        JournalEntryLine[]
+  bankAccounts BankAccount[]
+
+  @@unique([tenantId, code])
+  @@map("fin_chart_of_accounts")
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+model BankAccount {
+  id              String         @id @default(uuid())
+  tenantId        String
+  tenant          Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ledgerAccountId String
+  ledgerAccount   ChartOfAccount @relation(fields: [ledgerAccountId], references: [id], onDelete: Restrict)
+  name            String
+  accountNumber   String? // E.g. Masked or actual for internal use
+  bankName        String?
+  isActive        Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+
+  @@index([tenantId])
+  @@map("fin_bank_accounts")
+}
+
+model AccountingPeriod {
+  id        String       @id @default(uuid())
+  tenantId  String
+  tenant    Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  status    PeriodStatus @default(OPEN)
+  closedAt  DateTime?
+  closedBy  String?
+  createdAt DateTime     @default(now())
+
+  transactions FinancialTransaction[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, startDate, endDate])
+  @@map("fin_accounting_periods")
+}
+
+enum PeriodStatus {
+  OPEN
+  CLOSED
+}
+
+model FinancialTransaction {
+  id              String            @id @default(uuid())
+  tenantId        String
+  tenant          Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  periodId        String
+  period          AccountingPeriod  @relation(fields: [periodId], references: [id], onDelete: Restrict) // Cannot delete period if txns exist
+  reference       String // Strict Idempotency key
+  type            TransactionType
+  source          String
+  description     String?
+  transactionDate DateTime
+  status          TransactionStatus @default(POSTED)
+  createdAt       DateTime          @default(now())
+
+  // Cascade delete is strictly forbidden for audit trail safety.
+  lines       JournalEntryLine[]
+  allocations PaymentAllocation[]
+
+  @@unique([tenantId, reference])
+  @@index([tenantId, periodId])
+  @@index([tenantId, transactionDate])
+  @@map("fin_financial_transactions")
+}
+
+enum TransactionType {
+  INVOICE_ISSUE
+  PAYMENT_RECEIPT
+  ALLOCATION
+  REFUND
+  ADJUSTMENT
+  REVERSAL
+  TRANSFER
+}
+
+enum TransactionStatus {
+  POSTED
+  VOIDED // Represents a logically reversed transaction, not physically deleted
+}
+
+model JournalEntryLine {
+  id            String               @id @default(uuid())
+  tenantId      String
+  tenant        Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   FinancialTransaction @relation(fields: [transactionId], references: [id], onDelete: Restrict) // Cannot delete txn if lines exist
+  accountId     String
+  account       ChartOfAccount       @relation(fields: [accountId], references: [id], onDelete: Restrict)
+
+  // Safe monetary values
+  debit  Decimal @default(0.0)
+  credit Decimal @default(0.0)
+  memo   String?
+
+  // Dimensional tracking
+  dimensionStudentId String?
+  student            Student? @relation(fields: [dimensionStudentId], references: [id], onDelete: SetNull)
+  dimensionInvoiceId String?
+  invoice            Invoice? @relation(fields: [dimensionInvoiceId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId, accountId])
+  @@index([tenantId, dimensionStudentId])
+  @@index([tenantId, dimensionInvoiceId])
+  @@map("fin_journal_entry_lines")
 }
 
 // -----------------------------------------------------------------------------

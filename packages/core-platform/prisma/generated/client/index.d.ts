@@ -359,6 +359,31 @@ export type PaymentAllocation = $Result.DefaultSelection<Prisma.$PaymentAllocati
  */
 export type PaymentPlanVersion = $Result.DefaultSelection<Prisma.$PaymentPlanVersionPayload>
 /**
+ * Model ChartOfAccount
+ * 
+ */
+export type ChartOfAccount = $Result.DefaultSelection<Prisma.$ChartOfAccountPayload>
+/**
+ * Model BankAccount
+ * 
+ */
+export type BankAccount = $Result.DefaultSelection<Prisma.$BankAccountPayload>
+/**
+ * Model AccountingPeriod
+ * 
+ */
+export type AccountingPeriod = $Result.DefaultSelection<Prisma.$AccountingPeriodPayload>
+/**
+ * Model FinancialTransaction
+ * 
+ */
+export type FinancialTransaction = $Result.DefaultSelection<Prisma.$FinancialTransactionPayload>
+/**
+ * Model JournalEntryLine
+ * 
+ */
+export type JournalEntryLine = $Result.DefaultSelection<Prisma.$JournalEntryLinePayload>
+/**
  * Model ApprovalWorkflow
  * 
  */
@@ -705,6 +730,46 @@ export const NotificationStatus: {
 export type NotificationStatus = (typeof NotificationStatus)[keyof typeof NotificationStatus]
 
 
+export const AccountType: {
+  ASSET: 'ASSET',
+  LIABILITY: 'LIABILITY',
+  EQUITY: 'EQUITY',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE'
+};
+
+export type AccountType = (typeof AccountType)[keyof typeof AccountType]
+
+
+export const PeriodStatus: {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED'
+};
+
+export type PeriodStatus = (typeof PeriodStatus)[keyof typeof PeriodStatus]
+
+
+export const TransactionType: {
+  INVOICE_ISSUE: 'INVOICE_ISSUE',
+  PAYMENT_RECEIPT: 'PAYMENT_RECEIPT',
+  ALLOCATION: 'ALLOCATION',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT',
+  REVERSAL: 'REVERSAL',
+  TRANSFER: 'TRANSFER'
+};
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const TransactionStatus: {
+  POSTED: 'POSTED',
+  VOIDED: 'VOIDED'
+};
+
+export type TransactionStatus = (typeof TransactionStatus)[keyof typeof TransactionStatus]
+
+
 export const CampaignStatus: {
   DRAFT: 'DRAFT',
   ACTIVE: 'ACTIVE',
@@ -840,6 +905,22 @@ export const NotificationChannel: typeof $Enums.NotificationChannel
 export type NotificationStatus = $Enums.NotificationStatus
 
 export const NotificationStatus: typeof $Enums.NotificationStatus
+
+export type AccountType = $Enums.AccountType
+
+export const AccountType: typeof $Enums.AccountType
+
+export type PeriodStatus = $Enums.PeriodStatus
+
+export const PeriodStatus: typeof $Enums.PeriodStatus
+
+export type TransactionType = $Enums.TransactionType
+
+export const TransactionType: typeof $Enums.TransactionType
+
+export type TransactionStatus = $Enums.TransactionStatus
+
+export const TransactionStatus: typeof $Enums.TransactionStatus
 
 export type CampaignStatus = $Enums.CampaignStatus
 
@@ -1675,6 +1756,56 @@ export class PrismaClient<
   get paymentPlanVersion(): Prisma.PaymentPlanVersionDelegate<ExtArgs>;
 
   /**
+   * `prisma.chartOfAccount`: Exposes CRUD operations for the **ChartOfAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChartOfAccounts
+    * const chartOfAccounts = await prisma.chartOfAccount.findMany()
+    * ```
+    */
+  get chartOfAccount(): Prisma.ChartOfAccountDelegate<ExtArgs>;
+
+  /**
+   * `prisma.bankAccount`: Exposes CRUD operations for the **BankAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BankAccounts
+    * const bankAccounts = await prisma.bankAccount.findMany()
+    * ```
+    */
+  get bankAccount(): Prisma.BankAccountDelegate<ExtArgs>;
+
+  /**
+   * `prisma.accountingPeriod`: Exposes CRUD operations for the **AccountingPeriod** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AccountingPeriods
+    * const accountingPeriods = await prisma.accountingPeriod.findMany()
+    * ```
+    */
+  get accountingPeriod(): Prisma.AccountingPeriodDelegate<ExtArgs>;
+
+  /**
+   * `prisma.financialTransaction`: Exposes CRUD operations for the **FinancialTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FinancialTransactions
+    * const financialTransactions = await prisma.financialTransaction.findMany()
+    * ```
+    */
+  get financialTransaction(): Prisma.FinancialTransactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.journalEntryLine`: Exposes CRUD operations for the **JournalEntryLine** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JournalEntryLines
+    * const journalEntryLines = await prisma.journalEntryLine.findMany()
+    * ```
+    */
+  get journalEntryLine(): Prisma.JournalEntryLineDelegate<ExtArgs>;
+
+  /**
    * `prisma.approvalWorkflow`: Exposes CRUD operations for the **ApprovalWorkflow** model.
     * Example usage:
     * ```ts
@@ -2423,6 +2554,11 @@ export namespace Prisma {
     PaymentAttempt: 'PaymentAttempt',
     PaymentAllocation: 'PaymentAllocation',
     PaymentPlanVersion: 'PaymentPlanVersion',
+    ChartOfAccount: 'ChartOfAccount',
+    BankAccount: 'BankAccount',
+    AccountingPeriod: 'AccountingPeriod',
+    FinancialTransaction: 'FinancialTransaction',
+    JournalEntryLine: 'JournalEntryLine',
     ApprovalWorkflow: 'ApprovalWorkflow',
     ApprovalStep: 'ApprovalStep',
     ScheduledJob: 'ScheduledJob',
@@ -2462,7 +2598,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord"
+      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "chartOfAccount" | "bankAccount" | "accountingPeriod" | "financialTransaction" | "journalEntryLine" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7296,6 +7432,356 @@ export namespace Prisma {
           }
         }
       }
+      ChartOfAccount: {
+        payload: Prisma.$ChartOfAccountPayload<ExtArgs>
+        fields: Prisma.ChartOfAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChartOfAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.ChartOfAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChartOfAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          findMany: {
+            args: Prisma.ChartOfAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          create: {
+            args: Prisma.ChartOfAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          createMany: {
+            args: Prisma.ChartOfAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChartOfAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.ChartOfAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          update: {
+            args: Prisma.ChartOfAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChartOfAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChartOfAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ChartOfAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChartOfAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.ChartOfAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChartOfAccount>
+          }
+          groupBy: {
+            args: Prisma.ChartOfAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChartOfAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChartOfAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<ChartOfAccountCountAggregateOutputType> | number
+          }
+        }
+      }
+      BankAccount: {
+        payload: Prisma.$BankAccountPayload<ExtArgs>
+        fields: Prisma.BankAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BankAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BankAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.BankAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BankAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          findMany: {
+            args: Prisma.BankAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>[]
+          }
+          create: {
+            args: Prisma.BankAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          createMany: {
+            args: Prisma.BankAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BankAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.BankAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          update: {
+            args: Prisma.BankAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.BankAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BankAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BankAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.BankAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBankAccount>
+          }
+          groupBy: {
+            args: Prisma.BankAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BankAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BankAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<BankAccountCountAggregateOutputType> | number
+          }
+        }
+      }
+      AccountingPeriod: {
+        payload: Prisma.$AccountingPeriodPayload<ExtArgs>
+        fields: Prisma.AccountingPeriodFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountingPeriodFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountingPeriodFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          findFirst: {
+            args: Prisma.AccountingPeriodFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountingPeriodFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          findMany: {
+            args: Prisma.AccountingPeriodFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>[]
+          }
+          create: {
+            args: Prisma.AccountingPeriodCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          createMany: {
+            args: Prisma.AccountingPeriodCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccountingPeriodCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>[]
+          }
+          delete: {
+            args: Prisma.AccountingPeriodDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          update: {
+            args: Prisma.AccountingPeriodUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountingPeriodDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountingPeriodUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AccountingPeriodUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountingPeriodPayload>
+          }
+          aggregate: {
+            args: Prisma.AccountingPeriodAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccountingPeriod>
+          }
+          groupBy: {
+            args: Prisma.AccountingPeriodGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountingPeriodGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccountingPeriodCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountingPeriodCountAggregateOutputType> | number
+          }
+        }
+      }
+      FinancialTransaction: {
+        payload: Prisma.$FinancialTransactionPayload<ExtArgs>
+        fields: Prisma.FinancialTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FinancialTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FinancialTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.FinancialTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FinancialTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.FinancialTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.FinancialTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.FinancialTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FinancialTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.FinancialTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          update: {
+            args: Prisma.FinancialTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.FinancialTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FinancialTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FinancialTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.FinancialTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFinancialTransaction>
+          }
+          groupBy: {
+            args: Prisma.FinancialTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FinancialTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FinancialTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<FinancialTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      JournalEntryLine: {
+        payload: Prisma.$JournalEntryLinePayload<ExtArgs>
+        fields: Prisma.JournalEntryLineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JournalEntryLineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JournalEntryLineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>
+          }
+          findFirst: {
+            args: Prisma.JournalEntryLineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JournalEntryLineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>
+          }
+          findMany: {
+            args: Prisma.JournalEntryLineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>[]
+          }
+          create: {
+            args: Prisma.JournalEntryLineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>
+          }
+          createMany: {
+            args: Prisma.JournalEntryLineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JournalEntryLineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>[]
+          }
+          delete: {
+            args: Prisma.JournalEntryLineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>
+          }
+          update: {
+            args: Prisma.JournalEntryLineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>
+          }
+          deleteMany: {
+            args: Prisma.JournalEntryLineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JournalEntryLineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.JournalEntryLineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JournalEntryLinePayload>
+          }
+          aggregate: {
+            args: Prisma.JournalEntryLineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJournalEntryLine>
+          }
+          groupBy: {
+            args: Prisma.JournalEntryLineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JournalEntryLineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JournalEntryLineCountArgs<ExtArgs>
+            result: $Utils.Optional<JournalEntryLineCountAggregateOutputType> | number
+          }
+        }
+      }
       ApprovalWorkflow: {
         payload: Prisma.$ApprovalWorkflowPayload<ExtArgs>
         fields: Prisma.ApprovalWorkflowFieldRefs
@@ -9234,6 +9720,11 @@ export namespace Prisma {
     AdmissionForm: number
     AdmissionRequiredDocument: number
     AdmissionApplication: number
+    ChartOfAccount: number
+    BankAccount: number
+    AccountingPeriod: number
+    FinancialTransaction: number
+    JournalEntryLine: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9294,6 +9785,11 @@ export namespace Prisma {
     AdmissionForm?: boolean | TenantCountOutputTypeCountAdmissionFormArgs
     AdmissionRequiredDocument?: boolean | TenantCountOutputTypeCountAdmissionRequiredDocumentArgs
     AdmissionApplication?: boolean | TenantCountOutputTypeCountAdmissionApplicationArgs
+    ChartOfAccount?: boolean | TenantCountOutputTypeCountChartOfAccountArgs
+    BankAccount?: boolean | TenantCountOutputTypeCountBankAccountArgs
+    AccountingPeriod?: boolean | TenantCountOutputTypeCountAccountingPeriodArgs
+    FinancialTransaction?: boolean | TenantCountOutputTypeCountFinancialTransactionArgs
+    JournalEntryLine?: boolean | TenantCountOutputTypeCountJournalEntryLineArgs
   }
 
   // Custom InputTypes
@@ -9704,6 +10200,41 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountAdmissionApplicationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AdmissionApplicationWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountChartOfAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountBankAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankAccountWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountAccountingPeriodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountingPeriodWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountFinancialTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountJournalEntryLineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryLineWhereInput
   }
 
 
@@ -10269,6 +10800,7 @@ export namespace Prisma {
     Result: number
     BedAllocation: number
     BookBorrowing: number
+    journalLines: number
   }
 
   export type StudentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10282,6 +10814,7 @@ export namespace Prisma {
     Result?: boolean | StudentCountOutputTypeCountResultArgs
     BedAllocation?: boolean | StudentCountOutputTypeCountBedAllocationArgs
     BookBorrowing?: boolean | StudentCountOutputTypeCountBookBorrowingArgs
+    journalLines?: boolean | StudentCountOutputTypeCountJournalLinesArgs
   }
 
   // Custom InputTypes
@@ -10363,6 +10896,13 @@ export namespace Prisma {
    */
   export type StudentCountOutputTypeCountBookBorrowingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookBorrowingWhereInput
+  }
+
+  /**
+   * StudentCountOutputType without action
+   */
+  export type StudentCountOutputTypeCountJournalLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryLineWhereInput
   }
 
 
@@ -10475,11 +11015,13 @@ export namespace Prisma {
   export type InvoiceCountOutputType = {
     items: number
     payments: number
+    journalLines: number
   }
 
   export type InvoiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | InvoiceCountOutputTypeCountItemsArgs
     payments?: boolean | InvoiceCountOutputTypeCountPaymentsArgs
+    journalLines?: boolean | InvoiceCountOutputTypeCountJournalLinesArgs
   }
 
   // Custom InputTypes
@@ -10505,6 +11047,13 @@ export namespace Prisma {
    */
   export type InvoiceCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentWhereInput
+  }
+
+  /**
+   * InvoiceCountOutputType without action
+   */
+  export type InvoiceCountOutputTypeCountJournalLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryLineWhereInput
   }
 
 
@@ -10780,6 +11329,117 @@ export namespace Prisma {
    */
   export type LibraryBookCountOutputTypeCountBorrowingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookBorrowingWhereInput
+  }
+
+
+  /**
+   * Count Type ChartOfAccountCountOutputType
+   */
+
+  export type ChartOfAccountCountOutputType = {
+    lines: number
+    bankAccounts: number
+  }
+
+  export type ChartOfAccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lines?: boolean | ChartOfAccountCountOutputTypeCountLinesArgs
+    bankAccounts?: boolean | ChartOfAccountCountOutputTypeCountBankAccountsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccountCountOutputType
+     */
+    select?: ChartOfAccountCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeCountLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryLineWhereInput
+  }
+
+  /**
+   * ChartOfAccountCountOutputType without action
+   */
+  export type ChartOfAccountCountOutputTypeCountBankAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankAccountWhereInput
+  }
+
+
+  /**
+   * Count Type AccountingPeriodCountOutputType
+   */
+
+  export type AccountingPeriodCountOutputType = {
+    transactions: number
+  }
+
+  export type AccountingPeriodCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | AccountingPeriodCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AccountingPeriodCountOutputType without action
+   */
+  export type AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriodCountOutputType
+     */
+    select?: AccountingPeriodCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AccountingPeriodCountOutputType without action
+   */
+  export type AccountingPeriodCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialTransactionWhereInput
+  }
+
+
+  /**
+   * Count Type FinancialTransactionCountOutputType
+   */
+
+  export type FinancialTransactionCountOutputType = {
+    lines: number
+    allocations: number
+  }
+
+  export type FinancialTransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lines?: boolean | FinancialTransactionCountOutputTypeCountLinesArgs
+    allocations?: boolean | FinancialTransactionCountOutputTypeCountAllocationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FinancialTransactionCountOutputType without action
+   */
+  export type FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransactionCountOutputType
+     */
+    select?: FinancialTransactionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FinancialTransactionCountOutputType without action
+   */
+  export type FinancialTransactionCountOutputTypeCountLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryLineWhereInput
+  }
+
+  /**
+   * FinancialTransactionCountOutputType without action
+   */
+  export type FinancialTransactionCountOutputTypeCountAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentAllocationWhereInput
   }
 
 
@@ -12365,6 +13025,11 @@ export namespace Prisma {
     AdmissionForm?: boolean | Tenant$AdmissionFormArgs<ExtArgs>
     AdmissionRequiredDocument?: boolean | Tenant$AdmissionRequiredDocumentArgs<ExtArgs>
     AdmissionApplication?: boolean | Tenant$AdmissionApplicationArgs<ExtArgs>
+    ChartOfAccount?: boolean | Tenant$ChartOfAccountArgs<ExtArgs>
+    BankAccount?: boolean | Tenant$BankAccountArgs<ExtArgs>
+    AccountingPeriod?: boolean | Tenant$AccountingPeriodArgs<ExtArgs>
+    FinancialTransaction?: boolean | Tenant$FinancialTransactionArgs<ExtArgs>
+    JournalEntryLine?: boolean | Tenant$JournalEntryLineArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -12453,6 +13118,11 @@ export namespace Prisma {
     AdmissionForm?: boolean | Tenant$AdmissionFormArgs<ExtArgs>
     AdmissionRequiredDocument?: boolean | Tenant$AdmissionRequiredDocumentArgs<ExtArgs>
     AdmissionApplication?: boolean | Tenant$AdmissionApplicationArgs<ExtArgs>
+    ChartOfAccount?: boolean | Tenant$ChartOfAccountArgs<ExtArgs>
+    BankAccount?: boolean | Tenant$BankAccountArgs<ExtArgs>
+    AccountingPeriod?: boolean | Tenant$AccountingPeriodArgs<ExtArgs>
+    FinancialTransaction?: boolean | Tenant$FinancialTransactionArgs<ExtArgs>
+    JournalEntryLine?: boolean | Tenant$JournalEntryLineArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12523,6 +13193,11 @@ export namespace Prisma {
       AdmissionForm: Prisma.$AdmissionFormPayload<ExtArgs>[]
       AdmissionRequiredDocument: Prisma.$AdmissionRequiredDocumentPayload<ExtArgs>[]
       AdmissionApplication: Prisma.$AdmissionApplicationPayload<ExtArgs>[]
+      ChartOfAccount: Prisma.$ChartOfAccountPayload<ExtArgs>[]
+      BankAccount: Prisma.$BankAccountPayload<ExtArgs>[]
+      AccountingPeriod: Prisma.$AccountingPeriodPayload<ExtArgs>[]
+      FinancialTransaction: Prisma.$FinancialTransactionPayload<ExtArgs>[]
+      JournalEntryLine: Prisma.$JournalEntryLinePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12958,6 +13633,11 @@ export namespace Prisma {
     AdmissionForm<T extends Tenant$AdmissionFormArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$AdmissionFormArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionFormPayload<ExtArgs>, T, "findMany"> | Null>
     AdmissionRequiredDocument<T extends Tenant$AdmissionRequiredDocumentArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$AdmissionRequiredDocumentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionRequiredDocumentPayload<ExtArgs>, T, "findMany"> | Null>
     AdmissionApplication<T extends Tenant$AdmissionApplicationArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$AdmissionApplicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdmissionApplicationPayload<ExtArgs>, T, "findMany"> | Null>
+    ChartOfAccount<T extends Tenant$ChartOfAccountArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$ChartOfAccountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany"> | Null>
+    BankAccount<T extends Tenant$BankAccountArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$BankAccountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany"> | Null>
+    AccountingPeriod<T extends Tenant$AccountingPeriodArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$AccountingPeriodArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findMany"> | Null>
+    FinancialTransaction<T extends Tenant$FinancialTransactionArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$FinancialTransactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    JournalEntryLine<T extends Tenant$JournalEntryLineArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$JournalEntryLineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14495,6 +15175,106 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdmissionApplicationScalarFieldEnum | AdmissionApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.ChartOfAccount
+   */
+  export type Tenant$ChartOfAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    where?: ChartOfAccountWhereInput
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    cursor?: ChartOfAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.BankAccount
+   */
+  export type Tenant$BankAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    where?: BankAccountWhereInput
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    cursor?: BankAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.AccountingPeriod
+   */
+  export type Tenant$AccountingPeriodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    where?: AccountingPeriodWhereInput
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    cursor?: AccountingPeriodWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.FinancialTransaction
+   */
+  export type Tenant$FinancialTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    where?: FinancialTransactionWhereInput
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    cursor?: FinancialTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.JournalEntryLine
+   */
+  export type Tenant$JournalEntryLineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    where?: JournalEntryLineWhereInput
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    cursor?: JournalEntryLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
   }
 
   /**
@@ -41445,6 +42225,7 @@ export namespace Prisma {
     Result?: boolean | Student$ResultArgs<ExtArgs>
     BedAllocation?: boolean | Student$BedAllocationArgs<ExtArgs>
     BookBorrowing?: boolean | Student$BookBorrowingArgs<ExtArgs>
+    journalLines?: boolean | Student$journalLinesArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
@@ -41487,6 +42268,7 @@ export namespace Prisma {
     Result?: boolean | Student$ResultArgs<ExtArgs>
     BedAllocation?: boolean | Student$BedAllocationArgs<ExtArgs>
     BookBorrowing?: boolean | Student$BookBorrowingArgs<ExtArgs>
+    journalLines?: boolean | Student$journalLinesArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StudentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -41511,6 +42293,7 @@ export namespace Prisma {
       Result: Prisma.$ResultPayload<ExtArgs>[]
       BedAllocation: Prisma.$BedAllocationPayload<ExtArgs>[]
       BookBorrowing: Prisma.$BookBorrowingPayload<ExtArgs>[]
+      journalLines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -41898,6 +42681,7 @@ export namespace Prisma {
     Result<T extends Student$ResultArgs<ExtArgs> = {}>(args?: Subset<T, Student$ResultArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResultPayload<ExtArgs>, T, "findMany"> | Null>
     BedAllocation<T extends Student$BedAllocationArgs<ExtArgs> = {}>(args?: Subset<T, Student$BedAllocationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BedAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     BookBorrowing<T extends Student$BookBorrowingArgs<ExtArgs> = {}>(args?: Subset<T, Student$BookBorrowingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookBorrowingPayload<ExtArgs>, T, "findMany"> | Null>
+    journalLines<T extends Student$journalLinesArgs<ExtArgs> = {}>(args?: Subset<T, Student$journalLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -42465,6 +43249,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BookBorrowingScalarFieldEnum | BookBorrowingScalarFieldEnum[]
+  }
+
+  /**
+   * Student.journalLines
+   */
+  export type Student$journalLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    where?: JournalEntryLineWhereInput
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    cursor?: JournalEntryLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
   }
 
   /**
@@ -53764,6 +54568,7 @@ export namespace Prisma {
     term?: boolean | TermDefaultArgs<ExtArgs>
     items?: boolean | Invoice$itemsArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
+    journalLines?: boolean | Invoice$journalLinesArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
@@ -53806,6 +54611,7 @@ export namespace Prisma {
     term?: boolean | TermDefaultArgs<ExtArgs>
     items?: boolean | Invoice$itemsArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
+    journalLines?: boolean | Invoice$journalLinesArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -53822,6 +54628,7 @@ export namespace Prisma {
       term: Prisma.$TermPayload<ExtArgs>
       items: Prisma.$InvoiceItemPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
+      journalLines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -54205,6 +55012,7 @@ export namespace Prisma {
     term<T extends TermDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TermDefaultArgs<ExtArgs>>): Prisma__TermClient<$Result.GetResult<Prisma.$TermPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     items<T extends Invoice$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findMany"> | Null>
     payments<T extends Invoice$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany"> | Null>
+    journalLines<T extends Invoice$journalLinesArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$journalLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -54601,6 +55409,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice.journalLines
+   */
+  export type Invoice$journalLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    where?: JournalEntryLineWhereInput
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    cursor?: JournalEntryLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
   }
 
   /**
@@ -55854,7 +56682,7 @@ export namespace Prisma {
   export type PaymentGroupByOutputType = {
     id: string
     tenantId: string
-    invoiceId: string
+    invoiceId: string | null
     amount: Decimal
     method: $Enums.PaymentMethod
     reference: string
@@ -55895,7 +56723,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
-    invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    invoice?: boolean | Payment$invoiceArgs<ExtArgs>
     PaymentAttempt?: boolean | Payment$PaymentAttemptArgs<ExtArgs>
     PaymentAllocation?: boolean | Payment$PaymentAllocationArgs<ExtArgs>
     _count?: boolean | PaymentCountOutputTypeDefaultArgs<ExtArgs>
@@ -55913,7 +56741,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
-    invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    invoice?: boolean | Payment$invoiceArgs<ExtArgs>
   }, ExtArgs["result"]["payment"]>
 
   export type PaymentSelectScalar = {
@@ -55931,28 +56759,28 @@ export namespace Prisma {
 
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
-    invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    invoice?: boolean | Payment$invoiceArgs<ExtArgs>
     PaymentAttempt?: boolean | Payment$PaymentAttemptArgs<ExtArgs>
     PaymentAllocation?: boolean | Payment$PaymentAllocationArgs<ExtArgs>
     _count?: boolean | PaymentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
-    invoice?: boolean | InvoiceDefaultArgs<ExtArgs>
+    invoice?: boolean | Payment$invoiceArgs<ExtArgs>
   }
 
   export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Payment"
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
-      invoice: Prisma.$InvoicePayload<ExtArgs>
+      invoice: Prisma.$InvoicePayload<ExtArgs> | null
       PaymentAttempt: Prisma.$PaymentAttemptPayload<ExtArgs>[]
       PaymentAllocation: Prisma.$PaymentAllocationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
-      invoiceId: string
+      invoiceId: string | null
       amount: Prisma.Decimal
       method: $Enums.PaymentMethod
       reference: string
@@ -56325,7 +57153,7 @@ export namespace Prisma {
   export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    invoice<T extends InvoiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InvoiceDefaultArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    invoice<T extends Payment$invoiceArgs<ExtArgs> = {}>(args?: Subset<T, Payment$invoiceArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     PaymentAttempt<T extends Payment$PaymentAttemptArgs<ExtArgs> = {}>(args?: Subset<T, Payment$PaymentAttemptArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAttemptPayload<ExtArgs>, T, "findMany"> | Null>
     PaymentAllocation<T extends Payment$PaymentAllocationArgs<ExtArgs> = {}>(args?: Subset<T, Payment$PaymentAllocationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -56682,6 +57510,21 @@ export namespace Prisma {
      * Filter which Payments to delete
      */
     where?: PaymentWhereInput
+  }
+
+  /**
+   * Payment.invoice
+   */
+  export type Payment$invoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
   }
 
   /**
@@ -80116,7 +80959,7 @@ export namespace Prisma {
     tenantId: string
     paymentId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId: string | null
     amount: Decimal
     createdAt: Date
     _count: PaymentAllocationCountAggregateOutputType | null
@@ -80151,6 +80994,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     invoiceItem?: boolean | InvoiceItemDefaultArgs<ExtArgs>
+    transaction?: boolean | PaymentAllocation$transactionArgs<ExtArgs>
   }, ExtArgs["result"]["paymentAllocation"]>
 
   export type PaymentAllocationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -80164,6 +81008,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     invoiceItem?: boolean | InvoiceItemDefaultArgs<ExtArgs>
+    transaction?: boolean | PaymentAllocation$transactionArgs<ExtArgs>
   }, ExtArgs["result"]["paymentAllocation"]>
 
   export type PaymentAllocationSelectScalar = {
@@ -80180,11 +81025,13 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     invoiceItem?: boolean | InvoiceItemDefaultArgs<ExtArgs>
+    transaction?: boolean | PaymentAllocation$transactionArgs<ExtArgs>
   }
   export type PaymentAllocationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     payment?: boolean | PaymentDefaultArgs<ExtArgs>
     invoiceItem?: boolean | InvoiceItemDefaultArgs<ExtArgs>
+    transaction?: boolean | PaymentAllocation$transactionArgs<ExtArgs>
   }
 
   export type $PaymentAllocationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -80193,13 +81040,14 @@ export namespace Prisma {
       tenant: Prisma.$TenantPayload<ExtArgs>
       payment: Prisma.$PaymentPayload<ExtArgs>
       invoiceItem: Prisma.$InvoiceItemPayload<ExtArgs>
+      transaction: Prisma.$FinancialTransactionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
       paymentId: string
       invoiceItemId: string
-      transactionId: string
+      transactionId: string | null
       amount: Prisma.Decimal
       createdAt: Date
     }, ExtArgs["result"]["paymentAllocation"]>
@@ -80569,6 +81417,7 @@ export namespace Prisma {
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     payment<T extends PaymentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PaymentDefaultArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     invoiceItem<T extends InvoiceItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InvoiceItemDefaultArgs<ExtArgs>>): Prisma__InvoiceItemClient<$Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    transaction<T extends PaymentAllocation$transactionArgs<ExtArgs> = {}>(args?: Subset<T, PaymentAllocation$transactionArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -80920,6 +81769,21 @@ export namespace Prisma {
      * Filter which PaymentAllocations to delete
      */
     where?: PaymentAllocationWhereInput
+  }
+
+  /**
+   * PaymentAllocation.transaction
+   */
+  export type PaymentAllocation$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    where?: FinancialTransactionWhereInput
   }
 
   /**
@@ -81843,6 +82707,5141 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PaymentPlanVersionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChartOfAccount
+   */
+
+  export type AggregateChartOfAccount = {
+    _count: ChartOfAccountCountAggregateOutputType | null
+    _min: ChartOfAccountMinAggregateOutputType | null
+    _max: ChartOfAccountMaxAggregateOutputType | null
+  }
+
+  export type ChartOfAccountMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    code: string | null
+    name: string | null
+    type: $Enums.AccountType | null
+    isActive: boolean | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type ChartOfAccountMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    code: string | null
+    name: string | null
+    type: $Enums.AccountType | null
+    isActive: boolean | null
+    description: string | null
+    createdAt: Date | null
+  }
+
+  export type ChartOfAccountCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    code: number
+    name: number
+    type: number
+    isActive: number
+    description: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChartOfAccountMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    code?: true
+    name?: true
+    type?: true
+    isActive?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type ChartOfAccountMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    code?: true
+    name?: true
+    type?: true
+    isActive?: true
+    description?: true
+    createdAt?: true
+  }
+
+  export type ChartOfAccountCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    code?: true
+    name?: true
+    type?: true
+    isActive?: true
+    description?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChartOfAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChartOfAccount to aggregate.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChartOfAccounts
+    **/
+    _count?: true | ChartOfAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChartOfAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChartOfAccountMaxAggregateInputType
+  }
+
+  export type GetChartOfAccountAggregateType<T extends ChartOfAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateChartOfAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChartOfAccount[P]>
+      : GetScalarType<T[P], AggregateChartOfAccount[P]>
+  }
+
+
+
+
+  export type ChartOfAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChartOfAccountWhereInput
+    orderBy?: ChartOfAccountOrderByWithAggregationInput | ChartOfAccountOrderByWithAggregationInput[]
+    by: ChartOfAccountScalarFieldEnum[] | ChartOfAccountScalarFieldEnum
+    having?: ChartOfAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChartOfAccountCountAggregateInputType | true
+    _min?: ChartOfAccountMinAggregateInputType
+    _max?: ChartOfAccountMaxAggregateInputType
+  }
+
+  export type ChartOfAccountGroupByOutputType = {
+    id: string
+    tenantId: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive: boolean
+    description: string | null
+    createdAt: Date
+    _count: ChartOfAccountCountAggregateOutputType | null
+    _min: ChartOfAccountMinAggregateOutputType | null
+    _max: ChartOfAccountMaxAggregateOutputType | null
+  }
+
+  type GetChartOfAccountGroupByPayload<T extends ChartOfAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChartOfAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChartOfAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChartOfAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], ChartOfAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChartOfAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    isActive?: boolean
+    description?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    lines?: boolean | ChartOfAccount$linesArgs<ExtArgs>
+    bankAccounts?: boolean | ChartOfAccount$bankAccountsArgs<ExtArgs>
+    _count?: boolean | ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    isActive?: boolean
+    description?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chartOfAccount"]>
+
+  export type ChartOfAccountSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    code?: boolean
+    name?: boolean
+    type?: boolean
+    isActive?: boolean
+    description?: boolean
+    createdAt?: boolean
+  }
+
+  export type ChartOfAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    lines?: boolean | ChartOfAccount$linesArgs<ExtArgs>
+    bankAccounts?: boolean | ChartOfAccount$bankAccountsArgs<ExtArgs>
+    _count?: boolean | ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ChartOfAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $ChartOfAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChartOfAccount"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      lines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
+      bankAccounts: Prisma.$BankAccountPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      code: string
+      name: string
+      type: $Enums.AccountType
+      isActive: boolean
+      description: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["chartOfAccount"]>
+    composites: {}
+  }
+
+  type ChartOfAccountGetPayload<S extends boolean | null | undefined | ChartOfAccountDefaultArgs> = $Result.GetResult<Prisma.$ChartOfAccountPayload, S>
+
+  type ChartOfAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ChartOfAccountFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ChartOfAccountCountAggregateInputType | true
+    }
+
+  export interface ChartOfAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChartOfAccount'], meta: { name: 'ChartOfAccount' } }
+    /**
+     * Find zero or one ChartOfAccount that matches the filter.
+     * @param {ChartOfAccountFindUniqueArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChartOfAccountFindUniqueArgs>(args: SelectSubset<T, ChartOfAccountFindUniqueArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ChartOfAccount that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ChartOfAccountFindUniqueOrThrowArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChartOfAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, ChartOfAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ChartOfAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindFirstArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChartOfAccountFindFirstArgs>(args?: SelectSubset<T, ChartOfAccountFindFirstArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ChartOfAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindFirstOrThrowArgs} args - Arguments to find a ChartOfAccount
+     * @example
+     * // Get one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChartOfAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, ChartOfAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ChartOfAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChartOfAccounts
+     * const chartOfAccounts = await prisma.chartOfAccount.findMany()
+     * 
+     * // Get first 10 ChartOfAccounts
+     * const chartOfAccounts = await prisma.chartOfAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChartOfAccountFindManyArgs>(args?: SelectSubset<T, ChartOfAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ChartOfAccount.
+     * @param {ChartOfAccountCreateArgs} args - Arguments to create a ChartOfAccount.
+     * @example
+     * // Create one ChartOfAccount
+     * const ChartOfAccount = await prisma.chartOfAccount.create({
+     *   data: {
+     *     // ... data to create a ChartOfAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChartOfAccountCreateArgs>(args: SelectSubset<T, ChartOfAccountCreateArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ChartOfAccounts.
+     * @param {ChartOfAccountCreateManyArgs} args - Arguments to create many ChartOfAccounts.
+     * @example
+     * // Create many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChartOfAccountCreateManyArgs>(args?: SelectSubset<T, ChartOfAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChartOfAccounts and returns the data saved in the database.
+     * @param {ChartOfAccountCreateManyAndReturnArgs} args - Arguments to create many ChartOfAccounts.
+     * @example
+     * // Create many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChartOfAccounts and only return the `id`
+     * const chartOfAccountWithIdOnly = await prisma.chartOfAccount.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChartOfAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, ChartOfAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ChartOfAccount.
+     * @param {ChartOfAccountDeleteArgs} args - Arguments to delete one ChartOfAccount.
+     * @example
+     * // Delete one ChartOfAccount
+     * const ChartOfAccount = await prisma.chartOfAccount.delete({
+     *   where: {
+     *     // ... filter to delete one ChartOfAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChartOfAccountDeleteArgs>(args: SelectSubset<T, ChartOfAccountDeleteArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ChartOfAccount.
+     * @param {ChartOfAccountUpdateArgs} args - Arguments to update one ChartOfAccount.
+     * @example
+     * // Update one ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChartOfAccountUpdateArgs>(args: SelectSubset<T, ChartOfAccountUpdateArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ChartOfAccounts.
+     * @param {ChartOfAccountDeleteManyArgs} args - Arguments to filter ChartOfAccounts to delete.
+     * @example
+     * // Delete a few ChartOfAccounts
+     * const { count } = await prisma.chartOfAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChartOfAccountDeleteManyArgs>(args?: SelectSubset<T, ChartOfAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChartOfAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChartOfAccounts
+     * const chartOfAccount = await prisma.chartOfAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChartOfAccountUpdateManyArgs>(args: SelectSubset<T, ChartOfAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ChartOfAccount.
+     * @param {ChartOfAccountUpsertArgs} args - Arguments to update or create a ChartOfAccount.
+     * @example
+     * // Update or create a ChartOfAccount
+     * const chartOfAccount = await prisma.chartOfAccount.upsert({
+     *   create: {
+     *     // ... data to create a ChartOfAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChartOfAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChartOfAccountUpsertArgs>(args: SelectSubset<T, ChartOfAccountUpsertArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ChartOfAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountCountArgs} args - Arguments to filter ChartOfAccounts to count.
+     * @example
+     * // Count the number of ChartOfAccounts
+     * const count = await prisma.chartOfAccount.count({
+     *   where: {
+     *     // ... the filter for the ChartOfAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChartOfAccountCountArgs>(
+      args?: Subset<T, ChartOfAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChartOfAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChartOfAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChartOfAccountAggregateArgs>(args: Subset<T, ChartOfAccountAggregateArgs>): Prisma.PrismaPromise<GetChartOfAccountAggregateType<T>>
+
+    /**
+     * Group by ChartOfAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChartOfAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChartOfAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChartOfAccountGroupByArgs['orderBy'] }
+        : { orderBy?: ChartOfAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChartOfAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChartOfAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChartOfAccount model
+   */
+  readonly fields: ChartOfAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChartOfAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChartOfAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lines<T extends ChartOfAccount$linesArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$linesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
+    bankAccounts<T extends ChartOfAccount$bankAccountsArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccount$bankAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChartOfAccount model
+   */ 
+  interface ChartOfAccountFieldRefs {
+    readonly id: FieldRef<"ChartOfAccount", 'String'>
+    readonly tenantId: FieldRef<"ChartOfAccount", 'String'>
+    readonly code: FieldRef<"ChartOfAccount", 'String'>
+    readonly name: FieldRef<"ChartOfAccount", 'String'>
+    readonly type: FieldRef<"ChartOfAccount", 'AccountType'>
+    readonly isActive: FieldRef<"ChartOfAccount", 'Boolean'>
+    readonly description: FieldRef<"ChartOfAccount", 'String'>
+    readonly createdAt: FieldRef<"ChartOfAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChartOfAccount findUnique
+   */
+  export type ChartOfAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount findUniqueOrThrow
+   */
+  export type ChartOfAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount findFirst
+   */
+  export type ChartOfAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChartOfAccounts.
+     */
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount findFirstOrThrow
+   */
+  export type ChartOfAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccount to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChartOfAccounts.
+     */
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount findMany
+   */
+  export type ChartOfAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ChartOfAccounts to fetch.
+     */
+    where?: ChartOfAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChartOfAccounts to fetch.
+     */
+    orderBy?: ChartOfAccountOrderByWithRelationInput | ChartOfAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChartOfAccounts.
+     */
+    cursor?: ChartOfAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChartOfAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChartOfAccounts.
+     */
+    skip?: number
+    distinct?: ChartOfAccountScalarFieldEnum | ChartOfAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount create
+   */
+  export type ChartOfAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChartOfAccount.
+     */
+    data: XOR<ChartOfAccountCreateInput, ChartOfAccountUncheckedCreateInput>
+  }
+
+  /**
+   * ChartOfAccount createMany
+   */
+  export type ChartOfAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChartOfAccounts.
+     */
+    data: ChartOfAccountCreateManyInput | ChartOfAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChartOfAccount createManyAndReturn
+   */
+  export type ChartOfAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ChartOfAccounts.
+     */
+    data: ChartOfAccountCreateManyInput | ChartOfAccountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChartOfAccount update
+   */
+  export type ChartOfAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChartOfAccount.
+     */
+    data: XOR<ChartOfAccountUpdateInput, ChartOfAccountUncheckedUpdateInput>
+    /**
+     * Choose, which ChartOfAccount to update.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount updateMany
+   */
+  export type ChartOfAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChartOfAccounts.
+     */
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which ChartOfAccounts to update
+     */
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * ChartOfAccount upsert
+   */
+  export type ChartOfAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChartOfAccount to update in case it exists.
+     */
+    where: ChartOfAccountWhereUniqueInput
+    /**
+     * In case the ChartOfAccount found by the `where` argument doesn't exist, create a new ChartOfAccount with this data.
+     */
+    create: XOR<ChartOfAccountCreateInput, ChartOfAccountUncheckedCreateInput>
+    /**
+     * In case the ChartOfAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChartOfAccountUpdateInput, ChartOfAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * ChartOfAccount delete
+   */
+  export type ChartOfAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+    /**
+     * Filter which ChartOfAccount to delete.
+     */
+    where: ChartOfAccountWhereUniqueInput
+  }
+
+  /**
+   * ChartOfAccount deleteMany
+   */
+  export type ChartOfAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChartOfAccounts to delete
+     */
+    where?: ChartOfAccountWhereInput
+  }
+
+  /**
+   * ChartOfAccount.lines
+   */
+  export type ChartOfAccount$linesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    where?: JournalEntryLineWhereInput
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    cursor?: JournalEntryLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount.bankAccounts
+   */
+  export type ChartOfAccount$bankAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    where?: BankAccountWhereInput
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    cursor?: BankAccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ChartOfAccount without action
+   */
+  export type ChartOfAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChartOfAccount
+     */
+    select?: ChartOfAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChartOfAccountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BankAccount
+   */
+
+  export type AggregateBankAccount = {
+    _count: BankAccountCountAggregateOutputType | null
+    _min: BankAccountMinAggregateOutputType | null
+    _max: BankAccountMaxAggregateOutputType | null
+  }
+
+  export type BankAccountMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    ledgerAccountId: string | null
+    name: string | null
+    accountNumber: string | null
+    bankName: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+  }
+
+  export type BankAccountMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    ledgerAccountId: string | null
+    name: string | null
+    accountNumber: string | null
+    bankName: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+  }
+
+  export type BankAccountCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    ledgerAccountId: number
+    name: number
+    accountNumber: number
+    bankName: number
+    isActive: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BankAccountMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ledgerAccountId?: true
+    name?: true
+    accountNumber?: true
+    bankName?: true
+    isActive?: true
+    createdAt?: true
+  }
+
+  export type BankAccountMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ledgerAccountId?: true
+    name?: true
+    accountNumber?: true
+    bankName?: true
+    isActive?: true
+    createdAt?: true
+  }
+
+  export type BankAccountCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ledgerAccountId?: true
+    name?: true
+    accountNumber?: true
+    bankName?: true
+    isActive?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BankAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BankAccount to aggregate.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BankAccounts
+    **/
+    _count?: true | BankAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BankAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BankAccountMaxAggregateInputType
+  }
+
+  export type GetBankAccountAggregateType<T extends BankAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateBankAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBankAccount[P]>
+      : GetScalarType<T[P], AggregateBankAccount[P]>
+  }
+
+
+
+
+  export type BankAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankAccountWhereInput
+    orderBy?: BankAccountOrderByWithAggregationInput | BankAccountOrderByWithAggregationInput[]
+    by: BankAccountScalarFieldEnum[] | BankAccountScalarFieldEnum
+    having?: BankAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BankAccountCountAggregateInputType | true
+    _min?: BankAccountMinAggregateInputType
+    _max?: BankAccountMaxAggregateInputType
+  }
+
+  export type BankAccountGroupByOutputType = {
+    id: string
+    tenantId: string
+    ledgerAccountId: string
+    name: string
+    accountNumber: string | null
+    bankName: string | null
+    isActive: boolean
+    createdAt: Date
+    _count: BankAccountCountAggregateOutputType | null
+    _min: BankAccountMinAggregateOutputType | null
+    _max: BankAccountMaxAggregateOutputType | null
+  }
+
+  type GetBankAccountGroupByPayload<T extends BankAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BankAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BankAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BankAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], BankAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BankAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ledgerAccountId?: boolean
+    name?: boolean
+    accountNumber?: boolean
+    bankName?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    ledgerAccount?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankAccount"]>
+
+  export type BankAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ledgerAccountId?: boolean
+    name?: boolean
+    accountNumber?: boolean
+    bankName?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    ledgerAccount?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bankAccount"]>
+
+  export type BankAccountSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    ledgerAccountId?: boolean
+    name?: boolean
+    accountNumber?: boolean
+    bankName?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+  }
+
+  export type BankAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    ledgerAccount?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+  }
+  export type BankAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    ledgerAccount?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+  }
+
+  export type $BankAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BankAccount"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      ledgerAccount: Prisma.$ChartOfAccountPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      ledgerAccountId: string
+      name: string
+      accountNumber: string | null
+      bankName: string | null
+      isActive: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["bankAccount"]>
+    composites: {}
+  }
+
+  type BankAccountGetPayload<S extends boolean | null | undefined | BankAccountDefaultArgs> = $Result.GetResult<Prisma.$BankAccountPayload, S>
+
+  type BankAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<BankAccountFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: BankAccountCountAggregateInputType | true
+    }
+
+  export interface BankAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BankAccount'], meta: { name: 'BankAccount' } }
+    /**
+     * Find zero or one BankAccount that matches the filter.
+     * @param {BankAccountFindUniqueArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BankAccountFindUniqueArgs>(args: SelectSubset<T, BankAccountFindUniqueArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one BankAccount that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {BankAccountFindUniqueOrThrowArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BankAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, BankAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first BankAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountFindFirstArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BankAccountFindFirstArgs>(args?: SelectSubset<T, BankAccountFindFirstArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first BankAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountFindFirstOrThrowArgs} args - Arguments to find a BankAccount
+     * @example
+     * // Get one BankAccount
+     * const bankAccount = await prisma.bankAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BankAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, BankAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more BankAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BankAccounts
+     * const bankAccounts = await prisma.bankAccount.findMany()
+     * 
+     * // Get first 10 BankAccounts
+     * const bankAccounts = await prisma.bankAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bankAccountWithIdOnly = await prisma.bankAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BankAccountFindManyArgs>(args?: SelectSubset<T, BankAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a BankAccount.
+     * @param {BankAccountCreateArgs} args - Arguments to create a BankAccount.
+     * @example
+     * // Create one BankAccount
+     * const BankAccount = await prisma.bankAccount.create({
+     *   data: {
+     *     // ... data to create a BankAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends BankAccountCreateArgs>(args: SelectSubset<T, BankAccountCreateArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many BankAccounts.
+     * @param {BankAccountCreateManyArgs} args - Arguments to create many BankAccounts.
+     * @example
+     * // Create many BankAccounts
+     * const bankAccount = await prisma.bankAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BankAccountCreateManyArgs>(args?: SelectSubset<T, BankAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BankAccounts and returns the data saved in the database.
+     * @param {BankAccountCreateManyAndReturnArgs} args - Arguments to create many BankAccounts.
+     * @example
+     * // Create many BankAccounts
+     * const bankAccount = await prisma.bankAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BankAccounts and only return the `id`
+     * const bankAccountWithIdOnly = await prisma.bankAccount.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BankAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, BankAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a BankAccount.
+     * @param {BankAccountDeleteArgs} args - Arguments to delete one BankAccount.
+     * @example
+     * // Delete one BankAccount
+     * const BankAccount = await prisma.bankAccount.delete({
+     *   where: {
+     *     // ... filter to delete one BankAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BankAccountDeleteArgs>(args: SelectSubset<T, BankAccountDeleteArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one BankAccount.
+     * @param {BankAccountUpdateArgs} args - Arguments to update one BankAccount.
+     * @example
+     * // Update one BankAccount
+     * const bankAccount = await prisma.bankAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BankAccountUpdateArgs>(args: SelectSubset<T, BankAccountUpdateArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more BankAccounts.
+     * @param {BankAccountDeleteManyArgs} args - Arguments to filter BankAccounts to delete.
+     * @example
+     * // Delete a few BankAccounts
+     * const { count } = await prisma.bankAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BankAccountDeleteManyArgs>(args?: SelectSubset<T, BankAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BankAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BankAccounts
+     * const bankAccount = await prisma.bankAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BankAccountUpdateManyArgs>(args: SelectSubset<T, BankAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one BankAccount.
+     * @param {BankAccountUpsertArgs} args - Arguments to update or create a BankAccount.
+     * @example
+     * // Update or create a BankAccount
+     * const bankAccount = await prisma.bankAccount.upsert({
+     *   create: {
+     *     // ... data to create a BankAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BankAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BankAccountUpsertArgs>(args: SelectSubset<T, BankAccountUpsertArgs<ExtArgs>>): Prisma__BankAccountClient<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of BankAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountCountArgs} args - Arguments to filter BankAccounts to count.
+     * @example
+     * // Count the number of BankAccounts
+     * const count = await prisma.bankAccount.count({
+     *   where: {
+     *     // ... the filter for the BankAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends BankAccountCountArgs>(
+      args?: Subset<T, BankAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BankAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BankAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BankAccountAggregateArgs>(args: Subset<T, BankAccountAggregateArgs>): Prisma.PrismaPromise<GetBankAccountAggregateType<T>>
+
+    /**
+     * Group by BankAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BankAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BankAccountGroupByArgs['orderBy'] }
+        : { orderBy?: BankAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BankAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBankAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BankAccount model
+   */
+  readonly fields: BankAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BankAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BankAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    ledgerAccount<T extends ChartOfAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccountDefaultArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BankAccount model
+   */ 
+  interface BankAccountFieldRefs {
+    readonly id: FieldRef<"BankAccount", 'String'>
+    readonly tenantId: FieldRef<"BankAccount", 'String'>
+    readonly ledgerAccountId: FieldRef<"BankAccount", 'String'>
+    readonly name: FieldRef<"BankAccount", 'String'>
+    readonly accountNumber: FieldRef<"BankAccount", 'String'>
+    readonly bankName: FieldRef<"BankAccount", 'String'>
+    readonly isActive: FieldRef<"BankAccount", 'Boolean'>
+    readonly createdAt: FieldRef<"BankAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BankAccount findUnique
+   */
+  export type BankAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount findUniqueOrThrow
+   */
+  export type BankAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount findFirst
+   */
+  export type BankAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BankAccounts.
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BankAccounts.
+     */
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * BankAccount findFirstOrThrow
+   */
+  export type BankAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccount to fetch.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BankAccounts.
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BankAccounts.
+     */
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * BankAccount findMany
+   */
+  export type BankAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which BankAccounts to fetch.
+     */
+    where?: BankAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BankAccounts to fetch.
+     */
+    orderBy?: BankAccountOrderByWithRelationInput | BankAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BankAccounts.
+     */
+    cursor?: BankAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BankAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BankAccounts.
+     */
+    skip?: number
+    distinct?: BankAccountScalarFieldEnum | BankAccountScalarFieldEnum[]
+  }
+
+  /**
+   * BankAccount create
+   */
+  export type BankAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BankAccount.
+     */
+    data: XOR<BankAccountCreateInput, BankAccountUncheckedCreateInput>
+  }
+
+  /**
+   * BankAccount createMany
+   */
+  export type BankAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BankAccounts.
+     */
+    data: BankAccountCreateManyInput | BankAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BankAccount createManyAndReturn
+   */
+  export type BankAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many BankAccounts.
+     */
+    data: BankAccountCreateManyInput | BankAccountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BankAccount update
+   */
+  export type BankAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BankAccount.
+     */
+    data: XOR<BankAccountUpdateInput, BankAccountUncheckedUpdateInput>
+    /**
+     * Choose, which BankAccount to update.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount updateMany
+   */
+  export type BankAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BankAccounts.
+     */
+    data: XOR<BankAccountUpdateManyMutationInput, BankAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which BankAccounts to update
+     */
+    where?: BankAccountWhereInput
+  }
+
+  /**
+   * BankAccount upsert
+   */
+  export type BankAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BankAccount to update in case it exists.
+     */
+    where: BankAccountWhereUniqueInput
+    /**
+     * In case the BankAccount found by the `where` argument doesn't exist, create a new BankAccount with this data.
+     */
+    create: XOR<BankAccountCreateInput, BankAccountUncheckedCreateInput>
+    /**
+     * In case the BankAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BankAccountUpdateInput, BankAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * BankAccount delete
+   */
+  export type BankAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+    /**
+     * Filter which BankAccount to delete.
+     */
+    where: BankAccountWhereUniqueInput
+  }
+
+  /**
+   * BankAccount deleteMany
+   */
+  export type BankAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BankAccounts to delete
+     */
+    where?: BankAccountWhereInput
+  }
+
+  /**
+   * BankAccount without action
+   */
+  export type BankAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BankAccount
+     */
+    select?: BankAccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankAccountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AccountingPeriod
+   */
+
+  export type AggregateAccountingPeriod = {
+    _count: AccountingPeriodCountAggregateOutputType | null
+    _min: AccountingPeriodMinAggregateOutputType | null
+    _max: AccountingPeriodMaxAggregateOutputType | null
+  }
+
+  export type AccountingPeriodMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    startDate: Date | null
+    endDate: Date | null
+    status: $Enums.PeriodStatus | null
+    closedAt: Date | null
+    closedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type AccountingPeriodMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    name: string | null
+    startDate: Date | null
+    endDate: Date | null
+    status: $Enums.PeriodStatus | null
+    closedAt: Date | null
+    closedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type AccountingPeriodCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    name: number
+    startDate: number
+    endDate: number
+    status: number
+    closedAt: number
+    closedBy: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AccountingPeriodMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    closedAt?: true
+    closedBy?: true
+    createdAt?: true
+  }
+
+  export type AccountingPeriodMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    closedAt?: true
+    closedBy?: true
+    createdAt?: true
+  }
+
+  export type AccountingPeriodCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    name?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    closedAt?: true
+    closedBy?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AccountingPeriodAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountingPeriod to aggregate.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AccountingPeriods
+    **/
+    _count?: true | AccountingPeriodCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountingPeriodMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountingPeriodMaxAggregateInputType
+  }
+
+  export type GetAccountingPeriodAggregateType<T extends AccountingPeriodAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccountingPeriod]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccountingPeriod[P]>
+      : GetScalarType<T[P], AggregateAccountingPeriod[P]>
+  }
+
+
+
+
+  export type AccountingPeriodGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountingPeriodWhereInput
+    orderBy?: AccountingPeriodOrderByWithAggregationInput | AccountingPeriodOrderByWithAggregationInput[]
+    by: AccountingPeriodScalarFieldEnum[] | AccountingPeriodScalarFieldEnum
+    having?: AccountingPeriodScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountingPeriodCountAggregateInputType | true
+    _min?: AccountingPeriodMinAggregateInputType
+    _max?: AccountingPeriodMaxAggregateInputType
+  }
+
+  export type AccountingPeriodGroupByOutputType = {
+    id: string
+    tenantId: string
+    name: string
+    startDate: Date
+    endDate: Date
+    status: $Enums.PeriodStatus
+    closedAt: Date | null
+    closedBy: string | null
+    createdAt: Date
+    _count: AccountingPeriodCountAggregateOutputType | null
+    _min: AccountingPeriodMinAggregateOutputType | null
+    _max: AccountingPeriodMaxAggregateOutputType | null
+  }
+
+  type GetAccountingPeriodGroupByPayload<T extends AccountingPeriodGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountingPeriodGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountingPeriodGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountingPeriodGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountingPeriodGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountingPeriodSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    closedAt?: boolean
+    closedBy?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transactions?: boolean | AccountingPeriod$transactionsArgs<ExtArgs>
+    _count?: boolean | AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountingPeriod"]>
+
+  export type AccountingPeriodSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    closedAt?: boolean
+    closedBy?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountingPeriod"]>
+
+  export type AccountingPeriodSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    name?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    closedAt?: boolean
+    closedBy?: boolean
+    createdAt?: boolean
+  }
+
+  export type AccountingPeriodInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transactions?: boolean | AccountingPeriod$transactionsArgs<ExtArgs>
+    _count?: boolean | AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AccountingPeriodIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $AccountingPeriodPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AccountingPeriod"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      transactions: Prisma.$FinancialTransactionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      name: string
+      startDate: Date
+      endDate: Date
+      status: $Enums.PeriodStatus
+      closedAt: Date | null
+      closedBy: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["accountingPeriod"]>
+    composites: {}
+  }
+
+  type AccountingPeriodGetPayload<S extends boolean | null | undefined | AccountingPeriodDefaultArgs> = $Result.GetResult<Prisma.$AccountingPeriodPayload, S>
+
+  type AccountingPeriodCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AccountingPeriodFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AccountingPeriodCountAggregateInputType | true
+    }
+
+  export interface AccountingPeriodDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountingPeriod'], meta: { name: 'AccountingPeriod' } }
+    /**
+     * Find zero or one AccountingPeriod that matches the filter.
+     * @param {AccountingPeriodFindUniqueArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountingPeriodFindUniqueArgs>(args: SelectSubset<T, AccountingPeriodFindUniqueArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AccountingPeriod that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AccountingPeriodFindUniqueOrThrowArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountingPeriodFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountingPeriodFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AccountingPeriod that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodFindFirstArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountingPeriodFindFirstArgs>(args?: SelectSubset<T, AccountingPeriodFindFirstArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AccountingPeriod that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodFindFirstOrThrowArgs} args - Arguments to find a AccountingPeriod
+     * @example
+     * // Get one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountingPeriodFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountingPeriodFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AccountingPeriods that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AccountingPeriods
+     * const accountingPeriods = await prisma.accountingPeriod.findMany()
+     * 
+     * // Get first 10 AccountingPeriods
+     * const accountingPeriods = await prisma.accountingPeriod.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountingPeriodWithIdOnly = await prisma.accountingPeriod.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountingPeriodFindManyArgs>(args?: SelectSubset<T, AccountingPeriodFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AccountingPeriod.
+     * @param {AccountingPeriodCreateArgs} args - Arguments to create a AccountingPeriod.
+     * @example
+     * // Create one AccountingPeriod
+     * const AccountingPeriod = await prisma.accountingPeriod.create({
+     *   data: {
+     *     // ... data to create a AccountingPeriod
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountingPeriodCreateArgs>(args: SelectSubset<T, AccountingPeriodCreateArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AccountingPeriods.
+     * @param {AccountingPeriodCreateManyArgs} args - Arguments to create many AccountingPeriods.
+     * @example
+     * // Create many AccountingPeriods
+     * const accountingPeriod = await prisma.accountingPeriod.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountingPeriodCreateManyArgs>(args?: SelectSubset<T, AccountingPeriodCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AccountingPeriods and returns the data saved in the database.
+     * @param {AccountingPeriodCreateManyAndReturnArgs} args - Arguments to create many AccountingPeriods.
+     * @example
+     * // Create many AccountingPeriods
+     * const accountingPeriod = await prisma.accountingPeriod.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AccountingPeriods and only return the `id`
+     * const accountingPeriodWithIdOnly = await prisma.accountingPeriod.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccountingPeriodCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountingPeriodCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AccountingPeriod.
+     * @param {AccountingPeriodDeleteArgs} args - Arguments to delete one AccountingPeriod.
+     * @example
+     * // Delete one AccountingPeriod
+     * const AccountingPeriod = await prisma.accountingPeriod.delete({
+     *   where: {
+     *     // ... filter to delete one AccountingPeriod
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountingPeriodDeleteArgs>(args: SelectSubset<T, AccountingPeriodDeleteArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AccountingPeriod.
+     * @param {AccountingPeriodUpdateArgs} args - Arguments to update one AccountingPeriod.
+     * @example
+     * // Update one AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountingPeriodUpdateArgs>(args: SelectSubset<T, AccountingPeriodUpdateArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AccountingPeriods.
+     * @param {AccountingPeriodDeleteManyArgs} args - Arguments to filter AccountingPeriods to delete.
+     * @example
+     * // Delete a few AccountingPeriods
+     * const { count } = await prisma.accountingPeriod.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountingPeriodDeleteManyArgs>(args?: SelectSubset<T, AccountingPeriodDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountingPeriods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AccountingPeriods
+     * const accountingPeriod = await prisma.accountingPeriod.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountingPeriodUpdateManyArgs>(args: SelectSubset<T, AccountingPeriodUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AccountingPeriod.
+     * @param {AccountingPeriodUpsertArgs} args - Arguments to update or create a AccountingPeriod.
+     * @example
+     * // Update or create a AccountingPeriod
+     * const accountingPeriod = await prisma.accountingPeriod.upsert({
+     *   create: {
+     *     // ... data to create a AccountingPeriod
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AccountingPeriod we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountingPeriodUpsertArgs>(args: SelectSubset<T, AccountingPeriodUpsertArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AccountingPeriods.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodCountArgs} args - Arguments to filter AccountingPeriods to count.
+     * @example
+     * // Count the number of AccountingPeriods
+     * const count = await prisma.accountingPeriod.count({
+     *   where: {
+     *     // ... the filter for the AccountingPeriods we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountingPeriodCountArgs>(
+      args?: Subset<T, AccountingPeriodCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountingPeriodCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AccountingPeriod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountingPeriodAggregateArgs>(args: Subset<T, AccountingPeriodAggregateArgs>): Prisma.PrismaPromise<GetAccountingPeriodAggregateType<T>>
+
+    /**
+     * Group by AccountingPeriod.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountingPeriodGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountingPeriodGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountingPeriodGroupByArgs['orderBy'] }
+        : { orderBy?: AccountingPeriodGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountingPeriodGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountingPeriodGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AccountingPeriod model
+   */
+  readonly fields: AccountingPeriodFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AccountingPeriod.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountingPeriodClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    transactions<T extends AccountingPeriod$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, AccountingPeriod$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AccountingPeriod model
+   */ 
+  interface AccountingPeriodFieldRefs {
+    readonly id: FieldRef<"AccountingPeriod", 'String'>
+    readonly tenantId: FieldRef<"AccountingPeriod", 'String'>
+    readonly name: FieldRef<"AccountingPeriod", 'String'>
+    readonly startDate: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly endDate: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly status: FieldRef<"AccountingPeriod", 'PeriodStatus'>
+    readonly closedAt: FieldRef<"AccountingPeriod", 'DateTime'>
+    readonly closedBy: FieldRef<"AccountingPeriod", 'String'>
+    readonly createdAt: FieldRef<"AccountingPeriod", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AccountingPeriod findUnique
+   */
+  export type AccountingPeriodFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod findUniqueOrThrow
+   */
+  export type AccountingPeriodFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod findFirst
+   */
+  export type AccountingPeriodFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountingPeriods.
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountingPeriods.
+     */
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod findFirstOrThrow
+   */
+  export type AccountingPeriodFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriod to fetch.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountingPeriods.
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountingPeriods.
+     */
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod findMany
+   */
+  export type AccountingPeriodFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountingPeriods to fetch.
+     */
+    where?: AccountingPeriodWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountingPeriods to fetch.
+     */
+    orderBy?: AccountingPeriodOrderByWithRelationInput | AccountingPeriodOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AccountingPeriods.
+     */
+    cursor?: AccountingPeriodWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountingPeriods from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountingPeriods.
+     */
+    skip?: number
+    distinct?: AccountingPeriodScalarFieldEnum | AccountingPeriodScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod create
+   */
+  export type AccountingPeriodCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AccountingPeriod.
+     */
+    data: XOR<AccountingPeriodCreateInput, AccountingPeriodUncheckedCreateInput>
+  }
+
+  /**
+   * AccountingPeriod createMany
+   */
+  export type AccountingPeriodCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AccountingPeriods.
+     */
+    data: AccountingPeriodCreateManyInput | AccountingPeriodCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountingPeriod createManyAndReturn
+   */
+  export type AccountingPeriodCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AccountingPeriods.
+     */
+    data: AccountingPeriodCreateManyInput | AccountingPeriodCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountingPeriod update
+   */
+  export type AccountingPeriodUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AccountingPeriod.
+     */
+    data: XOR<AccountingPeriodUpdateInput, AccountingPeriodUncheckedUpdateInput>
+    /**
+     * Choose, which AccountingPeriod to update.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod updateMany
+   */
+  export type AccountingPeriodUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AccountingPeriods.
+     */
+    data: XOR<AccountingPeriodUpdateManyMutationInput, AccountingPeriodUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountingPeriods to update
+     */
+    where?: AccountingPeriodWhereInput
+  }
+
+  /**
+   * AccountingPeriod upsert
+   */
+  export type AccountingPeriodUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AccountingPeriod to update in case it exists.
+     */
+    where: AccountingPeriodWhereUniqueInput
+    /**
+     * In case the AccountingPeriod found by the `where` argument doesn't exist, create a new AccountingPeriod with this data.
+     */
+    create: XOR<AccountingPeriodCreateInput, AccountingPeriodUncheckedCreateInput>
+    /**
+     * In case the AccountingPeriod was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountingPeriodUpdateInput, AccountingPeriodUncheckedUpdateInput>
+  }
+
+  /**
+   * AccountingPeriod delete
+   */
+  export type AccountingPeriodDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+    /**
+     * Filter which AccountingPeriod to delete.
+     */
+    where: AccountingPeriodWhereUniqueInput
+  }
+
+  /**
+   * AccountingPeriod deleteMany
+   */
+  export type AccountingPeriodDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountingPeriods to delete
+     */
+    where?: AccountingPeriodWhereInput
+  }
+
+  /**
+   * AccountingPeriod.transactions
+   */
+  export type AccountingPeriod$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    where?: FinancialTransactionWhereInput
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    cursor?: FinancialTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * AccountingPeriod without action
+   */
+  export type AccountingPeriodDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountingPeriod
+     */
+    select?: AccountingPeriodSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountingPeriodInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FinancialTransaction
+   */
+
+  export type AggregateFinancialTransaction = {
+    _count: FinancialTransactionCountAggregateOutputType | null
+    _min: FinancialTransactionMinAggregateOutputType | null
+    _max: FinancialTransactionMaxAggregateOutputType | null
+  }
+
+  export type FinancialTransactionMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    periodId: string | null
+    reference: string | null
+    type: $Enums.TransactionType | null
+    source: string | null
+    description: string | null
+    transactionDate: Date | null
+    status: $Enums.TransactionStatus | null
+    createdAt: Date | null
+  }
+
+  export type FinancialTransactionMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    periodId: string | null
+    reference: string | null
+    type: $Enums.TransactionType | null
+    source: string | null
+    description: string | null
+    transactionDate: Date | null
+    status: $Enums.TransactionStatus | null
+    createdAt: Date | null
+  }
+
+  export type FinancialTransactionCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    periodId: number
+    reference: number
+    type: number
+    source: number
+    description: number
+    transactionDate: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type FinancialTransactionMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    periodId?: true
+    reference?: true
+    type?: true
+    source?: true
+    description?: true
+    transactionDate?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type FinancialTransactionMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    periodId?: true
+    reference?: true
+    type?: true
+    source?: true
+    description?: true
+    transactionDate?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type FinancialTransactionCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    periodId?: true
+    reference?: true
+    type?: true
+    source?: true
+    description?: true
+    transactionDate?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type FinancialTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialTransaction to aggregate.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FinancialTransactions
+    **/
+    _count?: true | FinancialTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FinancialTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FinancialTransactionMaxAggregateInputType
+  }
+
+  export type GetFinancialTransactionAggregateType<T extends FinancialTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateFinancialTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFinancialTransaction[P]>
+      : GetScalarType<T[P], AggregateFinancialTransaction[P]>
+  }
+
+
+
+
+  export type FinancialTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialTransactionWhereInput
+    orderBy?: FinancialTransactionOrderByWithAggregationInput | FinancialTransactionOrderByWithAggregationInput[]
+    by: FinancialTransactionScalarFieldEnum[] | FinancialTransactionScalarFieldEnum
+    having?: FinancialTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FinancialTransactionCountAggregateInputType | true
+    _min?: FinancialTransactionMinAggregateInputType
+    _max?: FinancialTransactionMaxAggregateInputType
+  }
+
+  export type FinancialTransactionGroupByOutputType = {
+    id: string
+    tenantId: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description: string | null
+    transactionDate: Date
+    status: $Enums.TransactionStatus
+    createdAt: Date
+    _count: FinancialTransactionCountAggregateOutputType | null
+    _min: FinancialTransactionMinAggregateOutputType | null
+    _max: FinancialTransactionMaxAggregateOutputType | null
+  }
+
+  type GetFinancialTransactionGroupByPayload<T extends FinancialTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FinancialTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FinancialTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FinancialTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], FinancialTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FinancialTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    periodId?: boolean
+    reference?: boolean
+    type?: boolean
+    source?: boolean
+    description?: boolean
+    transactionDate?: boolean
+    status?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    period?: boolean | AccountingPeriodDefaultArgs<ExtArgs>
+    lines?: boolean | FinancialTransaction$linesArgs<ExtArgs>
+    allocations?: boolean | FinancialTransaction$allocationsArgs<ExtArgs>
+    _count?: boolean | FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialTransaction"]>
+
+  export type FinancialTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    periodId?: boolean
+    reference?: boolean
+    type?: boolean
+    source?: boolean
+    description?: boolean
+    transactionDate?: boolean
+    status?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    period?: boolean | AccountingPeriodDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialTransaction"]>
+
+  export type FinancialTransactionSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    periodId?: boolean
+    reference?: boolean
+    type?: boolean
+    source?: boolean
+    description?: boolean
+    transactionDate?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type FinancialTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    period?: boolean | AccountingPeriodDefaultArgs<ExtArgs>
+    lines?: boolean | FinancialTransaction$linesArgs<ExtArgs>
+    allocations?: boolean | FinancialTransaction$allocationsArgs<ExtArgs>
+    _count?: boolean | FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FinancialTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    period?: boolean | AccountingPeriodDefaultArgs<ExtArgs>
+  }
+
+  export type $FinancialTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FinancialTransaction"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      period: Prisma.$AccountingPeriodPayload<ExtArgs>
+      lines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
+      allocations: Prisma.$PaymentAllocationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      periodId: string
+      reference: string
+      type: $Enums.TransactionType
+      source: string
+      description: string | null
+      transactionDate: Date
+      status: $Enums.TransactionStatus
+      createdAt: Date
+    }, ExtArgs["result"]["financialTransaction"]>
+    composites: {}
+  }
+
+  type FinancialTransactionGetPayload<S extends boolean | null | undefined | FinancialTransactionDefaultArgs> = $Result.GetResult<Prisma.$FinancialTransactionPayload, S>
+
+  type FinancialTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FinancialTransactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FinancialTransactionCountAggregateInputType | true
+    }
+
+  export interface FinancialTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialTransaction'], meta: { name: 'FinancialTransaction' } }
+    /**
+     * Find zero or one FinancialTransaction that matches the filter.
+     * @param {FinancialTransactionFindUniqueArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FinancialTransactionFindUniqueArgs>(args: SelectSubset<T, FinancialTransactionFindUniqueArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FinancialTransaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FinancialTransactionFindUniqueOrThrowArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FinancialTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FinancialTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionFindFirstArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FinancialTransactionFindFirstArgs>(args?: SelectSubset<T, FinancialTransactionFindFirstArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FinancialTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionFindFirstOrThrowArgs} args - Arguments to find a FinancialTransaction
+     * @example
+     * // Get one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FinancialTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FinancialTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FinancialTransactions
+     * const financialTransactions = await prisma.financialTransaction.findMany()
+     * 
+     * // Get first 10 FinancialTransactions
+     * const financialTransactions = await prisma.financialTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const financialTransactionWithIdOnly = await prisma.financialTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FinancialTransactionFindManyArgs>(args?: SelectSubset<T, FinancialTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FinancialTransaction.
+     * @param {FinancialTransactionCreateArgs} args - Arguments to create a FinancialTransaction.
+     * @example
+     * // Create one FinancialTransaction
+     * const FinancialTransaction = await prisma.financialTransaction.create({
+     *   data: {
+     *     // ... data to create a FinancialTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends FinancialTransactionCreateArgs>(args: SelectSubset<T, FinancialTransactionCreateArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FinancialTransactions.
+     * @param {FinancialTransactionCreateManyArgs} args - Arguments to create many FinancialTransactions.
+     * @example
+     * // Create many FinancialTransactions
+     * const financialTransaction = await prisma.financialTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FinancialTransactionCreateManyArgs>(args?: SelectSubset<T, FinancialTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FinancialTransactions and returns the data saved in the database.
+     * @param {FinancialTransactionCreateManyAndReturnArgs} args - Arguments to create many FinancialTransactions.
+     * @example
+     * // Create many FinancialTransactions
+     * const financialTransaction = await prisma.financialTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FinancialTransactions and only return the `id`
+     * const financialTransactionWithIdOnly = await prisma.financialTransaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FinancialTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FinancialTransaction.
+     * @param {FinancialTransactionDeleteArgs} args - Arguments to delete one FinancialTransaction.
+     * @example
+     * // Delete one FinancialTransaction
+     * const FinancialTransaction = await prisma.financialTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one FinancialTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FinancialTransactionDeleteArgs>(args: SelectSubset<T, FinancialTransactionDeleteArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FinancialTransaction.
+     * @param {FinancialTransactionUpdateArgs} args - Arguments to update one FinancialTransaction.
+     * @example
+     * // Update one FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FinancialTransactionUpdateArgs>(args: SelectSubset<T, FinancialTransactionUpdateArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FinancialTransactions.
+     * @param {FinancialTransactionDeleteManyArgs} args - Arguments to filter FinancialTransactions to delete.
+     * @example
+     * // Delete a few FinancialTransactions
+     * const { count } = await prisma.financialTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FinancialTransactionDeleteManyArgs>(args?: SelectSubset<T, FinancialTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FinancialTransactions
+     * const financialTransaction = await prisma.financialTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FinancialTransactionUpdateManyArgs>(args: SelectSubset<T, FinancialTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FinancialTransaction.
+     * @param {FinancialTransactionUpsertArgs} args - Arguments to update or create a FinancialTransaction.
+     * @example
+     * // Update or create a FinancialTransaction
+     * const financialTransaction = await prisma.financialTransaction.upsert({
+     *   create: {
+     *     // ... data to create a FinancialTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FinancialTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FinancialTransactionUpsertArgs>(args: SelectSubset<T, FinancialTransactionUpsertArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FinancialTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionCountArgs} args - Arguments to filter FinancialTransactions to count.
+     * @example
+     * // Count the number of FinancialTransactions
+     * const count = await prisma.financialTransaction.count({
+     *   where: {
+     *     // ... the filter for the FinancialTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends FinancialTransactionCountArgs>(
+      args?: Subset<T, FinancialTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FinancialTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FinancialTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FinancialTransactionAggregateArgs>(args: Subset<T, FinancialTransactionAggregateArgs>): Prisma.PrismaPromise<GetFinancialTransactionAggregateType<T>>
+
+    /**
+     * Group by FinancialTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FinancialTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FinancialTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: FinancialTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FinancialTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FinancialTransaction model
+   */
+  readonly fields: FinancialTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FinancialTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FinancialTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    period<T extends AccountingPeriodDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountingPeriodDefaultArgs<ExtArgs>>): Prisma__AccountingPeriodClient<$Result.GetResult<Prisma.$AccountingPeriodPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lines<T extends FinancialTransaction$linesArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransaction$linesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
+    allocations<T extends FinancialTransaction$allocationsArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransaction$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentAllocationPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FinancialTransaction model
+   */ 
+  interface FinancialTransactionFieldRefs {
+    readonly id: FieldRef<"FinancialTransaction", 'String'>
+    readonly tenantId: FieldRef<"FinancialTransaction", 'String'>
+    readonly periodId: FieldRef<"FinancialTransaction", 'String'>
+    readonly reference: FieldRef<"FinancialTransaction", 'String'>
+    readonly type: FieldRef<"FinancialTransaction", 'TransactionType'>
+    readonly source: FieldRef<"FinancialTransaction", 'String'>
+    readonly description: FieldRef<"FinancialTransaction", 'String'>
+    readonly transactionDate: FieldRef<"FinancialTransaction", 'DateTime'>
+    readonly status: FieldRef<"FinancialTransaction", 'TransactionStatus'>
+    readonly createdAt: FieldRef<"FinancialTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FinancialTransaction findUnique
+   */
+  export type FinancialTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction findUniqueOrThrow
+   */
+  export type FinancialTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction findFirst
+   */
+  export type FinancialTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialTransactions.
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialTransactions.
+     */
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction findFirstOrThrow
+   */
+  export type FinancialTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransaction to fetch.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialTransactions.
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialTransactions.
+     */
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction findMany
+   */
+  export type FinancialTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialTransactions to fetch.
+     */
+    where?: FinancialTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialTransactions to fetch.
+     */
+    orderBy?: FinancialTransactionOrderByWithRelationInput | FinancialTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FinancialTransactions.
+     */
+    cursor?: FinancialTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialTransactions.
+     */
+    skip?: number
+    distinct?: FinancialTransactionScalarFieldEnum | FinancialTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction create
+   */
+  export type FinancialTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FinancialTransaction.
+     */
+    data: XOR<FinancialTransactionCreateInput, FinancialTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * FinancialTransaction createMany
+   */
+  export type FinancialTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FinancialTransactions.
+     */
+    data: FinancialTransactionCreateManyInput | FinancialTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FinancialTransaction createManyAndReturn
+   */
+  export type FinancialTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FinancialTransactions.
+     */
+    data: FinancialTransactionCreateManyInput | FinancialTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FinancialTransaction update
+   */
+  export type FinancialTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FinancialTransaction.
+     */
+    data: XOR<FinancialTransactionUpdateInput, FinancialTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which FinancialTransaction to update.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction updateMany
+   */
+  export type FinancialTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FinancialTransactions.
+     */
+    data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialTransactions to update
+     */
+    where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * FinancialTransaction upsert
+   */
+  export type FinancialTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FinancialTransaction to update in case it exists.
+     */
+    where: FinancialTransactionWhereUniqueInput
+    /**
+     * In case the FinancialTransaction found by the `where` argument doesn't exist, create a new FinancialTransaction with this data.
+     */
+    create: XOR<FinancialTransactionCreateInput, FinancialTransactionUncheckedCreateInput>
+    /**
+     * In case the FinancialTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FinancialTransactionUpdateInput, FinancialTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * FinancialTransaction delete
+   */
+  export type FinancialTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which FinancialTransaction to delete.
+     */
+    where: FinancialTransactionWhereUniqueInput
+  }
+
+  /**
+   * FinancialTransaction deleteMany
+   */
+  export type FinancialTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialTransactions to delete
+     */
+    where?: FinancialTransactionWhereInput
+  }
+
+  /**
+   * FinancialTransaction.lines
+   */
+  export type FinancialTransaction$linesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    where?: JournalEntryLineWhereInput
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    cursor?: JournalEntryLineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction.allocations
+   */
+  export type FinancialTransaction$allocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PaymentAllocation
+     */
+    select?: PaymentAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentAllocationInclude<ExtArgs> | null
+    where?: PaymentAllocationWhereInput
+    orderBy?: PaymentAllocationOrderByWithRelationInput | PaymentAllocationOrderByWithRelationInput[]
+    cursor?: PaymentAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PaymentAllocationScalarFieldEnum | PaymentAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialTransaction without action
+   */
+  export type FinancialTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialTransaction
+     */
+    select?: FinancialTransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JournalEntryLine
+   */
+
+  export type AggregateJournalEntryLine = {
+    _count: JournalEntryLineCountAggregateOutputType | null
+    _avg: JournalEntryLineAvgAggregateOutputType | null
+    _sum: JournalEntryLineSumAggregateOutputType | null
+    _min: JournalEntryLineMinAggregateOutputType | null
+    _max: JournalEntryLineMaxAggregateOutputType | null
+  }
+
+  export type JournalEntryLineAvgAggregateOutputType = {
+    debit: Decimal | null
+    credit: Decimal | null
+  }
+
+  export type JournalEntryLineSumAggregateOutputType = {
+    debit: Decimal | null
+    credit: Decimal | null
+  }
+
+  export type JournalEntryLineMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    transactionId: string | null
+    accountId: string | null
+    debit: Decimal | null
+    credit: Decimal | null
+    memo: string | null
+    dimensionStudentId: string | null
+    dimensionInvoiceId: string | null
+    createdAt: Date | null
+  }
+
+  export type JournalEntryLineMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    transactionId: string | null
+    accountId: string | null
+    debit: Decimal | null
+    credit: Decimal | null
+    memo: string | null
+    dimensionStudentId: string | null
+    dimensionInvoiceId: string | null
+    createdAt: Date | null
+  }
+
+  export type JournalEntryLineCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    transactionId: number
+    accountId: number
+    debit: number
+    credit: number
+    memo: number
+    dimensionStudentId: number
+    dimensionInvoiceId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type JournalEntryLineAvgAggregateInputType = {
+    debit?: true
+    credit?: true
+  }
+
+  export type JournalEntryLineSumAggregateInputType = {
+    debit?: true
+    credit?: true
+  }
+
+  export type JournalEntryLineMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    transactionId?: true
+    accountId?: true
+    debit?: true
+    credit?: true
+    memo?: true
+    dimensionStudentId?: true
+    dimensionInvoiceId?: true
+    createdAt?: true
+  }
+
+  export type JournalEntryLineMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    transactionId?: true
+    accountId?: true
+    debit?: true
+    credit?: true
+    memo?: true
+    dimensionStudentId?: true
+    dimensionInvoiceId?: true
+    createdAt?: true
+  }
+
+  export type JournalEntryLineCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    transactionId?: true
+    accountId?: true
+    debit?: true
+    credit?: true
+    memo?: true
+    dimensionStudentId?: true
+    dimensionInvoiceId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type JournalEntryLineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalEntryLine to aggregate.
+     */
+    where?: JournalEntryLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntryLines to fetch.
+     */
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JournalEntryLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntryLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntryLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JournalEntryLines
+    **/
+    _count?: true | JournalEntryLineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JournalEntryLineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JournalEntryLineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JournalEntryLineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JournalEntryLineMaxAggregateInputType
+  }
+
+  export type GetJournalEntryLineAggregateType<T extends JournalEntryLineAggregateArgs> = {
+        [P in keyof T & keyof AggregateJournalEntryLine]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJournalEntryLine[P]>
+      : GetScalarType<T[P], AggregateJournalEntryLine[P]>
+  }
+
+
+
+
+  export type JournalEntryLineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JournalEntryLineWhereInput
+    orderBy?: JournalEntryLineOrderByWithAggregationInput | JournalEntryLineOrderByWithAggregationInput[]
+    by: JournalEntryLineScalarFieldEnum[] | JournalEntryLineScalarFieldEnum
+    having?: JournalEntryLineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JournalEntryLineCountAggregateInputType | true
+    _avg?: JournalEntryLineAvgAggregateInputType
+    _sum?: JournalEntryLineSumAggregateInputType
+    _min?: JournalEntryLineMinAggregateInputType
+    _max?: JournalEntryLineMaxAggregateInputType
+  }
+
+  export type JournalEntryLineGroupByOutputType = {
+    id: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit: Decimal
+    credit: Decimal
+    memo: string | null
+    dimensionStudentId: string | null
+    dimensionInvoiceId: string | null
+    createdAt: Date
+    _count: JournalEntryLineCountAggregateOutputType | null
+    _avg: JournalEntryLineAvgAggregateOutputType | null
+    _sum: JournalEntryLineSumAggregateOutputType | null
+    _min: JournalEntryLineMinAggregateOutputType | null
+    _max: JournalEntryLineMaxAggregateOutputType | null
+  }
+
+  type GetJournalEntryLineGroupByPayload<T extends JournalEntryLineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JournalEntryLineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JournalEntryLineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JournalEntryLineGroupByOutputType[P]>
+            : GetScalarType<T[P], JournalEntryLineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JournalEntryLineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    transactionId?: boolean
+    accountId?: boolean
+    debit?: boolean
+    credit?: boolean
+    memo?: boolean
+    dimensionStudentId?: boolean
+    dimensionInvoiceId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    student?: boolean | JournalEntryLine$studentArgs<ExtArgs>
+    invoice?: boolean | JournalEntryLine$invoiceArgs<ExtArgs>
+  }, ExtArgs["result"]["journalEntryLine"]>
+
+  export type JournalEntryLineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    transactionId?: boolean
+    accountId?: boolean
+    debit?: boolean
+    credit?: boolean
+    memo?: boolean
+    dimensionStudentId?: boolean
+    dimensionInvoiceId?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    student?: boolean | JournalEntryLine$studentArgs<ExtArgs>
+    invoice?: boolean | JournalEntryLine$invoiceArgs<ExtArgs>
+  }, ExtArgs["result"]["journalEntryLine"]>
+
+  export type JournalEntryLineSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    transactionId?: boolean
+    accountId?: boolean
+    debit?: boolean
+    credit?: boolean
+    memo?: boolean
+    dimensionStudentId?: boolean
+    dimensionInvoiceId?: boolean
+    createdAt?: boolean
+  }
+
+  export type JournalEntryLineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    student?: boolean | JournalEntryLine$studentArgs<ExtArgs>
+    invoice?: boolean | JournalEntryLine$invoiceArgs<ExtArgs>
+  }
+  export type JournalEntryLineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transaction?: boolean | FinancialTransactionDefaultArgs<ExtArgs>
+    account?: boolean | ChartOfAccountDefaultArgs<ExtArgs>
+    student?: boolean | JournalEntryLine$studentArgs<ExtArgs>
+    invoice?: boolean | JournalEntryLine$invoiceArgs<ExtArgs>
+  }
+
+  export type $JournalEntryLinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JournalEntryLine"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      transaction: Prisma.$FinancialTransactionPayload<ExtArgs>
+      account: Prisma.$ChartOfAccountPayload<ExtArgs>
+      student: Prisma.$StudentPayload<ExtArgs> | null
+      invoice: Prisma.$InvoicePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      transactionId: string
+      accountId: string
+      debit: Prisma.Decimal
+      credit: Prisma.Decimal
+      memo: string | null
+      dimensionStudentId: string | null
+      dimensionInvoiceId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["journalEntryLine"]>
+    composites: {}
+  }
+
+  type JournalEntryLineGetPayload<S extends boolean | null | undefined | JournalEntryLineDefaultArgs> = $Result.GetResult<Prisma.$JournalEntryLinePayload, S>
+
+  type JournalEntryLineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<JournalEntryLineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: JournalEntryLineCountAggregateInputType | true
+    }
+
+  export interface JournalEntryLineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JournalEntryLine'], meta: { name: 'JournalEntryLine' } }
+    /**
+     * Find zero or one JournalEntryLine that matches the filter.
+     * @param {JournalEntryLineFindUniqueArgs} args - Arguments to find a JournalEntryLine
+     * @example
+     * // Get one JournalEntryLine
+     * const journalEntryLine = await prisma.journalEntryLine.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JournalEntryLineFindUniqueArgs>(args: SelectSubset<T, JournalEntryLineFindUniqueArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one JournalEntryLine that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {JournalEntryLineFindUniqueOrThrowArgs} args - Arguments to find a JournalEntryLine
+     * @example
+     * // Get one JournalEntryLine
+     * const journalEntryLine = await prisma.journalEntryLine.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JournalEntryLineFindUniqueOrThrowArgs>(args: SelectSubset<T, JournalEntryLineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first JournalEntryLine that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineFindFirstArgs} args - Arguments to find a JournalEntryLine
+     * @example
+     * // Get one JournalEntryLine
+     * const journalEntryLine = await prisma.journalEntryLine.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JournalEntryLineFindFirstArgs>(args?: SelectSubset<T, JournalEntryLineFindFirstArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first JournalEntryLine that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineFindFirstOrThrowArgs} args - Arguments to find a JournalEntryLine
+     * @example
+     * // Get one JournalEntryLine
+     * const journalEntryLine = await prisma.journalEntryLine.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JournalEntryLineFindFirstOrThrowArgs>(args?: SelectSubset<T, JournalEntryLineFindFirstOrThrowArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more JournalEntryLines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JournalEntryLines
+     * const journalEntryLines = await prisma.journalEntryLine.findMany()
+     * 
+     * // Get first 10 JournalEntryLines
+     * const journalEntryLines = await prisma.journalEntryLine.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const journalEntryLineWithIdOnly = await prisma.journalEntryLine.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JournalEntryLineFindManyArgs>(args?: SelectSubset<T, JournalEntryLineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a JournalEntryLine.
+     * @param {JournalEntryLineCreateArgs} args - Arguments to create a JournalEntryLine.
+     * @example
+     * // Create one JournalEntryLine
+     * const JournalEntryLine = await prisma.journalEntryLine.create({
+     *   data: {
+     *     // ... data to create a JournalEntryLine
+     *   }
+     * })
+     * 
+     */
+    create<T extends JournalEntryLineCreateArgs>(args: SelectSubset<T, JournalEntryLineCreateArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many JournalEntryLines.
+     * @param {JournalEntryLineCreateManyArgs} args - Arguments to create many JournalEntryLines.
+     * @example
+     * // Create many JournalEntryLines
+     * const journalEntryLine = await prisma.journalEntryLine.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JournalEntryLineCreateManyArgs>(args?: SelectSubset<T, JournalEntryLineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JournalEntryLines and returns the data saved in the database.
+     * @param {JournalEntryLineCreateManyAndReturnArgs} args - Arguments to create many JournalEntryLines.
+     * @example
+     * // Create many JournalEntryLines
+     * const journalEntryLine = await prisma.journalEntryLine.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JournalEntryLines and only return the `id`
+     * const journalEntryLineWithIdOnly = await prisma.journalEntryLine.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JournalEntryLineCreateManyAndReturnArgs>(args?: SelectSubset<T, JournalEntryLineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a JournalEntryLine.
+     * @param {JournalEntryLineDeleteArgs} args - Arguments to delete one JournalEntryLine.
+     * @example
+     * // Delete one JournalEntryLine
+     * const JournalEntryLine = await prisma.journalEntryLine.delete({
+     *   where: {
+     *     // ... filter to delete one JournalEntryLine
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JournalEntryLineDeleteArgs>(args: SelectSubset<T, JournalEntryLineDeleteArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one JournalEntryLine.
+     * @param {JournalEntryLineUpdateArgs} args - Arguments to update one JournalEntryLine.
+     * @example
+     * // Update one JournalEntryLine
+     * const journalEntryLine = await prisma.journalEntryLine.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JournalEntryLineUpdateArgs>(args: SelectSubset<T, JournalEntryLineUpdateArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more JournalEntryLines.
+     * @param {JournalEntryLineDeleteManyArgs} args - Arguments to filter JournalEntryLines to delete.
+     * @example
+     * // Delete a few JournalEntryLines
+     * const { count } = await prisma.journalEntryLine.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JournalEntryLineDeleteManyArgs>(args?: SelectSubset<T, JournalEntryLineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JournalEntryLines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JournalEntryLines
+     * const journalEntryLine = await prisma.journalEntryLine.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JournalEntryLineUpdateManyArgs>(args: SelectSubset<T, JournalEntryLineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one JournalEntryLine.
+     * @param {JournalEntryLineUpsertArgs} args - Arguments to update or create a JournalEntryLine.
+     * @example
+     * // Update or create a JournalEntryLine
+     * const journalEntryLine = await prisma.journalEntryLine.upsert({
+     *   create: {
+     *     // ... data to create a JournalEntryLine
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JournalEntryLine we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JournalEntryLineUpsertArgs>(args: SelectSubset<T, JournalEntryLineUpsertArgs<ExtArgs>>): Prisma__JournalEntryLineClient<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of JournalEntryLines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineCountArgs} args - Arguments to filter JournalEntryLines to count.
+     * @example
+     * // Count the number of JournalEntryLines
+     * const count = await prisma.journalEntryLine.count({
+     *   where: {
+     *     // ... the filter for the JournalEntryLines we want to count
+     *   }
+     * })
+    **/
+    count<T extends JournalEntryLineCountArgs>(
+      args?: Subset<T, JournalEntryLineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JournalEntryLineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JournalEntryLine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JournalEntryLineAggregateArgs>(args: Subset<T, JournalEntryLineAggregateArgs>): Prisma.PrismaPromise<GetJournalEntryLineAggregateType<T>>
+
+    /**
+     * Group by JournalEntryLine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JournalEntryLineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JournalEntryLineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JournalEntryLineGroupByArgs['orderBy'] }
+        : { orderBy?: JournalEntryLineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JournalEntryLineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJournalEntryLineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JournalEntryLine model
+   */
+  readonly fields: JournalEntryLineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JournalEntryLine.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JournalEntryLineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    transaction<T extends FinancialTransactionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialTransactionDefaultArgs<ExtArgs>>): Prisma__FinancialTransactionClient<$Result.GetResult<Prisma.$FinancialTransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    account<T extends ChartOfAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChartOfAccountDefaultArgs<ExtArgs>>): Prisma__ChartOfAccountClient<$Result.GetResult<Prisma.$ChartOfAccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    student<T extends JournalEntryLine$studentArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntryLine$studentArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    invoice<T extends JournalEntryLine$invoiceArgs<ExtArgs> = {}>(args?: Subset<T, JournalEntryLine$invoiceArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JournalEntryLine model
+   */ 
+  interface JournalEntryLineFieldRefs {
+    readonly id: FieldRef<"JournalEntryLine", 'String'>
+    readonly tenantId: FieldRef<"JournalEntryLine", 'String'>
+    readonly transactionId: FieldRef<"JournalEntryLine", 'String'>
+    readonly accountId: FieldRef<"JournalEntryLine", 'String'>
+    readonly debit: FieldRef<"JournalEntryLine", 'Decimal'>
+    readonly credit: FieldRef<"JournalEntryLine", 'Decimal'>
+    readonly memo: FieldRef<"JournalEntryLine", 'String'>
+    readonly dimensionStudentId: FieldRef<"JournalEntryLine", 'String'>
+    readonly dimensionInvoiceId: FieldRef<"JournalEntryLine", 'String'>
+    readonly createdAt: FieldRef<"JournalEntryLine", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JournalEntryLine findUnique
+   */
+  export type JournalEntryLineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntryLine to fetch.
+     */
+    where: JournalEntryLineWhereUniqueInput
+  }
+
+  /**
+   * JournalEntryLine findUniqueOrThrow
+   */
+  export type JournalEntryLineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntryLine to fetch.
+     */
+    where: JournalEntryLineWhereUniqueInput
+  }
+
+  /**
+   * JournalEntryLine findFirst
+   */
+  export type JournalEntryLineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntryLine to fetch.
+     */
+    where?: JournalEntryLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntryLines to fetch.
+     */
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalEntryLines.
+     */
+    cursor?: JournalEntryLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntryLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntryLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalEntryLines.
+     */
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntryLine findFirstOrThrow
+   */
+  export type JournalEntryLineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntryLine to fetch.
+     */
+    where?: JournalEntryLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntryLines to fetch.
+     */
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JournalEntryLines.
+     */
+    cursor?: JournalEntryLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntryLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntryLines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JournalEntryLines.
+     */
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntryLine findMany
+   */
+  export type JournalEntryLineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * Filter, which JournalEntryLines to fetch.
+     */
+    where?: JournalEntryLineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JournalEntryLines to fetch.
+     */
+    orderBy?: JournalEntryLineOrderByWithRelationInput | JournalEntryLineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JournalEntryLines.
+     */
+    cursor?: JournalEntryLineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JournalEntryLines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JournalEntryLines.
+     */
+    skip?: number
+    distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
+  }
+
+  /**
+   * JournalEntryLine create
+   */
+  export type JournalEntryLineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JournalEntryLine.
+     */
+    data: XOR<JournalEntryLineCreateInput, JournalEntryLineUncheckedCreateInput>
+  }
+
+  /**
+   * JournalEntryLine createMany
+   */
+  export type JournalEntryLineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JournalEntryLines.
+     */
+    data: JournalEntryLineCreateManyInput | JournalEntryLineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JournalEntryLine createManyAndReturn
+   */
+  export type JournalEntryLineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many JournalEntryLines.
+     */
+    data: JournalEntryLineCreateManyInput | JournalEntryLineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JournalEntryLine update
+   */
+  export type JournalEntryLineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JournalEntryLine.
+     */
+    data: XOR<JournalEntryLineUpdateInput, JournalEntryLineUncheckedUpdateInput>
+    /**
+     * Choose, which JournalEntryLine to update.
+     */
+    where: JournalEntryLineWhereUniqueInput
+  }
+
+  /**
+   * JournalEntryLine updateMany
+   */
+  export type JournalEntryLineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JournalEntryLines.
+     */
+    data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyInput>
+    /**
+     * Filter which JournalEntryLines to update
+     */
+    where?: JournalEntryLineWhereInput
+  }
+
+  /**
+   * JournalEntryLine upsert
+   */
+  export type JournalEntryLineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JournalEntryLine to update in case it exists.
+     */
+    where: JournalEntryLineWhereUniqueInput
+    /**
+     * In case the JournalEntryLine found by the `where` argument doesn't exist, create a new JournalEntryLine with this data.
+     */
+    create: XOR<JournalEntryLineCreateInput, JournalEntryLineUncheckedCreateInput>
+    /**
+     * In case the JournalEntryLine was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JournalEntryLineUpdateInput, JournalEntryLineUncheckedUpdateInput>
+  }
+
+  /**
+   * JournalEntryLine delete
+   */
+  export type JournalEntryLineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
+    /**
+     * Filter which JournalEntryLine to delete.
+     */
+    where: JournalEntryLineWhereUniqueInput
+  }
+
+  /**
+   * JournalEntryLine deleteMany
+   */
+  export type JournalEntryLineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JournalEntryLines to delete
+     */
+    where?: JournalEntryLineWhereInput
+  }
+
+  /**
+   * JournalEntryLine.student
+   */
+  export type JournalEntryLine$studentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Student
+     */
+    select?: StudentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    where?: StudentWhereInput
+  }
+
+  /**
+   * JournalEntryLine.invoice
+   */
+  export type JournalEntryLine$invoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * JournalEntryLine without action
+   */
+  export type JournalEntryLineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JournalEntryLine
+     */
+    select?: JournalEntryLineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalEntryLineInclude<ExtArgs> | null
   }
 
 
@@ -107008,6 +113007,81 @@ export namespace Prisma {
   export type PaymentPlanVersionScalarFieldEnum = (typeof PaymentPlanVersionScalarFieldEnum)[keyof typeof PaymentPlanVersionScalarFieldEnum]
 
 
+  export const ChartOfAccountScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    code: 'code',
+    name: 'name',
+    type: 'type',
+    isActive: 'isActive',
+    description: 'description',
+    createdAt: 'createdAt'
+  };
+
+  export type ChartOfAccountScalarFieldEnum = (typeof ChartOfAccountScalarFieldEnum)[keyof typeof ChartOfAccountScalarFieldEnum]
+
+
+  export const BankAccountScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    ledgerAccountId: 'ledgerAccountId',
+    name: 'name',
+    accountNumber: 'accountNumber',
+    bankName: 'bankName',
+    isActive: 'isActive',
+    createdAt: 'createdAt'
+  };
+
+  export type BankAccountScalarFieldEnum = (typeof BankAccountScalarFieldEnum)[keyof typeof BankAccountScalarFieldEnum]
+
+
+  export const AccountingPeriodScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    name: 'name',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    status: 'status',
+    closedAt: 'closedAt',
+    closedBy: 'closedBy',
+    createdAt: 'createdAt'
+  };
+
+  export type AccountingPeriodScalarFieldEnum = (typeof AccountingPeriodScalarFieldEnum)[keyof typeof AccountingPeriodScalarFieldEnum]
+
+
+  export const FinancialTransactionScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    periodId: 'periodId',
+    reference: 'reference',
+    type: 'type',
+    source: 'source',
+    description: 'description',
+    transactionDate: 'transactionDate',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type FinancialTransactionScalarFieldEnum = (typeof FinancialTransactionScalarFieldEnum)[keyof typeof FinancialTransactionScalarFieldEnum]
+
+
+  export const JournalEntryLineScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    transactionId: 'transactionId',
+    accountId: 'accountId',
+    debit: 'debit',
+    credit: 'credit',
+    memo: 'memo',
+    dimensionStudentId: 'dimensionStudentId',
+    dimensionInvoiceId: 'dimensionInvoiceId',
+    createdAt: 'createdAt'
+  };
+
+  export type JournalEntryLineScalarFieldEnum = (typeof JournalEntryLineScalarFieldEnum)[keyof typeof JournalEntryLineScalarFieldEnum]
+
+
   export const ApprovalWorkflowScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -107800,6 +113874,62 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'AccountType'
+   */
+  export type EnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AccountType[]'
+   */
+  export type ListEnumAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PeriodStatus'
+   */
+  export type EnumPeriodStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PeriodStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'PeriodStatus[]'
+   */
+  export type ListEnumPeriodStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PeriodStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionType'
+   */
+  export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionType[]'
+   */
+  export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionStatus'
+   */
+  export type EnumTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionStatus[]'
+   */
+  export type ListEnumTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CampaignStatus'
    */
   export type EnumCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CampaignStatus'>
@@ -108024,6 +114154,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormListRelationFilter
     AdmissionRequiredDocument?: AdmissionRequiredDocumentListRelationFilter
     AdmissionApplication?: AdmissionApplicationListRelationFilter
+    ChartOfAccount?: ChartOfAccountListRelationFilter
+    BankAccount?: BankAccountListRelationFilter
+    AccountingPeriod?: AccountingPeriodListRelationFilter
+    FinancialTransaction?: FinancialTransactionListRelationFilter
+    JournalEntryLine?: JournalEntryLineListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -108096,6 +114231,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormOrderByRelationAggregateInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentOrderByRelationAggregateInput
     AdmissionApplication?: AdmissionApplicationOrderByRelationAggregateInput
+    ChartOfAccount?: ChartOfAccountOrderByRelationAggregateInput
+    BankAccount?: BankAccountOrderByRelationAggregateInput
+    AccountingPeriod?: AccountingPeriodOrderByRelationAggregateInput
+    FinancialTransaction?: FinancialTransactionOrderByRelationAggregateInput
+    JournalEntryLine?: JournalEntryLineOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -108171,6 +114311,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormListRelationFilter
     AdmissionRequiredDocument?: AdmissionRequiredDocumentListRelationFilter
     AdmissionApplication?: AdmissionApplicationListRelationFilter
+    ChartOfAccount?: ChartOfAccountListRelationFilter
+    BankAccount?: BankAccountListRelationFilter
+    AccountingPeriod?: AccountingPeriodListRelationFilter
+    FinancialTransaction?: FinancialTransactionListRelationFilter
+    JournalEntryLine?: JournalEntryLineListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -110121,6 +116266,7 @@ export namespace Prisma {
     Result?: ResultListRelationFilter
     BedAllocation?: BedAllocationListRelationFilter
     BookBorrowing?: BookBorrowingListRelationFilter
+    journalLines?: JournalEntryLineListRelationFilter
   }
 
   export type StudentOrderByWithRelationInput = {
@@ -110145,6 +116291,7 @@ export namespace Prisma {
     Result?: ResultOrderByRelationAggregateInput
     BedAllocation?: BedAllocationOrderByRelationAggregateInput
     BookBorrowing?: BookBorrowingOrderByRelationAggregateInput
+    journalLines?: JournalEntryLineOrderByRelationAggregateInput
   }
 
   export type StudentWhereUniqueInput = Prisma.AtLeast<{
@@ -110173,6 +116320,7 @@ export namespace Prisma {
     Result?: ResultListRelationFilter
     BedAllocation?: BedAllocationListRelationFilter
     BookBorrowing?: BookBorrowingListRelationFilter
+    journalLines?: JournalEntryLineListRelationFilter
   }, "id" | "membershipId" | "tenantId_admissionNumber">
 
   export type StudentOrderByWithAggregationInput = {
@@ -111082,6 +117230,7 @@ export namespace Prisma {
     term?: XOR<TermRelationFilter, TermWhereInput>
     items?: InvoiceItemListRelationFilter
     payments?: PaymentListRelationFilter
+    journalLines?: JournalEntryLineListRelationFilter
   }
 
   export type InvoiceOrderByWithRelationInput = {
@@ -111102,6 +117251,7 @@ export namespace Prisma {
     term?: TermOrderByWithRelationInput
     items?: InvoiceItemOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
+    journalLines?: JournalEntryLineOrderByRelationAggregateInput
   }
 
   export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -111126,6 +117276,7 @@ export namespace Prisma {
     term?: XOR<TermRelationFilter, TermWhereInput>
     items?: InvoiceItemListRelationFilter
     payments?: PaymentListRelationFilter
+    journalLines?: JournalEntryLineListRelationFilter
   }, "id" | "tenantId_invoiceNumber">
 
   export type InvoiceOrderByWithAggregationInput = {
@@ -111245,7 +117396,7 @@ export namespace Prisma {
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     id?: StringFilter<"Payment"> | string
     tenantId?: StringFilter<"Payment"> | string
-    invoiceId?: StringFilter<"Payment"> | string
+    invoiceId?: StringNullableFilter<"Payment"> | string | null
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
     reference?: StringFilter<"Payment"> | string
@@ -111254,7 +117405,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
-    invoice?: XOR<InvoiceRelationFilter, InvoiceWhereInput>
+    invoice?: XOR<InvoiceNullableRelationFilter, InvoiceWhereInput> | null
     PaymentAttempt?: PaymentAttemptListRelationFilter
     PaymentAllocation?: PaymentAllocationListRelationFilter
   }
@@ -111262,7 +117413,7 @@ export namespace Prisma {
   export type PaymentOrderByWithRelationInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    invoiceId?: SortOrder
+    invoiceId?: SortOrderInput | SortOrder
     amount?: SortOrder
     method?: SortOrder
     reference?: SortOrder
@@ -111283,7 +117434,7 @@ export namespace Prisma {
     OR?: PaymentWhereInput[]
     NOT?: PaymentWhereInput | PaymentWhereInput[]
     tenantId?: StringFilter<"Payment"> | string
-    invoiceId?: StringFilter<"Payment"> | string
+    invoiceId?: StringNullableFilter<"Payment"> | string | null
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
     paymentDate?: DateTimeFilter<"Payment"> | Date | string
@@ -111291,7 +117442,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
-    invoice?: XOR<InvoiceRelationFilter, InvoiceWhereInput>
+    invoice?: XOR<InvoiceNullableRelationFilter, InvoiceWhereInput> | null
     PaymentAttempt?: PaymentAttemptListRelationFilter
     PaymentAllocation?: PaymentAllocationListRelationFilter
   }, "id" | "reference">
@@ -111299,7 +117450,7 @@ export namespace Prisma {
   export type PaymentOrderByWithAggregationInput = {
     id?: SortOrder
     tenantId?: SortOrder
-    invoiceId?: SortOrder
+    invoiceId?: SortOrderInput | SortOrder
     amount?: SortOrder
     method?: SortOrder
     reference?: SortOrder
@@ -111320,7 +117471,7 @@ export namespace Prisma {
     NOT?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Payment"> | string
     tenantId?: StringWithAggregatesFilter<"Payment"> | string
-    invoiceId?: StringWithAggregatesFilter<"Payment"> | string
+    invoiceId?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     amount?: DecimalWithAggregatesFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodWithAggregatesFilter<"Payment"> | $Enums.PaymentMethod
     reference?: StringWithAggregatesFilter<"Payment"> | string
@@ -113026,6 +119177,7 @@ export namespace Prisma {
 
   export type PaymentAttemptWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    tenantId_reference?: PaymentAttemptTenantIdReferenceCompoundUniqueInput
     AND?: PaymentAttemptWhereInput | PaymentAttemptWhereInput[]
     OR?: PaymentAttemptWhereInput[]
     NOT?: PaymentAttemptWhereInput | PaymentAttemptWhereInput[]
@@ -113040,7 +119192,7 @@ export namespace Prisma {
     paymentId?: StringNullableFilter<"PaymentAttempt"> | string | null
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     payment?: XOR<PaymentNullableRelationFilter, PaymentWhereInput> | null
-  }, "id">
+  }, "id" | "tenantId_reference">
 
   export type PaymentAttemptOrderByWithAggregationInput = {
     id?: SortOrder
@@ -113084,12 +119236,13 @@ export namespace Prisma {
     tenantId?: StringFilter<"PaymentAllocation"> | string
     paymentId?: StringFilter<"PaymentAllocation"> | string
     invoiceItemId?: StringFilter<"PaymentAllocation"> | string
-    transactionId?: StringFilter<"PaymentAllocation"> | string
+    transactionId?: StringNullableFilter<"PaymentAllocation"> | string | null
     amount?: DecimalFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"PaymentAllocation"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     payment?: XOR<PaymentRelationFilter, PaymentWhereInput>
     invoiceItem?: XOR<InvoiceItemRelationFilter, InvoiceItemWhereInput>
+    transaction?: XOR<FinancialTransactionNullableRelationFilter, FinancialTransactionWhereInput> | null
   }
 
   export type PaymentAllocationOrderByWithRelationInput = {
@@ -113097,12 +119250,13 @@ export namespace Prisma {
     tenantId?: SortOrder
     paymentId?: SortOrder
     invoiceItemId?: SortOrder
-    transactionId?: SortOrder
+    transactionId?: SortOrderInput | SortOrder
     amount?: SortOrder
     createdAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     payment?: PaymentOrderByWithRelationInput
     invoiceItem?: InvoiceItemOrderByWithRelationInput
+    transaction?: FinancialTransactionOrderByWithRelationInput
   }
 
   export type PaymentAllocationWhereUniqueInput = Prisma.AtLeast<{
@@ -113113,12 +119267,13 @@ export namespace Prisma {
     tenantId?: StringFilter<"PaymentAllocation"> | string
     paymentId?: StringFilter<"PaymentAllocation"> | string
     invoiceItemId?: StringFilter<"PaymentAllocation"> | string
-    transactionId?: StringFilter<"PaymentAllocation"> | string
+    transactionId?: StringNullableFilter<"PaymentAllocation"> | string | null
     amount?: DecimalFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"PaymentAllocation"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     payment?: XOR<PaymentRelationFilter, PaymentWhereInput>
     invoiceItem?: XOR<InvoiceItemRelationFilter, InvoiceItemWhereInput>
+    transaction?: XOR<FinancialTransactionNullableRelationFilter, FinancialTransactionWhereInput> | null
   }, "id">
 
   export type PaymentAllocationOrderByWithAggregationInput = {
@@ -113126,7 +119281,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     paymentId?: SortOrder
     invoiceItemId?: SortOrder
-    transactionId?: SortOrder
+    transactionId?: SortOrderInput | SortOrder
     amount?: SortOrder
     createdAt?: SortOrder
     _count?: PaymentAllocationCountOrderByAggregateInput
@@ -113144,7 +119299,7 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"PaymentAllocation"> | string
     paymentId?: StringWithAggregatesFilter<"PaymentAllocation"> | string
     invoiceItemId?: StringWithAggregatesFilter<"PaymentAllocation"> | string
-    transactionId?: StringWithAggregatesFilter<"PaymentAllocation"> | string
+    transactionId?: StringNullableWithAggregatesFilter<"PaymentAllocation"> | string | null
     amount?: DecimalWithAggregatesFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"PaymentAllocation"> | Date | string
   }
@@ -113192,6 +119347,418 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"PaymentPlanVersion"> | string
     tenantId?: StringWithAggregatesFilter<"PaymentPlanVersion"> | string
     paymentPlanId?: StringWithAggregatesFilter<"PaymentPlanVersion"> | string
+  }
+
+  export type ChartOfAccountWhereInput = {
+    AND?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    OR?: ChartOfAccountWhereInput[]
+    NOT?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    id?: StringFilter<"ChartOfAccount"> | string
+    tenantId?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeFilter<"ChartOfAccount"> | $Enums.AccountType
+    isActive?: BoolFilter<"ChartOfAccount"> | boolean
+    description?: StringNullableFilter<"ChartOfAccount"> | string | null
+    createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    lines?: JournalEntryLineListRelationFilter
+    bankAccounts?: BankAccountListRelationFilter
+  }
+
+  export type ChartOfAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    lines?: JournalEntryLineOrderByRelationAggregateInput
+    bankAccounts?: BankAccountOrderByRelationAggregateInput
+  }
+
+  export type ChartOfAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_code?: ChartOfAccountTenantIdCodeCompoundUniqueInput
+    AND?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    OR?: ChartOfAccountWhereInput[]
+    NOT?: ChartOfAccountWhereInput | ChartOfAccountWhereInput[]
+    tenantId?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeFilter<"ChartOfAccount"> | $Enums.AccountType
+    isActive?: BoolFilter<"ChartOfAccount"> | boolean
+    description?: StringNullableFilter<"ChartOfAccount"> | string | null
+    createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    lines?: JournalEntryLineListRelationFilter
+    bankAccounts?: BankAccountListRelationFilter
+  }, "id" | "tenantId_code">
+
+  export type ChartOfAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ChartOfAccountCountOrderByAggregateInput
+    _max?: ChartOfAccountMaxOrderByAggregateInput
+    _min?: ChartOfAccountMinOrderByAggregateInput
+  }
+
+  export type ChartOfAccountScalarWhereWithAggregatesInput = {
+    AND?: ChartOfAccountScalarWhereWithAggregatesInput | ChartOfAccountScalarWhereWithAggregatesInput[]
+    OR?: ChartOfAccountScalarWhereWithAggregatesInput[]
+    NOT?: ChartOfAccountScalarWhereWithAggregatesInput | ChartOfAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    tenantId?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    code?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    name?: StringWithAggregatesFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeWithAggregatesFilter<"ChartOfAccount"> | $Enums.AccountType
+    isActive?: BoolWithAggregatesFilter<"ChartOfAccount"> | boolean
+    description?: StringNullableWithAggregatesFilter<"ChartOfAccount"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ChartOfAccount"> | Date | string
+  }
+
+  export type BankAccountWhereInput = {
+    AND?: BankAccountWhereInput | BankAccountWhereInput[]
+    OR?: BankAccountWhereInput[]
+    NOT?: BankAccountWhereInput | BankAccountWhereInput[]
+    id?: StringFilter<"BankAccount"> | string
+    tenantId?: StringFilter<"BankAccount"> | string
+    ledgerAccountId?: StringFilter<"BankAccount"> | string
+    name?: StringFilter<"BankAccount"> | string
+    accountNumber?: StringNullableFilter<"BankAccount"> | string | null
+    bankName?: StringNullableFilter<"BankAccount"> | string | null
+    isActive?: BoolFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeFilter<"BankAccount"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    ledgerAccount?: XOR<ChartOfAccountRelationFilter, ChartOfAccountWhereInput>
+  }
+
+  export type BankAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ledgerAccountId?: SortOrder
+    name?: SortOrder
+    accountNumber?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    ledgerAccount?: ChartOfAccountOrderByWithRelationInput
+  }
+
+  export type BankAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BankAccountWhereInput | BankAccountWhereInput[]
+    OR?: BankAccountWhereInput[]
+    NOT?: BankAccountWhereInput | BankAccountWhereInput[]
+    tenantId?: StringFilter<"BankAccount"> | string
+    ledgerAccountId?: StringFilter<"BankAccount"> | string
+    name?: StringFilter<"BankAccount"> | string
+    accountNumber?: StringNullableFilter<"BankAccount"> | string | null
+    bankName?: StringNullableFilter<"BankAccount"> | string | null
+    isActive?: BoolFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeFilter<"BankAccount"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    ledgerAccount?: XOR<ChartOfAccountRelationFilter, ChartOfAccountWhereInput>
+  }, "id">
+
+  export type BankAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ledgerAccountId?: SortOrder
+    name?: SortOrder
+    accountNumber?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    _count?: BankAccountCountOrderByAggregateInput
+    _max?: BankAccountMaxOrderByAggregateInput
+    _min?: BankAccountMinOrderByAggregateInput
+  }
+
+  export type BankAccountScalarWhereWithAggregatesInput = {
+    AND?: BankAccountScalarWhereWithAggregatesInput | BankAccountScalarWhereWithAggregatesInput[]
+    OR?: BankAccountScalarWhereWithAggregatesInput[]
+    NOT?: BankAccountScalarWhereWithAggregatesInput | BankAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BankAccount"> | string
+    tenantId?: StringWithAggregatesFilter<"BankAccount"> | string
+    ledgerAccountId?: StringWithAggregatesFilter<"BankAccount"> | string
+    name?: StringWithAggregatesFilter<"BankAccount"> | string
+    accountNumber?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    bankName?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    isActive?: BoolWithAggregatesFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
+  }
+
+  export type AccountingPeriodWhereInput = {
+    AND?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    OR?: AccountingPeriodWhereInput[]
+    NOT?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    id?: StringFilter<"AccountingPeriod"> | string
+    tenantId?: StringFilter<"AccountingPeriod"> | string
+    name?: StringFilter<"AccountingPeriod"> | string
+    startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    status?: EnumPeriodStatusFilter<"AccountingPeriod"> | $Enums.PeriodStatus
+    closedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    transactions?: FinancialTransactionListRelationFilter
+  }
+
+  export type AccountingPeriodOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrderInput | SortOrder
+    closedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    transactions?: FinancialTransactionOrderByRelationAggregateInput
+  }
+
+  export type AccountingPeriodWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    OR?: AccountingPeriodWhereInput[]
+    NOT?: AccountingPeriodWhereInput | AccountingPeriodWhereInput[]
+    tenantId?: StringFilter<"AccountingPeriod"> | string
+    name?: StringFilter<"AccountingPeriod"> | string
+    startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    status?: EnumPeriodStatusFilter<"AccountingPeriod"> | $Enums.PeriodStatus
+    closedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    transactions?: FinancialTransactionListRelationFilter
+  }, "id">
+
+  export type AccountingPeriodOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrderInput | SortOrder
+    closedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AccountingPeriodCountOrderByAggregateInput
+    _max?: AccountingPeriodMaxOrderByAggregateInput
+    _min?: AccountingPeriodMinOrderByAggregateInput
+  }
+
+  export type AccountingPeriodScalarWhereWithAggregatesInput = {
+    AND?: AccountingPeriodScalarWhereWithAggregatesInput | AccountingPeriodScalarWhereWithAggregatesInput[]
+    OR?: AccountingPeriodScalarWhereWithAggregatesInput[]
+    NOT?: AccountingPeriodScalarWhereWithAggregatesInput | AccountingPeriodScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    tenantId?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    name?: StringWithAggregatesFilter<"AccountingPeriod"> | string
+    startDate?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+    status?: EnumPeriodStatusWithAggregatesFilter<"AccountingPeriod"> | $Enums.PeriodStatus
+    closedAt?: DateTimeNullableWithAggregatesFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableWithAggregatesFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AccountingPeriod"> | Date | string
+  }
+
+  export type FinancialTransactionWhereInput = {
+    AND?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    OR?: FinancialTransactionWhereInput[]
+    NOT?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    id?: StringFilter<"FinancialTransaction"> | string
+    tenantId?: StringFilter<"FinancialTransaction"> | string
+    periodId?: StringFilter<"FinancialTransaction"> | string
+    reference?: StringFilter<"FinancialTransaction"> | string
+    type?: EnumTransactionTypeFilter<"FinancialTransaction"> | $Enums.TransactionType
+    source?: StringFilter<"FinancialTransaction"> | string
+    description?: StringNullableFilter<"FinancialTransaction"> | string | null
+    transactionDate?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    status?: EnumTransactionStatusFilter<"FinancialTransaction"> | $Enums.TransactionStatus
+    createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    period?: XOR<AccountingPeriodRelationFilter, AccountingPeriodWhereInput>
+    lines?: JournalEntryLineListRelationFilter
+    allocations?: PaymentAllocationListRelationFilter
+  }
+
+  export type FinancialTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    periodId?: SortOrder
+    reference?: SortOrder
+    type?: SortOrder
+    source?: SortOrder
+    description?: SortOrderInput | SortOrder
+    transactionDate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    period?: AccountingPeriodOrderByWithRelationInput
+    lines?: JournalEntryLineOrderByRelationAggregateInput
+    allocations?: PaymentAllocationOrderByRelationAggregateInput
+  }
+
+  export type FinancialTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_reference?: FinancialTransactionTenantIdReferenceCompoundUniqueInput
+    AND?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    OR?: FinancialTransactionWhereInput[]
+    NOT?: FinancialTransactionWhereInput | FinancialTransactionWhereInput[]
+    tenantId?: StringFilter<"FinancialTransaction"> | string
+    periodId?: StringFilter<"FinancialTransaction"> | string
+    reference?: StringFilter<"FinancialTransaction"> | string
+    type?: EnumTransactionTypeFilter<"FinancialTransaction"> | $Enums.TransactionType
+    source?: StringFilter<"FinancialTransaction"> | string
+    description?: StringNullableFilter<"FinancialTransaction"> | string | null
+    transactionDate?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    status?: EnumTransactionStatusFilter<"FinancialTransaction"> | $Enums.TransactionStatus
+    createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    period?: XOR<AccountingPeriodRelationFilter, AccountingPeriodWhereInput>
+    lines?: JournalEntryLineListRelationFilter
+    allocations?: PaymentAllocationListRelationFilter
+  }, "id" | "tenantId_reference">
+
+  export type FinancialTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    periodId?: SortOrder
+    reference?: SortOrder
+    type?: SortOrder
+    source?: SortOrder
+    description?: SortOrderInput | SortOrder
+    transactionDate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: FinancialTransactionCountOrderByAggregateInput
+    _max?: FinancialTransactionMaxOrderByAggregateInput
+    _min?: FinancialTransactionMinOrderByAggregateInput
+  }
+
+  export type FinancialTransactionScalarWhereWithAggregatesInput = {
+    AND?: FinancialTransactionScalarWhereWithAggregatesInput | FinancialTransactionScalarWhereWithAggregatesInput[]
+    OR?: FinancialTransactionScalarWhereWithAggregatesInput[]
+    NOT?: FinancialTransactionScalarWhereWithAggregatesInput | FinancialTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    tenantId?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    periodId?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    reference?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    type?: EnumTransactionTypeWithAggregatesFilter<"FinancialTransaction"> | $Enums.TransactionType
+    source?: StringWithAggregatesFilter<"FinancialTransaction"> | string
+    description?: StringNullableWithAggregatesFilter<"FinancialTransaction"> | string | null
+    transactionDate?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
+    status?: EnumTransactionStatusWithAggregatesFilter<"FinancialTransaction"> | $Enums.TransactionStatus
+    createdAt?: DateTimeWithAggregatesFilter<"FinancialTransaction"> | Date | string
+  }
+
+  export type JournalEntryLineWhereInput = {
+    AND?: JournalEntryLineWhereInput | JournalEntryLineWhereInput[]
+    OR?: JournalEntryLineWhereInput[]
+    NOT?: JournalEntryLineWhereInput | JournalEntryLineWhereInput[]
+    id?: StringFilter<"JournalEntryLine"> | string
+    tenantId?: StringFilter<"JournalEntryLine"> | string
+    transactionId?: StringFilter<"JournalEntryLine"> | string
+    accountId?: StringFilter<"JournalEntryLine"> | string
+    debit?: DecimalFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    memo?: StringNullableFilter<"JournalEntryLine"> | string | null
+    dimensionStudentId?: StringNullableFilter<"JournalEntryLine"> | string | null
+    dimensionInvoiceId?: StringNullableFilter<"JournalEntryLine"> | string | null
+    createdAt?: DateTimeFilter<"JournalEntryLine"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    transaction?: XOR<FinancialTransactionRelationFilter, FinancialTransactionWhereInput>
+    account?: XOR<ChartOfAccountRelationFilter, ChartOfAccountWhereInput>
+    student?: XOR<StudentNullableRelationFilter, StudentWhereInput> | null
+    invoice?: XOR<InvoiceNullableRelationFilter, InvoiceWhereInput> | null
+  }
+
+  export type JournalEntryLineOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    memo?: SortOrderInput | SortOrder
+    dimensionStudentId?: SortOrderInput | SortOrder
+    dimensionInvoiceId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    transaction?: FinancialTransactionOrderByWithRelationInput
+    account?: ChartOfAccountOrderByWithRelationInput
+    student?: StudentOrderByWithRelationInput
+    invoice?: InvoiceOrderByWithRelationInput
+  }
+
+  export type JournalEntryLineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JournalEntryLineWhereInput | JournalEntryLineWhereInput[]
+    OR?: JournalEntryLineWhereInput[]
+    NOT?: JournalEntryLineWhereInput | JournalEntryLineWhereInput[]
+    tenantId?: StringFilter<"JournalEntryLine"> | string
+    transactionId?: StringFilter<"JournalEntryLine"> | string
+    accountId?: StringFilter<"JournalEntryLine"> | string
+    debit?: DecimalFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    memo?: StringNullableFilter<"JournalEntryLine"> | string | null
+    dimensionStudentId?: StringNullableFilter<"JournalEntryLine"> | string | null
+    dimensionInvoiceId?: StringNullableFilter<"JournalEntryLine"> | string | null
+    createdAt?: DateTimeFilter<"JournalEntryLine"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    transaction?: XOR<FinancialTransactionRelationFilter, FinancialTransactionWhereInput>
+    account?: XOR<ChartOfAccountRelationFilter, ChartOfAccountWhereInput>
+    student?: XOR<StudentNullableRelationFilter, StudentWhereInput> | null
+    invoice?: XOR<InvoiceNullableRelationFilter, InvoiceWhereInput> | null
+  }, "id">
+
+  export type JournalEntryLineOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    memo?: SortOrderInput | SortOrder
+    dimensionStudentId?: SortOrderInput | SortOrder
+    dimensionInvoiceId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: JournalEntryLineCountOrderByAggregateInput
+    _avg?: JournalEntryLineAvgOrderByAggregateInput
+    _max?: JournalEntryLineMaxOrderByAggregateInput
+    _min?: JournalEntryLineMinOrderByAggregateInput
+    _sum?: JournalEntryLineSumOrderByAggregateInput
+  }
+
+  export type JournalEntryLineScalarWhereWithAggregatesInput = {
+    AND?: JournalEntryLineScalarWhereWithAggregatesInput | JournalEntryLineScalarWhereWithAggregatesInput[]
+    OR?: JournalEntryLineScalarWhereWithAggregatesInput[]
+    NOT?: JournalEntryLineScalarWhereWithAggregatesInput | JournalEntryLineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JournalEntryLine"> | string
+    tenantId?: StringWithAggregatesFilter<"JournalEntryLine"> | string
+    transactionId?: StringWithAggregatesFilter<"JournalEntryLine"> | string
+    accountId?: StringWithAggregatesFilter<"JournalEntryLine"> | string
+    debit?: DecimalWithAggregatesFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalWithAggregatesFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    memo?: StringNullableWithAggregatesFilter<"JournalEntryLine"> | string | null
+    dimensionStudentId?: StringNullableWithAggregatesFilter<"JournalEntryLine"> | string | null
+    dimensionInvoiceId?: StringNullableWithAggregatesFilter<"JournalEntryLine"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"JournalEntryLine"> | Date | string
   }
 
   export type ApprovalWorkflowWhereInput = {
@@ -115212,6 +121779,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -115283,6 +121855,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -115354,6 +121931,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -115425,6 +122007,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -117473,6 +124060,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateInput = {
@@ -117494,6 +124082,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUpdateInput = {
@@ -117515,6 +124104,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateInput = {
@@ -117536,6 +124126,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentCreateManyInput = {
@@ -118469,6 +125060,7 @@ export namespace Prisma {
     term: TermCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateInput = {
@@ -118486,6 +125078,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUpdateInput = {
@@ -118503,6 +125096,7 @@ export namespace Prisma {
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateInput = {
@@ -118520,6 +125114,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceCreateManyInput = {
@@ -118646,7 +125241,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPaymentInput
-    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+    invoice?: InvoiceCreateNestedOneWithoutPaymentsInput
     PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutPaymentInput
     PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutPaymentInput
   }
@@ -118654,7 +125249,7 @@ export namespace Prisma {
   export type PaymentUncheckedCreateInput = {
     id?: string
     tenantId: string
-    invoiceId: string
+    invoiceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     method: $Enums.PaymentMethod
     reference: string
@@ -118676,7 +125271,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPaymentNestedInput
-    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
+    invoice?: InvoiceUpdateOneWithoutPaymentsNestedInput
     PaymentAttempt?: PaymentAttemptUpdateManyWithoutPaymentNestedInput
     PaymentAllocation?: PaymentAllocationUpdateManyWithoutPaymentNestedInput
   }
@@ -118684,7 +125279,7 @@ export namespace Prisma {
   export type PaymentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     reference?: StringFieldUpdateOperationsInput | string
@@ -118699,7 +125294,7 @@ export namespace Prisma {
   export type PaymentCreateManyInput = {
     id?: string
     tenantId: string
-    invoiceId: string
+    invoiceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     method: $Enums.PaymentMethod
     reference: string
@@ -118723,7 +125318,7 @@ export namespace Prisma {
   export type PaymentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     reference?: StringFieldUpdateOperationsInput | string
@@ -120546,12 +127141,12 @@ export namespace Prisma {
 
   export type PaymentAllocationCreateInput = {
     id?: string
-    transactionId: string
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPaymentAllocationInput
     payment: PaymentCreateNestedOneWithoutPaymentAllocationInput
     invoiceItem: InvoiceItemCreateNestedOneWithoutPaymentAllocationInput
+    transaction?: FinancialTransactionCreateNestedOneWithoutAllocationsInput
   }
 
   export type PaymentAllocationUncheckedCreateInput = {
@@ -120559,19 +127154,19 @@ export namespace Prisma {
     tenantId: string
     paymentId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
 
   export type PaymentAllocationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPaymentAllocationNestedInput
     payment?: PaymentUpdateOneRequiredWithoutPaymentAllocationNestedInput
     invoiceItem?: InvoiceItemUpdateOneRequiredWithoutPaymentAllocationNestedInput
+    transaction?: FinancialTransactionUpdateOneWithoutAllocationsNestedInput
   }
 
   export type PaymentAllocationUncheckedUpdateInput = {
@@ -120579,7 +127174,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
     invoiceItemId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -120589,14 +127184,13 @@ export namespace Prisma {
     tenantId: string
     paymentId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
 
   export type PaymentAllocationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -120606,7 +127200,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
     invoiceItemId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -120650,6 +127244,435 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     paymentPlanId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ChartOfAccountCreateInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutChartOfAccountInput
+    lines?: JournalEntryLineCreateNestedManyWithoutAccountInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutLedgerAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutAccountInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutLedgerAccountInput
+  }
+
+  export type ChartOfAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutChartOfAccountNestedInput
+    lines?: JournalEntryLineUpdateManyWithoutAccountNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutLedgerAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutAccountNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutLedgerAccountNestedInput
+  }
+
+  export type ChartOfAccountCreateManyInput = {
+    id?: string
+    tenantId: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type ChartOfAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountCreateInput = {
+    id?: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBankAccountInput
+    ledgerAccount: ChartOfAccountCreateNestedOneWithoutBankAccountsInput
+  }
+
+  export type BankAccountUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    ledgerAccountId: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBankAccountNestedInput
+    ledgerAccount?: ChartOfAccountUpdateOneRequiredWithoutBankAccountsNestedInput
+  }
+
+  export type BankAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ledgerAccountId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountCreateManyInput = {
+    id?: string
+    tenantId: string
+    ledgerAccountId: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ledgerAccountId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountingPeriodCreateInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAccountingPeriodInput
+    transactions?: FinancialTransactionCreateNestedManyWithoutPeriodInput
+  }
+
+  export type AccountingPeriodUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutPeriodInput
+  }
+
+  export type AccountingPeriodUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAccountingPeriodNestedInput
+    transactions?: FinancialTransactionUpdateManyWithoutPeriodNestedInput
+  }
+
+  export type AccountingPeriodUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutPeriodNestedInput
+  }
+
+  export type AccountingPeriodCreateManyInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AccountingPeriodUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountingPeriodUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionCreateInput = {
+    id?: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionInput
+    period: AccountingPeriodCreateNestedOneWithoutTransactionsInput
+    lines?: JournalEntryLineCreateNestedManyWithoutTransactionInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutTransactionInput
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionNestedInput
+    period?: AccountingPeriodUpdateOneRequiredWithoutTransactionsNestedInput
+    lines?: JournalEntryLineUpdateManyWithoutTransactionNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    periodId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutTransactionNestedInput
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionCreateManyInput = {
+    id?: string
+    tenantId: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+  }
+
+  export type FinancialTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    periodId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineCreateInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutJournalEntryLineInput
+    transaction: FinancialTransactionCreateNestedOneWithoutLinesInput
+    account: ChartOfAccountCreateNestedOneWithoutLinesInput
+    student?: StudentCreateNestedOneWithoutJournalLinesInput
+    invoice?: InvoiceCreateNestedOneWithoutJournalLinesInput
+  }
+
+  export type JournalEntryLineUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutJournalEntryLineNestedInput
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutLinesNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutLinesNestedInput
+    student?: StudentUpdateOneWithoutJournalLinesNestedInput
+    invoice?: InvoiceUpdateOneWithoutJournalLinesNestedInput
+  }
+
+  export type JournalEntryLineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineCreateManyInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ApprovalWorkflowCreateInput = {
@@ -123254,6 +130277,36 @@ export namespace Prisma {
     none?: AdmissionApplicationWhereInput
   }
 
+  export type ChartOfAccountListRelationFilter = {
+    every?: ChartOfAccountWhereInput
+    some?: ChartOfAccountWhereInput
+    none?: ChartOfAccountWhereInput
+  }
+
+  export type BankAccountListRelationFilter = {
+    every?: BankAccountWhereInput
+    some?: BankAccountWhereInput
+    none?: BankAccountWhereInput
+  }
+
+  export type AccountingPeriodListRelationFilter = {
+    every?: AccountingPeriodWhereInput
+    some?: AccountingPeriodWhereInput
+    none?: AccountingPeriodWhereInput
+  }
+
+  export type FinancialTransactionListRelationFilter = {
+    every?: FinancialTransactionWhereInput
+    some?: FinancialTransactionWhereInput
+    none?: FinancialTransactionWhereInput
+  }
+
+  export type JournalEntryLineListRelationFilter = {
+    every?: JournalEntryLineWhereInput
+    some?: JournalEntryLineWhereInput
+    none?: JournalEntryLineWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -123480,6 +130533,26 @@ export namespace Prisma {
   }
 
   export type AdmissionApplicationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChartOfAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BankAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AccountingPeriodOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FinancialTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JournalEntryLineOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -125577,6 +132650,11 @@ export namespace Prisma {
     not?: NestedEnumPaymentTransactionStatusFilter<$PrismaModel> | $Enums.PaymentTransactionStatus
   }
 
+  export type InvoiceNullableRelationFilter = {
+    is?: InvoiceWhereInput | null
+    isNot?: InvoiceWhereInput | null
+  }
+
   export type PaymentCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -126694,6 +133772,11 @@ export namespace Prisma {
     isNot?: PaymentWhereInput | null
   }
 
+  export type PaymentAttemptTenantIdReferenceCompoundUniqueInput = {
+    tenantId: string
+    reference: string
+  }
+
   export type PaymentAttemptCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -126747,6 +133830,11 @@ export namespace Prisma {
   export type InvoiceItemRelationFilter = {
     is?: InvoiceItemWhereInput
     isNot?: InvoiceItemWhereInput
+  }
+
+  export type FinancialTransactionNullableRelationFilter = {
+    is?: FinancialTransactionWhereInput | null
+    isNot?: FinancialTransactionWhereInput | null
   }
 
   export type PaymentAllocationCountOrderByAggregateInput = {
@@ -126803,6 +133891,289 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     paymentPlanId?: SortOrder
+  }
+
+  export type EnumAccountTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeFilter<$PrismaModel> | $Enums.AccountType
+  }
+
+  export type ChartOfAccountTenantIdCodeCompoundUniqueInput = {
+    tenantId: string
+    code: string
+  }
+
+  export type ChartOfAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChartOfAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChartOfAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    isActive?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.AccountType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAccountTypeFilter<$PrismaModel>
+    _max?: NestedEnumAccountTypeFilter<$PrismaModel>
+  }
+
+  export type ChartOfAccountRelationFilter = {
+    is?: ChartOfAccountWhereInput
+    isNot?: ChartOfAccountWhereInput
+  }
+
+  export type BankAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ledgerAccountId?: SortOrder
+    name?: SortOrder
+    accountNumber?: SortOrder
+    bankName?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ledgerAccountId?: SortOrder
+    name?: SortOrder
+    accountNumber?: SortOrder
+    bankName?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BankAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ledgerAccountId?: SortOrder
+    name?: SortOrder
+    accountNumber?: SortOrder
+    bankName?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumPeriodStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodStatus | EnumPeriodStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodStatusFilter<$PrismaModel> | $Enums.PeriodStatus
+  }
+
+  export type AccountingPeriodCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrder
+    closedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AccountingPeriodMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrder
+    closedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AccountingPeriodMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    name?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    closedAt?: SortOrder
+    closedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumPeriodStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodStatus | EnumPeriodStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodStatusWithAggregatesFilter<$PrismaModel> | $Enums.PeriodStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPeriodStatusFilter<$PrismaModel>
+    _max?: NestedEnumPeriodStatusFilter<$PrismaModel>
+  }
+
+  export type EnumTransactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  }
+
+  export type EnumTransactionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStatusFilter<$PrismaModel> | $Enums.TransactionStatus
+  }
+
+  export type AccountingPeriodRelationFilter = {
+    is?: AccountingPeriodWhereInput
+    isNot?: AccountingPeriodWhereInput
+  }
+
+  export type FinancialTransactionTenantIdReferenceCompoundUniqueInput = {
+    tenantId: string
+    reference: string
+  }
+
+  export type FinancialTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    periodId?: SortOrder
+    reference?: SortOrder
+    type?: SortOrder
+    source?: SortOrder
+    description?: SortOrder
+    transactionDate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FinancialTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    periodId?: SortOrder
+    reference?: SortOrder
+    type?: SortOrder
+    source?: SortOrder
+    description?: SortOrder
+    transactionDate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FinancialTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    periodId?: SortOrder
+    reference?: SortOrder
+    type?: SortOrder
+    source?: SortOrder
+    description?: SortOrder
+    transactionDate?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type EnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel> | $Enums.TransactionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionStatusFilter<$PrismaModel>
+    _max?: NestedEnumTransactionStatusFilter<$PrismaModel>
+  }
+
+  export type FinancialTransactionRelationFilter = {
+    is?: FinancialTransactionWhereInput
+    isNot?: FinancialTransactionWhereInput
+  }
+
+  export type JournalEntryLineCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    memo?: SortOrder
+    dimensionStudentId?: SortOrder
+    dimensionInvoiceId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JournalEntryLineAvgOrderByAggregateInput = {
+    debit?: SortOrder
+    credit?: SortOrder
+  }
+
+  export type JournalEntryLineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    memo?: SortOrder
+    dimensionStudentId?: SortOrder
+    dimensionInvoiceId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JournalEntryLineMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    transactionId?: SortOrder
+    accountId?: SortOrder
+    debit?: SortOrder
+    credit?: SortOrder
+    memo?: SortOrder
+    dimensionStudentId?: SortOrder
+    dimensionInvoiceId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JournalEntryLineSumOrderByAggregateInput = {
+    debit?: SortOrder
+    credit?: SortOrder
   }
 
   export type ApprovalStepListRelationFilter = {
@@ -128547,6 +135918,41 @@ export namespace Prisma {
     connect?: AdmissionApplicationWhereUniqueInput | AdmissionApplicationWhereUniqueInput[]
   }
 
+  export type ChartOfAccountCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+  }
+
+  export type BankAccountCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BankAccountCreateWithoutTenantInput, BankAccountUncheckedCreateWithoutTenantInput> | BankAccountCreateWithoutTenantInput[] | BankAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutTenantInput | BankAccountCreateOrConnectWithoutTenantInput[]
+    createMany?: BankAccountCreateManyTenantInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+  }
+
+  export type AccountingPeriodCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AccountingPeriodCreateWithoutTenantInput, AccountingPeriodUncheckedCreateWithoutTenantInput> | AccountingPeriodCreateWithoutTenantInput[] | AccountingPeriodUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutTenantInput | AccountingPeriodCreateOrConnectWithoutTenantInput[]
+    createMany?: AccountingPeriodCreateManyTenantInputEnvelope
+    connect?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+  }
+
+  export type FinancialTransactionCreateNestedManyWithoutTenantInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type JournalEntryLineCreateNestedManyWithoutTenantInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTenantInput, JournalEntryLineUncheckedCreateWithoutTenantInput> | JournalEntryLineCreateWithoutTenantInput[] | JournalEntryLineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTenantInput | JournalEntryLineCreateOrConnectWithoutTenantInput[]
+    createMany?: JournalEntryLineCreateManyTenantInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
   export type PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<PlatformSubscriptionCreateWithoutTenantInput, PlatformSubscriptionUncheckedCreateWithoutTenantInput> | PlatformSubscriptionCreateWithoutTenantInput[] | PlatformSubscriptionUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PlatformSubscriptionCreateOrConnectWithoutTenantInput | PlatformSubscriptionCreateOrConnectWithoutTenantInput[]
@@ -128962,6 +136368,41 @@ export namespace Prisma {
     connectOrCreate?: AdmissionApplicationCreateOrConnectWithoutTenantInput | AdmissionApplicationCreateOrConnectWithoutTenantInput[]
     createMany?: AdmissionApplicationCreateManyTenantInputEnvelope
     connect?: AdmissionApplicationWhereUniqueInput | AdmissionApplicationWhereUniqueInput[]
+  }
+
+  export type ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+  }
+
+  export type BankAccountUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BankAccountCreateWithoutTenantInput, BankAccountUncheckedCreateWithoutTenantInput> | BankAccountCreateWithoutTenantInput[] | BankAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutTenantInput | BankAccountCreateOrConnectWithoutTenantInput[]
+    createMany?: BankAccountCreateManyTenantInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+  }
+
+  export type AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AccountingPeriodCreateWithoutTenantInput, AccountingPeriodUncheckedCreateWithoutTenantInput> | AccountingPeriodCreateWithoutTenantInput[] | AccountingPeriodUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutTenantInput | AccountingPeriodCreateOrConnectWithoutTenantInput[]
+    createMany?: AccountingPeriodCreateManyTenantInputEnvelope
+    connect?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+  }
+
+  export type FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTenantInput, JournalEntryLineUncheckedCreateWithoutTenantInput> | JournalEntryLineCreateWithoutTenantInput[] | JournalEntryLineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTenantInput | JournalEntryLineCreateOrConnectWithoutTenantInput[]
+    createMany?: JournalEntryLineCreateManyTenantInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
   }
 
   export type EnumTenantStatusFieldUpdateOperationsInput = {
@@ -129808,6 +137249,76 @@ export namespace Prisma {
     deleteMany?: AdmissionApplicationScalarWhereInput | AdmissionApplicationScalarWhereInput[]
   }
 
+  export type ChartOfAccountUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    upsert?: ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput | ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    set?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    disconnect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    delete?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    update?: ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput | ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ChartOfAccountUpdateManyWithWhereWithoutTenantInput | ChartOfAccountUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+  }
+
+  export type BankAccountUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BankAccountCreateWithoutTenantInput, BankAccountUncheckedCreateWithoutTenantInput> | BankAccountCreateWithoutTenantInput[] | BankAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutTenantInput | BankAccountCreateOrConnectWithoutTenantInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutTenantInput | BankAccountUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BankAccountCreateManyTenantInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutTenantInput | BankAccountUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutTenantInput | BankAccountUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
+  export type AccountingPeriodUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AccountingPeriodCreateWithoutTenantInput, AccountingPeriodUncheckedCreateWithoutTenantInput> | AccountingPeriodCreateWithoutTenantInput[] | AccountingPeriodUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutTenantInput | AccountingPeriodCreateOrConnectWithoutTenantInput[]
+    upsert?: AccountingPeriodUpsertWithWhereUniqueWithoutTenantInput | AccountingPeriodUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AccountingPeriodCreateManyTenantInputEnvelope
+    set?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    disconnect?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    delete?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    connect?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    update?: AccountingPeriodUpdateWithWhereUniqueWithoutTenantInput | AccountingPeriodUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AccountingPeriodUpdateManyWithWhereWithoutTenantInput | AccountingPeriodUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AccountingPeriodScalarWhereInput | AccountingPeriodScalarWhereInput[]
+  }
+
+  export type FinancialTransactionUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput | FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput | FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutTenantInput | FinancialTransactionUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type JournalEntryLineUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTenantInput, JournalEntryLineUncheckedCreateWithoutTenantInput> | JournalEntryLineCreateWithoutTenantInput[] | JournalEntryLineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTenantInput | JournalEntryLineCreateOrConnectWithoutTenantInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutTenantInput | JournalEntryLineUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: JournalEntryLineCreateManyTenantInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutTenantInput | JournalEntryLineUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutTenantInput | JournalEntryLineUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
   export type PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<PlatformSubscriptionCreateWithoutTenantInput, PlatformSubscriptionUncheckedCreateWithoutTenantInput> | PlatformSubscriptionCreateWithoutTenantInput[] | PlatformSubscriptionUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PlatformSubscriptionCreateOrConnectWithoutTenantInput | PlatformSubscriptionCreateOrConnectWithoutTenantInput[]
@@ -130634,6 +138145,76 @@ export namespace Prisma {
     update?: AdmissionApplicationUpdateWithWhereUniqueWithoutTenantInput | AdmissionApplicationUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: AdmissionApplicationUpdateManyWithWhereWithoutTenantInput | AdmissionApplicationUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: AdmissionApplicationScalarWhereInput | AdmissionApplicationScalarWhereInput[]
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput> | ChartOfAccountCreateWithoutTenantInput[] | ChartOfAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutTenantInput | ChartOfAccountCreateOrConnectWithoutTenantInput[]
+    upsert?: ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput | ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ChartOfAccountCreateManyTenantInputEnvelope
+    set?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    disconnect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    delete?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    connect?: ChartOfAccountWhereUniqueInput | ChartOfAccountWhereUniqueInput[]
+    update?: ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput | ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ChartOfAccountUpdateManyWithWhereWithoutTenantInput | ChartOfAccountUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+  }
+
+  export type BankAccountUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BankAccountCreateWithoutTenantInput, BankAccountUncheckedCreateWithoutTenantInput> | BankAccountCreateWithoutTenantInput[] | BankAccountUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutTenantInput | BankAccountCreateOrConnectWithoutTenantInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutTenantInput | BankAccountUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BankAccountCreateManyTenantInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutTenantInput | BankAccountUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutTenantInput | BankAccountUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
+  export type AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AccountingPeriodCreateWithoutTenantInput, AccountingPeriodUncheckedCreateWithoutTenantInput> | AccountingPeriodCreateWithoutTenantInput[] | AccountingPeriodUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutTenantInput | AccountingPeriodCreateOrConnectWithoutTenantInput[]
+    upsert?: AccountingPeriodUpsertWithWhereUniqueWithoutTenantInput | AccountingPeriodUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AccountingPeriodCreateManyTenantInputEnvelope
+    set?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    disconnect?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    delete?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    connect?: AccountingPeriodWhereUniqueInput | AccountingPeriodWhereUniqueInput[]
+    update?: AccountingPeriodUpdateWithWhereUniqueWithoutTenantInput | AccountingPeriodUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AccountingPeriodUpdateManyWithWhereWithoutTenantInput | AccountingPeriodUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AccountingPeriodScalarWhereInput | AccountingPeriodScalarWhereInput[]
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput> | FinancialTransactionCreateWithoutTenantInput[] | FinancialTransactionUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutTenantInput | FinancialTransactionCreateOrConnectWithoutTenantInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput | FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: FinancialTransactionCreateManyTenantInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput | FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutTenantInput | FinancialTransactionUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTenantInput, JournalEntryLineUncheckedCreateWithoutTenantInput> | JournalEntryLineCreateWithoutTenantInput[] | JournalEntryLineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTenantInput | JournalEntryLineCreateOrConnectWithoutTenantInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutTenantInput | JournalEntryLineUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: JournalEntryLineCreateManyTenantInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutTenantInput | JournalEntryLineUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutTenantInput | JournalEntryLineUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutSubscriptionsInput = {
@@ -132590,6 +140171,13 @@ export namespace Prisma {
     connect?: BookBorrowingWhereUniqueInput | BookBorrowingWhereUniqueInput[]
   }
 
+  export type JournalEntryLineCreateNestedManyWithoutStudentInput = {
+    create?: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput> | JournalEntryLineCreateWithoutStudentInput[] | JournalEntryLineUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutStudentInput | JournalEntryLineCreateOrConnectWithoutStudentInput[]
+    createMany?: JournalEntryLineCreateManyStudentInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
   export type StudentGuardianUncheckedCreateNestedManyWithoutStudentInput = {
     create?: XOR<StudentGuardianCreateWithoutStudentInput, StudentGuardianUncheckedCreateWithoutStudentInput> | StudentGuardianCreateWithoutStudentInput[] | StudentGuardianUncheckedCreateWithoutStudentInput[]
     connectOrCreate?: StudentGuardianCreateOrConnectWithoutStudentInput | StudentGuardianCreateOrConnectWithoutStudentInput[]
@@ -132658,6 +140246,13 @@ export namespace Prisma {
     connectOrCreate?: BookBorrowingCreateOrConnectWithoutStudentInput | BookBorrowingCreateOrConnectWithoutStudentInput[]
     createMany?: BookBorrowingCreateManyStudentInputEnvelope
     connect?: BookBorrowingWhereUniqueInput | BookBorrowingWhereUniqueInput[]
+  }
+
+  export type JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput = {
+    create?: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput> | JournalEntryLineCreateWithoutStudentInput[] | JournalEntryLineUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutStudentInput | JournalEntryLineCreateOrConnectWithoutStudentInput[]
+    createMany?: JournalEntryLineCreateManyStudentInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
   }
 
   export type TenantUpdateOneRequiredWithoutStudentNestedInput = {
@@ -132826,6 +140421,20 @@ export namespace Prisma {
     deleteMany?: BookBorrowingScalarWhereInput | BookBorrowingScalarWhereInput[]
   }
 
+  export type JournalEntryLineUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput> | JournalEntryLineCreateWithoutStudentInput[] | JournalEntryLineUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutStudentInput | JournalEntryLineCreateOrConnectWithoutStudentInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutStudentInput | JournalEntryLineUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: JournalEntryLineCreateManyStudentInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutStudentInput | JournalEntryLineUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutStudentInput | JournalEntryLineUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
   export type StudentGuardianUncheckedUpdateManyWithoutStudentNestedInput = {
     create?: XOR<StudentGuardianCreateWithoutStudentInput, StudentGuardianUncheckedCreateWithoutStudentInput> | StudentGuardianCreateWithoutStudentInput[] | StudentGuardianUncheckedCreateWithoutStudentInput[]
     connectOrCreate?: StudentGuardianCreateOrConnectWithoutStudentInput | StudentGuardianCreateOrConnectWithoutStudentInput[]
@@ -132964,6 +140573,20 @@ export namespace Prisma {
     update?: BookBorrowingUpdateWithWhereUniqueWithoutStudentInput | BookBorrowingUpdateWithWhereUniqueWithoutStudentInput[]
     updateMany?: BookBorrowingUpdateManyWithWhereWithoutStudentInput | BookBorrowingUpdateManyWithWhereWithoutStudentInput[]
     deleteMany?: BookBorrowingScalarWhereInput | BookBorrowingScalarWhereInput[]
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput> | JournalEntryLineCreateWithoutStudentInput[] | JournalEntryLineUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutStudentInput | JournalEntryLineCreateOrConnectWithoutStudentInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutStudentInput | JournalEntryLineUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: JournalEntryLineCreateManyStudentInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutStudentInput | JournalEntryLineUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutStudentInput | JournalEntryLineUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutGuardianInput = {
@@ -133554,6 +141177,13 @@ export namespace Prisma {
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
+  export type JournalEntryLineCreateNestedManyWithoutInvoiceInput = {
+    create?: XOR<JournalEntryLineCreateWithoutInvoiceInput, JournalEntryLineUncheckedCreateWithoutInvoiceInput> | JournalEntryLineCreateWithoutInvoiceInput[] | JournalEntryLineUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutInvoiceInput | JournalEntryLineCreateOrConnectWithoutInvoiceInput[]
+    createMany?: JournalEntryLineCreateManyInvoiceInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
   export type InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput = {
     create?: XOR<InvoiceItemCreateWithoutInvoiceInput, InvoiceItemUncheckedCreateWithoutInvoiceInput> | InvoiceItemCreateWithoutInvoiceInput[] | InvoiceItemUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: InvoiceItemCreateOrConnectWithoutInvoiceInput | InvoiceItemCreateOrConnectWithoutInvoiceInput[]
@@ -133566,6 +141196,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutInvoiceInput | PaymentCreateOrConnectWithoutInvoiceInput[]
     createMany?: PaymentCreateManyInvoiceInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput = {
+    create?: XOR<JournalEntryLineCreateWithoutInvoiceInput, JournalEntryLineUncheckedCreateWithoutInvoiceInput> | JournalEntryLineCreateWithoutInvoiceInput[] | JournalEntryLineUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutInvoiceInput | JournalEntryLineCreateOrConnectWithoutInvoiceInput[]
+    createMany?: JournalEntryLineCreateManyInvoiceInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
   }
 
   export type EnumInvoiceStatusFieldUpdateOperationsInput = {
@@ -133624,6 +141261,20 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type JournalEntryLineUpdateManyWithoutInvoiceNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutInvoiceInput, JournalEntryLineUncheckedCreateWithoutInvoiceInput> | JournalEntryLineCreateWithoutInvoiceInput[] | JournalEntryLineUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutInvoiceInput | JournalEntryLineCreateOrConnectWithoutInvoiceInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutInvoiceInput | JournalEntryLineUpsertWithWhereUniqueWithoutInvoiceInput[]
+    createMany?: JournalEntryLineCreateManyInvoiceInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput | JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput | JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
   export type InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput = {
     create?: XOR<InvoiceItemCreateWithoutInvoiceInput, InvoiceItemUncheckedCreateWithoutInvoiceInput> | InvoiceItemCreateWithoutInvoiceInput[] | InvoiceItemUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: InvoiceItemCreateOrConnectWithoutInvoiceInput | InvoiceItemCreateOrConnectWithoutInvoiceInput[]
@@ -133650,6 +141301,20 @@ export namespace Prisma {
     update?: PaymentUpdateWithWhereUniqueWithoutInvoiceInput | PaymentUpdateWithWhereUniqueWithoutInvoiceInput[]
     updateMany?: PaymentUpdateManyWithWhereWithoutInvoiceInput | PaymentUpdateManyWithWhereWithoutInvoiceInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutInvoiceInput, JournalEntryLineUncheckedCreateWithoutInvoiceInput> | JournalEntryLineCreateWithoutInvoiceInput[] | JournalEntryLineUncheckedCreateWithoutInvoiceInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutInvoiceInput | JournalEntryLineCreateOrConnectWithoutInvoiceInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutInvoiceInput | JournalEntryLineUpsertWithWhereUniqueWithoutInvoiceInput[]
+    createMany?: JournalEntryLineCreateManyInvoiceInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput | JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput | JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
   }
 
   export type InvoiceCreateNestedOneWithoutItemsInput = {
@@ -133780,10 +141445,12 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPaymentInput, TenantUpdateWithoutPaymentInput>, TenantUncheckedUpdateWithoutPaymentInput>
   }
 
-  export type InvoiceUpdateOneRequiredWithoutPaymentsNestedInput = {
+  export type InvoiceUpdateOneWithoutPaymentsNestedInput = {
     create?: XOR<InvoiceCreateWithoutPaymentsInput, InvoiceUncheckedCreateWithoutPaymentsInput>
     connectOrCreate?: InvoiceCreateOrConnectWithoutPaymentsInput
     upsert?: InvoiceUpsertWithoutPaymentsInput
+    disconnect?: InvoiceWhereInput | boolean
+    delete?: InvoiceWhereInput | boolean
     connect?: InvoiceWhereUniqueInput
     update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutPaymentsInput, InvoiceUpdateWithoutPaymentsInput>, InvoiceUncheckedUpdateWithoutPaymentsInput>
   }
@@ -134792,6 +142459,12 @@ export namespace Prisma {
     connect?: InvoiceItemWhereUniqueInput
   }
 
+  export type FinancialTransactionCreateNestedOneWithoutAllocationsInput = {
+    create?: XOR<FinancialTransactionCreateWithoutAllocationsInput, FinancialTransactionUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutAllocationsInput
+    connect?: FinancialTransactionWhereUniqueInput
+  }
+
   export type TenantUpdateOneRequiredWithoutPaymentAllocationNestedInput = {
     create?: XOR<TenantCreateWithoutPaymentAllocationInput, TenantUncheckedCreateWithoutPaymentAllocationInput>
     connectOrCreate?: TenantCreateOrConnectWithoutPaymentAllocationInput
@@ -134816,6 +142489,16 @@ export namespace Prisma {
     update?: XOR<XOR<InvoiceItemUpdateToOneWithWhereWithoutPaymentAllocationInput, InvoiceItemUpdateWithoutPaymentAllocationInput>, InvoiceItemUncheckedUpdateWithoutPaymentAllocationInput>
   }
 
+  export type FinancialTransactionUpdateOneWithoutAllocationsNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutAllocationsInput, FinancialTransactionUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutAllocationsInput
+    upsert?: FinancialTransactionUpsertWithoutAllocationsInput
+    disconnect?: FinancialTransactionWhereInput | boolean
+    delete?: FinancialTransactionWhereInput | boolean
+    connect?: FinancialTransactionWhereUniqueInput
+    update?: XOR<XOR<FinancialTransactionUpdateToOneWithWhereWithoutAllocationsInput, FinancialTransactionUpdateWithoutAllocationsInput>, FinancialTransactionUncheckedUpdateWithoutAllocationsInput>
+  }
+
   export type TenantCreateNestedOneWithoutPaymentPlanVersionInput = {
     create?: XOR<TenantCreateWithoutPaymentPlanVersionInput, TenantUncheckedCreateWithoutPaymentPlanVersionInput>
     connectOrCreate?: TenantCreateOrConnectWithoutPaymentPlanVersionInput
@@ -134828,6 +142511,390 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutPaymentPlanVersionInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPaymentPlanVersionInput, TenantUpdateWithoutPaymentPlanVersionInput>, TenantUncheckedUpdateWithoutPaymentPlanVersionInput>
+  }
+
+  export type TenantCreateNestedOneWithoutChartOfAccountInput = {
+    create?: XOR<TenantCreateWithoutChartOfAccountInput, TenantUncheckedCreateWithoutChartOfAccountInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutChartOfAccountInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type JournalEntryLineCreateNestedManyWithoutAccountInput = {
+    create?: XOR<JournalEntryLineCreateWithoutAccountInput, JournalEntryLineUncheckedCreateWithoutAccountInput> | JournalEntryLineCreateWithoutAccountInput[] | JournalEntryLineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutAccountInput | JournalEntryLineCreateOrConnectWithoutAccountInput[]
+    createMany?: JournalEntryLineCreateManyAccountInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
+  export type BankAccountCreateNestedManyWithoutLedgerAccountInput = {
+    create?: XOR<BankAccountCreateWithoutLedgerAccountInput, BankAccountUncheckedCreateWithoutLedgerAccountInput> | BankAccountCreateWithoutLedgerAccountInput[] | BankAccountUncheckedCreateWithoutLedgerAccountInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutLedgerAccountInput | BankAccountCreateOrConnectWithoutLedgerAccountInput[]
+    createMany?: BankAccountCreateManyLedgerAccountInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+  }
+
+  export type JournalEntryLineUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<JournalEntryLineCreateWithoutAccountInput, JournalEntryLineUncheckedCreateWithoutAccountInput> | JournalEntryLineCreateWithoutAccountInput[] | JournalEntryLineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutAccountInput | JournalEntryLineCreateOrConnectWithoutAccountInput[]
+    createMany?: JournalEntryLineCreateManyAccountInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
+  export type BankAccountUncheckedCreateNestedManyWithoutLedgerAccountInput = {
+    create?: XOR<BankAccountCreateWithoutLedgerAccountInput, BankAccountUncheckedCreateWithoutLedgerAccountInput> | BankAccountCreateWithoutLedgerAccountInput[] | BankAccountUncheckedCreateWithoutLedgerAccountInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutLedgerAccountInput | BankAccountCreateOrConnectWithoutLedgerAccountInput[]
+    createMany?: BankAccountCreateManyLedgerAccountInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+  }
+
+  export type EnumAccountTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AccountType
+  }
+
+  export type TenantUpdateOneRequiredWithoutChartOfAccountNestedInput = {
+    create?: XOR<TenantCreateWithoutChartOfAccountInput, TenantUncheckedCreateWithoutChartOfAccountInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutChartOfAccountInput
+    upsert?: TenantUpsertWithoutChartOfAccountInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutChartOfAccountInput, TenantUpdateWithoutChartOfAccountInput>, TenantUncheckedUpdateWithoutChartOfAccountInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutAccountInput, JournalEntryLineUncheckedCreateWithoutAccountInput> | JournalEntryLineCreateWithoutAccountInput[] | JournalEntryLineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutAccountInput | JournalEntryLineCreateOrConnectWithoutAccountInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput | JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: JournalEntryLineCreateManyAccountInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutAccountInput | JournalEntryLineUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutAccountInput | JournalEntryLineUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
+  export type BankAccountUpdateManyWithoutLedgerAccountNestedInput = {
+    create?: XOR<BankAccountCreateWithoutLedgerAccountInput, BankAccountUncheckedCreateWithoutLedgerAccountInput> | BankAccountCreateWithoutLedgerAccountInput[] | BankAccountUncheckedCreateWithoutLedgerAccountInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutLedgerAccountInput | BankAccountCreateOrConnectWithoutLedgerAccountInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutLedgerAccountInput | BankAccountUpsertWithWhereUniqueWithoutLedgerAccountInput[]
+    createMany?: BankAccountCreateManyLedgerAccountInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutLedgerAccountInput | BankAccountUpdateWithWhereUniqueWithoutLedgerAccountInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutLedgerAccountInput | BankAccountUpdateManyWithWhereWithoutLedgerAccountInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutAccountInput, JournalEntryLineUncheckedCreateWithoutAccountInput> | JournalEntryLineCreateWithoutAccountInput[] | JournalEntryLineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutAccountInput | JournalEntryLineCreateOrConnectWithoutAccountInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput | JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: JournalEntryLineCreateManyAccountInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutAccountInput | JournalEntryLineUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutAccountInput | JournalEntryLineUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
+  export type BankAccountUncheckedUpdateManyWithoutLedgerAccountNestedInput = {
+    create?: XOR<BankAccountCreateWithoutLedgerAccountInput, BankAccountUncheckedCreateWithoutLedgerAccountInput> | BankAccountCreateWithoutLedgerAccountInput[] | BankAccountUncheckedCreateWithoutLedgerAccountInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutLedgerAccountInput | BankAccountCreateOrConnectWithoutLedgerAccountInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutLedgerAccountInput | BankAccountUpsertWithWhereUniqueWithoutLedgerAccountInput[]
+    createMany?: BankAccountCreateManyLedgerAccountInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutLedgerAccountInput | BankAccountUpdateWithWhereUniqueWithoutLedgerAccountInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutLedgerAccountInput | BankAccountUpdateManyWithWhereWithoutLedgerAccountInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutBankAccountInput = {
+    create?: XOR<TenantCreateWithoutBankAccountInput, TenantUncheckedCreateWithoutBankAccountInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBankAccountInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type ChartOfAccountCreateNestedOneWithoutBankAccountsInput = {
+    create?: XOR<ChartOfAccountCreateWithoutBankAccountsInput, ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutBankAccountsInput
+    connect?: ChartOfAccountWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutBankAccountNestedInput = {
+    create?: XOR<TenantCreateWithoutBankAccountInput, TenantUncheckedCreateWithoutBankAccountInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBankAccountInput
+    upsert?: TenantUpsertWithoutBankAccountInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBankAccountInput, TenantUpdateWithoutBankAccountInput>, TenantUncheckedUpdateWithoutBankAccountInput>
+  }
+
+  export type ChartOfAccountUpdateOneRequiredWithoutBankAccountsNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutBankAccountsInput, ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutBankAccountsInput
+    upsert?: ChartOfAccountUpsertWithoutBankAccountsInput
+    connect?: ChartOfAccountWhereUniqueInput
+    update?: XOR<XOR<ChartOfAccountUpdateToOneWithWhereWithoutBankAccountsInput, ChartOfAccountUpdateWithoutBankAccountsInput>, ChartOfAccountUncheckedUpdateWithoutBankAccountsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutAccountingPeriodInput = {
+    create?: XOR<TenantCreateWithoutAccountingPeriodInput, TenantUncheckedCreateWithoutAccountingPeriodInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAccountingPeriodInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type FinancialTransactionCreateNestedManyWithoutPeriodInput = {
+    create?: XOR<FinancialTransactionCreateWithoutPeriodInput, FinancialTransactionUncheckedCreateWithoutPeriodInput> | FinancialTransactionCreateWithoutPeriodInput[] | FinancialTransactionUncheckedCreateWithoutPeriodInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutPeriodInput | FinancialTransactionCreateOrConnectWithoutPeriodInput[]
+    createMany?: FinancialTransactionCreateManyPeriodInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type FinancialTransactionUncheckedCreateNestedManyWithoutPeriodInput = {
+    create?: XOR<FinancialTransactionCreateWithoutPeriodInput, FinancialTransactionUncheckedCreateWithoutPeriodInput> | FinancialTransactionCreateWithoutPeriodInput[] | FinancialTransactionUncheckedCreateWithoutPeriodInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutPeriodInput | FinancialTransactionCreateOrConnectWithoutPeriodInput[]
+    createMany?: FinancialTransactionCreateManyPeriodInputEnvelope
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+  }
+
+  export type EnumPeriodStatusFieldUpdateOperationsInput = {
+    set?: $Enums.PeriodStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutAccountingPeriodNestedInput = {
+    create?: XOR<TenantCreateWithoutAccountingPeriodInput, TenantUncheckedCreateWithoutAccountingPeriodInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAccountingPeriodInput
+    upsert?: TenantUpsertWithoutAccountingPeriodInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAccountingPeriodInput, TenantUpdateWithoutAccountingPeriodInput>, TenantUncheckedUpdateWithoutAccountingPeriodInput>
+  }
+
+  export type FinancialTransactionUpdateManyWithoutPeriodNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutPeriodInput, FinancialTransactionUncheckedCreateWithoutPeriodInput> | FinancialTransactionCreateWithoutPeriodInput[] | FinancialTransactionUncheckedCreateWithoutPeriodInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutPeriodInput | FinancialTransactionCreateOrConnectWithoutPeriodInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput | FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput[]
+    createMany?: FinancialTransactionCreateManyPeriodInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutPeriodInput | FinancialTransactionUpdateWithWhereUniqueWithoutPeriodInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutPeriodInput | FinancialTransactionUpdateManyWithWhereWithoutPeriodInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutPeriodNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutPeriodInput, FinancialTransactionUncheckedCreateWithoutPeriodInput> | FinancialTransactionCreateWithoutPeriodInput[] | FinancialTransactionUncheckedCreateWithoutPeriodInput[]
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutPeriodInput | FinancialTransactionCreateOrConnectWithoutPeriodInput[]
+    upsert?: FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput | FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput[]
+    createMany?: FinancialTransactionCreateManyPeriodInputEnvelope
+    set?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    disconnect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    delete?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    connect?: FinancialTransactionWhereUniqueInput | FinancialTransactionWhereUniqueInput[]
+    update?: FinancialTransactionUpdateWithWhereUniqueWithoutPeriodInput | FinancialTransactionUpdateWithWhereUniqueWithoutPeriodInput[]
+    updateMany?: FinancialTransactionUpdateManyWithWhereWithoutPeriodInput | FinancialTransactionUpdateManyWithWhereWithoutPeriodInput[]
+    deleteMany?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutFinancialTransactionInput = {
+    create?: XOR<TenantCreateWithoutFinancialTransactionInput, TenantUncheckedCreateWithoutFinancialTransactionInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialTransactionInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type AccountingPeriodCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<AccountingPeriodCreateWithoutTransactionsInput, AccountingPeriodUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutTransactionsInput
+    connect?: AccountingPeriodWhereUniqueInput
+  }
+
+  export type JournalEntryLineCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTransactionInput, JournalEntryLineUncheckedCreateWithoutTransactionInput> | JournalEntryLineCreateWithoutTransactionInput[] | JournalEntryLineUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTransactionInput | JournalEntryLineCreateOrConnectWithoutTransactionInput[]
+    createMany?: JournalEntryLineCreateManyTransactionInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
+  export type PaymentAllocationCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<PaymentAllocationCreateWithoutTransactionInput, PaymentAllocationUncheckedCreateWithoutTransactionInput> | PaymentAllocationCreateWithoutTransactionInput[] | PaymentAllocationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutTransactionInput | PaymentAllocationCreateOrConnectWithoutTransactionInput[]
+    createMany?: PaymentAllocationCreateManyTransactionInputEnvelope
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+  }
+
+  export type JournalEntryLineUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTransactionInput, JournalEntryLineUncheckedCreateWithoutTransactionInput> | JournalEntryLineCreateWithoutTransactionInput[] | JournalEntryLineUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTransactionInput | JournalEntryLineCreateOrConnectWithoutTransactionInput[]
+    createMany?: JournalEntryLineCreateManyTransactionInputEnvelope
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
+  export type PaymentAllocationUncheckedCreateNestedManyWithoutTransactionInput = {
+    create?: XOR<PaymentAllocationCreateWithoutTransactionInput, PaymentAllocationUncheckedCreateWithoutTransactionInput> | PaymentAllocationCreateWithoutTransactionInput[] | PaymentAllocationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutTransactionInput | PaymentAllocationCreateOrConnectWithoutTransactionInput[]
+    createMany?: PaymentAllocationCreateManyTransactionInputEnvelope
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+  }
+
+  export type EnumTransactionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionType
+  }
+
+  export type EnumTransactionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutFinancialTransactionNestedInput = {
+    create?: XOR<TenantCreateWithoutFinancialTransactionInput, TenantUncheckedCreateWithoutFinancialTransactionInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutFinancialTransactionInput
+    upsert?: TenantUpsertWithoutFinancialTransactionInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutFinancialTransactionInput, TenantUpdateWithoutFinancialTransactionInput>, TenantUncheckedUpdateWithoutFinancialTransactionInput>
+  }
+
+  export type AccountingPeriodUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<AccountingPeriodCreateWithoutTransactionsInput, AccountingPeriodUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: AccountingPeriodCreateOrConnectWithoutTransactionsInput
+    upsert?: AccountingPeriodUpsertWithoutTransactionsInput
+    connect?: AccountingPeriodWhereUniqueInput
+    update?: XOR<XOR<AccountingPeriodUpdateToOneWithWhereWithoutTransactionsInput, AccountingPeriodUpdateWithoutTransactionsInput>, AccountingPeriodUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTransactionInput, JournalEntryLineUncheckedCreateWithoutTransactionInput> | JournalEntryLineCreateWithoutTransactionInput[] | JournalEntryLineUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTransactionInput | JournalEntryLineCreateOrConnectWithoutTransactionInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutTransactionInput | JournalEntryLineUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: JournalEntryLineCreateManyTransactionInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutTransactionInput | JournalEntryLineUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutTransactionInput | JournalEntryLineUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
+  export type PaymentAllocationUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<PaymentAllocationCreateWithoutTransactionInput, PaymentAllocationUncheckedCreateWithoutTransactionInput> | PaymentAllocationCreateWithoutTransactionInput[] | PaymentAllocationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutTransactionInput | PaymentAllocationCreateOrConnectWithoutTransactionInput[]
+    upsert?: PaymentAllocationUpsertWithWhereUniqueWithoutTransactionInput | PaymentAllocationUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: PaymentAllocationCreateManyTransactionInputEnvelope
+    set?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    disconnect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    delete?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    update?: PaymentAllocationUpdateWithWhereUniqueWithoutTransactionInput | PaymentAllocationUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: PaymentAllocationUpdateManyWithWhereWithoutTransactionInput | PaymentAllocationUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<JournalEntryLineCreateWithoutTransactionInput, JournalEntryLineUncheckedCreateWithoutTransactionInput> | JournalEntryLineCreateWithoutTransactionInput[] | JournalEntryLineUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: JournalEntryLineCreateOrConnectWithoutTransactionInput | JournalEntryLineCreateOrConnectWithoutTransactionInput[]
+    upsert?: JournalEntryLineUpsertWithWhereUniqueWithoutTransactionInput | JournalEntryLineUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: JournalEntryLineCreateManyTransactionInputEnvelope
+    set?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    disconnect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    delete?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+    update?: JournalEntryLineUpdateWithWhereUniqueWithoutTransactionInput | JournalEntryLineUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: JournalEntryLineUpdateManyWithWhereWithoutTransactionInput | JournalEntryLineUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyWithoutTransactionNestedInput = {
+    create?: XOR<PaymentAllocationCreateWithoutTransactionInput, PaymentAllocationUncheckedCreateWithoutTransactionInput> | PaymentAllocationCreateWithoutTransactionInput[] | PaymentAllocationUncheckedCreateWithoutTransactionInput[]
+    connectOrCreate?: PaymentAllocationCreateOrConnectWithoutTransactionInput | PaymentAllocationCreateOrConnectWithoutTransactionInput[]
+    upsert?: PaymentAllocationUpsertWithWhereUniqueWithoutTransactionInput | PaymentAllocationUpsertWithWhereUniqueWithoutTransactionInput[]
+    createMany?: PaymentAllocationCreateManyTransactionInputEnvelope
+    set?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    disconnect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    delete?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    connect?: PaymentAllocationWhereUniqueInput | PaymentAllocationWhereUniqueInput[]
+    update?: PaymentAllocationUpdateWithWhereUniqueWithoutTransactionInput | PaymentAllocationUpdateWithWhereUniqueWithoutTransactionInput[]
+    updateMany?: PaymentAllocationUpdateManyWithWhereWithoutTransactionInput | PaymentAllocationUpdateManyWithWhereWithoutTransactionInput[]
+    deleteMany?: PaymentAllocationScalarWhereInput | PaymentAllocationScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutJournalEntryLineInput = {
+    create?: XOR<TenantCreateWithoutJournalEntryLineInput, TenantUncheckedCreateWithoutJournalEntryLineInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutJournalEntryLineInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type FinancialTransactionCreateNestedOneWithoutLinesInput = {
+    create?: XOR<FinancialTransactionCreateWithoutLinesInput, FinancialTransactionUncheckedCreateWithoutLinesInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutLinesInput
+    connect?: FinancialTransactionWhereUniqueInput
+  }
+
+  export type ChartOfAccountCreateNestedOneWithoutLinesInput = {
+    create?: XOR<ChartOfAccountCreateWithoutLinesInput, ChartOfAccountUncheckedCreateWithoutLinesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutLinesInput
+    connect?: ChartOfAccountWhereUniqueInput
+  }
+
+  export type StudentCreateNestedOneWithoutJournalLinesInput = {
+    create?: XOR<StudentCreateWithoutJournalLinesInput, StudentUncheckedCreateWithoutJournalLinesInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutJournalLinesInput
+    connect?: StudentWhereUniqueInput
+  }
+
+  export type InvoiceCreateNestedOneWithoutJournalLinesInput = {
+    create?: XOR<InvoiceCreateWithoutJournalLinesInput, InvoiceUncheckedCreateWithoutJournalLinesInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutJournalLinesInput
+    connect?: InvoiceWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutJournalEntryLineNestedInput = {
+    create?: XOR<TenantCreateWithoutJournalEntryLineInput, TenantUncheckedCreateWithoutJournalEntryLineInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutJournalEntryLineInput
+    upsert?: TenantUpsertWithoutJournalEntryLineInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutJournalEntryLineInput, TenantUpdateWithoutJournalEntryLineInput>, TenantUncheckedUpdateWithoutJournalEntryLineInput>
+  }
+
+  export type FinancialTransactionUpdateOneRequiredWithoutLinesNestedInput = {
+    create?: XOR<FinancialTransactionCreateWithoutLinesInput, FinancialTransactionUncheckedCreateWithoutLinesInput>
+    connectOrCreate?: FinancialTransactionCreateOrConnectWithoutLinesInput
+    upsert?: FinancialTransactionUpsertWithoutLinesInput
+    connect?: FinancialTransactionWhereUniqueInput
+    update?: XOR<XOR<FinancialTransactionUpdateToOneWithWhereWithoutLinesInput, FinancialTransactionUpdateWithoutLinesInput>, FinancialTransactionUncheckedUpdateWithoutLinesInput>
+  }
+
+  export type ChartOfAccountUpdateOneRequiredWithoutLinesNestedInput = {
+    create?: XOR<ChartOfAccountCreateWithoutLinesInput, ChartOfAccountUncheckedCreateWithoutLinesInput>
+    connectOrCreate?: ChartOfAccountCreateOrConnectWithoutLinesInput
+    upsert?: ChartOfAccountUpsertWithoutLinesInput
+    connect?: ChartOfAccountWhereUniqueInput
+    update?: XOR<XOR<ChartOfAccountUpdateToOneWithWhereWithoutLinesInput, ChartOfAccountUpdateWithoutLinesInput>, ChartOfAccountUncheckedUpdateWithoutLinesInput>
+  }
+
+  export type StudentUpdateOneWithoutJournalLinesNestedInput = {
+    create?: XOR<StudentCreateWithoutJournalLinesInput, StudentUncheckedCreateWithoutJournalLinesInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutJournalLinesInput
+    upsert?: StudentUpsertWithoutJournalLinesInput
+    disconnect?: StudentWhereInput | boolean
+    delete?: StudentWhereInput | boolean
+    connect?: StudentWhereUniqueInput
+    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutJournalLinesInput, StudentUpdateWithoutJournalLinesInput>, StudentUncheckedUpdateWithoutJournalLinesInput>
+  }
+
+  export type InvoiceUpdateOneWithoutJournalLinesNestedInput = {
+    create?: XOR<InvoiceCreateWithoutJournalLinesInput, InvoiceUncheckedCreateWithoutJournalLinesInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutJournalLinesInput
+    upsert?: InvoiceUpsertWithoutJournalLinesInput
+    disconnect?: InvoiceWhereInput | boolean
+    delete?: InvoiceWhereInput | boolean
+    connect?: InvoiceWhereUniqueInput
+    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutJournalLinesInput, InvoiceUpdateWithoutJournalLinesInput>, InvoiceUncheckedUpdateWithoutJournalLinesInput>
   }
 
   export type TenantCreateNestedOneWithoutApprovalWorkflowInput = {
@@ -136425,6 +144492,74 @@ export namespace Prisma {
     _max?: NestedEnumNotificationStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumAccountTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeFilter<$PrismaModel> | $Enums.AccountType
+  }
+
+  export type NestedEnumAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountType | EnumAccountTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountType[] | ListEnumAccountTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.AccountType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAccountTypeFilter<$PrismaModel>
+    _max?: NestedEnumAccountTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPeriodStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodStatus | EnumPeriodStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodStatusFilter<$PrismaModel> | $Enums.PeriodStatus
+  }
+
+  export type NestedEnumPeriodStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodStatus | EnumPeriodStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodStatus[] | ListEnumPeriodStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodStatusWithAggregatesFilter<$PrismaModel> | $Enums.PeriodStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPeriodStatusFilter<$PrismaModel>
+    _max?: NestedEnumPeriodStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeFilter<$PrismaModel> | $Enums.TransactionType
+  }
+
+  export type NestedEnumTransactionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStatusFilter<$PrismaModel> | $Enums.TransactionStatus
+  }
+
+  export type NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionType | EnumTransactionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionType[] | ListEnumTransactionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypeWithAggregatesFilter<$PrismaModel> | $Enums.TransactionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypeFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel> | $Enums.TransactionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionStatusFilter<$PrismaModel>
+    _max?: NestedEnumTransactionStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumCampaignStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.CampaignStatus | EnumCampaignStatusFieldRefInput<$PrismaModel>
     in?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
@@ -136578,6 +144713,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPlanInput = {
@@ -136648,6 +144788,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPlanInput = {
@@ -137374,6 +145519,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutTenantInput = {
@@ -137394,6 +145540,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutTenantInput = {
@@ -137746,6 +145893,7 @@ export namespace Prisma {
     term: TermCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutTenantInput = {
@@ -137762,6 +145910,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutTenantInput = {
@@ -137783,14 +145932,14 @@ export namespace Prisma {
     status?: $Enums.PaymentTransactionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+    invoice?: InvoiceCreateNestedOneWithoutPaymentsInput
     PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutPaymentInput
     PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutTenantInput = {
     id?: string
-    invoiceId: string
+    invoiceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     method: $Enums.PaymentMethod
     reference: string
@@ -138387,18 +146536,18 @@ export namespace Prisma {
 
   export type PaymentAllocationCreateWithoutTenantInput = {
     id?: string
-    transactionId: string
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     payment: PaymentCreateNestedOneWithoutPaymentAllocationInput
     invoiceItem: InvoiceItemCreateNestedOneWithoutPaymentAllocationInput
+    transaction?: FinancialTransactionCreateNestedOneWithoutAllocationsInput
   }
 
   export type PaymentAllocationUncheckedCreateWithoutTenantInput = {
     id?: string
     paymentId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
@@ -138736,6 +146885,176 @@ export namespace Prisma {
 
   export type AdmissionApplicationCreateManyTenantInputEnvelope = {
     data: AdmissionApplicationCreateManyTenantInput | AdmissionApplicationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChartOfAccountCreateWithoutTenantInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    lines?: JournalEntryLineCreateNestedManyWithoutAccountInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutLedgerAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutTenantInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutAccountInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutLedgerAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutTenantInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ChartOfAccountCreateManyTenantInputEnvelope = {
+    data: ChartOfAccountCreateManyTenantInput | ChartOfAccountCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BankAccountCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    ledgerAccount: ChartOfAccountCreateNestedOneWithoutBankAccountsInput
+  }
+
+  export type BankAccountUncheckedCreateWithoutTenantInput = {
+    id?: string
+    ledgerAccountId: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountCreateOrConnectWithoutTenantInput = {
+    where: BankAccountWhereUniqueInput
+    create: XOR<BankAccountCreateWithoutTenantInput, BankAccountUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BankAccountCreateManyTenantInputEnvelope = {
+    data: BankAccountCreateManyTenantInput | BankAccountCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AccountingPeriodCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+    transactions?: FinancialTransactionCreateNestedManyWithoutPeriodInput
+  }
+
+  export type AccountingPeriodUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+    transactions?: FinancialTransactionUncheckedCreateNestedManyWithoutPeriodInput
+  }
+
+  export type AccountingPeriodCreateOrConnectWithoutTenantInput = {
+    where: AccountingPeriodWhereUniqueInput
+    create: XOR<AccountingPeriodCreateWithoutTenantInput, AccountingPeriodUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AccountingPeriodCreateManyTenantInputEnvelope = {
+    data: AccountingPeriodCreateManyTenantInput | AccountingPeriodCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FinancialTransactionCreateWithoutTenantInput = {
+    id?: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    period: AccountingPeriodCreateNestedOneWithoutTransactionsInput
+    lines?: JournalEntryLineCreateNestedManyWithoutTransactionInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutTenantInput = {
+    id?: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutTransactionInput
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutTenantInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput>
+  }
+
+  export type FinancialTransactionCreateManyTenantInputEnvelope = {
+    data: FinancialTransactionCreateManyTenantInput | FinancialTransactionCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JournalEntryLineCreateWithoutTenantInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    createdAt?: Date | string
+    transaction: FinancialTransactionCreateNestedOneWithoutLinesInput
+    account: ChartOfAccountCreateNestedOneWithoutLinesInput
+    student?: StudentCreateNestedOneWithoutJournalLinesInput
+    invoice?: InvoiceCreateNestedOneWithoutJournalLinesInput
+  }
+
+  export type JournalEntryLineUncheckedCreateWithoutTenantInput = {
+    id?: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineCreateOrConnectWithoutTenantInput = {
+    where: JournalEntryLineWhereUniqueInput
+    create: XOR<JournalEntryLineCreateWithoutTenantInput, JournalEntryLineUncheckedCreateWithoutTenantInput>
+  }
+
+  export type JournalEntryLineCreateManyTenantInputEnvelope = {
+    data: JournalEntryLineCreateManyTenantInput | JournalEntryLineCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -139708,7 +148027,7 @@ export namespace Prisma {
     NOT?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
     id?: StringFilter<"Payment"> | string
     tenantId?: StringFilter<"Payment"> | string
-    invoiceId?: StringFilter<"Payment"> | string
+    invoiceId?: StringNullableFilter<"Payment"> | string | null
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFilter<"Payment"> | $Enums.PaymentMethod
     reference?: StringFilter<"Payment"> | string
@@ -140303,7 +148622,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"PaymentAllocation"> | string
     paymentId?: StringFilter<"PaymentAllocation"> | string
     invoiceItemId?: StringFilter<"PaymentAllocation"> | string
-    transactionId?: StringFilter<"PaymentAllocation"> | string
+    transactionId?: StringNullableFilter<"PaymentAllocation"> | string | null
     amount?: DecimalFilter<"PaymentAllocation"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"PaymentAllocation"> | Date | string
   }
@@ -140597,6 +148916,161 @@ export namespace Prisma {
     deletedBy?: StringNullableFilter<"AdmissionApplication"> | string | null
   }
 
+  export type ChartOfAccountUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ChartOfAccountWhereUniqueInput
+    update: XOR<ChartOfAccountUpdateWithoutTenantInput, ChartOfAccountUncheckedUpdateWithoutTenantInput>
+    create: XOR<ChartOfAccountCreateWithoutTenantInput, ChartOfAccountUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ChartOfAccountUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ChartOfAccountWhereUniqueInput
+    data: XOR<ChartOfAccountUpdateWithoutTenantInput, ChartOfAccountUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ChartOfAccountUpdateManyWithWhereWithoutTenantInput = {
+    where: ChartOfAccountScalarWhereInput
+    data: XOR<ChartOfAccountUpdateManyMutationInput, ChartOfAccountUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ChartOfAccountScalarWhereInput = {
+    AND?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+    OR?: ChartOfAccountScalarWhereInput[]
+    NOT?: ChartOfAccountScalarWhereInput | ChartOfAccountScalarWhereInput[]
+    id?: StringFilter<"ChartOfAccount"> | string
+    tenantId?: StringFilter<"ChartOfAccount"> | string
+    code?: StringFilter<"ChartOfAccount"> | string
+    name?: StringFilter<"ChartOfAccount"> | string
+    type?: EnumAccountTypeFilter<"ChartOfAccount"> | $Enums.AccountType
+    isActive?: BoolFilter<"ChartOfAccount"> | boolean
+    description?: StringNullableFilter<"ChartOfAccount"> | string | null
+    createdAt?: DateTimeFilter<"ChartOfAccount"> | Date | string
+  }
+
+  export type BankAccountUpsertWithWhereUniqueWithoutTenantInput = {
+    where: BankAccountWhereUniqueInput
+    update: XOR<BankAccountUpdateWithoutTenantInput, BankAccountUncheckedUpdateWithoutTenantInput>
+    create: XOR<BankAccountCreateWithoutTenantInput, BankAccountUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BankAccountUpdateWithWhereUniqueWithoutTenantInput = {
+    where: BankAccountWhereUniqueInput
+    data: XOR<BankAccountUpdateWithoutTenantInput, BankAccountUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type BankAccountUpdateManyWithWhereWithoutTenantInput = {
+    where: BankAccountScalarWhereInput
+    data: XOR<BankAccountUpdateManyMutationInput, BankAccountUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type BankAccountScalarWhereInput = {
+    AND?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+    OR?: BankAccountScalarWhereInput[]
+    NOT?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+    id?: StringFilter<"BankAccount"> | string
+    tenantId?: StringFilter<"BankAccount"> | string
+    ledgerAccountId?: StringFilter<"BankAccount"> | string
+    name?: StringFilter<"BankAccount"> | string
+    accountNumber?: StringNullableFilter<"BankAccount"> | string | null
+    bankName?: StringNullableFilter<"BankAccount"> | string | null
+    isActive?: BoolFilter<"BankAccount"> | boolean
+    createdAt?: DateTimeFilter<"BankAccount"> | Date | string
+  }
+
+  export type AccountingPeriodUpsertWithWhereUniqueWithoutTenantInput = {
+    where: AccountingPeriodWhereUniqueInput
+    update: XOR<AccountingPeriodUpdateWithoutTenantInput, AccountingPeriodUncheckedUpdateWithoutTenantInput>
+    create: XOR<AccountingPeriodCreateWithoutTenantInput, AccountingPeriodUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AccountingPeriodUpdateWithWhereUniqueWithoutTenantInput = {
+    where: AccountingPeriodWhereUniqueInput
+    data: XOR<AccountingPeriodUpdateWithoutTenantInput, AccountingPeriodUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type AccountingPeriodUpdateManyWithWhereWithoutTenantInput = {
+    where: AccountingPeriodScalarWhereInput
+    data: XOR<AccountingPeriodUpdateManyMutationInput, AccountingPeriodUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type AccountingPeriodScalarWhereInput = {
+    AND?: AccountingPeriodScalarWhereInput | AccountingPeriodScalarWhereInput[]
+    OR?: AccountingPeriodScalarWhereInput[]
+    NOT?: AccountingPeriodScalarWhereInput | AccountingPeriodScalarWhereInput[]
+    id?: StringFilter<"AccountingPeriod"> | string
+    tenantId?: StringFilter<"AccountingPeriod"> | string
+    name?: StringFilter<"AccountingPeriod"> | string
+    startDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    endDate?: DateTimeFilter<"AccountingPeriod"> | Date | string
+    status?: EnumPeriodStatusFilter<"AccountingPeriod"> | $Enums.PeriodStatus
+    closedAt?: DateTimeNullableFilter<"AccountingPeriod"> | Date | string | null
+    closedBy?: StringNullableFilter<"AccountingPeriod"> | string | null
+    createdAt?: DateTimeFilter<"AccountingPeriod"> | Date | string
+  }
+
+  export type FinancialTransactionUpsertWithWhereUniqueWithoutTenantInput = {
+    where: FinancialTransactionWhereUniqueInput
+    update: XOR<FinancialTransactionUpdateWithoutTenantInput, FinancialTransactionUncheckedUpdateWithoutTenantInput>
+    create: XOR<FinancialTransactionCreateWithoutTenantInput, FinancialTransactionUncheckedCreateWithoutTenantInput>
+  }
+
+  export type FinancialTransactionUpdateWithWhereUniqueWithoutTenantInput = {
+    where: FinancialTransactionWhereUniqueInput
+    data: XOR<FinancialTransactionUpdateWithoutTenantInput, FinancialTransactionUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type FinancialTransactionUpdateManyWithWhereWithoutTenantInput = {
+    where: FinancialTransactionScalarWhereInput
+    data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type FinancialTransactionScalarWhereInput = {
+    AND?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+    OR?: FinancialTransactionScalarWhereInput[]
+    NOT?: FinancialTransactionScalarWhereInput | FinancialTransactionScalarWhereInput[]
+    id?: StringFilter<"FinancialTransaction"> | string
+    tenantId?: StringFilter<"FinancialTransaction"> | string
+    periodId?: StringFilter<"FinancialTransaction"> | string
+    reference?: StringFilter<"FinancialTransaction"> | string
+    type?: EnumTransactionTypeFilter<"FinancialTransaction"> | $Enums.TransactionType
+    source?: StringFilter<"FinancialTransaction"> | string
+    description?: StringNullableFilter<"FinancialTransaction"> | string | null
+    transactionDate?: DateTimeFilter<"FinancialTransaction"> | Date | string
+    status?: EnumTransactionStatusFilter<"FinancialTransaction"> | $Enums.TransactionStatus
+    createdAt?: DateTimeFilter<"FinancialTransaction"> | Date | string
+  }
+
+  export type JournalEntryLineUpsertWithWhereUniqueWithoutTenantInput = {
+    where: JournalEntryLineWhereUniqueInput
+    update: XOR<JournalEntryLineUpdateWithoutTenantInput, JournalEntryLineUncheckedUpdateWithoutTenantInput>
+    create: XOR<JournalEntryLineCreateWithoutTenantInput, JournalEntryLineUncheckedCreateWithoutTenantInput>
+  }
+
+  export type JournalEntryLineUpdateWithWhereUniqueWithoutTenantInput = {
+    where: JournalEntryLineWhereUniqueInput
+    data: XOR<JournalEntryLineUpdateWithoutTenantInput, JournalEntryLineUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithWhereWithoutTenantInput = {
+    where: JournalEntryLineScalarWhereInput
+    data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type JournalEntryLineScalarWhereInput = {
+    AND?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+    OR?: JournalEntryLineScalarWhereInput[]
+    NOT?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+    id?: StringFilter<"JournalEntryLine"> | string
+    tenantId?: StringFilter<"JournalEntryLine"> | string
+    transactionId?: StringFilter<"JournalEntryLine"> | string
+    accountId?: StringFilter<"JournalEntryLine"> | string
+    debit?: DecimalFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFilter<"JournalEntryLine"> | Decimal | DecimalJsLike | number | string
+    memo?: StringNullableFilter<"JournalEntryLine"> | string | null
+    dimensionStudentId?: StringNullableFilter<"JournalEntryLine"> | string | null
+    dimensionInvoiceId?: StringNullableFilter<"JournalEntryLine"> | string | null
+    createdAt?: DateTimeFilter<"JournalEntryLine"> | Date | string
+  }
+
   export type TenantCreateWithoutSubscriptionsInput = {
     id?: string
     name: string
@@ -140665,6 +149139,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionsInput = {
@@ -140735,6 +149214,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionsInput = {
@@ -140846,6 +149330,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionsInput = {
@@ -140916,6 +149405,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PlatformPlanUpsertWithoutSubscriptionsInput = {
@@ -141059,6 +149553,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceAppsInput = {
@@ -141129,6 +149628,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceAppsInput = {
@@ -141238,6 +149742,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceAppsInput = {
@@ -141308,6 +149817,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MarketplaceAppUpsertWithoutTenantAppsInput = {
@@ -141407,6 +149921,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDomainsInput = {
@@ -141477,6 +149996,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDomainsInput = {
@@ -141563,6 +150087,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDomainsInput = {
@@ -141633,6 +150162,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBrandingInput = {
@@ -141703,6 +150237,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBrandingInput = {
@@ -141773,6 +150312,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBrandingInput = {
@@ -141859,6 +150403,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBrandingInput = {
@@ -141929,6 +150478,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSettingsInput = {
@@ -141999,6 +150553,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -142069,6 +150628,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -142155,6 +150719,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -142225,6 +150794,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFeatureFlagsInput = {
@@ -142295,6 +150869,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeatureFlagsInput = {
@@ -142365,6 +150944,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeatureFlagsInput = {
@@ -142451,6 +151035,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeatureFlagsInput = {
@@ -142521,6 +151110,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipCreateWithoutUserInput = {
@@ -142959,6 +151553,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -143029,6 +151628,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -143175,6 +151779,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutMembershipInput = {
@@ -143195,6 +151800,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutMembershipInput = {
@@ -143333,6 +151939,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -143403,6 +152014,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutMembershipsInput = {
@@ -143573,6 +152189,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutMembershipInput = {
@@ -143593,6 +152210,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StaffUpsertWithoutMembershipInput = {
@@ -143815,6 +152433,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRolesInput = {
@@ -143885,6 +152508,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRolesInput = {
@@ -144039,6 +152667,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRolesInput = {
@@ -144109,6 +152742,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -144443,6 +153081,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -144513,6 +153156,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -144636,6 +153284,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -144706,6 +153359,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -144819,6 +153477,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCampusInput = {
@@ -144889,6 +153552,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCampusInput = {
@@ -144975,6 +153643,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCampusInput = {
@@ -145045,6 +153718,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAcademicYearInput = {
@@ -145115,6 +153793,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAcademicYearInput = {
@@ -145185,6 +153868,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAcademicYearInput = {
@@ -145359,6 +154047,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAcademicYearInput = {
@@ -145429,6 +154122,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TermUpsertWithWhereUniqueWithoutAcademicYearInput = {
@@ -145531,6 +154229,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTermInput = {
@@ -145601,6 +154304,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTermInput = {
@@ -145681,6 +154389,7 @@ export namespace Prisma {
     student: StudentCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutTermInput = {
@@ -145697,6 +154406,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutTermInput = {
@@ -145826,6 +154536,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTermInput = {
@@ -145896,6 +154611,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AcademicYearUpsertWithoutTermsInput = {
@@ -146049,6 +154769,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDepartmentInput = {
@@ -146119,6 +154844,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDepartmentInput = {
@@ -146300,6 +155030,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDepartmentInput = {
@@ -146370,6 +155105,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type DepartmentUpsertWithoutChildrenInput = {
@@ -146505,6 +155245,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClassInput = {
@@ -146575,6 +155320,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClassInput = {
@@ -146760,6 +155510,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClassInput = {
@@ -146830,6 +155585,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ArmUpsertWithWhereUniqueWithoutClassInput = {
@@ -146948,6 +155708,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutArmInput = {
@@ -147018,6 +155783,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutArmInput = {
@@ -147100,6 +155870,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutCurrentArmInput = {
@@ -147120,6 +155891,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutCurrentArmInput = {
@@ -147243,6 +156015,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutArmInput = {
@@ -147313,6 +156090,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClassUpsertWithoutArmsInput = {
@@ -147464,6 +156246,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubjectGroupInput = {
@@ -147534,6 +156321,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubjectGroupInput = {
@@ -147656,6 +156448,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubjectGroupInput = {
@@ -147726,6 +156523,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithWhereUniqueWithoutSubjectGroupInput = {
@@ -147812,6 +156614,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubjectInput = {
@@ -147882,6 +156689,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubjectInput = {
@@ -148120,6 +156932,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubjectInput = {
@@ -148190,6 +157007,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectGroupUpsertWithoutSubjectsInput = {
@@ -148351,6 +157173,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimetableInput = {
@@ -148421,6 +157248,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimetableInput = {
@@ -148599,6 +157431,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimetableInput = {
@@ -148669,6 +157506,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ArmUpsertWithoutTimetableInput = {
@@ -148842,6 +157684,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStudentInput = {
@@ -148912,6 +157759,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStudentInput = {
@@ -149157,6 +158009,7 @@ export namespace Prisma {
     term: TermCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutStudentInput = {
@@ -149173,6 +158026,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutStudentInput = {
@@ -149307,6 +158161,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JournalEntryLineCreateWithoutStudentInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutJournalEntryLineInput
+    transaction: FinancialTransactionCreateNestedOneWithoutLinesInput
+    account: ChartOfAccountCreateNestedOneWithoutLinesInput
+    invoice?: InvoiceCreateNestedOneWithoutJournalLinesInput
+  }
+
+  export type JournalEntryLineUncheckedCreateWithoutStudentInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineCreateOrConnectWithoutStudentInput = {
+    where: JournalEntryLineWhereUniqueInput
+    create: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput>
+  }
+
+  export type JournalEntryLineCreateManyStudentInputEnvelope = {
+    data: JournalEntryLineCreateManyStudentInput | JournalEntryLineCreateManyStudentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutStudentInput = {
     update: XOR<TenantUpdateWithoutStudentInput, TenantUncheckedUpdateWithoutStudentInput>
     create: XOR<TenantCreateWithoutStudentInput, TenantUncheckedCreateWithoutStudentInput>
@@ -149386,6 +158274,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStudentInput = {
@@ -149456,6 +158349,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutStudentInput = {
@@ -149739,6 +158637,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BookBorrowing"> | Date | string
   }
 
+  export type JournalEntryLineUpsertWithWhereUniqueWithoutStudentInput = {
+    where: JournalEntryLineWhereUniqueInput
+    update: XOR<JournalEntryLineUpdateWithoutStudentInput, JournalEntryLineUncheckedUpdateWithoutStudentInput>
+    create: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput>
+  }
+
+  export type JournalEntryLineUpdateWithWhereUniqueWithoutStudentInput = {
+    where: JournalEntryLineWhereUniqueInput
+    data: XOR<JournalEntryLineUpdateWithoutStudentInput, JournalEntryLineUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithWhereWithoutStudentInput = {
+    where: JournalEntryLineScalarWhereInput
+    data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyWithoutStudentInput>
+  }
+
   export type TenantCreateWithoutGuardianInput = {
     id?: string
     name: string
@@ -149807,6 +158721,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutGuardianInput = {
@@ -149877,6 +158796,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutGuardianInput = {
@@ -150030,6 +158954,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutGuardianInput = {
@@ -150100,6 +159029,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutGuardianInput = {
@@ -150183,6 +159117,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutGuardiansInput = {
@@ -150203,6 +159138,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutGuardiansInput = {
@@ -150260,6 +159196,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutGuardiansInput = {
@@ -150280,6 +159217,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type GuardianUpsertWithoutStudentsInput = {
@@ -150377,6 +159315,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionInput = {
@@ -150447,6 +159390,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionInput = {
@@ -150472,6 +159420,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutAdmissionsInput = {
@@ -150492,6 +159441,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutAdmissionsInput = {
@@ -150578,6 +159528,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionInput = {
@@ -150648,6 +159603,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutAdmissionsInput = {
@@ -150679,6 +159639,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutAdmissionsInput = {
@@ -150699,6 +159660,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutMedicalRecordInput = {
@@ -150769,6 +159731,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicalRecordInput = {
@@ -150839,6 +159806,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicalRecordInput = {
@@ -150864,6 +159836,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutMedicalRecordsInput = {
@@ -150884,6 +159857,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutMedicalRecordsInput = {
@@ -150970,6 +159944,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicalRecordInput = {
@@ -151040,6 +160019,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutMedicalRecordsInput = {
@@ -151071,6 +160055,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutMedicalRecordsInput = {
@@ -151091,6 +160076,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutDisciplineRecordInput = {
@@ -151161,6 +160147,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDisciplineRecordInput = {
@@ -151231,6 +160222,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDisciplineRecordInput = {
@@ -151256,6 +160252,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutDisciplineRecordsInput = {
@@ -151276,6 +160273,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutDisciplineRecordsInput = {
@@ -151362,6 +160360,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDisciplineRecordInput = {
@@ -151432,6 +160435,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutDisciplineRecordsInput = {
@@ -151463,6 +160471,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutDisciplineRecordsInput = {
@@ -151483,6 +160492,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutAttendanceInput = {
@@ -151553,6 +160563,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAttendanceInput = {
@@ -151623,6 +160638,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAttendanceInput = {
@@ -151648,6 +160668,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutAttendanceInput = {
@@ -151668,6 +160689,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutAttendanceInput = {
@@ -151783,6 +160805,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAttendanceInput = {
@@ -151853,6 +160880,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutAttendanceInput = {
@@ -151884,6 +160916,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutAttendanceInput = {
@@ -151904,6 +160937,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type ArmUpsertWithoutAttendanceInput = {
@@ -152009,6 +161043,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffInput = {
@@ -152079,6 +161118,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffInput = {
@@ -152332,6 +161376,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffInput = {
@@ -152402,6 +161451,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutStaffInput = {
@@ -152617,6 +161671,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEmploymentInput = {
@@ -152687,6 +161746,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEmploymentInput = {
@@ -152804,6 +161868,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEmploymentInput = {
@@ -152874,6 +161943,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutEmploymentInput = {
@@ -152981,6 +162055,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollInput = {
@@ -153051,6 +162130,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollInput = {
@@ -153168,6 +162252,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollInput = {
@@ -153238,6 +162327,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutPayrollRecordsInput = {
@@ -153345,6 +162439,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeaveRequestInput = {
@@ -153415,6 +162514,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeaveRequestInput = {
@@ -153532,6 +162636,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeaveRequestInput = {
@@ -153602,6 +162711,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutLeaveRequestsInput = {
@@ -153709,6 +162823,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeeCategoryInput = {
@@ -153779,6 +162898,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeeCategoryInput = {
@@ -153895,6 +163019,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeeCategoryInput = {
@@ -153965,6 +163094,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type InvoiceItemUpsertWithWhereUniqueWithoutFeeCategoryInput = {
@@ -154064,6 +163198,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoiceInput = {
@@ -154134,6 +163273,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoiceInput = {
@@ -154159,6 +163303,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutInvoiceInput = {
@@ -154179,6 +163324,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutInvoiceInput = {
@@ -154285,6 +163431,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JournalEntryLineCreateWithoutInvoiceInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutJournalEntryLineInput
+    transaction: FinancialTransactionCreateNestedOneWithoutLinesInput
+    account: ChartOfAccountCreateNestedOneWithoutLinesInput
+    student?: StudentCreateNestedOneWithoutJournalLinesInput
+  }
+
+  export type JournalEntryLineUncheckedCreateWithoutInvoiceInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineCreateOrConnectWithoutInvoiceInput = {
+    where: JournalEntryLineWhereUniqueInput
+    create: XOR<JournalEntryLineCreateWithoutInvoiceInput, JournalEntryLineUncheckedCreateWithoutInvoiceInput>
+  }
+
+  export type JournalEntryLineCreateManyInvoiceInputEnvelope = {
+    data: JournalEntryLineCreateManyInvoiceInput | JournalEntryLineCreateManyInvoiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutInvoiceInput = {
     update: XOR<TenantUpdateWithoutInvoiceInput, TenantUncheckedUpdateWithoutInvoiceInput>
     create: XOR<TenantCreateWithoutInvoiceInput, TenantUncheckedCreateWithoutInvoiceInput>
@@ -154364,6 +163544,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoiceInput = {
@@ -154434,6 +163619,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutInvoiceInput = {
@@ -154465,6 +163655,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutInvoiceInput = {
@@ -154485,6 +163676,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TermUpsertWithoutInvoiceInput = {
@@ -154556,6 +163748,22 @@ export namespace Prisma {
     data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutInvoiceInput>
   }
 
+  export type JournalEntryLineUpsertWithWhereUniqueWithoutInvoiceInput = {
+    where: JournalEntryLineWhereUniqueInput
+    update: XOR<JournalEntryLineUpdateWithoutInvoiceInput, JournalEntryLineUncheckedUpdateWithoutInvoiceInput>
+    create: XOR<JournalEntryLineCreateWithoutInvoiceInput, JournalEntryLineUncheckedCreateWithoutInvoiceInput>
+  }
+
+  export type JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput = {
+    where: JournalEntryLineWhereUniqueInput
+    data: XOR<JournalEntryLineUpdateWithoutInvoiceInput, JournalEntryLineUncheckedUpdateWithoutInvoiceInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput = {
+    where: JournalEntryLineScalarWhereInput
+    data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyWithoutInvoiceInput>
+  }
+
   export type InvoiceCreateWithoutItemsInput = {
     id?: string
     invoiceNumber: string
@@ -154570,6 +163778,7 @@ export namespace Prisma {
     student: StudentCreateNestedOneWithoutInvoiceInput
     term: TermCreateNestedOneWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutItemsInput = {
@@ -154586,6 +163795,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutItemsInput = {
@@ -154622,18 +163832,18 @@ export namespace Prisma {
 
   export type PaymentAllocationCreateWithoutInvoiceItemInput = {
     id?: string
-    transactionId: string
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPaymentAllocationInput
     payment: PaymentCreateNestedOneWithoutPaymentAllocationInput
+    transaction?: FinancialTransactionCreateNestedOneWithoutAllocationsInput
   }
 
   export type PaymentAllocationUncheckedCreateWithoutInvoiceItemInput = {
     id?: string
     tenantId: string
     paymentId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
@@ -154673,6 +163883,7 @@ export namespace Prisma {
     student?: StudentUpdateOneRequiredWithoutInvoiceNestedInput
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutItemsInput = {
@@ -154689,6 +163900,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type FeeCategoryUpsertWithoutInvoicesInput = {
@@ -154808,6 +164020,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentInput = {
@@ -154878,6 +164095,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentInput = {
@@ -154899,6 +164121,7 @@ export namespace Prisma {
     student: StudentCreateNestedOneWithoutInvoiceInput
     term: TermCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutPaymentsInput = {
@@ -154915,6 +164138,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutPaymentsInput = {
@@ -154958,18 +164182,18 @@ export namespace Prisma {
 
   export type PaymentAllocationCreateWithoutPaymentInput = {
     id?: string
-    transactionId: string
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPaymentAllocationInput
     invoiceItem: InvoiceItemCreateNestedOneWithoutPaymentAllocationInput
+    transaction?: FinancialTransactionCreateNestedOneWithoutAllocationsInput
   }
 
   export type PaymentAllocationUncheckedCreateWithoutPaymentInput = {
     id?: string
     tenantId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
@@ -155063,6 +164287,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentInput = {
@@ -155133,6 +164362,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type InvoiceUpsertWithoutPaymentsInput = {
@@ -155160,6 +164394,7 @@ export namespace Prisma {
     student?: StudentUpdateOneRequiredWithoutInvoiceNestedInput
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
@@ -155176,6 +164411,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type PaymentAttemptUpsertWithWhereUniqueWithoutPaymentInput = {
@@ -155278,6 +164514,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpenseInput = {
@@ -155348,6 +164589,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpenseInput = {
@@ -155434,6 +164680,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpenseInput = {
@@ -155504,6 +164755,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutIncomeInput = {
@@ -155574,6 +164830,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncomeInput = {
@@ -155644,6 +164905,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncomeInput = {
@@ -155730,6 +164996,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncomeInput = {
@@ -155800,6 +165071,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutScholarshipInput = {
@@ -155870,6 +165146,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutScholarshipInput = {
@@ -155940,6 +165221,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutScholarshipInput = {
@@ -155965,6 +165251,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutScholarshipInput = {
@@ -155985,6 +165272,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutScholarshipInput = {
@@ -156071,6 +165359,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutScholarshipInput = {
@@ -156141,6 +165434,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutScholarshipInput = {
@@ -156172,6 +165470,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutScholarshipInput = {
@@ -156192,6 +165491,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutExamInput = {
@@ -156262,6 +165562,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExamInput = {
@@ -156332,6 +165637,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExamInput = {
@@ -156542,6 +165852,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExamInput = {
@@ -156612,6 +165927,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TermUpsertWithoutExamInput = {
@@ -156874,6 +166194,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutResultInput = {
@@ -156944,6 +166269,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutResultInput = {
@@ -157002,6 +166332,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutResultInput = {
@@ -157022,6 +166353,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutResultInput = {
@@ -157108,6 +166440,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutResultInput = {
@@ -157178,6 +166515,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExamUpsertWithoutResultsInput = {
@@ -157248,6 +166590,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutResultInput = {
@@ -157268,6 +166611,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutAssignmentInput = {
@@ -157338,6 +166682,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssignmentInput = {
@@ -157408,6 +166757,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssignmentInput = {
@@ -157552,6 +166906,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssignmentInput = {
@@ -157622,6 +166981,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithoutAssignmentInput = {
@@ -157762,6 +167126,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLessonNoteInput = {
@@ -157832,6 +167201,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLessonNoteInput = {
@@ -157949,6 +167323,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLessonNoteInput = {
@@ -158019,6 +167398,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithoutLessonNoteInput = {
@@ -158126,6 +167510,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebsiteInput = {
@@ -158196,6 +167585,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebsiteInput = {
@@ -158375,6 +167769,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebsiteInput = {
@@ -158445,6 +167844,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PageUpsertWithWhereUniqueWithoutWebsiteInput = {
@@ -158593,6 +167997,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPageInput = {
@@ -158663,6 +168072,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPageInput = {
@@ -158786,6 +168200,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPageInput = {
@@ -158856,6 +168275,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteUpsertWithoutPagesInput = {
@@ -158969,6 +168393,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNavigationMenuInput = {
@@ -159039,6 +168468,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNavigationMenuInput = {
@@ -159162,6 +168596,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNavigationMenuInput = {
@@ -159232,6 +168671,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteUpsertWithoutNavigationInput = {
@@ -159345,6 +168789,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAIProviderConfigInput = {
@@ -159415,6 +168864,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAIProviderConfigInput = {
@@ -159501,6 +168955,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAIProviderConfigInput = {
@@ -159571,6 +169030,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAIUsageLogInput = {
@@ -159641,6 +169105,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAIUsageLogInput = {
@@ -159711,6 +169180,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAIUsageLogInput = {
@@ -159834,6 +169308,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAIUsageLogInput = {
@@ -159904,6 +169383,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAIUsageLogInput = {
@@ -160017,6 +169501,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPromptTemplateInput = {
@@ -160087,6 +169576,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPromptTemplateInput = {
@@ -160173,6 +169667,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPromptTemplateInput = {
@@ -160243,6 +169742,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutHostelInput = {
@@ -160313,6 +169817,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHostelInput = {
@@ -160383,6 +169892,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHostelInput = {
@@ -160497,6 +170011,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHostelInput = {
@@ -160567,6 +170086,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type HostelRoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -160736,6 +170260,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
     Result?: ResultCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutBedAllocationInput = {
@@ -160756,6 +170281,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutBedAllocationInput = {
@@ -160821,6 +170347,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutBedAllocationInput = {
@@ -160841,6 +170368,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutTransportVehicleInput = {
@@ -160911,6 +170439,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTransportVehicleInput = {
@@ -160981,6 +170514,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTransportVehicleInput = {
@@ -161093,6 +170631,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTransportVehicleInput = {
@@ -161163,6 +170706,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TransportRouteUpsertWithWhereUniqueWithoutVehicleInput = {
@@ -161317,6 +170865,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLibraryBookInput = {
@@ -161387,6 +170940,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLibraryBookInput = {
@@ -161505,6 +171063,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLibraryBookInput = {
@@ -161575,6 +171138,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookBorrowingUpsertWithWhereUniqueWithoutBookInput = {
@@ -161638,6 +171206,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutBookBorrowingInput = {
@@ -161658,6 +171227,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutBookBorrowingInput = {
@@ -161727,6 +171297,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutBookBorrowingInput = {
@@ -161747,6 +171318,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type TenantCreateWithoutNotificationQueueInput = {
@@ -161817,6 +171389,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationQueueInput = {
@@ -161887,6 +171464,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationQueueInput = {
@@ -162010,6 +171592,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationQueueInput = {
@@ -162080,6 +171667,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutNotificationQueueInput = {
@@ -162193,6 +171785,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentAttemptInput = {
@@ -162263,6 +171860,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentAttemptInput = {
@@ -162280,14 +171882,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPaymentInput
-    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+    invoice?: InvoiceCreateNestedOneWithoutPaymentsInput
     PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutPaymentAttemptInput = {
     id?: string
     tenantId: string
-    invoiceId: string
+    invoiceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     method: $Enums.PaymentMethod
     reference: string
@@ -162382,6 +171984,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentAttemptInput = {
@@ -162452,6 +172059,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithoutPaymentAttemptInput = {
@@ -162475,14 +172087,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPaymentNestedInput
-    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
+    invoice?: InvoiceUpdateOneWithoutPaymentsNestedInput
     PaymentAllocation?: PaymentAllocationUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutPaymentAttemptInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     reference?: StringFieldUpdateOperationsInput | string
@@ -162561,6 +172173,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentAllocationInput = {
@@ -162631,6 +172248,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentAllocationInput = {
@@ -162648,14 +172270,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutPaymentInput
-    invoice: InvoiceCreateNestedOneWithoutPaymentsInput
+    invoice?: InvoiceCreateNestedOneWithoutPaymentsInput
     PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutPaymentInput
   }
 
   export type PaymentUncheckedCreateWithoutPaymentAllocationInput = {
     id?: string
     tenantId: string
-    invoiceId: string
+    invoiceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     method: $Enums.PaymentMethod
     reference: string
@@ -162694,6 +172316,39 @@ export namespace Prisma {
   export type InvoiceItemCreateOrConnectWithoutPaymentAllocationInput = {
     where: InvoiceItemWhereUniqueInput
     create: XOR<InvoiceItemCreateWithoutPaymentAllocationInput, InvoiceItemUncheckedCreateWithoutPaymentAllocationInput>
+  }
+
+  export type FinancialTransactionCreateWithoutAllocationsInput = {
+    id?: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionInput
+    period: AccountingPeriodCreateNestedOneWithoutTransactionsInput
+    lines?: JournalEntryLineCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutAllocationsInput = {
+    id?: string
+    tenantId: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutAllocationsInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutAllocationsInput, FinancialTransactionUncheckedCreateWithoutAllocationsInput>
   }
 
   export type TenantUpsertWithoutPaymentAllocationInput = {
@@ -162775,6 +172430,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentAllocationInput = {
@@ -162845,6 +172505,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithoutPaymentAllocationInput = {
@@ -162868,14 +172533,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPaymentNestedInput
-    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
+    invoice?: InvoiceUpdateOneWithoutPaymentsNestedInput
     PaymentAttempt?: PaymentAttemptUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutPaymentAllocationInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     reference?: StringFieldUpdateOperationsInput | string
@@ -162915,6 +172580,45 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionUpsertWithoutAllocationsInput = {
+    update: XOR<FinancialTransactionUpdateWithoutAllocationsInput, FinancialTransactionUncheckedUpdateWithoutAllocationsInput>
+    create: XOR<FinancialTransactionCreateWithoutAllocationsInput, FinancialTransactionUncheckedCreateWithoutAllocationsInput>
+    where?: FinancialTransactionWhereInput
+  }
+
+  export type FinancialTransactionUpdateToOneWithWhereWithoutAllocationsInput = {
+    where?: FinancialTransactionWhereInput
+    data: XOR<FinancialTransactionUpdateWithoutAllocationsInput, FinancialTransactionUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type FinancialTransactionUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionNestedInput
+    period?: AccountingPeriodUpdateOneRequiredWithoutTransactionsNestedInput
+    lines?: JournalEntryLineUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    periodId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutTransactionNestedInput
   }
 
   export type TenantCreateWithoutPaymentPlanVersionInput = {
@@ -162985,6 +172689,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentPlanVersionInput = {
@@ -163055,6 +172764,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentPlanVersionInput = {
@@ -163141,6 +172855,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentPlanVersionInput = {
@@ -163211,6 +172930,2283 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutChartOfAccountInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutChartOfAccountInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutChartOfAccountInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutChartOfAccountInput, TenantUncheckedCreateWithoutChartOfAccountInput>
+  }
+
+  export type JournalEntryLineCreateWithoutAccountInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutJournalEntryLineInput
+    transaction: FinancialTransactionCreateNestedOneWithoutLinesInput
+    student?: StudentCreateNestedOneWithoutJournalLinesInput
+    invoice?: InvoiceCreateNestedOneWithoutJournalLinesInput
+  }
+
+  export type JournalEntryLineUncheckedCreateWithoutAccountInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineCreateOrConnectWithoutAccountInput = {
+    where: JournalEntryLineWhereUniqueInput
+    create: XOR<JournalEntryLineCreateWithoutAccountInput, JournalEntryLineUncheckedCreateWithoutAccountInput>
+  }
+
+  export type JournalEntryLineCreateManyAccountInputEnvelope = {
+    data: JournalEntryLineCreateManyAccountInput | JournalEntryLineCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BankAccountCreateWithoutLedgerAccountInput = {
+    id?: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBankAccountInput
+  }
+
+  export type BankAccountUncheckedCreateWithoutLedgerAccountInput = {
+    id?: string
+    tenantId: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type BankAccountCreateOrConnectWithoutLedgerAccountInput = {
+    where: BankAccountWhereUniqueInput
+    create: XOR<BankAccountCreateWithoutLedgerAccountInput, BankAccountUncheckedCreateWithoutLedgerAccountInput>
+  }
+
+  export type BankAccountCreateManyLedgerAccountInputEnvelope = {
+    data: BankAccountCreateManyLedgerAccountInput | BankAccountCreateManyLedgerAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutChartOfAccountInput = {
+    update: XOR<TenantUpdateWithoutChartOfAccountInput, TenantUncheckedUpdateWithoutChartOfAccountInput>
+    create: XOR<TenantCreateWithoutChartOfAccountInput, TenantUncheckedCreateWithoutChartOfAccountInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutChartOfAccountInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutChartOfAccountInput, TenantUncheckedUpdateWithoutChartOfAccountInput>
+  }
+
+  export type TenantUpdateWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutChartOfAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput = {
+    where: JournalEntryLineWhereUniqueInput
+    update: XOR<JournalEntryLineUpdateWithoutAccountInput, JournalEntryLineUncheckedUpdateWithoutAccountInput>
+    create: XOR<JournalEntryLineCreateWithoutAccountInput, JournalEntryLineUncheckedCreateWithoutAccountInput>
+  }
+
+  export type JournalEntryLineUpdateWithWhereUniqueWithoutAccountInput = {
+    where: JournalEntryLineWhereUniqueInput
+    data: XOR<JournalEntryLineUpdateWithoutAccountInput, JournalEntryLineUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithWhereWithoutAccountInput = {
+    where: JournalEntryLineScalarWhereInput
+    data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type BankAccountUpsertWithWhereUniqueWithoutLedgerAccountInput = {
+    where: BankAccountWhereUniqueInput
+    update: XOR<BankAccountUpdateWithoutLedgerAccountInput, BankAccountUncheckedUpdateWithoutLedgerAccountInput>
+    create: XOR<BankAccountCreateWithoutLedgerAccountInput, BankAccountUncheckedCreateWithoutLedgerAccountInput>
+  }
+
+  export type BankAccountUpdateWithWhereUniqueWithoutLedgerAccountInput = {
+    where: BankAccountWhereUniqueInput
+    data: XOR<BankAccountUpdateWithoutLedgerAccountInput, BankAccountUncheckedUpdateWithoutLedgerAccountInput>
+  }
+
+  export type BankAccountUpdateManyWithWhereWithoutLedgerAccountInput = {
+    where: BankAccountScalarWhereInput
+    data: XOR<BankAccountUpdateManyMutationInput, BankAccountUncheckedUpdateManyWithoutLedgerAccountInput>
+  }
+
+  export type TenantCreateWithoutBankAccountInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBankAccountInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBankAccountInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBankAccountInput, TenantUncheckedCreateWithoutBankAccountInput>
+  }
+
+  export type ChartOfAccountCreateWithoutBankAccountsInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutChartOfAccountInput
+    lines?: JournalEntryLineCreateNestedManyWithoutAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutBankAccountsInput = {
+    id?: string
+    tenantId: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutBankAccountsInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutBankAccountsInput, ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+  }
+
+  export type TenantUpsertWithoutBankAccountInput = {
+    update: XOR<TenantUpdateWithoutBankAccountInput, TenantUncheckedUpdateWithoutBankAccountInput>
+    create: XOR<TenantCreateWithoutBankAccountInput, TenantUncheckedCreateWithoutBankAccountInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBankAccountInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBankAccountInput, TenantUncheckedUpdateWithoutBankAccountInput>
+  }
+
+  export type TenantUpdateWithoutBankAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBankAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type ChartOfAccountUpsertWithoutBankAccountsInput = {
+    update: XOR<ChartOfAccountUpdateWithoutBankAccountsInput, ChartOfAccountUncheckedUpdateWithoutBankAccountsInput>
+    create: XOR<ChartOfAccountCreateWithoutBankAccountsInput, ChartOfAccountUncheckedCreateWithoutBankAccountsInput>
+    where?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountUpdateToOneWithWhereWithoutBankAccountsInput = {
+    where?: ChartOfAccountWhereInput
+    data: XOR<ChartOfAccountUpdateWithoutBankAccountsInput, ChartOfAccountUncheckedUpdateWithoutBankAccountsInput>
+  }
+
+  export type ChartOfAccountUpdateWithoutBankAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutChartOfAccountNestedInput
+    lines?: JournalEntryLineUpdateManyWithoutAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutBankAccountsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutAccountNestedInput
+  }
+
+  export type TenantCreateWithoutAccountingPeriodInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutAccountingPeriodInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutAccountingPeriodInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutAccountingPeriodInput, TenantUncheckedCreateWithoutAccountingPeriodInput>
+  }
+
+  export type FinancialTransactionCreateWithoutPeriodInput = {
+    id?: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionInput
+    lines?: JournalEntryLineCreateNestedManyWithoutTransactionInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutPeriodInput = {
+    id?: string
+    tenantId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    lines?: JournalEntryLineUncheckedCreateNestedManyWithoutTransactionInput
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutPeriodInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutPeriodInput, FinancialTransactionUncheckedCreateWithoutPeriodInput>
+  }
+
+  export type FinancialTransactionCreateManyPeriodInputEnvelope = {
+    data: FinancialTransactionCreateManyPeriodInput | FinancialTransactionCreateManyPeriodInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutAccountingPeriodInput = {
+    update: XOR<TenantUpdateWithoutAccountingPeriodInput, TenantUncheckedUpdateWithoutAccountingPeriodInput>
+    create: XOR<TenantCreateWithoutAccountingPeriodInput, TenantUncheckedCreateWithoutAccountingPeriodInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutAccountingPeriodInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutAccountingPeriodInput, TenantUncheckedUpdateWithoutAccountingPeriodInput>
+  }
+
+  export type TenantUpdateWithoutAccountingPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutAccountingPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput = {
+    where: FinancialTransactionWhereUniqueInput
+    update: XOR<FinancialTransactionUpdateWithoutPeriodInput, FinancialTransactionUncheckedUpdateWithoutPeriodInput>
+    create: XOR<FinancialTransactionCreateWithoutPeriodInput, FinancialTransactionUncheckedCreateWithoutPeriodInput>
+  }
+
+  export type FinancialTransactionUpdateWithWhereUniqueWithoutPeriodInput = {
+    where: FinancialTransactionWhereUniqueInput
+    data: XOR<FinancialTransactionUpdateWithoutPeriodInput, FinancialTransactionUncheckedUpdateWithoutPeriodInput>
+  }
+
+  export type FinancialTransactionUpdateManyWithWhereWithoutPeriodInput = {
+    where: FinancialTransactionScalarWhereInput
+    data: XOR<FinancialTransactionUpdateManyMutationInput, FinancialTransactionUncheckedUpdateManyWithoutPeriodInput>
+  }
+
+  export type TenantCreateWithoutFinancialTransactionInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutFinancialTransactionInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutFinancialTransactionInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutFinancialTransactionInput, TenantUncheckedCreateWithoutFinancialTransactionInput>
+  }
+
+  export type AccountingPeriodCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAccountingPeriodInput
+  }
+
+  export type AccountingPeriodUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    tenantId: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AccountingPeriodCreateOrConnectWithoutTransactionsInput = {
+    where: AccountingPeriodWhereUniqueInput
+    create: XOR<AccountingPeriodCreateWithoutTransactionsInput, AccountingPeriodUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type JournalEntryLineCreateWithoutTransactionInput = {
+    id?: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutJournalEntryLineInput
+    account: ChartOfAccountCreateNestedOneWithoutLinesInput
+    student?: StudentCreateNestedOneWithoutJournalLinesInput
+    invoice?: InvoiceCreateNestedOneWithoutJournalLinesInput
+  }
+
+  export type JournalEntryLineUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    tenantId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineCreateOrConnectWithoutTransactionInput = {
+    where: JournalEntryLineWhereUniqueInput
+    create: XOR<JournalEntryLineCreateWithoutTransactionInput, JournalEntryLineUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type JournalEntryLineCreateManyTransactionInputEnvelope = {
+    data: JournalEntryLineCreateManyTransactionInput | JournalEntryLineCreateManyTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PaymentAllocationCreateWithoutTransactionInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPaymentAllocationInput
+    payment: PaymentCreateNestedOneWithoutPaymentAllocationInput
+    invoiceItem: InvoiceItemCreateNestedOneWithoutPaymentAllocationInput
+  }
+
+  export type PaymentAllocationUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    tenantId: string
+    paymentId: string
+    invoiceItemId: string
+    amount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationCreateOrConnectWithoutTransactionInput = {
+    where: PaymentAllocationWhereUniqueInput
+    create: XOR<PaymentAllocationCreateWithoutTransactionInput, PaymentAllocationUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type PaymentAllocationCreateManyTransactionInputEnvelope = {
+    data: PaymentAllocationCreateManyTransactionInput | PaymentAllocationCreateManyTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutFinancialTransactionInput = {
+    update: XOR<TenantUpdateWithoutFinancialTransactionInput, TenantUncheckedUpdateWithoutFinancialTransactionInput>
+    create: XOR<TenantCreateWithoutFinancialTransactionInput, TenantUncheckedCreateWithoutFinancialTransactionInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutFinancialTransactionInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutFinancialTransactionInput, TenantUncheckedUpdateWithoutFinancialTransactionInput>
+  }
+
+  export type TenantUpdateWithoutFinancialTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutFinancialTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type AccountingPeriodUpsertWithoutTransactionsInput = {
+    update: XOR<AccountingPeriodUpdateWithoutTransactionsInput, AccountingPeriodUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<AccountingPeriodCreateWithoutTransactionsInput, AccountingPeriodUncheckedCreateWithoutTransactionsInput>
+    where?: AccountingPeriodWhereInput
+  }
+
+  export type AccountingPeriodUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: AccountingPeriodWhereInput
+    data: XOR<AccountingPeriodUpdateWithoutTransactionsInput, AccountingPeriodUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type AccountingPeriodUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAccountingPeriodNestedInput
+  }
+
+  export type AccountingPeriodUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: JournalEntryLineWhereUniqueInput
+    update: XOR<JournalEntryLineUpdateWithoutTransactionInput, JournalEntryLineUncheckedUpdateWithoutTransactionInput>
+    create: XOR<JournalEntryLineCreateWithoutTransactionInput, JournalEntryLineUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type JournalEntryLineUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: JournalEntryLineWhereUniqueInput
+    data: XOR<JournalEntryLineUpdateWithoutTransactionInput, JournalEntryLineUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type JournalEntryLineUpdateManyWithWhereWithoutTransactionInput = {
+    where: JournalEntryLineScalarWhereInput
+    data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyWithoutTransactionInput>
+  }
+
+  export type PaymentAllocationUpsertWithWhereUniqueWithoutTransactionInput = {
+    where: PaymentAllocationWhereUniqueInput
+    update: XOR<PaymentAllocationUpdateWithoutTransactionInput, PaymentAllocationUncheckedUpdateWithoutTransactionInput>
+    create: XOR<PaymentAllocationCreateWithoutTransactionInput, PaymentAllocationUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type PaymentAllocationUpdateWithWhereUniqueWithoutTransactionInput = {
+    where: PaymentAllocationWhereUniqueInput
+    data: XOR<PaymentAllocationUpdateWithoutTransactionInput, PaymentAllocationUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type PaymentAllocationUpdateManyWithWhereWithoutTransactionInput = {
+    where: PaymentAllocationScalarWhereInput
+    data: XOR<PaymentAllocationUpdateManyMutationInput, PaymentAllocationUncheckedUpdateManyWithoutTransactionInput>
+  }
+
+  export type TenantCreateWithoutJournalEntryLineInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutJournalEntryLineInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutJournalEntryLineInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutJournalEntryLineInput, TenantUncheckedCreateWithoutJournalEntryLineInput>
+  }
+
+  export type FinancialTransactionCreateWithoutLinesInput = {
+    id?: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutFinancialTransactionInput
+    period: AccountingPeriodCreateNestedOneWithoutTransactionsInput
+    allocations?: PaymentAllocationCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionUncheckedCreateWithoutLinesInput = {
+    id?: string
+    tenantId: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+    allocations?: PaymentAllocationUncheckedCreateNestedManyWithoutTransactionInput
+  }
+
+  export type FinancialTransactionCreateOrConnectWithoutLinesInput = {
+    where: FinancialTransactionWhereUniqueInput
+    create: XOR<FinancialTransactionCreateWithoutLinesInput, FinancialTransactionUncheckedCreateWithoutLinesInput>
+  }
+
+  export type ChartOfAccountCreateWithoutLinesInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutChartOfAccountInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutLedgerAccountInput
+  }
+
+  export type ChartOfAccountUncheckedCreateWithoutLinesInput = {
+    id?: string
+    tenantId: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutLedgerAccountInput
+  }
+
+  export type ChartOfAccountCreateOrConnectWithoutLinesInput = {
+    where: ChartOfAccountWhereUniqueInput
+    create: XOR<ChartOfAccountCreateWithoutLinesInput, ChartOfAccountUncheckedCreateWithoutLinesInput>
+  }
+
+  export type StudentCreateWithoutJournalLinesInput = {
+    id?: string
+    admissionNumber: string
+    enrollmentDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStudentInput
+    membership: TenantMembershipCreateNestedOneWithoutStudentInput
+    currentArm?: ArmCreateNestedOneWithoutStudentInput
+    guardians?: StudentGuardianCreateNestedManyWithoutStudentInput
+    admissions?: AdmissionCreateNestedManyWithoutStudentInput
+    medicalRecords?: MedicalRecordCreateNestedManyWithoutStudentInput
+    disciplineRecords?: DisciplineRecordCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    Invoice?: InvoiceCreateNestedManyWithoutStudentInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
+    Result?: ResultCreateNestedManyWithoutStudentInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
+    BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentUncheckedCreateWithoutJournalLinesInput = {
+    id?: string
+    tenantId: string
+    membershipId: string
+    admissionNumber: string
+    enrollmentDate?: Date | string
+    currentArmId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    guardians?: StudentGuardianUncheckedCreateNestedManyWithoutStudentInput
+    admissions?: AdmissionUncheckedCreateNestedManyWithoutStudentInput
+    medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutStudentInput
+    disciplineRecords?: DisciplineRecordUncheckedCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutStudentInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
+    Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
+    BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutJournalLinesInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutJournalLinesInput, StudentUncheckedCreateWithoutJournalLinesInput>
+  }
+
+  export type InvoiceCreateWithoutJournalLinesInput = {
+    id?: string
+    invoiceNumber: string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    amountPaid?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutInvoiceInput
+    student: StudentCreateNestedOneWithoutInvoiceInput
+    term: TermCreateNestedOneWithoutInvoiceInput
+    items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+    payments?: PaymentCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutJournalLinesInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    termId: string
+    invoiceNumber: string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    amountPaid?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutJournalLinesInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutJournalLinesInput, InvoiceUncheckedCreateWithoutJournalLinesInput>
+  }
+
+  export type TenantUpsertWithoutJournalEntryLineInput = {
+    update: XOR<TenantUpdateWithoutJournalEntryLineInput, TenantUncheckedUpdateWithoutJournalEntryLineInput>
+    create: XOR<TenantCreateWithoutJournalEntryLineInput, TenantUncheckedCreateWithoutJournalEntryLineInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutJournalEntryLineInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutJournalEntryLineInput, TenantUncheckedUpdateWithoutJournalEntryLineInput>
+  }
+
+  export type TenantUpdateWithoutJournalEntryLineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutJournalEntryLineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type FinancialTransactionUpsertWithoutLinesInput = {
+    update: XOR<FinancialTransactionUpdateWithoutLinesInput, FinancialTransactionUncheckedUpdateWithoutLinesInput>
+    create: XOR<FinancialTransactionCreateWithoutLinesInput, FinancialTransactionUncheckedCreateWithoutLinesInput>
+    where?: FinancialTransactionWhereInput
+  }
+
+  export type FinancialTransactionUpdateToOneWithWhereWithoutLinesInput = {
+    where?: FinancialTransactionWhereInput
+    data: XOR<FinancialTransactionUpdateWithoutLinesInput, FinancialTransactionUncheckedUpdateWithoutLinesInput>
+  }
+
+  export type FinancialTransactionUpdateWithoutLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionNestedInput
+    period?: AccountingPeriodUpdateOneRequiredWithoutTransactionsNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    periodId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type ChartOfAccountUpsertWithoutLinesInput = {
+    update: XOR<ChartOfAccountUpdateWithoutLinesInput, ChartOfAccountUncheckedUpdateWithoutLinesInput>
+    create: XOR<ChartOfAccountCreateWithoutLinesInput, ChartOfAccountUncheckedCreateWithoutLinesInput>
+    where?: ChartOfAccountWhereInput
+  }
+
+  export type ChartOfAccountUpdateToOneWithWhereWithoutLinesInput = {
+    where?: ChartOfAccountWhereInput
+    data: XOR<ChartOfAccountUpdateWithoutLinesInput, ChartOfAccountUncheckedUpdateWithoutLinesInput>
+  }
+
+  export type ChartOfAccountUpdateWithoutLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutChartOfAccountNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutLedgerAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutLedgerAccountNestedInput
+  }
+
+  export type StudentUpsertWithoutJournalLinesInput = {
+    update: XOR<StudentUpdateWithoutJournalLinesInput, StudentUncheckedUpdateWithoutJournalLinesInput>
+    create: XOR<StudentCreateWithoutJournalLinesInput, StudentUncheckedCreateWithoutJournalLinesInput>
+    where?: StudentWhereInput
+  }
+
+  export type StudentUpdateToOneWithWhereWithoutJournalLinesInput = {
+    where?: StudentWhereInput
+    data: XOR<StudentUpdateWithoutJournalLinesInput, StudentUncheckedUpdateWithoutJournalLinesInput>
+  }
+
+  export type StudentUpdateWithoutJournalLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: StringFieldUpdateOperationsInput | string
+    enrollmentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStudentNestedInput
+    membership?: TenantMembershipUpdateOneRequiredWithoutStudentNestedInput
+    currentArm?: ArmUpdateOneWithoutStudentNestedInput
+    guardians?: StudentGuardianUpdateManyWithoutStudentNestedInput
+    admissions?: AdmissionUpdateManyWithoutStudentNestedInput
+    medicalRecords?: MedicalRecordUpdateManyWithoutStudentNestedInput
+    disciplineRecords?: DisciplineRecordUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    Invoice?: InvoiceUpdateManyWithoutStudentNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
+    Result?: ResultUpdateManyWithoutStudentNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
+    BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutJournalLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    membershipId?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: StringFieldUpdateOperationsInput | string
+    enrollmentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentArmId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    guardians?: StudentGuardianUncheckedUpdateManyWithoutStudentNestedInput
+    admissions?: AdmissionUncheckedUpdateManyWithoutStudentNestedInput
+    medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutStudentNestedInput
+    disciplineRecords?: DisciplineRecordUncheckedUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutStudentNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
+    BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type InvoiceUpsertWithoutJournalLinesInput = {
+    update: XOR<InvoiceUpdateWithoutJournalLinesInput, InvoiceUncheckedUpdateWithoutJournalLinesInput>
+    create: XOR<InvoiceCreateWithoutJournalLinesInput, InvoiceUncheckedCreateWithoutJournalLinesInput>
+    where?: InvoiceWhereInput
+  }
+
+  export type InvoiceUpdateToOneWithWhereWithoutJournalLinesInput = {
+    where?: InvoiceWhereInput
+    data: XOR<InvoiceUpdateWithoutJournalLinesInput, InvoiceUncheckedUpdateWithoutJournalLinesInput>
+  }
+
+  export type InvoiceUpdateWithoutJournalLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amountPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutInvoiceNestedInput
+    student?: StudentUpdateOneRequiredWithoutInvoiceNestedInput
+    term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
+    items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+    payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutJournalLinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    termId?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amountPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type TenantCreateWithoutApprovalWorkflowInput = {
@@ -163281,6 +175277,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApprovalWorkflowInput = {
@@ -163351,6 +175352,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApprovalWorkflowInput = {
@@ -163471,6 +175477,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApprovalWorkflowInput = {
@@ -163541,6 +175552,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ApprovalStepUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -163707,6 +175723,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutScheduledJobInput = {
@@ -163777,6 +175798,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutScheduledJobInput = {
@@ -163863,6 +175889,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutScheduledJobInput = {
@@ -163933,6 +175964,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSequenceGeneratorInput = {
@@ -164003,6 +176039,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSequenceGeneratorInput = {
@@ -164073,6 +176114,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSequenceGeneratorInput = {
@@ -164159,6 +176205,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSequenceGeneratorInput = {
@@ -164229,6 +176280,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAssetsInput = {
@@ -164299,6 +176355,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssetsInput = {
@@ -164369,6 +176430,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssetsInput = {
@@ -164455,6 +176521,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssetsInput = {
@@ -164525,6 +176596,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteCreateWithoutDomainsInput = {
@@ -164838,6 +176914,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionCampaignInput = {
@@ -164908,6 +176989,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionCampaignInput = {
@@ -165140,6 +177226,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionCampaignInput = {
@@ -165210,6 +177301,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AcademicYearUpsertWithoutAdmissionCampaignsInput = {
@@ -165384,6 +177480,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionWorkflowInput = {
@@ -165454,6 +177555,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionWorkflowInput = {
@@ -165628,6 +177734,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionWorkflowInput = {
@@ -165698,6 +177809,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -166023,6 +178139,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionFormInput = {
@@ -166093,6 +178214,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionFormInput = {
@@ -166260,6 +178386,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionFormInput = {
@@ -166330,6 +178461,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithoutFormsInput = {
@@ -166660,6 +178796,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionRequiredDocumentInput = {
@@ -166730,6 +178871,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionRequiredDocumentInput = {
@@ -166844,6 +178990,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionRequiredDocumentInput = {
@@ -166914,6 +179065,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionDocumentUpsertWithWhereUniqueWithoutRequiredDocumentInput = {
@@ -167013,6 +179169,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
     AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionApplicationInput = {
@@ -167083,6 +179244,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
     AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionApplicationInput = {
@@ -167313,6 +179479,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionApplicationInput = {
@@ -167383,6 +179554,11 @@ export namespace Prisma {
     AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithoutApplicationsInput = {
@@ -167922,6 +180098,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPlanInput = {
@@ -167992,6 +180173,11 @@ export namespace Prisma {
     AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
     AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutPlanInput = {
@@ -168322,7 +180508,7 @@ export namespace Prisma {
 
   export type PaymentCreateManyTenantInput = {
     id?: string
-    invoiceId: string
+    invoiceId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     method: $Enums.PaymentMethod
     reference: string
@@ -168514,7 +180700,7 @@ export namespace Prisma {
     id?: string
     paymentId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
@@ -168626,6 +180812,61 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     deletedBy?: string | null
+  }
+
+  export type ChartOfAccountCreateManyTenantInput = {
+    id?: string
+    code: string
+    name: string
+    type: $Enums.AccountType
+    isActive?: boolean
+    description?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BankAccountCreateManyTenantInput = {
+    id?: string
+    ledgerAccountId: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type AccountingPeriodCreateManyTenantInput = {
+    id?: string
+    name: string
+    startDate: Date | string
+    endDate: Date | string
+    status?: $Enums.PeriodStatus
+    closedAt?: Date | string | null
+    closedBy?: string | null
+    createdAt?: Date | string
+  }
+
+  export type FinancialTransactionCreateManyTenantInput = {
+    id?: string
+    periodId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineCreateManyTenantInput = {
+    id?: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
   }
 
   export type PlatformSubscriptionUpdateWithoutTenantInput = {
@@ -169169,6 +181410,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutTenantInput = {
@@ -169189,6 +181431,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateManyWithoutTenantInput = {
@@ -169549,6 +181792,7 @@ export namespace Prisma {
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutTenantInput = {
@@ -169565,6 +181809,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateManyWithoutTenantInput = {
@@ -169590,14 +181835,14 @@ export namespace Prisma {
     status?: EnumPaymentTransactionStatusFieldUpdateOperationsInput | $Enums.PaymentTransactionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invoice?: InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
+    invoice?: InvoiceUpdateOneWithoutPaymentsNestedInput
     PaymentAttempt?: PaymentAttemptUpdateManyWithoutPaymentNestedInput
     PaymentAllocation?: PaymentAllocationUpdateManyWithoutPaymentNestedInput
   }
 
   export type PaymentUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     reference?: StringFieldUpdateOperationsInput | string
@@ -169611,7 +181856,7 @@ export namespace Prisma {
 
   export type PaymentUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    invoiceId?: StringFieldUpdateOperationsInput | string
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     method?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     reference?: StringFieldUpdateOperationsInput | string
@@ -170167,18 +182412,18 @@ export namespace Prisma {
 
   export type PaymentAllocationUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: PaymentUpdateOneRequiredWithoutPaymentAllocationNestedInput
     invoiceItem?: InvoiceItemUpdateOneRequiredWithoutPaymentAllocationNestedInput
+    transaction?: FinancialTransactionUpdateOneWithoutAllocationsNestedInput
   }
 
   export type PaymentAllocationUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
     invoiceItemId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -170187,7 +182432,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
     invoiceItemId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -170535,6 +182780,181 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedBy?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ChartOfAccountUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUpdateManyWithoutAccountNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutLedgerAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutAccountNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutLedgerAccountNestedInput
+  }
+
+  export type ChartOfAccountUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ledgerAccount?: ChartOfAccountUpdateOneRequiredWithoutBankAccountsNestedInput
+  }
+
+  export type BankAccountUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ledgerAccountId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ledgerAccountId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountingPeriodUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: FinancialTransactionUpdateManyWithoutPeriodNestedInput
+  }
+
+  export type AccountingPeriodUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: FinancialTransactionUncheckedUpdateManyWithoutPeriodNestedInput
+  }
+
+  export type AccountingPeriodUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumPeriodStatusFieldUpdateOperationsInput | $Enums.PeriodStatus
+    closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    period?: AccountingPeriodUpdateOneRequiredWithoutTransactionsNestedInput
+    lines?: JournalEntryLineUpdateManyWithoutTransactionNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    periodId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutTransactionNestedInput
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    periodId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutLinesNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutLinesNestedInput
+    student?: StudentUpdateOneWithoutJournalLinesNestedInput
+    invoice?: InvoiceUpdateOneWithoutJournalLinesNestedInput
+  }
+
+  export type JournalEntryLineUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TenantMarketplaceAppCreateManyAppInput = {
@@ -171173,6 +183593,7 @@ export namespace Prisma {
     student?: StudentUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutTermInput = {
@@ -171189,6 +183610,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateManyWithoutTermInput = {
@@ -171534,6 +183956,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutCurrentArmInput = {
@@ -171554,6 +183977,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateManyWithoutCurrentArmInput = {
@@ -171969,6 +184393,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type JournalEntryLineCreateManyStudentInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
   export type StudentGuardianUpdateWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
     relationship?: EnumGuardianRelationshipFieldUpdateOperationsInput | $Enums.GuardianRelationship
@@ -172139,6 +184575,7 @@ export namespace Prisma {
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutStudentInput = {
@@ -172155,6 +184592,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateManyWithoutStudentInput = {
@@ -172292,6 +184730,42 @@ export namespace Prisma {
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutJournalEntryLineNestedInput
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutLinesNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutLinesNestedInput
+    invoice?: InvoiceUpdateOneWithoutJournalLinesNestedInput
+  }
+
+  export type JournalEntryLineUncheckedUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StudentGuardianCreateManyGuardianInput = {
@@ -172489,6 +184963,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type JournalEntryLineCreateManyInvoiceInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    createdAt?: Date | string
+  }
+
   export type InvoiceItemUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
@@ -172558,29 +185044,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type JournalEntryLineUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutJournalEntryLineNestedInput
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutLinesNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutLinesNestedInput
+    student?: StudentUpdateOneWithoutJournalLinesNestedInput
+  }
+
+  export type JournalEntryLineUncheckedUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PaymentAllocationCreateManyInvoiceItemInput = {
     id?: string
     tenantId: string
     paymentId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
 
   export type PaymentAllocationUpdateWithoutInvoiceItemInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPaymentAllocationNestedInput
     payment?: PaymentUpdateOneRequiredWithoutPaymentAllocationNestedInput
+    transaction?: FinancialTransactionUpdateOneWithoutAllocationsNestedInput
   }
 
   export type PaymentAllocationUncheckedUpdateWithoutInvoiceItemInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -172589,7 +185111,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     paymentId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -172610,7 +185132,7 @@ export namespace Prisma {
     id?: string
     tenantId: string
     invoiceItemId: string
-    transactionId: string
+    transactionId?: string | null
     amount: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
   }
@@ -172653,18 +185175,18 @@ export namespace Prisma {
 
   export type PaymentAllocationUpdateWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutPaymentAllocationNestedInput
     invoiceItem?: InvoiceItemUpdateOneRequiredWithoutPaymentAllocationNestedInput
+    transaction?: FinancialTransactionUpdateOneWithoutAllocationsNestedInput
   }
 
   export type PaymentAllocationUncheckedUpdateWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     invoiceItemId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -172673,7 +185195,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     invoiceItemId?: StringFieldUpdateOperationsInput | string
-    transactionId?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -172994,6 +185516,230 @@ export namespace Prisma {
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineCreateManyAccountInput = {
+    id?: string
+    tenantId: string
+    transactionId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type BankAccountCreateManyLedgerAccountInput = {
+    id?: string
+    tenantId: string
+    name: string
+    accountNumber?: string | null
+    bankName?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineUpdateWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutJournalEntryLineNestedInput
+    transaction?: FinancialTransactionUpdateOneRequiredWithoutLinesNestedInput
+    student?: StudentUpdateOneWithoutJournalLinesNestedInput
+    invoice?: InvoiceUpdateOneWithoutJournalLinesNestedInput
+  }
+
+  export type JournalEntryLineUncheckedUpdateWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    transactionId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUpdateWithoutLedgerAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBankAccountNestedInput
+  }
+
+  export type BankAccountUncheckedUpdateWithoutLedgerAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BankAccountUncheckedUpdateManyWithoutLedgerAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialTransactionCreateManyPeriodInput = {
+    id?: string
+    tenantId: string
+    reference: string
+    type: $Enums.TransactionType
+    source: string
+    description?: string | null
+    transactionDate: Date | string
+    status?: $Enums.TransactionStatus
+    createdAt?: Date | string
+  }
+
+  export type FinancialTransactionUpdateWithoutPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutFinancialTransactionNestedInput
+    lines?: JournalEntryLineUpdateManyWithoutTransactionNestedInput
+    allocations?: PaymentAllocationUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateWithoutPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lines?: JournalEntryLineUncheckedUpdateManyWithoutTransactionNestedInput
+    allocations?: PaymentAllocationUncheckedUpdateManyWithoutTransactionNestedInput
+  }
+
+  export type FinancialTransactionUncheckedUpdateManyWithoutPeriodInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    reference?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+    source?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineCreateManyTransactionInput = {
+    id?: string
+    tenantId: string
+    accountId: string
+    debit?: Decimal | DecimalJsLike | number | string
+    credit?: Decimal | DecimalJsLike | number | string
+    memo?: string | null
+    dimensionStudentId?: string | null
+    dimensionInvoiceId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type PaymentAllocationCreateManyTransactionInput = {
+    id?: string
+    tenantId: string
+    paymentId: string
+    invoiceItemId: string
+    amount: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type JournalEntryLineUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutJournalEntryLineNestedInput
+    account?: ChartOfAccountUpdateOneRequiredWithoutLinesNestedInput
+    student?: StudentUpdateOneWithoutJournalLinesNestedInput
+    invoice?: InvoiceUpdateOneWithoutJournalLinesNestedInput
+  }
+
+  export type JournalEntryLineUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JournalEntryLineUncheckedUpdateManyWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    debit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    credit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionStudentId?: NullableStringFieldUpdateOperationsInput | string | null
+    dimensionInvoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPaymentAllocationNestedInput
+    payment?: PaymentUpdateOneRequiredWithoutPaymentAllocationNestedInput
+    invoiceItem?: InvoiceItemUpdateOneRequiredWithoutPaymentAllocationNestedInput
+  }
+
+  export type PaymentAllocationUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    invoiceItemId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PaymentAllocationUncheckedUpdateManyWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    paymentId?: StringFieldUpdateOperationsInput | string
+    invoiceItemId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ApprovalStepCreateManyWorkflowInput = {
@@ -173778,6 +186524,18 @@ export namespace Prisma {
      */
     export type LibraryBookCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LibraryBookCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ChartOfAccountCountOutputTypeDefaultArgs instead
+     */
+    export type ChartOfAccountCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ChartOfAccountCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AccountingPeriodCountOutputTypeDefaultArgs instead
+     */
+    export type AccountingPeriodCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountingPeriodCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FinancialTransactionCountOutputTypeDefaultArgs instead
+     */
+    export type FinancialTransactionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FinancialTransactionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ApprovalWorkflowCountOutputTypeDefaultArgs instead
      */
     export type ApprovalWorkflowCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ApprovalWorkflowCountOutputTypeDefaultArgs<ExtArgs>
@@ -174089,6 +186847,26 @@ export namespace Prisma {
      * @deprecated Use PaymentPlanVersionDefaultArgs instead
      */
     export type PaymentPlanVersionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PaymentPlanVersionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ChartOfAccountDefaultArgs instead
+     */
+    export type ChartOfAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ChartOfAccountDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use BankAccountDefaultArgs instead
+     */
+    export type BankAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BankAccountDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AccountingPeriodDefaultArgs instead
+     */
+    export type AccountingPeriodArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountingPeriodDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FinancialTransactionDefaultArgs instead
+     */
+    export type FinancialTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FinancialTransactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use JournalEntryLineDefaultArgs instead
+     */
+    export type JournalEntryLineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalEntryLineDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ApprovalWorkflowDefaultArgs instead
      */
