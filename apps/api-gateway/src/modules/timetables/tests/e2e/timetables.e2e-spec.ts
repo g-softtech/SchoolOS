@@ -138,9 +138,11 @@ describe('Timetables Grid (Real E2E)', () => {
     try {
       await prisma.tenant.deleteMany({ where: { id: { in: [tenant1, tenant2] } } });
     } catch (e) {
-      console.warn('Failed to cleanup tenants, likely due to Neon connection timeout on cascade delete:', e.message);
+      console.error(e);
     }
-    await app.close();
+    if (app) {
+      await app.close();
+    }
   });
 
   describe('Timetable Creation & Tenant Isolation', () => {
