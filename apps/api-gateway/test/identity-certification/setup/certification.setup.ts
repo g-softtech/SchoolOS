@@ -11,6 +11,7 @@ export default async () => {
       process.exit(1);
     }
     console.warn('WARNING: DATABASE_URL is not set. Running with mocked Prisma (local mode).');
+    process.env.DATABASE_URL = 'postgresql://dummy:dummy@localhost:5432/dummy';
   }
 
   // TODO: Verify PostgreSQL is reachable

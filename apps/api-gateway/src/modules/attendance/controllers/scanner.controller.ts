@@ -23,7 +23,8 @@ export class ScannerController {
     return this.scannerService.processArrival(
       workspace.tenant.id, 
       dto.admissionNumber,
-      user.id
+      user.id,
+      dto.scanMethod
     );
   }
 
@@ -38,7 +39,8 @@ export class ScannerController {
     return this.scannerService.processPickup(
       workspace.tenant.id, 
       dto.admissionNumber,
-      user.id
+      user.id,
+      dto.scanMethod
     );
   }
 }

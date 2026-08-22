@@ -124,7 +124,7 @@ export class ScannerService {
   /**
    * Process a student Arrival scan.
    */
-  async processArrival(tenantId: string, admissionNumber: string, scannedByUserId: string) {
+  async processArrival(tenantId: string, admissionNumber: string, scannedByUserId: string, scanMethod?: string) {
     // 1. Tenant-scoped Student lookup
     const student = await this.prisma.student.findUnique({
       where: {
@@ -144,7 +144,7 @@ export class ScannerService {
       throw new NotFoundException('Student not found or invalid for this school.');
     }
 
-    if (student.status !== 'ACTIVE') {
+    if (student.membership?.state !== 'ACTIVE') {
       throw new BadRequestException('Student is not active/enrolled.');
     }
 
@@ -198,7 +198,7 @@ export class ScannerService {
           entity: 'Student',
           entityId: student.id,
           metadata: {
-            method: 'SCAN',
+            method: scanMethod || 'SCAN',
             admissionNumber
           }
         }
@@ -270,7 +270,7 @@ export class ScannerService {
   /**
    * Process a student Pickup scan.
    */
-  async processPickup(tenantId: string, admissionNumber: string, scannedByUserId: string) {
+  async processPickup(tenantId: string, admissionNumber: string, scannedByUserId: string, scanMethod?: string) {
     // 1. Tenant-scoped Student lookup
     const student = await this.prisma.student.findUnique({
       where: {
@@ -290,7 +290,7 @@ export class ScannerService {
       throw new NotFoundException('Student not found or invalid for this school.');
     }
 
-    if (student.status !== 'ACTIVE') {
+    if (student.membership?.state !== 'ACTIVE') {
       throw new BadRequestException('Student is not active/enrolled.');
     }
 
@@ -341,7 +341,7 @@ export class ScannerService {
           entity: 'Student',
           entityId: student.id,
           metadata: {
-            method: 'SCAN',
+            method: scanMethod || 'SCAN',
             admissionNumber
           }
         }

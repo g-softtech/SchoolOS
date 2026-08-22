@@ -1,101 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="6" errors="0" time="28.115">
-  <testsuite name="Scanner Module (Real E2E)" errors="0" failures="6" skipped="0" timestamp="2026-08-22T08:03:24" time="28.032" tests="6">
-    <testcase classname="Scanner Module (Real E2E) Arrival Scan should successfully process a valid arrival scan" name="Scanner Module (Real E2E) Arrival Scan should successfully process a valid arrival scan" time="0.001">
-      <failure>PrismaClientKnownRequestError: 
-Invalid `prisma.user.create()` invocation in
-C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+<testsuites name="jest tests" tests="5" failures="5" errors="0" time="48.208">
+  <testsuite name="StaffController (e2e)" errors="0" failures="5" skipped="0" timestamp="2026-08-22T09:59:10" time="46.81" tests="5">
+    <testcase classname="StaffController (e2e) Departments POST /departments - should create department" name="StaffController (e2e) Departments POST /departments - should create department" time="0.003">
+      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
 
-  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
-  64 });
-  65 
-→ 66 const stUser = await prisma.user.create(
-Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
-    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
-    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
-    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
-    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
+Please make sure your database server is running at `localhost:5432`.
+    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
+    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+    at async Promise.all (index 0)
+    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
+    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
+    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
     </testcase>
-    <testcase classname="Scanner Module (Real E2E) Arrival Scan should block duplicate arrival scans" name="Scanner Module (Real E2E) Arrival Scan should block duplicate arrival scans" time="0">
-      <failure>PrismaClientKnownRequestError: 
-Invalid `prisma.user.create()` invocation in
-C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+    <testcase classname="StaffController (e2e) Departments GET /departments - should isolate and list departments" name="StaffController (e2e) Departments GET /departments - should isolate and list departments" time="0.001">
+      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
 
-  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
-  64 });
-  65 
-→ 66 const stUser = await prisma.user.create(
-Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
-    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
-    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
-    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
-    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
+Please make sure your database server is running at `localhost:5432`.
+    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
+    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+    at async Promise.all (index 0)
+    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
+    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
+    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
     </testcase>
-    <testcase classname="Scanner Module (Real E2E) Arrival Scan should fail when using a cross-tenant admission number" name="Scanner Module (Real E2E) Arrival Scan should fail when using a cross-tenant admission number" time="0">
-      <failure>PrismaClientKnownRequestError: 
-Invalid `prisma.user.create()` invocation in
-C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+    <testcase classname="StaffController (e2e) Staff &amp; Employment POST /staff - should hire staff and isolate by tenant" name="StaffController (e2e) Staff &amp; Employment POST /staff - should hire staff and isolate by tenant" time="0">
+      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
 
-  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
-  64 });
-  65 
-→ 66 const stUser = await prisma.user.create(
-Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
-    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
-    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
-    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
-    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
+Please make sure your database server is running at `localhost:5432`.
+    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
+    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+    at async Promise.all (index 0)
+    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
+    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
+    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
     </testcase>
-    <testcase classname="Scanner Module (Real E2E) Arrival Scan should fail when student does not exist" name="Scanner Module (Real E2E) Arrival Scan should fail when student does not exist" time="0">
-      <failure>PrismaClientKnownRequestError: 
-Invalid `prisma.user.create()` invocation in
-C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+    <testcase classname="StaffController (e2e) Staff &amp; Employment PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant" name="StaffController (e2e) Staff &amp; Employment PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant" time="0.001">
+      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
 
-  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
-  64 });
-  65 
-→ 66 const stUser = await prisma.user.create(
-Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
-    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
-    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
-    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
-    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
+Please make sure your database server is running at `localhost:5432`.
+    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
+    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+    at async Promise.all (index 0)
+    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
+    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
+    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
     </testcase>
-    <testcase classname="Scanner Module (Real E2E) Pickup Scan should successfully process a valid pickup scan" name="Scanner Module (Real E2E) Pickup Scan should successfully process a valid pickup scan" time="0">
-      <failure>PrismaClientKnownRequestError: 
-Invalid `prisma.user.create()` invocation in
-C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
+    <testcase classname="StaffController (e2e) Timetable Eligibility (M12.3) GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership" name="StaffController (e2e) Timetable Eligibility (M12.3) GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership" time="0">
+      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
 
-  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
-  64 });
-  65 
-→ 66 const stUser = await prisma.user.create(
-Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
-    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
-    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
-    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
-    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
-    </testcase>
-    <testcase classname="Scanner Module (Real E2E) Pickup Scan should block duplicate pickup scans" name="Scanner Module (Real E2E) Pickup Scan should block duplicate pickup scans" time="0">
-      <failure>PrismaClientKnownRequestError: 
-Invalid `prisma.user.create()` invocation in
-C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:40
-
-  63   data: { tenantId: tId, timezone: &apos;UTC&apos; }
-  64 });
-  65 
-→ 66 const stUser = await prisma.user.create(
-Foreign key constraint violated: `idm_tenant_memberships_roleId_fkey (index)`
-    at $n.handleRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:7315)
-    at $n.handleAndLogRequestError (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6623)
-    at $n.request (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:121:6307)
-    at l (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:130:9633)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\attendance\tests\e2e\scanner.e2e-spec.ts:66:22)</failure>
+Please make sure your database server is running at `localhost:5432`.
+    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
+    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+    at async Promise.all (index 0)
+    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
+    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
+    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
     </testcase>
   </testsuite>
 </testsuites>
