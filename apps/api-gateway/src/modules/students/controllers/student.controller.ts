@@ -21,13 +21,15 @@ export class StudentController {
     @Query('q') q?: string,
     @Query('status') status?: string,
     @Query('limit') limit?: number,
-    @Query('cursor') cursor?: string
+    @Query('cursor') cursor?: string,
+    @Query('armId') armId?: string
   ) {
     return this.searchService.search(ctx.tenantId, {
       q,
       status,
       limit: limit ? Number(limit) : 50,
-      cursor
+      cursor,
+      armId
     });
   }
 

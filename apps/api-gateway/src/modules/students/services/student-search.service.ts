@@ -6,11 +6,15 @@ import { StudentRepository } from '../repositories/student.repository';
 export class StudentSearchService {
   constructor(private readonly studentRepo: StudentRepository) {}
 
-  async search(tenantId: string, query: { q?: string; status?: any; limit?: number; cursor?: string }) {
+  async search(tenantId: string, query: { q?: string; status?: any; limit?: number; cursor?: string; armId?: string }) {
     const where: any = {};
     
     if (query.status) {
       where.membership = { state: query.status };
+    }
+
+    if (query.armId) {
+      where.currentArmId = query.armId;
     }
 
     if (query.q) {
