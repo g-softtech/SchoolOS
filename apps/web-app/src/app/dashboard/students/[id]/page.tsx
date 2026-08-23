@@ -7,6 +7,8 @@ import AddGuardianClient from './AddGuardianClient';
 import EditMedicalClient from './EditMedicalClient';
 import AddDisciplineClient from './AddDisciplineClient';
 import EditPlacementClient, { ClassData } from './EditPlacementClient';
+import IdCardSection from './IdCardSection';
+import DocumentsSection from './DocumentsSection';
 
 interface ProfileData {
   firstName: string;
@@ -59,12 +61,16 @@ export default async function StudentProfilePage({ params }: { params: { id: str
   let medicalRecord: MedicalData | null = null;
   let disciplineRecords: DisciplineData[] = [];
   let classes: ClassData[] = [];
+  let idCard: any = null;
+  let documents: any[] = [];
 
-  const [studentRes, medRes, discRes, classRes] = await Promise.allSettled([
+  const [studentRes, medRes, discRes, classRes, idCardRes, docRes] = await Promise.allSettled([
     fetchApi<{ data: Record<string, unknown> }>(`/api/v1/students/${studentId}`, { token: session?.accessToken }),
     fetchApi<{ data: MedicalData }>(`/api/v1/students/${studentId}/medical`, { token: session?.accessToken }),
     fetchApi<{ data: DisciplineData[] }>(`/api/v1/students/${studentId}/discipline`, { token: session?.accessToken }),
-    fetchApi<{ data: ClassData[] }>('/api/v1/academics/structure/classes', { token: session?.accessToken })
+    fetchApi<{ data: ClassData[] }>('/api/v1/academics/structure/classes', { token: session?.accessToken }),
+    fetchApi<{ data: any }>(`/api/v1/id-cards/active/STUDENT/${studentId}`, { token: session?.accessToken }).catch(() => ({ data: null })),
+    fetchApi<{ data: any[] }>(`/api/v1/documents/STUDENT/${studentId}`, { token: session?.accessToken }).catch(() => ({ data: [] }))
   ]);
 
   if (studentRes.status === 'fulfilled') {
@@ -89,6 +95,14 @@ export default async function StudentProfilePage({ params }: { params: { id: str
     classes = classRes.value.data;
   } else if (classRes.status === 'rejected') {
     console.error('Failed to fetch classes details', classRes.reason);
+  }
+
+  if (idCardRes.status === 'fulfilled' && (idCardRes.value as any)?.data) {
+    idCard = (idCardRes.value as any).data;
+  }
+
+  if (docRes.status === 'fulfilled' && (docRes.value as any)?.data) {
+    documents = (docRes.value as any).data;
   }
 
   if (!student) {
@@ -280,6 +294,9 @@ export default async function StudentProfilePage({ params }: { params: { id: str
           )}
         </div>
       </div>
+
+      <IdCardSection studentId={studentData.id} initialIdCard={idCard} />
+      <DocumentsSection ownerId={studentData.id} ownerType="STUDENT" initialDocuments={documents} />
 
     </div>
   );

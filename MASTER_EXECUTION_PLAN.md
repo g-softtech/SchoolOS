@@ -71,8 +71,8 @@ The foundation is **FROZEN**. Nobody touches the Database structure, Platform Se
 9. **Phase 12:** Staff (CERTIFIED)
 10. **Phase 13:** Attendance (CERTIFIED)
 11. **Phase 14:** Examinations
-12. **Phase 15:** Finance
-13. **Phase 16:** ID Cards
+12. **Phase 15:** Finance (CERTIFIED)
+13. **Phase 16:** ID Cards (CERTIFIED)
 14. **Phase 17:** Library
 15. **Phase 18:** Transport
 16. **Phase 19:** Hostel
