@@ -41,3 +41,7 @@ export * from './domain/finance/services/FinanceIntegrityVerificationService';
 export * from './domain/finance/services/allocation/AllocationStrategy';
 export * from './domain/finance/services/allocation/OldestFirstStrategy';
 export * from './domain/finance/services/allocation/PriorityFirstStrategy';
+
+// Document Domain Services
+export * from './domain/documents/services/DocumentService';
+export * from './domain/documents/services/IdCardService';

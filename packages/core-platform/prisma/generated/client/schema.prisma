@@ -108,6 +108,9 @@ model Tenant {
   FinancialTransaction FinancialTransaction[]
   JournalEntryLine     JournalEntryLine[]
 
+  Document Document[]
+  IdCard   IdCard[]
+
   @@map("plt_tenants")
 }
 
@@ -2153,4 +2156,50 @@ model IdempotencyRecord {
   createdAt DateTime @default(now())
 
   @@index([eventId])
+}
+
+// ==================================================
+// DOMAIN 16: COMMUNICATIONS & OPERATIONS
+// Phase 16: ID Cards & Document Storage
+// ==================================================
+
+model Document {
+  id          String  @id @default(uuid())
+  tenantId    String
+  tenant      Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ownerType   String // 'STUDENT', 'STAFF', 'TENANT'
+  ownerId     String // Links to Student.id, Staff.id, or Tenant.id
+  type        String // 'MEDICAL', 'LEGAL', 'GENERAL', 'ID_CARD_SCAN'
+  name        String
+  url         String
+  mimeType    String
+  size        Int
+  description String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([tenantId])
+  @@index([ownerType, ownerId])
+  @@map("ops_documents")
+}
+
+model IdCard {
+  id                String    @id @default(uuid())
+  tenantId          String
+  tenant            Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ownerType         String // 'STUDENT', 'STAFF'
+  ownerId           String // Links to Student.id or Staff.id
+  issueDate         DateTime  @default(now())
+  expiryDate        DateTime?
+  status            String    @default("ACTIVE") // 'ACTIVE', 'REVOKED', 'LOST', 'EXPIRED'
+  verificationToken String    @unique // Opaque hash for QR code URL / verification
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([ownerType, ownerId])
+  @@map("ops_id_cards")
 }

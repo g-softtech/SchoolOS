@@ -108,6 +108,9 @@ model Tenant {
   FinancialTransaction FinancialTransaction[]
   JournalEntryLine     JournalEntryLine[]
 
+  Document Document[]
+  IdCard   IdCard[]
+
   @@map("plt_tenants")
 }
 
@@ -664,9 +667,9 @@ model Student {
   Scholarship   Scholarship[]
   Result        Result[]
   BedAllocation BedAllocation[]
-  BookBorrowing  BookBorrowing[]
+  BookBorrowing BookBorrowing[]
 
-  journalLines   JournalEntryLine[]
+  journalLines JournalEntryLine[]
 
   @@unique([tenantId, admissionNumber])
   @@index([tenantId])
@@ -975,8 +978,8 @@ model Invoice {
   status        InvoiceStatus @default(DRAFT)
   dueDate       DateTime
 
-  items    InvoiceItem[]
-  payments Payment[]
+  items        InvoiceItem[]
+  payments     Payment[]
   journalLines JournalEntryLine[]
 
   createdAt DateTime  @default(now())
@@ -1542,13 +1545,13 @@ model PaymentAttempt {
 }
 
 model PaymentAllocation {
-  id            String      @id @default(uuid())
+  id            String                @id @default(uuid())
   tenantId      String
-  tenant        Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant        Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   paymentId     String
-  payment       Payment     @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  payment       Payment               @relation(fields: [paymentId], references: [id], onDelete: Cascade)
   invoiceItemId String
-  invoiceItem   InvoiceItem @relation(fields: [invoiceItemId], references: [id])
+  invoiceItem   InvoiceItem           @relation(fields: [invoiceItemId], references: [id])
   transactionId String?
   transaction   FinancialTransaction? @relation(fields: [transactionId], references: [id], onDelete: Restrict)
   amount        Decimal
@@ -1571,17 +1574,17 @@ model PaymentPlanVersion {
 }
 
 model ChartOfAccount {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   tenantId    String
-  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   code        String
   name        String
   type        AccountType
-  isActive    Boolean  @default(true)
+  isActive    Boolean     @default(true)
   description String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime    @default(now())
 
-  lines       JournalEntryLine[]
+  lines        JournalEntryLine[]
   bankAccounts BankAccount[]
 
   @@unique([tenantId, code])
@@ -1597,32 +1600,32 @@ enum AccountType {
 }
 
 model BankAccount {
-  id              String   @id @default(uuid())
+  id              String         @id @default(uuid())
   tenantId        String
-  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant          Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   ledgerAccountId String
   ledgerAccount   ChartOfAccount @relation(fields: [ledgerAccountId], references: [id], onDelete: Restrict)
   name            String
   accountNumber   String? // E.g. Masked or actual for internal use
   bankName        String?
-  isActive        Boolean  @default(true)
-  createdAt       DateTime @default(now())
+  isActive        Boolean        @default(true)
+  createdAt       DateTime       @default(now())
 
   @@index([tenantId])
   @@map("fin_bank_accounts")
 }
 
 model AccountingPeriod {
-  id        String   @id @default(uuid())
+  id        String       @id @default(uuid())
   tenantId  String
-  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant    Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   name      String
   startDate DateTime
   endDate   DateTime
   status    PeriodStatus @default(OPEN)
   closedAt  DateTime?
   closedBy  String?
-  createdAt DateTime @default(now())
+  createdAt DateTime     @default(now())
 
   transactions FinancialTransaction[]
 
@@ -1637,18 +1640,18 @@ enum PeriodStatus {
 }
 
 model FinancialTransaction {
-  id              String   @id @default(uuid())
+  id              String            @id @default(uuid())
   tenantId        String
-  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant          Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   periodId        String
-  period          AccountingPeriod @relation(fields: [periodId], references: [id], onDelete: Restrict) // Cannot delete period if txns exist
-  reference       String   // Strict Idempotency key
+  period          AccountingPeriod  @relation(fields: [periodId], references: [id], onDelete: Restrict) // Cannot delete period if txns exist
+  reference       String // Strict Idempotency key
   type            TransactionType
   source          String
   description     String?
   transactionDate DateTime
   status          TransactionStatus @default(POSTED)
-  createdAt       DateTime @default(now())
+  createdAt       DateTime          @default(now())
 
   // Cascade delete is strictly forbidden for audit trail safety.
   lines       JournalEntryLine[]
@@ -1676,26 +1679,26 @@ enum TransactionStatus {
 }
 
 model JournalEntryLine {
-  id                 String   @id @default(uuid())
-  tenantId           String
-  tenant             Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  transactionId      String
-  transaction        FinancialTransaction @relation(fields: [transactionId], references: [id], onDelete: Restrict) // Cannot delete txn if lines exist
-  accountId          String
-  account            ChartOfAccount @relation(fields: [accountId], references: [id], onDelete: Restrict)
-  
+  id            String               @id @default(uuid())
+  tenantId      String
+  tenant        Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   FinancialTransaction @relation(fields: [transactionId], references: [id], onDelete: Restrict) // Cannot delete txn if lines exist
+  accountId     String
+  account       ChartOfAccount       @relation(fields: [accountId], references: [id], onDelete: Restrict)
+
   // Safe monetary values
-  debit              Decimal  @default(0.0)
-  credit             Decimal  @default(0.0)
-  memo               String?
-  
+  debit  Decimal @default(0.0)
+  credit Decimal @default(0.0)
+  memo   String?
+
   // Dimensional tracking
   dimensionStudentId String?
   student            Student? @relation(fields: [dimensionStudentId], references: [id], onDelete: SetNull)
   dimensionInvoiceId String?
   invoice            Invoice? @relation(fields: [dimensionInvoiceId], references: [id], onDelete: SetNull)
 
-  createdAt          DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@index([tenantId, accountId])
   @@index([tenantId, dimensionStudentId])
@@ -2153,4 +2156,50 @@ model IdempotencyRecord {
   createdAt DateTime @default(now())
 
   @@index([eventId])
+}
+
+// ==================================================
+// DOMAIN 16: COMMUNICATIONS & OPERATIONS
+// Phase 16: ID Cards & Document Storage
+// ==================================================
+
+model Document {
+  id          String  @id @default(uuid())
+  tenantId    String
+  tenant      Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ownerType   String // 'STUDENT', 'STAFF', 'TENANT'
+  ownerId     String // Links to Student.id, Staff.id, or Tenant.id
+  type        String // 'MEDICAL', 'LEGAL', 'GENERAL', 'ID_CARD_SCAN'
+  name        String
+  url         String
+  mimeType    String
+  size        Int
+  description String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@index([tenantId])
+  @@index([ownerType, ownerId])
+  @@map("ops_documents")
+}
+
+model IdCard {
+  id                String    @id @default(uuid())
+  tenantId          String
+  tenant            Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  ownerType         String // 'STUDENT', 'STAFF'
+  ownerId           String // Links to Student.id or Staff.id
+  issueDate         DateTime  @default(now())
+  expiryDate        DateTime?
+  status            String    @default("ACTIVE") // 'ACTIVE', 'REVOKED', 'LOST', 'EXPIRED'
+  verificationToken String    @unique // Opaque hash for QR code URL / verification
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([ownerType, ownerId])
+  @@map("ops_id_cards")
 }

@@ -1212,6 +1212,35 @@ exports.Prisma.IdempotencyRecordScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.DocumentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ownerType: 'ownerType',
+  ownerId: 'ownerId',
+  type: 'type',
+  name: 'name',
+  url: 'url',
+  mimeType: 'mimeType',
+  size: 'size',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.IdCardScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ownerType: 'ownerType',
+  ownerId: 'ownerId',
+  issueDate: 'issueDate',
+  expiryDate: 'expiryDate',
+  status: 'status',
+  verificationToken: 'verificationToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1555,7 +1584,9 @@ exports.Prisma.ModelName = {
   AdmissionReview: 'AdmissionReview',
   DomainEventLog: 'DomainEventLog',
   OutboxQueue: 'OutboxQueue',
-  IdempotencyRecord: 'IdempotencyRecord'
+  IdempotencyRecord: 'IdempotencyRecord',
+  Document: 'Document',
+  IdCard: 'IdCard'
 };
 
 /**
