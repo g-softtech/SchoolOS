@@ -108,8 +108,9 @@ model Tenant {
   FinancialTransaction FinancialTransaction[]
   JournalEntryLine     JournalEntryLine[]
 
-  Document Document[]
-  IdCard   IdCard[]
+  Document    Document[]
+  IdCard      IdCard[]
+  LibraryFine LibraryFine[]
 
   @@map("plt_tenants")
 }
@@ -982,9 +983,10 @@ model Invoice {
   payments     Payment[]
   journalLines JournalEntryLine[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+  LibraryFine LibraryFine?
 
   @@unique([tenantId, invoiceNumber])
   @@index([tenantId, studentId])
@@ -1478,8 +1480,9 @@ model BookBorrowing {
   dueDate    DateTime
   status     BorrowStatus @default(ISSUED)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  LibraryFine LibraryFine?
 
   @@index([bookId, studentId])
   @@map("ent_book_borrowings")
@@ -1490,6 +1493,31 @@ enum BorrowStatus {
   RETURNED
   OVERDUE
   LOST
+}
+
+model LibraryFine {
+  id          String        @id @default(uuid())
+  tenantId    String
+  tenant      Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  borrowingId String        @unique
+  borrowing   BookBorrowing @relation(fields: [borrowingId], references: [id], onDelete: Cascade)
+  amount      Decimal
+  reason      String
+  status      FineStatus    @default(ASSESSED)
+  invoiceId   String?       @unique
+  invoice     Invoice?      @relation(fields: [invoiceId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@map("ent_library_fines")
+}
+
+enum FineStatus {
+  ASSESSED
+  SETTLED
+  WAIVED
 }
 
 model NotificationQueue {

@@ -824,6 +824,18 @@ exports.Prisma.BookBorrowingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.LibraryFineScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  borrowingId: 'borrowingId',
+  amount: 'amount',
+  reason: 'reason',
+  status: 'status',
+  invoiceId: 'invoiceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.NotificationQueueScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1413,6 +1425,12 @@ exports.BorrowStatus = exports.$Enums.BorrowStatus = {
   LOST: 'LOST'
 };
 
+exports.FineStatus = exports.$Enums.FineStatus = {
+  ASSESSED: 'ASSESSED',
+  SETTLED: 'SETTLED',
+  WAIVED: 'WAIVED'
+};
+
 exports.NotificationChannel = exports.$Enums.NotificationChannel = {
   EMAIL: 'EMAIL',
   SMS: 'SMS',
@@ -1552,6 +1570,7 @@ exports.Prisma.ModelName = {
   TransportRoute: 'TransportRoute',
   LibraryBook: 'LibraryBook',
   BookBorrowing: 'BookBorrowing',
+  LibraryFine: 'LibraryFine',
   NotificationQueue: 'NotificationQueue',
   PaymentAttempt: 'PaymentAttempt',
   PaymentAllocation: 'PaymentAllocation',

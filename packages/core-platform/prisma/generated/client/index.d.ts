@@ -339,6 +339,11 @@ export type LibraryBook = $Result.DefaultSelection<Prisma.$LibraryBookPayload>
  */
 export type BookBorrowing = $Result.DefaultSelection<Prisma.$BookBorrowingPayload>
 /**
+ * Model LibraryFine
+ * 
+ */
+export type LibraryFine = $Result.DefaultSelection<Prisma.$LibraryFinePayload>
+/**
  * Model NotificationQueue
  * 
  */
@@ -721,6 +726,15 @@ export const BorrowStatus: {
 export type BorrowStatus = (typeof BorrowStatus)[keyof typeof BorrowStatus]
 
 
+export const FineStatus: {
+  ASSESSED: 'ASSESSED',
+  SETTLED: 'SETTLED',
+  WAIVED: 'WAIVED'
+};
+
+export type FineStatus = (typeof FineStatus)[keyof typeof FineStatus]
+
+
 export const NotificationChannel: {
   EMAIL: 'EMAIL',
   SMS: 'SMS',
@@ -907,6 +921,10 @@ export const AIFeature: typeof $Enums.AIFeature
 export type BorrowStatus = $Enums.BorrowStatus
 
 export const BorrowStatus: typeof $Enums.BorrowStatus
+
+export type FineStatus = $Enums.FineStatus
+
+export const FineStatus: typeof $Enums.FineStatus
 
 export type NotificationChannel = $Enums.NotificationChannel
 
@@ -1724,6 +1742,16 @@ export class PrismaClient<
     * ```
     */
   get bookBorrowing(): Prisma.BookBorrowingDelegate<ExtArgs>;
+
+  /**
+   * `prisma.libraryFine`: Exposes CRUD operations for the **LibraryFine** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LibraryFines
+    * const libraryFines = await prisma.libraryFine.findMany()
+    * ```
+    */
+  get libraryFine(): Prisma.LibraryFineDelegate<ExtArgs>;
 
   /**
    * `prisma.notificationQueue`: Exposes CRUD operations for the **NotificationQueue** model.
@@ -2580,6 +2608,7 @@ export namespace Prisma {
     TransportRoute: 'TransportRoute',
     LibraryBook: 'LibraryBook',
     BookBorrowing: 'BookBorrowing',
+    LibraryFine: 'LibraryFine',
     NotificationQueue: 'NotificationQueue',
     PaymentAttempt: 'PaymentAttempt',
     PaymentAllocation: 'PaymentAllocation',
@@ -2630,7 +2659,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "chartOfAccount" | "bankAccount" | "accountingPeriod" | "financialTransaction" | "journalEntryLine" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord" | "document" | "idCard"
+      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "libraryFine" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "chartOfAccount" | "bankAccount" | "accountingPeriod" | "financialTransaction" | "journalEntryLine" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord" | "document" | "idCard"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7184,6 +7213,76 @@ export namespace Prisma {
           }
         }
       }
+      LibraryFine: {
+        payload: Prisma.$LibraryFinePayload<ExtArgs>
+        fields: Prisma.LibraryFineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LibraryFineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LibraryFineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>
+          }
+          findFirst: {
+            args: Prisma.LibraryFineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LibraryFineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>
+          }
+          findMany: {
+            args: Prisma.LibraryFineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>[]
+          }
+          create: {
+            args: Prisma.LibraryFineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>
+          }
+          createMany: {
+            args: Prisma.LibraryFineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LibraryFineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>[]
+          }
+          delete: {
+            args: Prisma.LibraryFineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>
+          }
+          update: {
+            args: Prisma.LibraryFineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>
+          }
+          deleteMany: {
+            args: Prisma.LibraryFineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LibraryFineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LibraryFineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LibraryFinePayload>
+          }
+          aggregate: {
+            args: Prisma.LibraryFineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLibraryFine>
+          }
+          groupBy: {
+            args: Prisma.LibraryFineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LibraryFineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LibraryFineCountArgs<ExtArgs>
+            result: $Utils.Optional<LibraryFineCountAggregateOutputType> | number
+          }
+        }
+      }
       NotificationQueue: {
         payload: Prisma.$NotificationQueuePayload<ExtArgs>
         fields: Prisma.NotificationQueueFieldRefs
@@ -9899,6 +9998,7 @@ export namespace Prisma {
     JournalEntryLine: number
     Document: number
     IdCard: number
+    LibraryFine: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9966,6 +10066,7 @@ export namespace Prisma {
     JournalEntryLine?: boolean | TenantCountOutputTypeCountJournalEntryLineArgs
     Document?: boolean | TenantCountOutputTypeCountDocumentArgs
     IdCard?: boolean | TenantCountOutputTypeCountIdCardArgs
+    LibraryFine?: boolean | TenantCountOutputTypeCountLibraryFineArgs
   }
 
   // Custom InputTypes
@@ -10425,6 +10526,13 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountIdCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IdCardWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountLibraryFineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LibraryFineWhereInput
   }
 
 
@@ -13222,6 +13330,7 @@ export namespace Prisma {
     JournalEntryLine?: boolean | Tenant$JournalEntryLineArgs<ExtArgs>
     Document?: boolean | Tenant$DocumentArgs<ExtArgs>
     IdCard?: boolean | Tenant$IdCardArgs<ExtArgs>
+    LibraryFine?: boolean | Tenant$LibraryFineArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -13317,6 +13426,7 @@ export namespace Prisma {
     JournalEntryLine?: boolean | Tenant$JournalEntryLineArgs<ExtArgs>
     Document?: boolean | Tenant$DocumentArgs<ExtArgs>
     IdCard?: boolean | Tenant$IdCardArgs<ExtArgs>
+    LibraryFine?: boolean | Tenant$LibraryFineArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13394,6 +13504,7 @@ export namespace Prisma {
       JournalEntryLine: Prisma.$JournalEntryLinePayload<ExtArgs>[]
       Document: Prisma.$DocumentPayload<ExtArgs>[]
       IdCard: Prisma.$IdCardPayload<ExtArgs>[]
+      LibraryFine: Prisma.$LibraryFinePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13836,6 +13947,7 @@ export namespace Prisma {
     JournalEntryLine<T extends Tenant$JournalEntryLineArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$JournalEntryLineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
     Document<T extends Tenant$DocumentArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$DocumentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany"> | Null>
     IdCard<T extends Tenant$IdCardArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$IdCardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany"> | Null>
+    LibraryFine<T extends Tenant$LibraryFineArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$LibraryFineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15513,6 +15625,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IdCardScalarFieldEnum | IdCardScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.LibraryFine
+   */
+  export type Tenant$LibraryFineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    where?: LibraryFineWhereInput
+    orderBy?: LibraryFineOrderByWithRelationInput | LibraryFineOrderByWithRelationInput[]
+    cursor?: LibraryFineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LibraryFineScalarFieldEnum | LibraryFineScalarFieldEnum[]
   }
 
   /**
@@ -54807,6 +54939,7 @@ export namespace Prisma {
     items?: boolean | Invoice$itemsArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     journalLines?: boolean | Invoice$journalLinesArgs<ExtArgs>
+    LibraryFine?: boolean | Invoice$LibraryFineArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["invoice"]>
 
@@ -54850,6 +54983,7 @@ export namespace Prisma {
     items?: boolean | Invoice$itemsArgs<ExtArgs>
     payments?: boolean | Invoice$paymentsArgs<ExtArgs>
     journalLines?: boolean | Invoice$journalLinesArgs<ExtArgs>
+    LibraryFine?: boolean | Invoice$LibraryFineArgs<ExtArgs>
     _count?: boolean | InvoiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -54867,6 +55001,7 @@ export namespace Prisma {
       items: Prisma.$InvoiceItemPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
       journalLines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
+      LibraryFine: Prisma.$LibraryFinePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -55251,6 +55386,7 @@ export namespace Prisma {
     items<T extends Invoice$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findMany"> | Null>
     payments<T extends Invoice$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany"> | Null>
     journalLines<T extends Invoice$journalLinesArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$journalLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
+    LibraryFine<T extends Invoice$LibraryFineArgs<ExtArgs> = {}>(args?: Subset<T, Invoice$LibraryFineArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -55667,6 +55803,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JournalEntryLineScalarFieldEnum | JournalEntryLineScalarFieldEnum[]
+  }
+
+  /**
+   * Invoice.LibraryFine
+   */
+  export type Invoice$LibraryFineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    where?: LibraryFineWhereInput
   }
 
   /**
@@ -78211,6 +78362,7 @@ export namespace Prisma {
     updatedAt?: boolean
     book?: boolean | LibraryBookDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    LibraryFine?: boolean | BookBorrowing$LibraryFineArgs<ExtArgs>
   }, ExtArgs["result"]["bookBorrowing"]>
 
   export type BookBorrowingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -78242,6 +78394,7 @@ export namespace Prisma {
   export type BookBorrowingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     book?: boolean | LibraryBookDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
+    LibraryFine?: boolean | BookBorrowing$LibraryFineArgs<ExtArgs>
   }
   export type BookBorrowingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     book?: boolean | LibraryBookDefaultArgs<ExtArgs>
@@ -78253,6 +78406,7 @@ export namespace Prisma {
     objects: {
       book: Prisma.$LibraryBookPayload<ExtArgs>
       student: Prisma.$StudentPayload<ExtArgs>
+      LibraryFine: Prisma.$LibraryFinePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -78630,6 +78784,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     book<T extends LibraryBookDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LibraryBookDefaultArgs<ExtArgs>>): Prisma__LibraryBookClient<$Result.GetResult<Prisma.$LibraryBookPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    LibraryFine<T extends BookBorrowing$LibraryFineArgs<ExtArgs> = {}>(args?: Subset<T, BookBorrowing$LibraryFineArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -78986,6 +79141,21 @@ export namespace Prisma {
   }
 
   /**
+   * BookBorrowing.LibraryFine
+   */
+  export type BookBorrowing$LibraryFineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    where?: LibraryFineWhereInput
+  }
+
+  /**
    * BookBorrowing without action
    */
   export type BookBorrowingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -78997,6 +79167,1048 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BookBorrowingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LibraryFine
+   */
+
+  export type AggregateLibraryFine = {
+    _count: LibraryFineCountAggregateOutputType | null
+    _avg: LibraryFineAvgAggregateOutputType | null
+    _sum: LibraryFineSumAggregateOutputType | null
+    _min: LibraryFineMinAggregateOutputType | null
+    _max: LibraryFineMaxAggregateOutputType | null
+  }
+
+  export type LibraryFineAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type LibraryFineSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type LibraryFineMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    borrowingId: string | null
+    amount: Decimal | null
+    reason: string | null
+    status: $Enums.FineStatus | null
+    invoiceId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LibraryFineMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    borrowingId: string | null
+    amount: Decimal | null
+    reason: string | null
+    status: $Enums.FineStatus | null
+    invoiceId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LibraryFineCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    borrowingId: number
+    amount: number
+    reason: number
+    status: number
+    invoiceId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LibraryFineAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type LibraryFineSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type LibraryFineMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    borrowingId?: true
+    amount?: true
+    reason?: true
+    status?: true
+    invoiceId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LibraryFineMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    borrowingId?: true
+    amount?: true
+    reason?: true
+    status?: true
+    invoiceId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LibraryFineCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    borrowingId?: true
+    amount?: true
+    reason?: true
+    status?: true
+    invoiceId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LibraryFineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LibraryFine to aggregate.
+     */
+    where?: LibraryFineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LibraryFines to fetch.
+     */
+    orderBy?: LibraryFineOrderByWithRelationInput | LibraryFineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LibraryFineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LibraryFines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LibraryFines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LibraryFines
+    **/
+    _count?: true | LibraryFineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LibraryFineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LibraryFineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LibraryFineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LibraryFineMaxAggregateInputType
+  }
+
+  export type GetLibraryFineAggregateType<T extends LibraryFineAggregateArgs> = {
+        [P in keyof T & keyof AggregateLibraryFine]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLibraryFine[P]>
+      : GetScalarType<T[P], AggregateLibraryFine[P]>
+  }
+
+
+
+
+  export type LibraryFineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LibraryFineWhereInput
+    orderBy?: LibraryFineOrderByWithAggregationInput | LibraryFineOrderByWithAggregationInput[]
+    by: LibraryFineScalarFieldEnum[] | LibraryFineScalarFieldEnum
+    having?: LibraryFineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LibraryFineCountAggregateInputType | true
+    _avg?: LibraryFineAvgAggregateInputType
+    _sum?: LibraryFineSumAggregateInputType
+    _min?: LibraryFineMinAggregateInputType
+    _max?: LibraryFineMaxAggregateInputType
+  }
+
+  export type LibraryFineGroupByOutputType = {
+    id: string
+    tenantId: string
+    borrowingId: string
+    amount: Decimal
+    reason: string
+    status: $Enums.FineStatus
+    invoiceId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: LibraryFineCountAggregateOutputType | null
+    _avg: LibraryFineAvgAggregateOutputType | null
+    _sum: LibraryFineSumAggregateOutputType | null
+    _min: LibraryFineMinAggregateOutputType | null
+    _max: LibraryFineMaxAggregateOutputType | null
+  }
+
+  type GetLibraryFineGroupByPayload<T extends LibraryFineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LibraryFineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LibraryFineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LibraryFineGroupByOutputType[P]>
+            : GetScalarType<T[P], LibraryFineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LibraryFineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    borrowingId?: boolean
+    amount?: boolean
+    reason?: boolean
+    status?: boolean
+    invoiceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    borrowing?: boolean | BookBorrowingDefaultArgs<ExtArgs>
+    invoice?: boolean | LibraryFine$invoiceArgs<ExtArgs>
+  }, ExtArgs["result"]["libraryFine"]>
+
+  export type LibraryFineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    borrowingId?: boolean
+    amount?: boolean
+    reason?: boolean
+    status?: boolean
+    invoiceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    borrowing?: boolean | BookBorrowingDefaultArgs<ExtArgs>
+    invoice?: boolean | LibraryFine$invoiceArgs<ExtArgs>
+  }, ExtArgs["result"]["libraryFine"]>
+
+  export type LibraryFineSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    borrowingId?: boolean
+    amount?: boolean
+    reason?: boolean
+    status?: boolean
+    invoiceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LibraryFineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    borrowing?: boolean | BookBorrowingDefaultArgs<ExtArgs>
+    invoice?: boolean | LibraryFine$invoiceArgs<ExtArgs>
+  }
+  export type LibraryFineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    borrowing?: boolean | BookBorrowingDefaultArgs<ExtArgs>
+    invoice?: boolean | LibraryFine$invoiceArgs<ExtArgs>
+  }
+
+  export type $LibraryFinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LibraryFine"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      borrowing: Prisma.$BookBorrowingPayload<ExtArgs>
+      invoice: Prisma.$InvoicePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      borrowingId: string
+      amount: Prisma.Decimal
+      reason: string
+      status: $Enums.FineStatus
+      invoiceId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["libraryFine"]>
+    composites: {}
+  }
+
+  type LibraryFineGetPayload<S extends boolean | null | undefined | LibraryFineDefaultArgs> = $Result.GetResult<Prisma.$LibraryFinePayload, S>
+
+  type LibraryFineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<LibraryFineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: LibraryFineCountAggregateInputType | true
+    }
+
+  export interface LibraryFineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LibraryFine'], meta: { name: 'LibraryFine' } }
+    /**
+     * Find zero or one LibraryFine that matches the filter.
+     * @param {LibraryFineFindUniqueArgs} args - Arguments to find a LibraryFine
+     * @example
+     * // Get one LibraryFine
+     * const libraryFine = await prisma.libraryFine.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LibraryFineFindUniqueArgs>(args: SelectSubset<T, LibraryFineFindUniqueArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one LibraryFine that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {LibraryFineFindUniqueOrThrowArgs} args - Arguments to find a LibraryFine
+     * @example
+     * // Get one LibraryFine
+     * const libraryFine = await prisma.libraryFine.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LibraryFineFindUniqueOrThrowArgs>(args: SelectSubset<T, LibraryFineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first LibraryFine that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineFindFirstArgs} args - Arguments to find a LibraryFine
+     * @example
+     * // Get one LibraryFine
+     * const libraryFine = await prisma.libraryFine.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LibraryFineFindFirstArgs>(args?: SelectSubset<T, LibraryFineFindFirstArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first LibraryFine that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineFindFirstOrThrowArgs} args - Arguments to find a LibraryFine
+     * @example
+     * // Get one LibraryFine
+     * const libraryFine = await prisma.libraryFine.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LibraryFineFindFirstOrThrowArgs>(args?: SelectSubset<T, LibraryFineFindFirstOrThrowArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more LibraryFines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LibraryFines
+     * const libraryFines = await prisma.libraryFine.findMany()
+     * 
+     * // Get first 10 LibraryFines
+     * const libraryFines = await prisma.libraryFine.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const libraryFineWithIdOnly = await prisma.libraryFine.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LibraryFineFindManyArgs>(args?: SelectSubset<T, LibraryFineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a LibraryFine.
+     * @param {LibraryFineCreateArgs} args - Arguments to create a LibraryFine.
+     * @example
+     * // Create one LibraryFine
+     * const LibraryFine = await prisma.libraryFine.create({
+     *   data: {
+     *     // ... data to create a LibraryFine
+     *   }
+     * })
+     * 
+     */
+    create<T extends LibraryFineCreateArgs>(args: SelectSubset<T, LibraryFineCreateArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many LibraryFines.
+     * @param {LibraryFineCreateManyArgs} args - Arguments to create many LibraryFines.
+     * @example
+     * // Create many LibraryFines
+     * const libraryFine = await prisma.libraryFine.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LibraryFineCreateManyArgs>(args?: SelectSubset<T, LibraryFineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LibraryFines and returns the data saved in the database.
+     * @param {LibraryFineCreateManyAndReturnArgs} args - Arguments to create many LibraryFines.
+     * @example
+     * // Create many LibraryFines
+     * const libraryFine = await prisma.libraryFine.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LibraryFines and only return the `id`
+     * const libraryFineWithIdOnly = await prisma.libraryFine.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LibraryFineCreateManyAndReturnArgs>(args?: SelectSubset<T, LibraryFineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a LibraryFine.
+     * @param {LibraryFineDeleteArgs} args - Arguments to delete one LibraryFine.
+     * @example
+     * // Delete one LibraryFine
+     * const LibraryFine = await prisma.libraryFine.delete({
+     *   where: {
+     *     // ... filter to delete one LibraryFine
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LibraryFineDeleteArgs>(args: SelectSubset<T, LibraryFineDeleteArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one LibraryFine.
+     * @param {LibraryFineUpdateArgs} args - Arguments to update one LibraryFine.
+     * @example
+     * // Update one LibraryFine
+     * const libraryFine = await prisma.libraryFine.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LibraryFineUpdateArgs>(args: SelectSubset<T, LibraryFineUpdateArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more LibraryFines.
+     * @param {LibraryFineDeleteManyArgs} args - Arguments to filter LibraryFines to delete.
+     * @example
+     * // Delete a few LibraryFines
+     * const { count } = await prisma.libraryFine.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LibraryFineDeleteManyArgs>(args?: SelectSubset<T, LibraryFineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LibraryFines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LibraryFines
+     * const libraryFine = await prisma.libraryFine.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LibraryFineUpdateManyArgs>(args: SelectSubset<T, LibraryFineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LibraryFine.
+     * @param {LibraryFineUpsertArgs} args - Arguments to update or create a LibraryFine.
+     * @example
+     * // Update or create a LibraryFine
+     * const libraryFine = await prisma.libraryFine.upsert({
+     *   create: {
+     *     // ... data to create a LibraryFine
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LibraryFine we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LibraryFineUpsertArgs>(args: SelectSubset<T, LibraryFineUpsertArgs<ExtArgs>>): Prisma__LibraryFineClient<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of LibraryFines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineCountArgs} args - Arguments to filter LibraryFines to count.
+     * @example
+     * // Count the number of LibraryFines
+     * const count = await prisma.libraryFine.count({
+     *   where: {
+     *     // ... the filter for the LibraryFines we want to count
+     *   }
+     * })
+    **/
+    count<T extends LibraryFineCountArgs>(
+      args?: Subset<T, LibraryFineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LibraryFineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LibraryFine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LibraryFineAggregateArgs>(args: Subset<T, LibraryFineAggregateArgs>): Prisma.PrismaPromise<GetLibraryFineAggregateType<T>>
+
+    /**
+     * Group by LibraryFine.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LibraryFineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LibraryFineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LibraryFineGroupByArgs['orderBy'] }
+        : { orderBy?: LibraryFineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LibraryFineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLibraryFineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LibraryFine model
+   */
+  readonly fields: LibraryFineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LibraryFine.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LibraryFineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    borrowing<T extends BookBorrowingDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BookBorrowingDefaultArgs<ExtArgs>>): Prisma__BookBorrowingClient<$Result.GetResult<Prisma.$BookBorrowingPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    invoice<T extends LibraryFine$invoiceArgs<ExtArgs> = {}>(args?: Subset<T, LibraryFine$invoiceArgs<ExtArgs>>): Prisma__InvoiceClient<$Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LibraryFine model
+   */ 
+  interface LibraryFineFieldRefs {
+    readonly id: FieldRef<"LibraryFine", 'String'>
+    readonly tenantId: FieldRef<"LibraryFine", 'String'>
+    readonly borrowingId: FieldRef<"LibraryFine", 'String'>
+    readonly amount: FieldRef<"LibraryFine", 'Decimal'>
+    readonly reason: FieldRef<"LibraryFine", 'String'>
+    readonly status: FieldRef<"LibraryFine", 'FineStatus'>
+    readonly invoiceId: FieldRef<"LibraryFine", 'String'>
+    readonly createdAt: FieldRef<"LibraryFine", 'DateTime'>
+    readonly updatedAt: FieldRef<"LibraryFine", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LibraryFine findUnique
+   */
+  export type LibraryFineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * Filter, which LibraryFine to fetch.
+     */
+    where: LibraryFineWhereUniqueInput
+  }
+
+  /**
+   * LibraryFine findUniqueOrThrow
+   */
+  export type LibraryFineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * Filter, which LibraryFine to fetch.
+     */
+    where: LibraryFineWhereUniqueInput
+  }
+
+  /**
+   * LibraryFine findFirst
+   */
+  export type LibraryFineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * Filter, which LibraryFine to fetch.
+     */
+    where?: LibraryFineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LibraryFines to fetch.
+     */
+    orderBy?: LibraryFineOrderByWithRelationInput | LibraryFineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LibraryFines.
+     */
+    cursor?: LibraryFineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LibraryFines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LibraryFines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LibraryFines.
+     */
+    distinct?: LibraryFineScalarFieldEnum | LibraryFineScalarFieldEnum[]
+  }
+
+  /**
+   * LibraryFine findFirstOrThrow
+   */
+  export type LibraryFineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * Filter, which LibraryFine to fetch.
+     */
+    where?: LibraryFineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LibraryFines to fetch.
+     */
+    orderBy?: LibraryFineOrderByWithRelationInput | LibraryFineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LibraryFines.
+     */
+    cursor?: LibraryFineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LibraryFines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LibraryFines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LibraryFines.
+     */
+    distinct?: LibraryFineScalarFieldEnum | LibraryFineScalarFieldEnum[]
+  }
+
+  /**
+   * LibraryFine findMany
+   */
+  export type LibraryFineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * Filter, which LibraryFines to fetch.
+     */
+    where?: LibraryFineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LibraryFines to fetch.
+     */
+    orderBy?: LibraryFineOrderByWithRelationInput | LibraryFineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LibraryFines.
+     */
+    cursor?: LibraryFineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LibraryFines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LibraryFines.
+     */
+    skip?: number
+    distinct?: LibraryFineScalarFieldEnum | LibraryFineScalarFieldEnum[]
+  }
+
+  /**
+   * LibraryFine create
+   */
+  export type LibraryFineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LibraryFine.
+     */
+    data: XOR<LibraryFineCreateInput, LibraryFineUncheckedCreateInput>
+  }
+
+  /**
+   * LibraryFine createMany
+   */
+  export type LibraryFineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LibraryFines.
+     */
+    data: LibraryFineCreateManyInput | LibraryFineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LibraryFine createManyAndReturn
+   */
+  export type LibraryFineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many LibraryFines.
+     */
+    data: LibraryFineCreateManyInput | LibraryFineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LibraryFine update
+   */
+  export type LibraryFineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LibraryFine.
+     */
+    data: XOR<LibraryFineUpdateInput, LibraryFineUncheckedUpdateInput>
+    /**
+     * Choose, which LibraryFine to update.
+     */
+    where: LibraryFineWhereUniqueInput
+  }
+
+  /**
+   * LibraryFine updateMany
+   */
+  export type LibraryFineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LibraryFines.
+     */
+    data: XOR<LibraryFineUpdateManyMutationInput, LibraryFineUncheckedUpdateManyInput>
+    /**
+     * Filter which LibraryFines to update
+     */
+    where?: LibraryFineWhereInput
+  }
+
+  /**
+   * LibraryFine upsert
+   */
+  export type LibraryFineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LibraryFine to update in case it exists.
+     */
+    where: LibraryFineWhereUniqueInput
+    /**
+     * In case the LibraryFine found by the `where` argument doesn't exist, create a new LibraryFine with this data.
+     */
+    create: XOR<LibraryFineCreateInput, LibraryFineUncheckedCreateInput>
+    /**
+     * In case the LibraryFine was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LibraryFineUpdateInput, LibraryFineUncheckedUpdateInput>
+  }
+
+  /**
+   * LibraryFine delete
+   */
+  export type LibraryFineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
+    /**
+     * Filter which LibraryFine to delete.
+     */
+    where: LibraryFineWhereUniqueInput
+  }
+
+  /**
+   * LibraryFine deleteMany
+   */
+  export type LibraryFineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LibraryFines to delete
+     */
+    where?: LibraryFineWhereInput
+  }
+
+  /**
+   * LibraryFine.invoice
+   */
+  export type LibraryFine$invoiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invoice
+     */
+    select?: InvoiceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceInclude<ExtArgs> | null
+    where?: InvoiceWhereInput
+  }
+
+  /**
+   * LibraryFine without action
+   */
+  export type LibraryFineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LibraryFine
+     */
+    select?: LibraryFineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LibraryFineInclude<ExtArgs> | null
   }
 
 
@@ -115249,6 +116461,21 @@ export namespace Prisma {
   export type BookBorrowingScalarFieldEnum = (typeof BookBorrowingScalarFieldEnum)[keyof typeof BookBorrowingScalarFieldEnum]
 
 
+  export const LibraryFineScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    borrowingId: 'borrowingId',
+    amount: 'amount',
+    reason: 'reason',
+    status: 'status',
+    invoiceId: 'invoiceId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LibraryFineScalarFieldEnum = (typeof LibraryFineScalarFieldEnum)[keyof typeof LibraryFineScalarFieldEnum]
+
+
   export const NotificationQueueScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -116175,6 +117402,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'FineStatus'
+   */
+  export type EnumFineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FineStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'FineStatus[]'
+   */
+  export type ListEnumFineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FineStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'NotificationChannel'
    */
   export type EnumNotificationChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationChannel'>
@@ -116490,6 +117731,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineListRelationFilter
     Document?: DocumentListRelationFilter
     IdCard?: IdCardListRelationFilter
+    LibraryFine?: LibraryFineListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -116569,6 +117811,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineOrderByRelationAggregateInput
     Document?: DocumentOrderByRelationAggregateInput
     IdCard?: IdCardOrderByRelationAggregateInput
+    LibraryFine?: LibraryFineOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -116651,6 +117894,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineListRelationFilter
     Document?: DocumentListRelationFilter
     IdCard?: IdCardListRelationFilter
+    LibraryFine?: LibraryFineListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -119566,6 +120810,7 @@ export namespace Prisma {
     items?: InvoiceItemListRelationFilter
     payments?: PaymentListRelationFilter
     journalLines?: JournalEntryLineListRelationFilter
+    LibraryFine?: XOR<LibraryFineNullableRelationFilter, LibraryFineWhereInput> | null
   }
 
   export type InvoiceOrderByWithRelationInput = {
@@ -119587,6 +120832,7 @@ export namespace Prisma {
     items?: InvoiceItemOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
     journalLines?: JournalEntryLineOrderByRelationAggregateInput
+    LibraryFine?: LibraryFineOrderByWithRelationInput
   }
 
   export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -119612,6 +120858,7 @@ export namespace Prisma {
     items?: InvoiceItemListRelationFilter
     payments?: PaymentListRelationFilter
     journalLines?: JournalEntryLineListRelationFilter
+    LibraryFine?: XOR<LibraryFineNullableRelationFilter, LibraryFineWhereInput> | null
   }, "id" | "tenantId_invoiceNumber">
 
   export type InvoiceOrderByWithAggregationInput = {
@@ -121341,6 +122588,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BookBorrowing"> | Date | string
     book?: XOR<LibraryBookRelationFilter, LibraryBookWhereInput>
     student?: XOR<StudentRelationFilter, StudentWhereInput>
+    LibraryFine?: XOR<LibraryFineNullableRelationFilter, LibraryFineWhereInput> | null
   }
 
   export type BookBorrowingOrderByWithRelationInput = {
@@ -121355,6 +122603,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     book?: LibraryBookOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
+    LibraryFine?: LibraryFineOrderByWithRelationInput
   }
 
   export type BookBorrowingWhereUniqueInput = Prisma.AtLeast<{
@@ -121372,6 +122621,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BookBorrowing"> | Date | string
     book?: XOR<LibraryBookRelationFilter, LibraryBookWhereInput>
     student?: XOR<StudentRelationFilter, StudentWhereInput>
+    LibraryFine?: XOR<LibraryFineNullableRelationFilter, LibraryFineWhereInput> | null
   }, "id">
 
   export type BookBorrowingOrderByWithAggregationInput = {
@@ -121402,6 +122652,89 @@ export namespace Prisma {
     status?: EnumBorrowStatusWithAggregatesFilter<"BookBorrowing"> | $Enums.BorrowStatus
     createdAt?: DateTimeWithAggregatesFilter<"BookBorrowing"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BookBorrowing"> | Date | string
+  }
+
+  export type LibraryFineWhereInput = {
+    AND?: LibraryFineWhereInput | LibraryFineWhereInput[]
+    OR?: LibraryFineWhereInput[]
+    NOT?: LibraryFineWhereInput | LibraryFineWhereInput[]
+    id?: StringFilter<"LibraryFine"> | string
+    tenantId?: StringFilter<"LibraryFine"> | string
+    borrowingId?: StringFilter<"LibraryFine"> | string
+    amount?: DecimalFilter<"LibraryFine"> | Decimal | DecimalJsLike | number | string
+    reason?: StringFilter<"LibraryFine"> | string
+    status?: EnumFineStatusFilter<"LibraryFine"> | $Enums.FineStatus
+    invoiceId?: StringNullableFilter<"LibraryFine"> | string | null
+    createdAt?: DateTimeFilter<"LibraryFine"> | Date | string
+    updatedAt?: DateTimeFilter<"LibraryFine"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    borrowing?: XOR<BookBorrowingRelationFilter, BookBorrowingWhereInput>
+    invoice?: XOR<InvoiceNullableRelationFilter, InvoiceWhereInput> | null
+  }
+
+  export type LibraryFineOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    borrowingId?: SortOrder
+    amount?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    invoiceId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    borrowing?: BookBorrowingOrderByWithRelationInput
+    invoice?: InvoiceOrderByWithRelationInput
+  }
+
+  export type LibraryFineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    borrowingId?: string
+    invoiceId?: string
+    AND?: LibraryFineWhereInput | LibraryFineWhereInput[]
+    OR?: LibraryFineWhereInput[]
+    NOT?: LibraryFineWhereInput | LibraryFineWhereInput[]
+    tenantId?: StringFilter<"LibraryFine"> | string
+    amount?: DecimalFilter<"LibraryFine"> | Decimal | DecimalJsLike | number | string
+    reason?: StringFilter<"LibraryFine"> | string
+    status?: EnumFineStatusFilter<"LibraryFine"> | $Enums.FineStatus
+    createdAt?: DateTimeFilter<"LibraryFine"> | Date | string
+    updatedAt?: DateTimeFilter<"LibraryFine"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    borrowing?: XOR<BookBorrowingRelationFilter, BookBorrowingWhereInput>
+    invoice?: XOR<InvoiceNullableRelationFilter, InvoiceWhereInput> | null
+  }, "id" | "borrowingId" | "invoiceId">
+
+  export type LibraryFineOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    borrowingId?: SortOrder
+    amount?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    invoiceId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LibraryFineCountOrderByAggregateInput
+    _avg?: LibraryFineAvgOrderByAggregateInput
+    _max?: LibraryFineMaxOrderByAggregateInput
+    _min?: LibraryFineMinOrderByAggregateInput
+    _sum?: LibraryFineSumOrderByAggregateInput
+  }
+
+  export type LibraryFineScalarWhereWithAggregatesInput = {
+    AND?: LibraryFineScalarWhereWithAggregatesInput | LibraryFineScalarWhereWithAggregatesInput[]
+    OR?: LibraryFineScalarWhereWithAggregatesInput[]
+    NOT?: LibraryFineScalarWhereWithAggregatesInput | LibraryFineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LibraryFine"> | string
+    tenantId?: StringWithAggregatesFilter<"LibraryFine"> | string
+    borrowingId?: StringWithAggregatesFilter<"LibraryFine"> | string
+    amount?: DecimalWithAggregatesFilter<"LibraryFine"> | Decimal | DecimalJsLike | number | string
+    reason?: StringWithAggregatesFilter<"LibraryFine"> | string
+    status?: EnumFineStatusWithAggregatesFilter<"LibraryFine"> | $Enums.FineStatus
+    invoiceId?: StringNullableWithAggregatesFilter<"LibraryFine"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"LibraryFine"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LibraryFine"> | Date | string
   }
 
   export type NotificationQueueWhereInput = {
@@ -124298,6 +125631,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -124376,6 +125710,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -124454,6 +125789,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -124532,6 +125868,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -127581,6 +128918,7 @@ export namespace Prisma {
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateInput = {
@@ -127599,6 +128937,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUpdateInput = {
@@ -127617,6 +128956,7 @@ export namespace Prisma {
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateInput = {
@@ -127635,6 +128975,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceCreateManyInput = {
@@ -129423,6 +130764,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     book: LibraryBookCreateNestedOneWithoutBorrowingsInput
     student: StudentCreateNestedOneWithoutBookBorrowingInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutBorrowingInput
   }
 
   export type BookBorrowingUncheckedCreateInput = {
@@ -129435,6 +130777,7 @@ export namespace Prisma {
     status?: $Enums.BorrowStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutBorrowingInput
   }
 
   export type BookBorrowingUpdateInput = {
@@ -129447,6 +130790,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     book?: LibraryBookUpdateOneRequiredWithoutBorrowingsNestedInput
     student?: StudentUpdateOneRequiredWithoutBookBorrowingNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutBorrowingNestedInput
   }
 
   export type BookBorrowingUncheckedUpdateInput = {
@@ -129459,6 +130803,7 @@ export namespace Prisma {
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutBorrowingNestedInput
   }
 
   export type BookBorrowingCreateManyInput = {
@@ -129491,6 +130836,87 @@ export namespace Prisma {
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LibraryFineCreateInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutLibraryFineInput
+    borrowing: BookBorrowingCreateNestedOneWithoutLibraryFineInput
+    invoice?: InvoiceCreateNestedOneWithoutLibraryFineInput
+  }
+
+  export type LibraryFineUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    borrowingId: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    invoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LibraryFineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutLibraryFineNestedInput
+    borrowing?: BookBorrowingUpdateOneRequiredWithoutLibraryFineNestedInput
+    invoice?: InvoiceUpdateOneWithoutLibraryFineNestedInput
+  }
+
+  export type LibraryFineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    borrowingId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LibraryFineCreateManyInput = {
+    id?: string
+    tenantId: string
+    borrowingId: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    invoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LibraryFineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LibraryFineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    borrowingId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -133040,6 +134466,12 @@ export namespace Prisma {
     none?: IdCardWhereInput
   }
 
+  export type LibraryFineListRelationFilter = {
+    every?: LibraryFineWhereInput
+    some?: LibraryFineWhereInput
+    none?: LibraryFineWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -133294,6 +134726,10 @@ export namespace Prisma {
   }
 
   export type IdCardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LibraryFineOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -135259,6 +136695,11 @@ export namespace Prisma {
     not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
+  export type LibraryFineNullableRelationFilter = {
+    is?: LibraryFineWhereInput | null
+    isNot?: LibraryFineWhereInput | null
+  }
+
   export type InvoiceTenantIdInvoiceNumberCompoundUniqueInput = {
     tenantId: string
     invoiceNumber: string
@@ -136441,6 +137882,72 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBorrowStatusFilter<$PrismaModel>
     _max?: NestedEnumBorrowStatusFilter<$PrismaModel>
+  }
+
+  export type EnumFineStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FineStatus | EnumFineStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFineStatusFilter<$PrismaModel> | $Enums.FineStatus
+  }
+
+  export type BookBorrowingRelationFilter = {
+    is?: BookBorrowingWhereInput
+    isNot?: BookBorrowingWhereInput
+  }
+
+  export type LibraryFineCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    borrowingId?: SortOrder
+    amount?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    invoiceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LibraryFineAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type LibraryFineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    borrowingId?: SortOrder
+    amount?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    invoiceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LibraryFineMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    borrowingId?: SortOrder
+    amount?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    invoiceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LibraryFineSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumFineStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FineStatus | EnumFineStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFineStatusWithAggregatesFilter<$PrismaModel> | $Enums.FineStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFineStatusFilter<$PrismaModel>
+    _max?: NestedEnumFineStatusFilter<$PrismaModel>
   }
 
   export type EnumNotificationChannelFilter<$PrismaModel = never> = {
@@ -138803,6 +140310,13 @@ export namespace Prisma {
     connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
   }
 
+  export type LibraryFineCreateNestedManyWithoutTenantInput = {
+    create?: XOR<LibraryFineCreateWithoutTenantInput, LibraryFineUncheckedCreateWithoutTenantInput> | LibraryFineCreateWithoutTenantInput[] | LibraryFineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutTenantInput | LibraryFineCreateOrConnectWithoutTenantInput[]
+    createMany?: LibraryFineCreateManyTenantInputEnvelope
+    connect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+  }
+
   export type PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<PlatformSubscriptionCreateWithoutTenantInput, PlatformSubscriptionUncheckedCreateWithoutTenantInput> | PlatformSubscriptionCreateWithoutTenantInput[] | PlatformSubscriptionUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PlatformSubscriptionCreateOrConnectWithoutTenantInput | PlatformSubscriptionCreateOrConnectWithoutTenantInput[]
@@ -139267,6 +140781,13 @@ export namespace Prisma {
     connectOrCreate?: IdCardCreateOrConnectWithoutTenantInput | IdCardCreateOrConnectWithoutTenantInput[]
     createMany?: IdCardCreateManyTenantInputEnvelope
     connect?: IdCardWhereUniqueInput | IdCardWhereUniqueInput[]
+  }
+
+  export type LibraryFineUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<LibraryFineCreateWithoutTenantInput, LibraryFineUncheckedCreateWithoutTenantInput> | LibraryFineCreateWithoutTenantInput[] | LibraryFineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutTenantInput | LibraryFineCreateOrConnectWithoutTenantInput[]
+    createMany?: LibraryFineCreateManyTenantInputEnvelope
+    connect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
   }
 
   export type EnumTenantStatusFieldUpdateOperationsInput = {
@@ -140211,6 +141732,20 @@ export namespace Prisma {
     deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
   }
 
+  export type LibraryFineUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<LibraryFineCreateWithoutTenantInput, LibraryFineUncheckedCreateWithoutTenantInput> | LibraryFineCreateWithoutTenantInput[] | LibraryFineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutTenantInput | LibraryFineCreateOrConnectWithoutTenantInput[]
+    upsert?: LibraryFineUpsertWithWhereUniqueWithoutTenantInput | LibraryFineUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: LibraryFineCreateManyTenantInputEnvelope
+    set?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    disconnect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    delete?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    connect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    update?: LibraryFineUpdateWithWhereUniqueWithoutTenantInput | LibraryFineUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: LibraryFineUpdateManyWithWhereWithoutTenantInput | LibraryFineUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: LibraryFineScalarWhereInput | LibraryFineScalarWhereInput[]
+  }
+
   export type PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<PlatformSubscriptionCreateWithoutTenantInput, PlatformSubscriptionUncheckedCreateWithoutTenantInput> | PlatformSubscriptionCreateWithoutTenantInput[] | PlatformSubscriptionUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PlatformSubscriptionCreateOrConnectWithoutTenantInput | PlatformSubscriptionCreateOrConnectWithoutTenantInput[]
@@ -141135,6 +142670,20 @@ export namespace Prisma {
     update?: IdCardUpdateWithWhereUniqueWithoutTenantInput | IdCardUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: IdCardUpdateManyWithWhereWithoutTenantInput | IdCardUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: IdCardScalarWhereInput | IdCardScalarWhereInput[]
+  }
+
+  export type LibraryFineUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<LibraryFineCreateWithoutTenantInput, LibraryFineUncheckedCreateWithoutTenantInput> | LibraryFineCreateWithoutTenantInput[] | LibraryFineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutTenantInput | LibraryFineCreateOrConnectWithoutTenantInput[]
+    upsert?: LibraryFineUpsertWithWhereUniqueWithoutTenantInput | LibraryFineUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: LibraryFineCreateManyTenantInputEnvelope
+    set?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    disconnect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    delete?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    connect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+    update?: LibraryFineUpdateWithWhereUniqueWithoutTenantInput | LibraryFineUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: LibraryFineUpdateManyWithWhereWithoutTenantInput | LibraryFineUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: LibraryFineScalarWhereInput | LibraryFineScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutSubscriptionsInput = {
@@ -144104,6 +145653,12 @@ export namespace Prisma {
     connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
   }
 
+  export type LibraryFineCreateNestedOneWithoutInvoiceInput = {
+    create?: XOR<LibraryFineCreateWithoutInvoiceInput, LibraryFineUncheckedCreateWithoutInvoiceInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutInvoiceInput
+    connect?: LibraryFineWhereUniqueInput
+  }
+
   export type InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput = {
     create?: XOR<InvoiceItemCreateWithoutInvoiceInput, InvoiceItemUncheckedCreateWithoutInvoiceInput> | InvoiceItemCreateWithoutInvoiceInput[] | InvoiceItemUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: InvoiceItemCreateOrConnectWithoutInvoiceInput | InvoiceItemCreateOrConnectWithoutInvoiceInput[]
@@ -144123,6 +145678,12 @@ export namespace Prisma {
     connectOrCreate?: JournalEntryLineCreateOrConnectWithoutInvoiceInput | JournalEntryLineCreateOrConnectWithoutInvoiceInput[]
     createMany?: JournalEntryLineCreateManyInvoiceInputEnvelope
     connect?: JournalEntryLineWhereUniqueInput | JournalEntryLineWhereUniqueInput[]
+  }
+
+  export type LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput = {
+    create?: XOR<LibraryFineCreateWithoutInvoiceInput, LibraryFineUncheckedCreateWithoutInvoiceInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutInvoiceInput
+    connect?: LibraryFineWhereUniqueInput
   }
 
   export type EnumInvoiceStatusFieldUpdateOperationsInput = {
@@ -144195,6 +145756,16 @@ export namespace Prisma {
     deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
   }
 
+  export type LibraryFineUpdateOneWithoutInvoiceNestedInput = {
+    create?: XOR<LibraryFineCreateWithoutInvoiceInput, LibraryFineUncheckedCreateWithoutInvoiceInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutInvoiceInput
+    upsert?: LibraryFineUpsertWithoutInvoiceInput
+    disconnect?: LibraryFineWhereInput | boolean
+    delete?: LibraryFineWhereInput | boolean
+    connect?: LibraryFineWhereUniqueInput
+    update?: XOR<XOR<LibraryFineUpdateToOneWithWhereWithoutInvoiceInput, LibraryFineUpdateWithoutInvoiceInput>, LibraryFineUncheckedUpdateWithoutInvoiceInput>
+  }
+
   export type InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput = {
     create?: XOR<InvoiceItemCreateWithoutInvoiceInput, InvoiceItemUncheckedCreateWithoutInvoiceInput> | InvoiceItemCreateWithoutInvoiceInput[] | InvoiceItemUncheckedCreateWithoutInvoiceInput[]
     connectOrCreate?: InvoiceItemCreateOrConnectWithoutInvoiceInput | InvoiceItemCreateOrConnectWithoutInvoiceInput[]
@@ -144235,6 +145806,16 @@ export namespace Prisma {
     update?: JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput | JournalEntryLineUpdateWithWhereUniqueWithoutInvoiceInput[]
     updateMany?: JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput | JournalEntryLineUpdateManyWithWhereWithoutInvoiceInput[]
     deleteMany?: JournalEntryLineScalarWhereInput | JournalEntryLineScalarWhereInput[]
+  }
+
+  export type LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput = {
+    create?: XOR<LibraryFineCreateWithoutInvoiceInput, LibraryFineUncheckedCreateWithoutInvoiceInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutInvoiceInput
+    upsert?: LibraryFineUpsertWithoutInvoiceInput
+    disconnect?: LibraryFineWhereInput | boolean
+    delete?: LibraryFineWhereInput | boolean
+    connect?: LibraryFineWhereUniqueInput
+    update?: XOR<XOR<LibraryFineUpdateToOneWithWhereWithoutInvoiceInput, LibraryFineUpdateWithoutInvoiceInput>, LibraryFineUncheckedUpdateWithoutInvoiceInput>
   }
 
   export type InvoiceCreateNestedOneWithoutItemsInput = {
@@ -145275,6 +146856,18 @@ export namespace Prisma {
     connect?: StudentWhereUniqueInput
   }
 
+  export type LibraryFineCreateNestedOneWithoutBorrowingInput = {
+    create?: XOR<LibraryFineCreateWithoutBorrowingInput, LibraryFineUncheckedCreateWithoutBorrowingInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutBorrowingInput
+    connect?: LibraryFineWhereUniqueInput
+  }
+
+  export type LibraryFineUncheckedCreateNestedOneWithoutBorrowingInput = {
+    create?: XOR<LibraryFineCreateWithoutBorrowingInput, LibraryFineUncheckedCreateWithoutBorrowingInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutBorrowingInput
+    connect?: LibraryFineWhereUniqueInput
+  }
+
   export type EnumBorrowStatusFieldUpdateOperationsInput = {
     set?: $Enums.BorrowStatus
   }
@@ -145293,6 +146886,74 @@ export namespace Prisma {
     upsert?: StudentUpsertWithoutBookBorrowingInput
     connect?: StudentWhereUniqueInput
     update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutBookBorrowingInput, StudentUpdateWithoutBookBorrowingInput>, StudentUncheckedUpdateWithoutBookBorrowingInput>
+  }
+
+  export type LibraryFineUpdateOneWithoutBorrowingNestedInput = {
+    create?: XOR<LibraryFineCreateWithoutBorrowingInput, LibraryFineUncheckedCreateWithoutBorrowingInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutBorrowingInput
+    upsert?: LibraryFineUpsertWithoutBorrowingInput
+    disconnect?: LibraryFineWhereInput | boolean
+    delete?: LibraryFineWhereInput | boolean
+    connect?: LibraryFineWhereUniqueInput
+    update?: XOR<XOR<LibraryFineUpdateToOneWithWhereWithoutBorrowingInput, LibraryFineUpdateWithoutBorrowingInput>, LibraryFineUncheckedUpdateWithoutBorrowingInput>
+  }
+
+  export type LibraryFineUncheckedUpdateOneWithoutBorrowingNestedInput = {
+    create?: XOR<LibraryFineCreateWithoutBorrowingInput, LibraryFineUncheckedCreateWithoutBorrowingInput>
+    connectOrCreate?: LibraryFineCreateOrConnectWithoutBorrowingInput
+    upsert?: LibraryFineUpsertWithoutBorrowingInput
+    disconnect?: LibraryFineWhereInput | boolean
+    delete?: LibraryFineWhereInput | boolean
+    connect?: LibraryFineWhereUniqueInput
+    update?: XOR<XOR<LibraryFineUpdateToOneWithWhereWithoutBorrowingInput, LibraryFineUpdateWithoutBorrowingInput>, LibraryFineUncheckedUpdateWithoutBorrowingInput>
+  }
+
+  export type TenantCreateNestedOneWithoutLibraryFineInput = {
+    create?: XOR<TenantCreateWithoutLibraryFineInput, TenantUncheckedCreateWithoutLibraryFineInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLibraryFineInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type BookBorrowingCreateNestedOneWithoutLibraryFineInput = {
+    create?: XOR<BookBorrowingCreateWithoutLibraryFineInput, BookBorrowingUncheckedCreateWithoutLibraryFineInput>
+    connectOrCreate?: BookBorrowingCreateOrConnectWithoutLibraryFineInput
+    connect?: BookBorrowingWhereUniqueInput
+  }
+
+  export type InvoiceCreateNestedOneWithoutLibraryFineInput = {
+    create?: XOR<InvoiceCreateWithoutLibraryFineInput, InvoiceUncheckedCreateWithoutLibraryFineInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutLibraryFineInput
+    connect?: InvoiceWhereUniqueInput
+  }
+
+  export type EnumFineStatusFieldUpdateOperationsInput = {
+    set?: $Enums.FineStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutLibraryFineNestedInput = {
+    create?: XOR<TenantCreateWithoutLibraryFineInput, TenantUncheckedCreateWithoutLibraryFineInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLibraryFineInput
+    upsert?: TenantUpsertWithoutLibraryFineInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutLibraryFineInput, TenantUpdateWithoutLibraryFineInput>, TenantUncheckedUpdateWithoutLibraryFineInput>
+  }
+
+  export type BookBorrowingUpdateOneRequiredWithoutLibraryFineNestedInput = {
+    create?: XOR<BookBorrowingCreateWithoutLibraryFineInput, BookBorrowingUncheckedCreateWithoutLibraryFineInput>
+    connectOrCreate?: BookBorrowingCreateOrConnectWithoutLibraryFineInput
+    upsert?: BookBorrowingUpsertWithoutLibraryFineInput
+    connect?: BookBorrowingWhereUniqueInput
+    update?: XOR<XOR<BookBorrowingUpdateToOneWithWhereWithoutLibraryFineInput, BookBorrowingUpdateWithoutLibraryFineInput>, BookBorrowingUncheckedUpdateWithoutLibraryFineInput>
+  }
+
+  export type InvoiceUpdateOneWithoutLibraryFineNestedInput = {
+    create?: XOR<InvoiceCreateWithoutLibraryFineInput, InvoiceUncheckedCreateWithoutLibraryFineInput>
+    connectOrCreate?: InvoiceCreateOrConnectWithoutLibraryFineInput
+    upsert?: InvoiceUpsertWithoutLibraryFineInput
+    disconnect?: InvoiceWhereInput | boolean
+    delete?: InvoiceWhereInput | boolean
+    connect?: InvoiceWhereUniqueInput
+    update?: XOR<XOR<InvoiceUpdateToOneWithWhereWithoutLibraryFineInput, InvoiceUpdateWithoutLibraryFineInput>, InvoiceUncheckedUpdateWithoutLibraryFineInput>
   }
 
   export type TenantCreateNestedOneWithoutNotificationQueueInput = {
@@ -147406,6 +149067,23 @@ export namespace Prisma {
     _max?: NestedEnumBorrowStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumFineStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FineStatus | EnumFineStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFineStatusFilter<$PrismaModel> | $Enums.FineStatus
+  }
+
+  export type NestedEnumFineStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FineStatus | EnumFineStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FineStatus[] | ListEnumFineStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFineStatusWithAggregatesFilter<$PrismaModel> | $Enums.FineStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFineStatusFilter<$PrismaModel>
+    _max?: NestedEnumFineStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumNotificationChannelFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationChannel | EnumNotificationChannelFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationChannel[] | ListEnumNotificationChannelFieldRefInput<$PrismaModel>
@@ -147668,6 +149346,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPlanInput = {
@@ -147745,6 +149424,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPlanInput = {
@@ -148846,6 +150526,7 @@ export namespace Prisma {
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutTenantInput = {
@@ -148863,6 +150544,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutTenantInput = {
@@ -150081,6 +151763,38 @@ export namespace Prisma {
 
   export type IdCardCreateManyTenantInputEnvelope = {
     data: IdCardCreateManyTenantInput | IdCardCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LibraryFineCreateWithoutTenantInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    borrowing: BookBorrowingCreateNestedOneWithoutLibraryFineInput
+    invoice?: InvoiceCreateNestedOneWithoutLibraryFineInput
+  }
+
+  export type LibraryFineUncheckedCreateWithoutTenantInput = {
+    id?: string
+    borrowingId: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    invoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LibraryFineCreateOrConnectWithoutTenantInput = {
+    where: LibraryFineWhereUniqueInput
+    create: XOR<LibraryFineCreateWithoutTenantInput, LibraryFineUncheckedCreateWithoutTenantInput>
+  }
+
+  export type LibraryFineCreateManyTenantInputEnvelope = {
+    data: LibraryFineCreateManyTenantInput | LibraryFineCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -152164,6 +153878,37 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"IdCard"> | Date | string
   }
 
+  export type LibraryFineUpsertWithWhereUniqueWithoutTenantInput = {
+    where: LibraryFineWhereUniqueInput
+    update: XOR<LibraryFineUpdateWithoutTenantInput, LibraryFineUncheckedUpdateWithoutTenantInput>
+    create: XOR<LibraryFineCreateWithoutTenantInput, LibraryFineUncheckedCreateWithoutTenantInput>
+  }
+
+  export type LibraryFineUpdateWithWhereUniqueWithoutTenantInput = {
+    where: LibraryFineWhereUniqueInput
+    data: XOR<LibraryFineUpdateWithoutTenantInput, LibraryFineUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type LibraryFineUpdateManyWithWhereWithoutTenantInput = {
+    where: LibraryFineScalarWhereInput
+    data: XOR<LibraryFineUpdateManyMutationInput, LibraryFineUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type LibraryFineScalarWhereInput = {
+    AND?: LibraryFineScalarWhereInput | LibraryFineScalarWhereInput[]
+    OR?: LibraryFineScalarWhereInput[]
+    NOT?: LibraryFineScalarWhereInput | LibraryFineScalarWhereInput[]
+    id?: StringFilter<"LibraryFine"> | string
+    tenantId?: StringFilter<"LibraryFine"> | string
+    borrowingId?: StringFilter<"LibraryFine"> | string
+    amount?: DecimalFilter<"LibraryFine"> | Decimal | DecimalJsLike | number | string
+    reason?: StringFilter<"LibraryFine"> | string
+    status?: EnumFineStatusFilter<"LibraryFine"> | $Enums.FineStatus
+    invoiceId?: StringNullableFilter<"LibraryFine"> | string | null
+    createdAt?: DateTimeFilter<"LibraryFine"> | Date | string
+    updatedAt?: DateTimeFilter<"LibraryFine"> | Date | string
+  }
+
   export type TenantCreateWithoutSubscriptionsInput = {
     id?: string
     name: string
@@ -152239,6 +153984,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionsInput = {
@@ -152316,6 +154062,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionsInput = {
@@ -152434,6 +154181,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionsInput = {
@@ -152511,6 +154259,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PlatformPlanUpsertWithoutSubscriptionsInput = {
@@ -152661,6 +154410,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceAppsInput = {
@@ -152738,6 +154488,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceAppsInput = {
@@ -152854,6 +154605,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceAppsInput = {
@@ -152931,6 +154683,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MarketplaceAppUpsertWithoutTenantAppsInput = {
@@ -153037,6 +154790,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDomainsInput = {
@@ -153114,6 +154868,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDomainsInput = {
@@ -153207,6 +154962,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDomainsInput = {
@@ -153284,6 +155040,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBrandingInput = {
@@ -153361,6 +155118,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBrandingInput = {
@@ -153438,6 +155196,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBrandingInput = {
@@ -153531,6 +155290,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBrandingInput = {
@@ -153608,6 +155368,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSettingsInput = {
@@ -153685,6 +155446,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -153762,6 +155524,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -153855,6 +155618,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -153932,6 +155696,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFeatureFlagsInput = {
@@ -154009,6 +155774,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeatureFlagsInput = {
@@ -154086,6 +155852,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeatureFlagsInput = {
@@ -154179,6 +155946,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeatureFlagsInput = {
@@ -154256,6 +156024,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipCreateWithoutUserInput = {
@@ -154701,6 +156470,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -154778,6 +156548,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -155091,6 +156862,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -155168,6 +156940,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutMembershipsInput = {
@@ -155589,6 +157362,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRolesInput = {
@@ -155666,6 +157440,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRolesInput = {
@@ -155827,6 +157602,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRolesInput = {
@@ -155904,6 +157680,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -156245,6 +158022,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -156322,6 +158100,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -156452,6 +158231,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -156529,6 +158309,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -156649,6 +158430,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCampusInput = {
@@ -156726,6 +158508,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCampusInput = {
@@ -156819,6 +158602,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCampusInput = {
@@ -156896,6 +158680,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAcademicYearInput = {
@@ -156973,6 +158758,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAcademicYearInput = {
@@ -157050,6 +158836,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAcademicYearInput = {
@@ -157231,6 +159018,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAcademicYearInput = {
@@ -157308,6 +159096,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TermUpsertWithWhereUniqueWithoutAcademicYearInput = {
@@ -157417,6 +159206,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTermInput = {
@@ -157494,6 +159284,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTermInput = {
@@ -157575,6 +159366,7 @@ export namespace Prisma {
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutTermInput = {
@@ -157592,6 +159384,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutTermInput = {
@@ -157728,6 +159521,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTermInput = {
@@ -157805,6 +159599,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AcademicYearUpsertWithoutTermsInput = {
@@ -157965,6 +159760,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDepartmentInput = {
@@ -158042,6 +159838,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDepartmentInput = {
@@ -158230,6 +160027,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDepartmentInput = {
@@ -158307,6 +160105,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type DepartmentUpsertWithoutChildrenInput = {
@@ -158449,6 +160248,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClassInput = {
@@ -158526,6 +160326,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClassInput = {
@@ -158718,6 +160519,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClassInput = {
@@ -158795,6 +160597,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ArmUpsertWithWhereUniqueWithoutClassInput = {
@@ -158920,6 +160723,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutArmInput = {
@@ -158997,6 +160801,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutArmInput = {
@@ -159231,6 +161036,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutArmInput = {
@@ -159308,6 +161114,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClassUpsertWithoutArmsInput = {
@@ -159466,6 +161273,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubjectGroupInput = {
@@ -159543,6 +161351,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubjectGroupInput = {
@@ -159672,6 +161481,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubjectGroupInput = {
@@ -159749,6 +161559,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithWhereUniqueWithoutSubjectGroupInput = {
@@ -159842,6 +161653,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubjectInput = {
@@ -159919,6 +161731,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubjectInput = {
@@ -160164,6 +161977,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubjectInput = {
@@ -160241,6 +162055,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectGroupUpsertWithoutSubjectsInput = {
@@ -160409,6 +162224,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimetableInput = {
@@ -160486,6 +162302,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimetableInput = {
@@ -160671,6 +162488,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimetableInput = {
@@ -160748,6 +162566,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ArmUpsertWithoutTimetableInput = {
@@ -160928,6 +162747,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStudentInput = {
@@ -161005,6 +162825,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStudentInput = {
@@ -161251,6 +163072,7 @@ export namespace Prisma {
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutStudentInput = {
@@ -161268,6 +163090,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutStudentInput = {
@@ -161379,6 +163202,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     book: LibraryBookCreateNestedOneWithoutBorrowingsInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutBorrowingInput
   }
 
   export type BookBorrowingUncheckedCreateWithoutStudentInput = {
@@ -161390,6 +163214,7 @@ export namespace Prisma {
     status?: $Enums.BorrowStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutBorrowingInput
   }
 
   export type BookBorrowingCreateOrConnectWithoutStudentInput = {
@@ -161522,6 +163347,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStudentInput = {
@@ -161599,6 +163425,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutStudentInput = {
@@ -161973,6 +163800,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutGuardianInput = {
@@ -162050,6 +163878,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutGuardianInput = {
@@ -162210,6 +164039,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutGuardianInput = {
@@ -162287,6 +164117,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutGuardianInput = {
@@ -162575,6 +164406,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionInput = {
@@ -162652,6 +164484,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionInput = {
@@ -162792,6 +164625,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionInput = {
@@ -162869,6 +164703,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutAdmissionsInput = {
@@ -162999,6 +164834,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicalRecordInput = {
@@ -163076,6 +164912,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicalRecordInput = {
@@ -163216,6 +165053,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicalRecordInput = {
@@ -163293,6 +165131,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutMedicalRecordsInput = {
@@ -163423,6 +165262,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDisciplineRecordInput = {
@@ -163500,6 +165340,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDisciplineRecordInput = {
@@ -163640,6 +165481,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDisciplineRecordInput = {
@@ -163717,6 +165559,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutDisciplineRecordsInput = {
@@ -163847,6 +165690,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAttendanceInput = {
@@ -163924,6 +165768,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAttendanceInput = {
@@ -164093,6 +165938,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAttendanceInput = {
@@ -164170,6 +166016,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutAttendanceInput = {
@@ -164335,6 +166182,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffInput = {
@@ -164412,6 +166260,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffInput = {
@@ -164672,6 +166521,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffInput = {
@@ -164749,6 +166599,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutStaffInput = {
@@ -164971,6 +166822,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEmploymentInput = {
@@ -165048,6 +166900,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEmploymentInput = {
@@ -165172,6 +167025,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEmploymentInput = {
@@ -165249,6 +167103,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutEmploymentInput = {
@@ -165363,6 +167218,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollInput = {
@@ -165440,6 +167296,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollInput = {
@@ -165564,6 +167421,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollInput = {
@@ -165641,6 +167499,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutPayrollRecordsInput = {
@@ -165755,6 +167614,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeaveRequestInput = {
@@ -165832,6 +167692,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeaveRequestInput = {
@@ -165956,6 +167817,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeaveRequestInput = {
@@ -166033,6 +167895,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutLeaveRequestsInput = {
@@ -166147,6 +168010,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeeCategoryInput = {
@@ -166224,6 +168088,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeeCategoryInput = {
@@ -166347,6 +168212,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeeCategoryInput = {
@@ -166424,6 +168290,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type InvoiceItemUpsertWithWhereUniqueWithoutFeeCategoryInput = {
@@ -166530,6 +168397,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoiceInput = {
@@ -166607,6 +168475,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoiceInput = {
@@ -166794,6 +168663,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LibraryFineCreateWithoutInvoiceInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutLibraryFineInput
+    borrowing: BookBorrowingCreateNestedOneWithoutLibraryFineInput
+  }
+
+  export type LibraryFineUncheckedCreateWithoutInvoiceInput = {
+    id?: string
+    tenantId: string
+    borrowingId: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LibraryFineCreateOrConnectWithoutInvoiceInput = {
+    where: LibraryFineWhereUniqueInput
+    create: XOR<LibraryFineCreateWithoutInvoiceInput, LibraryFineUncheckedCreateWithoutInvoiceInput>
+  }
+
   export type TenantUpsertWithoutInvoiceInput = {
     update: XOR<TenantUpdateWithoutInvoiceInput, TenantUncheckedUpdateWithoutInvoiceInput>
     create: XOR<TenantCreateWithoutInvoiceInput, TenantUncheckedCreateWithoutInvoiceInput>
@@ -166880,6 +168776,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoiceInput = {
@@ -166957,6 +168854,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutInvoiceInput = {
@@ -167097,6 +168995,39 @@ export namespace Prisma {
     data: XOR<JournalEntryLineUpdateManyMutationInput, JournalEntryLineUncheckedUpdateManyWithoutInvoiceInput>
   }
 
+  export type LibraryFineUpsertWithoutInvoiceInput = {
+    update: XOR<LibraryFineUpdateWithoutInvoiceInput, LibraryFineUncheckedUpdateWithoutInvoiceInput>
+    create: XOR<LibraryFineCreateWithoutInvoiceInput, LibraryFineUncheckedCreateWithoutInvoiceInput>
+    where?: LibraryFineWhereInput
+  }
+
+  export type LibraryFineUpdateToOneWithWhereWithoutInvoiceInput = {
+    where?: LibraryFineWhereInput
+    data: XOR<LibraryFineUpdateWithoutInvoiceInput, LibraryFineUncheckedUpdateWithoutInvoiceInput>
+  }
+
+  export type LibraryFineUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutLibraryFineNestedInput
+    borrowing?: BookBorrowingUpdateOneRequiredWithoutLibraryFineNestedInput
+  }
+
+  export type LibraryFineUncheckedUpdateWithoutInvoiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    borrowingId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InvoiceCreateWithoutItemsInput = {
     id?: string
     invoiceNumber: string
@@ -167112,6 +169043,7 @@ export namespace Prisma {
     term: TermCreateNestedOneWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutItemsInput = {
@@ -167129,6 +169061,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutItemsInput = {
@@ -167217,6 +169150,7 @@ export namespace Prisma {
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutItemsInput = {
@@ -167234,6 +169168,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type FeeCategoryUpsertWithoutInvoicesInput = {
@@ -167360,6 +169295,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentInput = {
@@ -167437,6 +169373,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentInput = {
@@ -167459,6 +169396,7 @@ export namespace Prisma {
     term: TermCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutPaymentsInput = {
@@ -167476,6 +169414,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutPaymentsInput = {
@@ -167631,6 +169570,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentInput = {
@@ -167708,6 +169648,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type InvoiceUpsertWithoutPaymentsInput = {
@@ -167736,6 +169677,7 @@ export namespace Prisma {
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
@@ -167753,6 +169695,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type PaymentAttemptUpsertWithWhereUniqueWithoutPaymentInput = {
@@ -167862,6 +169805,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpenseInput = {
@@ -167939,6 +169883,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpenseInput = {
@@ -168032,6 +169977,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpenseInput = {
@@ -168109,6 +170055,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutIncomeInput = {
@@ -168186,6 +170133,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncomeInput = {
@@ -168263,6 +170211,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncomeInput = {
@@ -168356,6 +170305,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncomeInput = {
@@ -168433,6 +170383,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutScholarshipInput = {
@@ -168510,6 +170461,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutScholarshipInput = {
@@ -168587,6 +170539,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutScholarshipInput = {
@@ -168727,6 +170680,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutScholarshipInput = {
@@ -168804,6 +170758,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutScholarshipInput = {
@@ -168934,6 +170889,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExamInput = {
@@ -169011,6 +170967,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExamInput = {
@@ -169228,6 +171185,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExamInput = {
@@ -169305,6 +171263,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TermUpsertWithoutExamInput = {
@@ -169574,6 +171533,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutResultInput = {
@@ -169651,6 +171611,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutResultInput = {
@@ -169824,6 +171785,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutResultInput = {
@@ -169901,6 +171863,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExamUpsertWithoutResultsInput = {
@@ -170070,6 +172033,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssignmentInput = {
@@ -170147,6 +172111,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssignmentInput = {
@@ -170298,6 +172263,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssignmentInput = {
@@ -170375,6 +172341,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithoutAssignmentInput = {
@@ -170522,6 +172489,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLessonNoteInput = {
@@ -170599,6 +172567,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLessonNoteInput = {
@@ -170723,6 +172692,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLessonNoteInput = {
@@ -170800,6 +172770,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithoutLessonNoteInput = {
@@ -170914,6 +172885,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebsiteInput = {
@@ -170991,6 +172963,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebsiteInput = {
@@ -171177,6 +173150,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebsiteInput = {
@@ -171254,6 +173228,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PageUpsertWithWhereUniqueWithoutWebsiteInput = {
@@ -171409,6 +173384,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPageInput = {
@@ -171486,6 +173462,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPageInput = {
@@ -171616,6 +173593,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPageInput = {
@@ -171693,6 +173671,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteUpsertWithoutPagesInput = {
@@ -171813,6 +173792,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNavigationMenuInput = {
@@ -171890,6 +173870,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNavigationMenuInput = {
@@ -172020,6 +174001,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNavigationMenuInput = {
@@ -172097,6 +174079,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteUpsertWithoutNavigationInput = {
@@ -172217,6 +174200,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAIProviderConfigInput = {
@@ -172294,6 +174278,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAIProviderConfigInput = {
@@ -172387,6 +174372,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAIProviderConfigInput = {
@@ -172464,6 +174450,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAIUsageLogInput = {
@@ -172541,6 +174528,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAIUsageLogInput = {
@@ -172618,6 +174606,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAIUsageLogInput = {
@@ -172748,6 +174737,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAIUsageLogInput = {
@@ -172825,6 +174815,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAIUsageLogInput = {
@@ -172945,6 +174936,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPromptTemplateInput = {
@@ -173022,6 +175014,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPromptTemplateInput = {
@@ -173115,6 +175108,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPromptTemplateInput = {
@@ -173192,6 +175186,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutHostelInput = {
@@ -173269,6 +175264,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHostelInput = {
@@ -173346,6 +175342,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHostelInput = {
@@ -173467,6 +175464,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHostelInput = {
@@ -173544,6 +175542,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type HostelRoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -173899,6 +175898,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTransportVehicleInput = {
@@ -173976,6 +175976,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTransportVehicleInput = {
@@ -174095,6 +176096,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTransportVehicleInput = {
@@ -174172,6 +176174,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TransportRouteUpsertWithWhereUniqueWithoutVehicleInput = {
@@ -174333,6 +176336,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLibraryBookInput = {
@@ -174410,6 +176414,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLibraryBookInput = {
@@ -174426,6 +176431,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     student: StudentCreateNestedOneWithoutBookBorrowingInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutBorrowingInput
   }
 
   export type BookBorrowingUncheckedCreateWithoutBookInput = {
@@ -174437,6 +176443,7 @@ export namespace Prisma {
     status?: $Enums.BorrowStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutBorrowingInput
   }
 
   export type BookBorrowingCreateOrConnectWithoutBookInput = {
@@ -174535,6 +176542,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLibraryBookInput = {
@@ -174612,6 +176620,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookBorrowingUpsertWithWhereUniqueWithoutBookInput = {
@@ -174704,6 +176713,33 @@ export namespace Prisma {
     create: XOR<StudentCreateWithoutBookBorrowingInput, StudentUncheckedCreateWithoutBookBorrowingInput>
   }
 
+  export type LibraryFineCreateWithoutBorrowingInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutLibraryFineInput
+    invoice?: InvoiceCreateNestedOneWithoutLibraryFineInput
+  }
+
+  export type LibraryFineUncheckedCreateWithoutBorrowingInput = {
+    id?: string
+    tenantId: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    invoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LibraryFineCreateOrConnectWithoutBorrowingInput = {
+    where: LibraryFineWhereUniqueInput
+    create: XOR<LibraryFineCreateWithoutBorrowingInput, LibraryFineUncheckedCreateWithoutBorrowingInput>
+  }
+
   export type LibraryBookUpsertWithoutBorrowingsInput = {
     update: XOR<LibraryBookUpdateWithoutBorrowingsInput, LibraryBookUncheckedUpdateWithoutBorrowingsInput>
     create: XOR<LibraryBookCreateWithoutBorrowingsInput, LibraryBookUncheckedCreateWithoutBorrowingsInput>
@@ -174790,6 +176826,519 @@ export namespace Prisma {
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
+  export type LibraryFineUpsertWithoutBorrowingInput = {
+    update: XOR<LibraryFineUpdateWithoutBorrowingInput, LibraryFineUncheckedUpdateWithoutBorrowingInput>
+    create: XOR<LibraryFineCreateWithoutBorrowingInput, LibraryFineUncheckedCreateWithoutBorrowingInput>
+    where?: LibraryFineWhereInput
+  }
+
+  export type LibraryFineUpdateToOneWithWhereWithoutBorrowingInput = {
+    where?: LibraryFineWhereInput
+    data: XOR<LibraryFineUpdateWithoutBorrowingInput, LibraryFineUncheckedUpdateWithoutBorrowingInput>
+  }
+
+  export type LibraryFineUpdateWithoutBorrowingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutLibraryFineNestedInput
+    invoice?: InvoiceUpdateOneWithoutLibraryFineNestedInput
+  }
+
+  export type LibraryFineUncheckedUpdateWithoutBorrowingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantCreateWithoutLibraryFineInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+    Document?: DocumentCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutLibraryFineInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+    Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutLibraryFineInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutLibraryFineInput, TenantUncheckedCreateWithoutLibraryFineInput>
+  }
+
+  export type BookBorrowingCreateWithoutLibraryFineInput = {
+    id?: string
+    borrowDate?: Date | string
+    returnDate?: Date | string | null
+    dueDate: Date | string
+    status?: $Enums.BorrowStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    book: LibraryBookCreateNestedOneWithoutBorrowingsInput
+    student: StudentCreateNestedOneWithoutBookBorrowingInput
+  }
+
+  export type BookBorrowingUncheckedCreateWithoutLibraryFineInput = {
+    id?: string
+    bookId: string
+    studentId: string
+    borrowDate?: Date | string
+    returnDate?: Date | string | null
+    dueDate: Date | string
+    status?: $Enums.BorrowStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BookBorrowingCreateOrConnectWithoutLibraryFineInput = {
+    where: BookBorrowingWhereUniqueInput
+    create: XOR<BookBorrowingCreateWithoutLibraryFineInput, BookBorrowingUncheckedCreateWithoutLibraryFineInput>
+  }
+
+  export type InvoiceCreateWithoutLibraryFineInput = {
+    id?: string
+    invoiceNumber: string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    amountPaid?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutInvoiceInput
+    student: StudentCreateNestedOneWithoutInvoiceInput
+    term: TermCreateNestedOneWithoutInvoiceInput
+    items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
+    payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceUncheckedCreateWithoutLibraryFineInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    termId: string
+    invoiceNumber: string
+    totalAmount: Decimal | DecimalJsLike | number | string
+    amountPaid?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.InvoiceStatus
+    dueDate: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutInvoiceInput
+  }
+
+  export type InvoiceCreateOrConnectWithoutLibraryFineInput = {
+    where: InvoiceWhereUniqueInput
+    create: XOR<InvoiceCreateWithoutLibraryFineInput, InvoiceUncheckedCreateWithoutLibraryFineInput>
+  }
+
+  export type TenantUpsertWithoutLibraryFineInput = {
+    update: XOR<TenantUpdateWithoutLibraryFineInput, TenantUncheckedUpdateWithoutLibraryFineInput>
+    create: XOR<TenantCreateWithoutLibraryFineInput, TenantUncheckedCreateWithoutLibraryFineInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutLibraryFineInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutLibraryFineInput, TenantUncheckedUpdateWithoutLibraryFineInput>
+  }
+
+  export type TenantUpdateWithoutLibraryFineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutLibraryFineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type BookBorrowingUpsertWithoutLibraryFineInput = {
+    update: XOR<BookBorrowingUpdateWithoutLibraryFineInput, BookBorrowingUncheckedUpdateWithoutLibraryFineInput>
+    create: XOR<BookBorrowingCreateWithoutLibraryFineInput, BookBorrowingUncheckedCreateWithoutLibraryFineInput>
+    where?: BookBorrowingWhereInput
+  }
+
+  export type BookBorrowingUpdateToOneWithWhereWithoutLibraryFineInput = {
+    where?: BookBorrowingWhereInput
+    data: XOR<BookBorrowingUpdateWithoutLibraryFineInput, BookBorrowingUncheckedUpdateWithoutLibraryFineInput>
+  }
+
+  export type BookBorrowingUpdateWithoutLibraryFineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    book?: LibraryBookUpdateOneRequiredWithoutBorrowingsNestedInput
+    student?: StudentUpdateOneRequiredWithoutBookBorrowingNestedInput
+  }
+
+  export type BookBorrowingUncheckedUpdateWithoutLibraryFineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bookId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    borrowDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvoiceUpsertWithoutLibraryFineInput = {
+    update: XOR<InvoiceUpdateWithoutLibraryFineInput, InvoiceUncheckedUpdateWithoutLibraryFineInput>
+    create: XOR<InvoiceCreateWithoutLibraryFineInput, InvoiceUncheckedCreateWithoutLibraryFineInput>
+    where?: InvoiceWhereInput
+  }
+
+  export type InvoiceUpdateToOneWithWhereWithoutLibraryFineInput = {
+    where?: InvoiceWhereInput
+    data: XOR<InvoiceUpdateWithoutLibraryFineInput, InvoiceUncheckedUpdateWithoutLibraryFineInput>
+  }
+
+  export type InvoiceUpdateWithoutLibraryFineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amountPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutInvoiceNestedInput
+    student?: StudentUpdateOneRequiredWithoutInvoiceNestedInput
+    term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
+    items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
+    payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+  }
+
+  export type InvoiceUncheckedUpdateWithoutLibraryFineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    termId?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    amountPaid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+    dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+  }
+
   export type TenantCreateWithoutNotificationQueueInput = {
     id?: string
     name: string
@@ -174865,6 +177414,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationQueueInput = {
@@ -174942,6 +177492,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationQueueInput = {
@@ -175072,6 +177623,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationQueueInput = {
@@ -175149,6 +177701,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutNotificationQueueInput = {
@@ -175269,6 +177822,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentAttemptInput = {
@@ -175346,6 +177900,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentAttemptInput = {
@@ -175472,6 +178027,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentAttemptInput = {
@@ -175549,6 +178105,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithoutPaymentAttemptInput = {
@@ -175665,6 +178222,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentAllocationInput = {
@@ -175742,6 +178300,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentAllocationInput = {
@@ -175926,6 +178485,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentAllocationInput = {
@@ -176003,6 +178563,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithoutPaymentAllocationInput = {
@@ -176189,6 +178750,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentPlanVersionInput = {
@@ -176266,6 +178828,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentPlanVersionInput = {
@@ -176359,6 +178922,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentPlanVersionInput = {
@@ -176436,6 +179000,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutChartOfAccountInput = {
@@ -176513,6 +179078,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChartOfAccountInput = {
@@ -176590,6 +179156,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChartOfAccountInput = {
@@ -176747,6 +179314,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChartOfAccountInput = {
@@ -176824,6 +179392,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput = {
@@ -176933,6 +179502,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBankAccountInput = {
@@ -177010,6 +179580,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBankAccountInput = {
@@ -177132,6 +179703,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBankAccountInput = {
@@ -177209,6 +179781,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ChartOfAccountUpsertWithoutBankAccountsInput = {
@@ -177321,6 +179894,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAccountingPeriodInput = {
@@ -177398,6 +179972,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAccountingPeriodInput = {
@@ -177529,6 +180104,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAccountingPeriodInput = {
@@ -177606,6 +180182,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput = {
@@ -177699,6 +180276,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialTransactionInput = {
@@ -177776,6 +180354,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialTransactionInput = {
@@ -177960,6 +180539,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialTransactionInput = {
@@ -178037,6 +180617,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AccountingPeriodUpsertWithoutTransactionsInput = {
@@ -178181,6 +180762,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutJournalEntryLineInput = {
@@ -178258,6 +180840,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutJournalEntryLineInput = {
@@ -178389,6 +180972,7 @@ export namespace Prisma {
     term: TermCreateNestedOneWithoutInvoiceInput
     items?: InvoiceItemCreateNestedManyWithoutInvoiceInput
     payments?: PaymentCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceUncheckedCreateWithoutJournalLinesInput = {
@@ -178406,6 +180990,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     items?: InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
     payments?: PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedOneWithoutInvoiceInput
   }
 
   export type InvoiceCreateOrConnectWithoutJournalLinesInput = {
@@ -178499,6 +181084,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutJournalEntryLineInput = {
@@ -178576,6 +181162,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionUpsertWithoutLinesInput = {
@@ -178731,6 +181318,7 @@ export namespace Prisma {
     term?: TermUpdateOneRequiredWithoutInvoiceNestedInput
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutJournalLinesInput = {
@@ -178748,6 +181336,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type TenantCreateWithoutApprovalWorkflowInput = {
@@ -178825,6 +181414,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApprovalWorkflowInput = {
@@ -178902,6 +181492,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApprovalWorkflowInput = {
@@ -179029,6 +181620,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApprovalWorkflowInput = {
@@ -179106,6 +181698,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ApprovalStepUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -179279,6 +181872,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutScheduledJobInput = {
@@ -179356,6 +181950,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutScheduledJobInput = {
@@ -179449,6 +182044,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutScheduledJobInput = {
@@ -179526,6 +182122,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSequenceGeneratorInput = {
@@ -179603,6 +182200,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSequenceGeneratorInput = {
@@ -179680,6 +182278,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSequenceGeneratorInput = {
@@ -179773,6 +182372,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSequenceGeneratorInput = {
@@ -179850,6 +182450,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAssetsInput = {
@@ -179927,6 +182528,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssetsInput = {
@@ -180004,6 +182606,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssetsInput = {
@@ -180097,6 +182700,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssetsInput = {
@@ -180174,6 +182778,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteCreateWithoutDomainsInput = {
@@ -180494,6 +183099,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionCampaignInput = {
@@ -180571,6 +183177,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionCampaignInput = {
@@ -180810,6 +183417,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionCampaignInput = {
@@ -180887,6 +183495,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AcademicYearUpsertWithoutAdmissionCampaignsInput = {
@@ -181068,6 +183677,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionWorkflowInput = {
@@ -181145,6 +183755,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionWorkflowInput = {
@@ -181326,6 +183937,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionWorkflowInput = {
@@ -181403,6 +184015,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -181735,6 +184348,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionFormInput = {
@@ -181812,6 +184426,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionFormInput = {
@@ -181986,6 +184601,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionFormInput = {
@@ -182063,6 +184679,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithoutFormsInput = {
@@ -182400,6 +185017,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionRequiredDocumentInput = {
@@ -182477,6 +185095,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionRequiredDocumentInput = {
@@ -182598,6 +185217,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionRequiredDocumentInput = {
@@ -182675,6 +185295,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionDocumentUpsertWithWhereUniqueWithoutRequiredDocumentInput = {
@@ -182781,6 +185402,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionApplicationInput = {
@@ -182858,6 +185480,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionApplicationInput = {
@@ -183095,6 +185718,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionApplicationInput = {
@@ -183172,6 +185796,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithoutApplicationsInput = {
@@ -183699,6 +186324,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDocumentInput = {
@@ -183776,6 +186402,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDocumentInput = {
@@ -183869,6 +186496,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDocumentInput = {
@@ -183946,6 +186574,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutIdCardInput = {
@@ -184023,6 +186652,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIdCardInput = {
@@ -184100,6 +186730,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIdCardInput = {
@@ -184193,6 +186824,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIdCardInput = {
@@ -184270,6 +186902,7 @@ export namespace Prisma {
     FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyPlanInput = {
@@ -184366,6 +186999,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPlanInput = {
@@ -184443,6 +187077,7 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutPlanInput = {
@@ -185157,6 +187792,17 @@ export namespace Prisma {
     expiryDate?: Date | string | null
     status?: string
     verificationToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LibraryFineCreateManyTenantInput = {
+    id?: string
+    borrowingId: string
+    amount: Decimal | DecimalJsLike | number | string
+    reason: string
+    status?: $Enums.FineStatus
+    invoiceId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -186085,6 +188731,7 @@ export namespace Prisma {
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutTenantInput = {
@@ -186102,6 +188749,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateManyWithoutTenantInput = {
@@ -187330,6 +189978,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LibraryFineUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    borrowing?: BookBorrowingUpdateOneRequiredWithoutLibraryFineNestedInput
+    invoice?: InvoiceUpdateOneWithoutLibraryFineNestedInput
+  }
+
+  export type LibraryFineUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    borrowingId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LibraryFineUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    borrowingId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
+    invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantMarketplaceAppCreateManyAppInput = {
     id?: string
     tenantId: string
@@ -187967,6 +190648,7 @@ export namespace Prisma {
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutTermInput = {
@@ -187984,6 +190666,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateManyWithoutTermInput = {
@@ -188949,6 +191632,7 @@ export namespace Prisma {
     items?: InvoiceItemUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateWithoutStudentInput = {
@@ -188966,6 +191650,7 @@ export namespace Prisma {
     items?: InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutInvoiceNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutInvoiceNestedInput
   }
 
   export type InvoiceUncheckedUpdateManyWithoutStudentInput = {
@@ -189081,6 +191766,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     book?: LibraryBookUpdateOneRequiredWithoutBorrowingsNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutBorrowingNestedInput
   }
 
   export type BookBorrowingUncheckedUpdateWithoutStudentInput = {
@@ -189092,6 +191778,7 @@ export namespace Prisma {
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutBorrowingNestedInput
   }
 
   export type BookBorrowingUncheckedUpdateManyWithoutStudentInput = {
@@ -189867,6 +192554,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     student?: StudentUpdateOneRequiredWithoutBookBorrowingNestedInput
+    LibraryFine?: LibraryFineUpdateOneWithoutBorrowingNestedInput
   }
 
   export type BookBorrowingUncheckedUpdateWithoutBookInput = {
@@ -189878,6 +192566,7 @@ export namespace Prisma {
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    LibraryFine?: LibraryFineUncheckedUpdateOneWithoutBorrowingNestedInput
   }
 
   export type BookBorrowingUncheckedUpdateManyWithoutBookInput = {
@@ -191204,6 +193893,10 @@ export namespace Prisma {
      * @deprecated Use BookBorrowingDefaultArgs instead
      */
     export type BookBorrowingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BookBorrowingDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use LibraryFineDefaultArgs instead
+     */
+    export type LibraryFineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LibraryFineDefaultArgs<ExtArgs>
     /**
      * @deprecated Use NotificationQueueDefaultArgs instead
      */
