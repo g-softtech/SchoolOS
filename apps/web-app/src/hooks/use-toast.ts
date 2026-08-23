@@ -1,1 +1,1 @@
-export const useToast = () => ({ toast: (options?: any) => {} });
+export const useToast = () => ({ toast: (options?: unknown) => {} });

@@ -5,8 +5,23 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { SearchIcon, UserPlusIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { fetchApi } from '@/lib/api';
+import { useSession } from 'next-auth/react';
+import React, { useEffect, useState } from 'react';
 
 export default function StudentManifest() {
+  const { data: session } = useSession();
+  const [allocations, setAllocations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (session?.accessToken) {
+      fetchApi<{ data: any[] }>('/api/v1/transport/allocations', { token: session.accessToken })
+        .then(res => setAllocations(res.data || (res as any) || []))
+        .catch(console.error)
+        .finally(() => setLoading(false));
+    }
+  }, [session]);
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -38,18 +53,26 @@ export default function StudentManifest() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b last:border-0 hover:bg-muted/50 transition-colors whitespace-nowrap">
-                <td className="px-4 py-3 font-medium">Alice Smith</td>
-                <td className="px-4 py-3 text-muted-foreground">Downtown Route 1</td>
-                <td className="px-4 py-3 text-muted-foreground">ABC-1234</td>
-                <td className="px-4 py-3 text-muted-foreground">Main St & 4th Ave</td>
-                <td className="px-4 py-3">
-                  <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">ACTIVE</span>
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <Button variant="ghost" size="sm">Edit</Button>
-                </td>
-              </tr>
+              {loading ? (
+                <tr><td colSpan={6} className="text-center py-4">Loading...</td></tr>
+              ) : allocations.length === 0 ? (
+                <tr><td colSpan={6} className="text-center py-4">No allocations found</td></tr>
+              ) : (
+                allocations.map((a, i) => (
+                  <tr key={i} className="border-b last:border-0 hover:bg-muted/50 transition-colors whitespace-nowrap">
+                    <td className="px-4 py-3 font-medium">{a.student?.firstName} {a.student?.lastName}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{a.route?.name || a.routeId}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{a.vehicle?.plateNumber || a.vehicleId}</td>
+                    <td className="px-4 py-3 text-muted-foreground">{a.pickupPoint}</td>
+                    <td className="px-4 py-3">
+                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">{a.status}</span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Button variant="ghost" size="sm">Edit</Button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
