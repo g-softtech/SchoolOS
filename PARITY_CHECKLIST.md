@@ -41,7 +41,7 @@ For a module to be marked as complete, it must pass the following checks:
 ### Operations
 - [ ] Messaging & Notifications
 - [x] Events & Documents (Phase 16 - ID Cards & Documents)
-- [ ] Library
+- [x] Library (Phase 17)
 - [ ] Transport
 - [ ] Hostel
 - [ ] Inventory

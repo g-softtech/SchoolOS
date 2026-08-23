@@ -18,7 +18,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Exams & CBT | ⬜ Pending |
 | Results | ⬜ Pending |
 | HR & Staff (Phase 12) | ✅ Certified |
-| Library | ⬜ Pending |
+| Library | ✅ Complete (Phase 17) |
 | Transport | ⬜ Pending |
 | Hostel | ⬜ Pending |
 | Inventory | ⬜ Pending |
