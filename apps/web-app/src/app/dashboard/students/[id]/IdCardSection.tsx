@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { fetchApi } from '../../../../../lib/api';
+import { fetchApi } from '@/lib/api';
 import { useSession } from 'next-auth/react';
 
 export default function IdCardSection({ studentId, initialIdCard }: { studentId: string, initialIdCard: any }) {

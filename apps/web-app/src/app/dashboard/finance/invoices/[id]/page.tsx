@@ -1,6 +1,6 @@
 import React from 'react';
 import { auth } from '../../../../../../auth';
-import { fetchApi } from '../../../../../lib/api';
+import { fetchApi } from '@/lib/api';
 import Link from 'next/link';
 
 interface InvoiceItem {

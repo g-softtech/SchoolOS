@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useRef } from 'react';
-import { fetchApi } from '../../../../../lib/api';
+import { fetchApi } from '@/lib/api';
 import { useSession } from 'next-auth/react';
 
 export default function DocumentsSection({ ownerId, ownerType, initialDocuments }: { ownerId: string, ownerType: string, initialDocuments: any[] }) {
