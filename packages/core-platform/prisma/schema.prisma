@@ -113,6 +113,7 @@ model Tenant {
   LibraryFine           LibraryFine[]
   VehicleMaintenanceLog VehicleMaintenanceLog[]
   TransportAllocation   TransportAllocation[]
+  BedAllocation         BedAllocation[]
 
   @@map("plt_tenants")
 }
@@ -845,6 +846,7 @@ model Staff {
   payrollRecords Payroll[]
   leaveRequests  LeaveRequest[]
   drivenVehicles TransportVehicle[]
+  managedHostels Hostel[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1374,7 +1376,10 @@ model Hostel {
 
   name     String
   capacity Int
+  gender   String  @default("MIXED")
+  status   String  @default("ACTIVE")
   wardenId String?
+  warden   Staff?  @relation(fields: [wardenId], references: [id], onDelete: SetNull)
 
   rooms HostelRoom[]
 
@@ -1387,11 +1392,14 @@ model Hostel {
 
 model HostelRoom {
   id       String @id @default(uuid())
+  tenantId String @default("default") // Temporarily default to allow schema migration
   hostelId String
   hostel   Hostel @relation(fields: [hostelId], references: [id], onDelete: Cascade)
 
   roomNumber String
   capacity   Int
+  type       String @default("BUNK")
+  status     String @default("ACTIVE")
 
   allocations BedAllocation[]
 
@@ -1403,14 +1411,19 @@ model HostelRoom {
 }
 
 model BedAllocation {
-  id     String     @id @default(uuid())
-  roomId String
-  room   HostelRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  id       String     @id @default(uuid())
+  tenantId String     @default("default") // Temporarily default to allow schema migration
+  tenant   Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  roomId   String
+  room     HostelRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   studentId String
   student   Student @relation(fields: [studentId], references: [id])
 
-  academicYearId String
+  academicYearId String?
+  status         String    @default("ACTIVE")
+  allocatedAt    DateTime  @default(now())
+  expiresAt      DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

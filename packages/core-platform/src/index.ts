@@ -56,3 +56,6 @@ export * from './domain/transport/services/VehicleService';
 export * from './domain/transport/services/RouteService';
 export * from './domain/transport/services/MaintenanceService';
 export * from './domain/transport/services/AllocationService';
+
+// Hostel Domain Services
+export * from './domain/hostel';
