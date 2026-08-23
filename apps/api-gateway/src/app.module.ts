@@ -23,6 +23,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { ConfigService } from '@nestjs/config';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { LibraryModule } from './modules/library/library.module';
+import { TransportModule } from './modules/transport/transport.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { LibraryModule } from './modules/library/library.module';
     FinanceModule,
     DocumentsModule,
     LibraryModule,
+    TransportModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
