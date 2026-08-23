@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../../prisma/generated/client';
+import { PrismaClient, Prisma } from '../../../../prisma/generated/client';
 
 export interface AuditReport {
   timestamp: Date;
@@ -7,110 +7,167 @@ export interface AuditReport {
     severity: 'CRITICAL' | 'WARNING' | 'INFO';
     code: string;
     description: string;
-    metadata?: any;
+    metadata?: unknown;
   }>;
 }
 
+/**
+ * FinanceIntegrityVerificationService
+ *
+ * Runs a complete read-only internal audit of the Finance sub-system.
+ * All queries use actual schema models and column names.
+ * No destructive operations.
+ */
 export class FinanceIntegrityVerificationService {
   constructor(private readonly prisma: PrismaClient) {}
 
-  /**
-   * Runs a complete internal audit of the Finance sub-system.
-   * Scans for ledger imbalances, orphaned allocations, and broken explainability chains.
-   */
   async runHealthAudit(tenantId: string): Promise<AuditReport> {
     const report: AuditReport = {
       timestamp: new Date(),
       isHealthy: true,
-      issues: []
+      issues: [],
     };
 
-    // 1. Ledger Imbalance Check (Sum(Debits) === Sum(Credits))
-    const journalImbalances = await this.prisma.$queryRaw<any[]>`
-      SELECT "entryId", SUM(debit) as totalDebit, SUM(credit) as totalCredit
-      FROM "finance_journal_entry_lines"
-      WHERE "tenantId" = ${tenantId}
-      GROUP BY "entryId"
+    const schemaName = process.env.DATABASE_URL?.match(/schema=([^&]+)/)?.[1] || 'public';
+    const schemaRaw = Prisma.raw(`"${schemaName}".`);
+
+    // ── 1. Ledger Imbalance Check ────────────────────────────────────────────
+    // Every FinancialTransaction must have SUM(debit) == SUM(credit).
+    // Table: fin_journal_entry_lines; FK: "transactionId"
+    const imbalances = await this.prisma.$queryRaw<
+      Array<{ transactionId: string; totalDebit: string; totalCredit: string }>
+    >`
+      SELECT "transactionId",
+             SUM(debit)  AS "totalDebit",
+             SUM(credit) AS "totalCredit"
+      FROM   ${schemaRaw}"fin_journal_entry_lines"
+      WHERE  "tenantId" = ${tenantId}
+      GROUP  BY "transactionId"
       HAVING SUM(debit) != SUM(credit)
     `;
 
-    if (journalImbalances.length > 0) {
+    if (imbalances.length > 0) {
       report.isHealthy = false;
       report.issues.push({
         severity: 'CRITICAL',
         code: 'LEDGER_IMBALANCE',
-        description: `Found ${journalImbalances.length} journal entries where Debits do not equal Credits.`,
-        metadata: { journalEntryIds: journalImbalances.map(j => j.entryId) }
+        description: `Found ${imbalances.length} financial transactions where Debits ≠ Credits.`,
+        metadata: { transactionIds: imbalances.map((i) => i.transactionId) },
       });
     }
 
-    // 2. Orphaned Allocations Check (Allocations without a FinancialTransaction)
-    const orphanedAllocations = await this.prisma.paymentAllocation.findMany({
-      where: { tenantId, transactionId: null as any },
-      select: { id: true }
+    // ── 2. Orphaned Allocations ──────────────────────────────────────────────
+    // PaymentAllocation.transactionId should never be NULL (schema allows null
+    // for backwards compatibility, but our service always writes it).
+    const orphaned = await this.prisma.paymentAllocation.findMany({
+      where: { tenantId, transactionId: null },
+      select: { id: true },
     });
 
-    if (orphanedAllocations.length > 0) {
+    if (orphaned.length > 0) {
       report.isHealthy = false;
       report.issues.push({
         severity: 'CRITICAL',
         code: 'ORPHANED_ALLOCATIONS',
-        description: `Found ${orphanedAllocations.length} allocations missing a parent FinancialTransaction.`,
-        metadata: { allocationIds: orphanedAllocations.map(a => a.id) }
+        description: `Found ${orphaned.length} PaymentAllocation records with no linked FinancialTransaction.`,
+        metadata: { allocationIds: orphaned.map((a) => a.id) },
       });
     }
 
-    // 3. Broken Invoice Explainability Check 
-    // (Billed Amount < Paid Amount on an Invoice Item)
-    const overpaidItems = await this.prisma.$queryRaw<any[]>`
-      SELECT "id", "amount", "amountPaid"
-      FROM "finance_invoice_items"
-      WHERE "tenantId" = ${tenantId} AND "amountPaid" > "amount"
+    // ── 3. Invoice.amountPaid Cache Drift ────────────────────────────────────
+    // Invoice.amountPaid must equal SUM(PaymentAllocation.amount) for its items.
+    // Detects cases where the cache and the authoritative allocation diverged.
+    const drifted = await this.prisma.$queryRaw<
+      Array<{ invoiceId: string; cachedAmountPaid: string; authoritativeSum: string }>
+    >`
+      SELECT  inv.id              AS "invoiceId",
+              inv."amountPaid"    AS "cachedAmountPaid",
+              COALESCE(SUM(pa.amount), 0) AS "authoritativeSum"
+      FROM    ${schemaRaw}"fin_invoices" inv
+      LEFT JOIN ${schemaRaw}"fin_invoice_items" ii ON ii."invoiceId" = inv.id
+      LEFT JOIN ${schemaRaw}"finance_payment_allocations" pa ON pa."invoiceItemId" = ii.id
+      WHERE   inv."tenantId" = ${tenantId}
+      GROUP   BY inv.id, inv."amountPaid"
+      HAVING  inv."amountPaid" != COALESCE(SUM(pa.amount), 0)
     `;
 
-    if (overpaidItems.length > 0) {
+    if (drifted.length > 0) {
       report.isHealthy = false;
       report.issues.push({
         severity: 'CRITICAL',
-        code: 'INVOICE_ITEM_OVERPAID',
-        description: `Found ${overpaidItems.length} invoice items where AmountPaid exceeds Billed Amount. Allocations should route to Credit Wallet instead.`,
-        metadata: { itemIds: overpaidItems.map(i => i.id) }
+        code: 'AMOUNT_PAID_CACHE_DRIFT',
+        description:
+          `Found ${drifted.length} invoices where Invoice.amountPaid cache ` +
+          `diverges from the authoritative PaymentAllocation sum.`,
+        metadata: drifted,
       });
     }
 
-    // 4. Ghost Receipts Check (Receipts without valid Payments)
-    const ghostReceipts = await this.prisma.receipt.findMany({
-      where: { tenantId, payment: null as any },
-      select: { id: true, receiptNumber: true }
-    });
+    // ── 4. Over-Allocated Invoice Items ─────────────────────────────────────
+    // SUM(PaymentAllocation.amount) for an InvoiceItem must never exceed item.amount.
+    const overAllocated = await this.prisma.$queryRaw<
+      Array<{ invoiceItemId: string; itemAmount: string; allocatedSum: string }>
+    >`
+      SELECT  ii.id        AS "invoiceItemId",
+              ii.amount    AS "itemAmount",
+              SUM(pa.amount) AS "allocatedSum"
+      FROM    ${schemaRaw}"fin_invoice_items" ii
+      JOIN    ${schemaRaw}"finance_payment_allocations" pa ON pa."invoiceItemId" = ii.id
+      JOIN    ${schemaRaw}"fin_invoices" inv ON inv.id = ii."invoiceId"
+      WHERE   inv."tenantId" = ${tenantId}
+      GROUP   BY ii.id, ii.amount
+      HAVING  SUM(pa.amount) > ii.amount
+    `;
 
-    if (ghostReceipts.length > 0) {
+    if (overAllocated.length > 0) {
       report.isHealthy = false;
       report.issues.push({
         severity: 'CRITICAL',
-        code: 'GHOST_RECEIPTS',
-        description: `Found ${ghostReceipts.length} receipts that are not linked to any Payment record.`,
-        metadata: { receipts: ghostReceipts.map(r => r.receiptNumber) }
+        code: 'OVER_ALLOCATED_ITEM',
+        description:
+          `Found ${overAllocated.length} invoice items where the allocation sum exceeds the billed amount.`,
+        metadata: overAllocated,
       });
     }
 
-    // 5. Accounting Period Gap Check
-    // (Ensure transactions aren't posted to CLOSED or LOCKED periods)
-    const postingsToClosedPeriods = await this.prisma.journalEntry.findMany({
-      where: { 
-        tenantId, 
-        period: { status: { in: ['CLOSED', 'LOCKED', 'YEAR_CLOSED', 'ARCHIVED'] } } 
+    // ── 5. Postings to Closed Periods ────────────────────────────────────────
+    // No POSTED transaction should reference a CLOSED period.
+    const closedPeriodPostings = await this.prisma.financialTransaction.findMany({
+      where: {
+        tenantId,
+        status: 'POSTED',
+        period: { status: 'CLOSED' },
       },
-      select: { id: true, periodId: true }
+      select: { id: true, periodId: true, reference: true },
     });
 
-    if (postingsToClosedPeriods.length > 0) {
+    if (closedPeriodPostings.length > 0) {
       report.isHealthy = false;
       report.issues.push({
         severity: 'CRITICAL',
         code: 'POSTING_TO_CLOSED_PERIOD',
-        description: `Found ${postingsToClosedPeriods.length} journal entries improperly posted to closed accounting periods.`,
-        metadata: { entries: postingsToClosedPeriods.map(e => e.id) }
+        description:
+          `Found ${closedPeriodPostings.length} POSTED transactions in a CLOSED accounting period.`,
+        metadata: { transactions: closedPeriodPostings.map((t) => t.reference) },
+      });
+    }
+
+    // ── 6. Trial Balance (global) ────────────────────────────────────────────
+    const trialBalance = await this.prisma.journalEntryLine.aggregate({
+      where: { tenantId },
+      _sum: { debit: true, credit: true },
+    });
+
+    const totalDebits = trialBalance._sum.debit ?? new Prisma.Decimal(0);
+    const totalCredits = trialBalance._sum.credit ?? new Prisma.Decimal(0);
+
+    if (!totalDebits.equals(totalCredits)) {
+      report.isHealthy = false;
+      report.issues.push({
+        severity: 'CRITICAL',
+        code: 'GLOBAL_TRIAL_BALANCE_IMBALANCE',
+        description: `Global trial balance is out of balance: Debits=${totalDebits}, Credits=${totalCredits}`,
+        metadata: { totalDebits: totalDebits.toString(), totalCredits: totalCredits.toString() },
       });
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FinancialReportingReadService } from '../../../../packages/core-platform/src/domain/finance/services/FinancialReportingReadService';
+import { FinancialReportingReadService } from '@saas/core-platform';
 import { FamilyContext } from '../auth/FamilyContext';
 import { FamilyFinanceSummaryView, ChildFinanceSummary } from '../dto/ViewModels';
 
@@ -10,38 +10,44 @@ export class FinanceFacade {
   ) {}
 
   /**
-   * Adapts the raw internal Finance reporting services into the Parent-Friendly ViewModel.
-   * Enforces the "Parent Experience Principle" by strictly returning Explainability Strings
+   * Adapts the internal Finance reporting services into the Parent-Friendly ViewModel.
+   * Enforces the "Parent Experience Principle" — returns explainability strings
    * rather than raw math.
    */
-  async getFamilyFinanceSummary(context: FamilyContext, correlationId: string): Promise<Omit<FamilyFinanceSummaryView, 'sourceStatus' | 'correlationId' | 'generatedAt'>> {
+  async getFamilyFinanceSummary(
+    context: FamilyContext,
+    correlationId: string,
+  ): Promise<Omit<FamilyFinanceSummaryView, 'sourceStatus' | 'correlationId' | 'generatedAt'>> {
     const children: ChildFinanceSummary[] = [];
     let familyTotalOutstanding = 0;
 
     for (const studentId of context.studentIds) {
-      // Internal domain call
-      const statement = await this.reportingService.generateStudentStatement(context.tenantId, studentId);
-      
-      // Get the zero-math explainability string
-      const explainString = await this.reportingService.explainBalanceComplete(context.tenantId, studentId);
-      
-      const outstanding = Number(statement.outstandingBalance);
+      const { lines, totalOutstandingKobo } = await this.reportingService.explainStudentBalance({
+        tenantId: context.tenantId,
+        studentId,
+      });
+
+      const outstanding = totalOutstandingKobo / 100;
       familyTotalOutstanding += outstanding;
 
       children.push({
         studentId,
-        firstName: 'Child', // Would be joined from Student profile in reality
+        firstName: 'Child', // Would be joined from Student profile
         totalOutstanding: outstanding,
-        explanations: explainString.split('\n').filter(line => line.trim() !== '')
-      });
+        explanations: lines
+          .filter((l) => l.amountKobo !== 0)
+          .map((l) => `${l.label}: ₦${(l.amountKobo / 100).toLocaleString('en-NG')}`),
+        classification: 'STANDARD',
+      } as ChildFinanceSummary);
     }
 
     return {
       totalOutstanding: familyTotalOutstanding,
-      totalPaidThisTerm: 0, // Placeholder, would require a specific query against payments
+      totalPaidThisTerm: 0, // Placeholder — would require period-scoped payment query
       currency: 'NGN',
       children,
-      upcomingInstallments: [], // Placeholder, would query InstallmentEngine
-    };
+      upcomingInstallments: [],
+      classification: 'STANDARD',
+    } as any;
   }
 }

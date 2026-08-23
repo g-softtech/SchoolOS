@@ -1,45 +1,31 @@
-import { AllocationStrategy, PaymentAllocationResult } from './AllocationStrategy';
+import { AllocationStrategy, AllocationItem, StrategyOutput } from './AllocationStrategy';
 
 /**
- * Allocates payment strictly to the oldest invoices first (based on dueDate).
+ * OLDEST_FIRST — allocates to the invoice item with the earliest due date first.
+ * Items with equal due dates are processed in the order they appear.
  */
 export class OldestFirstStrategy implements AllocationStrategy {
-  allocate(
-    paymentAmount: number,
-    outstandingItems: Array<{
-      id: string;
-      invoiceId: string;
-      amountBilled: number;
-      amountPaid: number;
-      priority: number;
-      dueDate: Date;
-    }>
-  ): PaymentAllocationResult {
-    // Sort by oldest due date first
-    const sortedItems = [...outstandingItems].sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
-    
-    let remaining = paymentAmount;
-    const allocations: Array<{ invoiceItemId: string; amount: number }> = [];
+  allocate(amountToAllocate: number, items: AllocationItem[]): StrategyOutput {
+    const sorted = [...items].sort(
+      (a, b) => a.dueDate.getTime() - b.dueDate.getTime(),
+    );
 
-    for (const item of sortedItems) {
+    let remaining = amountToAllocate;
+    const allocations = [];
+
+    for (const item of sorted) {
       if (remaining <= 0) break;
-      
-      const outstandingForThisItem = item.amountBilled - item.amountPaid;
-      if (outstandingForThisItem <= 0) continue;
+      if (item.outstandingAmount <= 0) continue;
 
-      const allocationAmount = Math.min(remaining, outstandingForThisItem);
-      
+      const toApply = Math.min(remaining, item.outstandingAmount);
       allocations.push({
-        invoiceItemId: item.id,
-        amount: allocationAmount
+        invoiceItemId: item.invoiceItemId,
+        invoiceId: item.invoiceId,
+        amount: toApply,
       });
-      
-      remaining -= allocationAmount;
+      remaining -= toApply;
     }
 
-    return {
-      allocations,
-      unallocatedAmount: remaining
-    };
+    return { allocations, unallocatedAmount: remaining };
   }
 }

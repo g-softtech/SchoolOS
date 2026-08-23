@@ -1,106 +1,182 @@
-import { PrismaClient } from '../../../../prisma/generated/client';
+import { PrismaClient, Prisma } from '../../../../prisma/generated/client';
 
 export interface ExplanationLine {
   label: string;
-  amount: number;
+  amountKobo: number;
   type: 'DEBIT' | 'CREDIT' | 'BALANCE';
 }
 
+export interface StudentBalanceExplanation {
+  lines: ExplanationLine[];
+  totalOutstandingKobo: number;
+}
+
+export interface TrialBalanceLine {
+  accountCode: string;
+  name: string;
+  accountType: string;
+  debitKobo: number;
+  creditKobo: number;
+}
+
+/**
+ * FinancialReportingReadService — read-only reporting queries.
+ * All balances are ledger-derived. Never reads Invoice.amountPaid as truth.
+ * Returns amounts in kobo.
+ */
 export class FinancialReportingReadService {
   constructor(private readonly prisma: PrismaClient) {}
 
   /**
-   * Generates a completely explainable, zero-math breakdown for a student's balance.
-   * Traverses: Balance -> Allocations -> Payments -> Invoices -> Fee Structure
+   * Produces a complete explainable breakdown of a student's outstanding balance.
+   * Traverses: Invoices → Items → PaymentAllocations (authoritative).
+   * Does NOT use Invoice.amountPaid or InvoiceItem.amountPaid.
    */
-  async explainBalanceComplete(params: {
+  async explainStudentBalance(params: {
     tenantId: string;
-    accountId: string;
-  }): Promise<{ lines: ExplanationLine[]; totalOutstanding: number }> {
-    // 1. Fetch all Invoices for the account
+    studentId: string;
+  }): Promise<StudentBalanceExplanation> {
     const invoices = await this.prisma.invoice.findMany({
-      where: { tenantId: params.tenantId, accountId: params.accountId },
+      where: {
+        tenantId: params.tenantId,
+        studentId: params.studentId,
+        deletedAt: null,
+      },
       include: {
         items: {
           include: {
-            allocations: {
-              include: {
-                payment: {
-                  include: { receipt: true }
-                }
-              }
-            }
-          }
-        }
-      }
+            PaymentAllocation: {
+              include: { payment: true },
+            },
+          },
+        },
+      },
+      orderBy: { createdAt: 'asc' },
     });
 
-    const breakdown: ExplanationLine[] = [];
-    let totalOutstanding = 0;
+    const lines: ExplanationLine[] = [];
+    let totalOutstandingKobo = 0;
 
     for (const invoice of invoices) {
-      breakdown.push({ label: `--- Invoice: ${invoice.id} ---`, amount: 0, type: 'BALANCE' });
+      lines.push({
+        label: `── Invoice ${invoice.invoiceNumber} (${invoice.status}) ──`,
+        amountKobo: 0,
+        type: 'BALANCE',
+      });
 
       for (const item of invoice.items) {
-        // Add the billed amount
-        breakdown.push({ label: `${item.description}`, amount: Number(item.amount), type: 'DEBIT' });
-        
-        // Subtract allocations (Payments)
-        let itemPaid = 0;
-        for (const alloc of item.allocations) {
-          const receiptLabel = alloc.payment?.receipt ? ` (Receipt: ${alloc.payment.receipt.receiptNumber})` : '';
-          breakdown.push({ 
-            label: `  Paid${receiptLabel}`, 
-            amount: -Number(alloc.amount), 
-            type: 'CREDIT' 
+        const itemKobo = Math.round(Number(item.amount) * 100);
+        lines.push({ label: item.description, amountKobo: itemKobo, type: 'DEBIT' });
+
+        let itemAllocatedKobo = 0;
+        for (const alloc of item.PaymentAllocation) {
+          const allocKobo = Math.round(Number(alloc.amount) * 100);
+          lines.push({
+            label: `  Payment ref: ${alloc.payment?.reference ?? alloc.paymentId}`,
+            amountKobo: allocKobo,
+            type: 'CREDIT',
           });
-          itemPaid += Number(alloc.amount);
+          itemAllocatedKobo += allocKobo;
         }
 
-        const remaining = Number(item.amount) - itemPaid;
+        const remaining = Math.max(0, itemKobo - itemAllocatedKobo);
         if (remaining > 0) {
-          breakdown.push({ label: `  Remaining`, amount: remaining, type: 'BALANCE' });
+          lines.push({ label: `  Outstanding`, amountKobo: remaining, type: 'BALANCE' });
         } else {
-          breakdown.push({ label: `  Fully Paid ✔`, amount: 0, type: 'BALANCE' });
+          lines.push({ label: `  Fully paid ✔`, amountKobo: 0, type: 'BALANCE' });
         }
-
-        totalOutstanding += remaining;
+        totalOutstandingKobo += remaining;
       }
     }
 
-    breakdown.push({ label: '====================', amount: 0, type: 'BALANCE' });
-    breakdown.push({ label: 'TOTAL OUTSTANDING', amount: totalOutstanding, type: 'BALANCE' });
+    lines.push({ label: 'TOTAL OUTSTANDING', amountKobo: totalOutstandingKobo, type: 'BALANCE' });
 
-    return { lines: breakdown, totalOutstanding };
+    return { lines, totalOutstandingKobo };
   }
 
   /**
-   * Optimized read model for the general ledger trial balance.
-   * Never mutates records.
+   * Returns a trial balance for a specific accounting period.
+   * Derived entirely from JournalEntryLine aggregates.
+   * Amounts returned in kobo.
    */
   async getTrialBalance(params: {
     tenantId: string;
-    periodId: string;
-  }): Promise<Array<{ accountCode: string; name: string; debitBalance: number; creditBalance: number }>> {
-    // Queries JournalEntryLines grouped by accountId for a specific period
-    const lines = await this.prisma.journalEntryLine.groupBy({
+    periodId?: string;
+  }): Promise<{ lines: TrialBalanceLine[]; totalDebitKobo: number; totalCreditKobo: number; isBalanced: boolean }> {
+    const where: Prisma.JournalEntryLineWhereInput = {
+      tenantId: params.tenantId,
+      ...(params.periodId
+        ? { transaction: { periodId: params.periodId } }
+        : {}),
+    };
+
+    const grouped = await this.prisma.journalEntryLine.groupBy({
       by: ['accountId'],
-      where: { tenantId: params.tenantId, entry: { periodId: params.periodId } },
-      _sum: { debit: true, credit: true }
+      where,
+      _sum: { debit: true, credit: true },
     });
 
-    const accounts = await this.prisma.gLAccount.findMany({
-      where: { id: { in: lines.map(l => l.accountId) } }
+    const accountIds = grouped.map((g) => g.accountId);
+    const accounts = await this.prisma.chartOfAccount.findMany({
+      where: { id: { in: accountIds } },
     });
 
-    return lines.map(line => {
-      const acc = accounts.find(a => a.id === line.accountId);
+    const accountMap = new Map(accounts.map((a) => [a.id, a]));
+
+    let totalDebitKobo = 0;
+    let totalCreditKobo = 0;
+
+    const lines: TrialBalanceLine[] = grouped.map((line) => {
+      const acc = accountMap.get(line.accountId);
+      const debitKobo = Math.round(Number(line._sum.debit ?? 0) * 100);
+      const creditKobo = Math.round(Number(line._sum.credit ?? 0) * 100);
+      totalDebitKobo += debitKobo;
+      totalCreditKobo += creditKobo;
       return {
-        accountCode: acc?.code || 'UNKNOWN',
-        name: acc?.name || 'UNKNOWN',
-        debitBalance: Number(line._sum.debit) || 0,
-        creditBalance: Number(line._sum.credit) || 0,
+        accountCode: acc?.code ?? 'UNKNOWN',
+        name: acc?.name ?? 'UNKNOWN',
+        accountType: acc?.type ?? 'UNKNOWN',
+        debitKobo,
+        creditKobo,
       };
     });
+
+    return {
+      lines,
+      totalDebitKobo,
+      totalCreditKobo,
+      isBalanced: totalDebitKobo === totalCreditKobo,
+    };
+  }
+
+  /**
+   * Returns a summary of account balances across all ASSET, LIABILITY,
+   * EQUITY, REVENUE and EXPENSE accounts for the tenant.
+   * Derived from ledger only.
+   */
+  async getFinancialSummary(params: {
+    tenantId: string;
+    periodId?: string;
+  }): Promise<{ accounts: Array<{ code: string; name: string; type: string; balanceKobo: number }> }> {
+    const tb = await this.getTrialBalance(params);
+
+    const accounts = await this.prisma.chartOfAccount.findMany({
+      where: { tenantId: params.tenantId, isActive: true },
+    });
+
+    const lineMap = new Map(tb.lines.map((l) => [l.accountCode, l]));
+
+    const result = accounts.map((acc) => {
+      const line = lineMap.get(acc.code);
+      const debit = line?.debitKobo ?? 0;
+      const credit = line?.creditKobo ?? 0;
+      // Debit-normal: ASSET, EXPENSE → balance = debit - credit
+      // Credit-normal: LIABILITY, EQUITY, REVENUE → balance = credit - debit
+      const isDebitNormal = ['ASSET', 'EXPENSE'].includes(acc.type);
+      const balanceKobo = isDebitNormal ? debit - credit : credit - debit;
+      return { code: acc.code, name: acc.name, type: acc.type, balanceKobo };
+    });
+
+    return { accounts: result };
   }
 }

@@ -1,6 +1,18 @@
-import { PrismaClient, BankStatement, BankStatementLine, ReconciliationException } from '../../../../prisma/generated/client';
+import { PrismaClient, Prisma } from '../../../../prisma/generated/client';
+import { FinancialLedgerService } from './FinancialLedgerService';
 import { FinanceError } from './errors';
 
+/**
+ * ReconciliationService — Phase 15.2 scope: ledger-level gateway reconciliation.
+ *
+ * Note: Full bank-statement import/match (BankStatement model, auto-matching)
+ * is a future phase. Those models do not exist in the frozen schema.
+ *
+ * Phase 15.2 provides:
+ *  1. Gateway clearing balance (money received but not yet settled to physical bank)
+ *  2. Outstanding transfer check (gateway vs bank)
+ *  3. Per-period reconciliation status based on ledger balances
+ */
 export class ReconciliationError extends FinanceError {
   constructor(message: string) {
     super(message);
@@ -8,178 +20,99 @@ export class ReconciliationError extends FinanceError {
   }
 }
 
+export interface ReconciliationStatus {
+  gatewayClearingBalanceKobo: number;
+  mainBankBalanceKobo: number;
+  /** Non-zero means funds received digitally but not yet settled to physical bank */
+  unsettledKobo: number;
+  isReconciled: boolean;
+}
+
 export class ReconciliationService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(
+    private readonly prisma: PrismaClient,
+    private readonly ledgerService: FinancialLedgerService,
+  ) {}
 
   /**
-   * Imports a raw bank statement and initiates the auto-match run.
+   * Returns reconciliation status for a tenant's gateway clearing account.
+   *
+   * Gateway Clearing balance should be 0 after all settlements are posted.
+   * A non-zero balance means: money received from gateway but not yet settled
+   * into the physical bank account in the ledger.
    */
-  async importBankStatement(params: {
+  async getReconciliationStatus(params: {
     tenantId: string;
-    providerId: string;
-    statementDate: Date;
-    openingBalance: number;
-    closingBalance: number;
-    lines: Array<{
-      transactionDate: Date;
-      amount: number;
-      reference?: string;
-      description?: string;
-    }>;
-  }): Promise<BankStatement> {
-    return await this.prisma.$transaction(async (tx) => {
-      // 1. Create the statement wrapper
-      const statement = await tx.bankStatement.create({
-        data: {
-          tenantId: params.tenantId,
-          providerId: params.providerId,
-          statementDate: params.statementDate,
-          openingBalance: params.openingBalance,
-          closingBalance: params.closingBalance,
-          status: 'UPLOADED',
-          lines: {
-            create: params.lines.map(line => ({
-              tenantId: params.tenantId,
-              transactionDate: line.transactionDate,
-              amount: line.amount,
-              reference: line.reference,
-              description: line.description,
-              reconciled: false,
-            }))
-          }
+    gatewayClearingAccountId: string;
+    bankAccountId: string;
+  }): Promise<ReconciliationStatus> {
+    const [clearingBalance, bankBalance] = await Promise.all([
+      this.ledgerService.getAccountBalance(params.tenantId, params.gatewayClearingAccountId),
+      this.ledgerService.getAccountBalance(params.tenantId, params.bankAccountId),
+    ]);
+
+    const clearingKobo = Math.round(clearingBalance.mul(100).toNumber());
+    const bankKobo = Math.round(bankBalance.mul(100).toNumber());
+
+    return {
+      gatewayClearingBalanceKobo: clearingKobo,
+      mainBankBalanceKobo: bankKobo,
+      unsettledKobo: Math.max(0, clearingKobo),
+      isReconciled: clearingKobo === 0,
+    };
+  }
+
+  /**
+   * Returns a list of all payment transactions for a given period
+   * alongside their settlement status (i.e., whether the gateway clearing
+   * was subsequently offset by a TRANSFER transaction).
+   */
+  async getPeriodReconciliationReport(params: {
+    tenantId: string;
+    periodId: string;
+    gatewayClearingAccountId: string;
+  }): Promise<{
+    totalReceivedKobo: number;
+    totalSettledKobo: number;
+    unsettledKobo: number;
+  }> {
+    // Sum of all PAYMENT_RECEIPT debits to gateway clearing (money in)
+    const receiptLines = await this.prisma.journalEntryLine.aggregate({
+      where: {
+        tenantId: params.tenantId,
+        accountId: params.gatewayClearingAccountId,
+        transaction: {
+          periodId: params.periodId,
+          type: 'PAYMENT_RECEIPT',
         },
-        include: { lines: true }
-      });
-
-      return statement;
+      },
+      _sum: { debit: true },
     });
-  }
 
-  /**
-   * Runs the auto-match rules engine against an uploaded statement.
-   * Matches lines to Payments. Exceptions are surfaced as MatchCandidates.
-   */
-  async runAutoReconciliation(params: {
-    tenantId: string;
-    statementId: string;
-  }): Promise<{ matchedCount: number; exceptionCount: number }> {
-    return await this.prisma.$transaction(async (tx) => {
-      const statement = await tx.bankStatement.findUnique({
-        where: { id: params.statementId, tenantId: params.tenantId },
-        include: { lines: true }
-      });
-
-      if (!statement) throw new ReconciliationError('Statement not found');
-      if (statement.status === 'RECONCILED') throw new ReconciliationError('Already reconciled');
-
-      let matchedCount = 0;
-      let exceptionCount = 0;
-
-      for (const line of statement.lines) {
-        if (line.reconciled) continue;
-        if (!line.reference) {
-          await this.flagException(tx, params.tenantId, line.id, 'MISSING_REFERENCE');
-          exceptionCount++;
-          continue;
-        }
-
-        // Search for matching payment
-        const payments = await tx.payment.findMany({
-          where: { 
-            tenantId: params.tenantId,
-            reference: line.reference,
-            providerId: statement.providerId
-          }
-        });
-
-        if (payments.length === 0) {
-          await this.flagException(tx, params.tenantId, line.id, 'PAYMENT_NOT_FOUND');
-          exceptionCount++;
-        } else if (payments.length > 1) {
-          await this.flagException(tx, params.tenantId, line.id, 'DUPLICATE_PAYMENT_REFERENCES');
-          exceptionCount++;
-        } else {
-          const payment = payments[0];
-          
-          if (Number(payment.amount) !== Number(line.amount)) {
-            await this.flagException(tx, params.tenantId, line.id, 'AMOUNT_MISMATCH');
-            exceptionCount++;
-          } else {
-            // Perfect Match!
-            await tx.bankStatementLine.update({
-              where: { id: line.id },
-              data: { reconciled: true }
-            });
-            matchedCount++;
-          }
-        }
-      }
-
-      // Record the Run
-      await tx.reconciliationRun.create({
-        data: {
-          tenantId: params.tenantId,
-          statementId: statement.id,
-          status: 'COMPLETED',
-          matchedCount,
-          exceptionCount
-        }
-      });
-
-      // Update Statement Status
-      const finalStatus = exceptionCount === 0 ? 'RECONCILED' : 'EXCEPTIONS';
-      await tx.bankStatement.update({
-        where: { id: statement.id },
-        data: { status: finalStatus }
-      });
-
-      return { matchedCount, exceptionCount };
+    // Sum of all TRANSFER credits from gateway clearing (money out to bank)
+    const transferLines = await this.prisma.journalEntryLine.aggregate({
+      where: {
+        tenantId: params.tenantId,
+        accountId: params.gatewayClearingAccountId,
+        transaction: {
+          periodId: params.periodId,
+          type: 'TRANSFER',
+        },
+      },
+      _sum: { credit: true },
     });
-  }
 
-  private async flagException(tx: any, tenantId: string, lineId: string, reason: string): Promise<void> {
-    await tx.reconciliationException.create({
-      data: {
-        tenantId,
-        lineId,
-        reason,
-        status: 'OPEN'
-      }
-    });
-  }
+    const totalReceivedKobo = Math.round(
+      Number(receiptLines._sum.debit ?? 0) * 100,
+    );
+    const totalSettledKobo = Math.round(
+      Number(transferLines._sum.credit ?? 0) * 100,
+    );
 
-  /**
-   * Manually resolve an exception by forcing a match to a specific Payment.
-   */
-  async resolveException(params: {
-    tenantId: string;
-    exceptionId: string;
-    targetPaymentId: string; // The selected match candidate
-    resolutionNote: string;
-  }): Promise<void> {
-    await this.prisma.$transaction(async (tx) => {
-      const exception = await tx.reconciliationException.findUnique({
-        where: { id: params.exceptionId, tenantId: params.tenantId },
-        include: { line: true }
-      });
-
-      if (!exception) throw new ReconciliationError('Exception not found');
-
-      // 1. Mark line as reconciled
-      await tx.bankStatementLine.update({
-        where: { id: exception.lineId },
-        data: { reconciled: true }
-      });
-
-      // 2. Mark exception resolved
-      await tx.reconciliationException.update({
-        where: { id: exception.id },
-        data: { status: 'RESOLVED' }
-      });
-
-      // 3. Link the payment and the line (via an audit trail or linking table)
-      // In a full implementation, Payment should have a field `reconciledLineId` or similar.
-      // E.g. tx.payment.update(...)
-    });
+    return {
+      totalReceivedKobo,
+      totalSettledKobo,
+      unsettledKobo: Math.max(0, totalReceivedKobo - totalSettledKobo),
+    };
   }
 }

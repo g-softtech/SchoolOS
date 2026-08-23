@@ -18,6 +18,7 @@ import { StudentsModule } from './modules/students/students.module';
 import { AcademicsModule } from './modules/academics/academics.module';
 import { AttendanceModule } from './modules/attendance/attendance.module';
 import { ExaminationsModule } from './modules/examinations/examinations.module';
+import { FinanceModule } from './modules/finance/finance.module';
 import { BullModule } from '@nestjs/bullmq';
 import { ConfigService } from '@nestjs/config';
 
@@ -38,6 +39,7 @@ import { ConfigService } from '@nestjs/config';
     AcademicsModule,
     AttendanceModule,
     ExaminationsModule,
+    FinanceModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({

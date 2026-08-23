@@ -24,3 +24,20 @@ export * from './providers/platform-storage.service';
 export * from './providers/prisma.service';
 export * from './providers/prisma.module';
 export * from './providers';
+
+// Finance Domain Services
+export * from './domain/finance/services/errors';
+export * from './domain/finance/services/FinancialLedgerService';
+export * from './domain/finance/services/StudentCreditService';
+export * from './domain/finance/services/InvoiceService';
+export * from './domain/finance/services/PaymentAllocationService';
+export * from './domain/finance/services/PaymentProcessingService';
+export * from './domain/finance/services/TransferService';
+export * from './domain/finance/services/RefundService';
+export * from './domain/finance/services/GatewayWebhookService';
+export * from './domain/finance/services/ReconciliationService';
+export * from './domain/finance/services/FinancialReportingReadService';
+export * from './domain/finance/services/FinanceIntegrityVerificationService';
+export * from './domain/finance/services/allocation/AllocationStrategy';
+export * from './domain/finance/services/allocation/OldestFirstStrategy';
+export * from './domain/finance/services/allocation/PriorityFirstStrategy';

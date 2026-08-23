@@ -1,9 +1,14 @@
-import { PrismaClient, PaymentAllocation } from '../../../../prisma/generated/client';
+import { PrismaClient, PaymentAllocation, Prisma } from '../../../../prisma/generated/client';
 import { AllocationStrategy } from './allocation/AllocationStrategy';
 import { OldestFirstStrategy } from './allocation/OldestFirstStrategy';
 import { PriorityFirstStrategy } from './allocation/PriorityFirstStrategy';
 import { FinancialLedgerService } from './FinancialLedgerService';
-import { FinanceError } from './errors';
+import { InvoiceService } from './InvoiceService';
+import { FinanceError, OverAllocationError } from './errors';
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Errors
+// ─────────────────────────────────────────────────────────────────────────────
 
 export class InvalidAllocationError extends FinanceError {
   constructor(message: string) {
@@ -12,110 +17,199 @@ export class InvalidAllocationError extends FinanceError {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────────────────────────────────────
+
+export type AllocationStrategyType = 'OLDEST_FIRST' | 'PRIORITY_FIRST';
+
+export interface AllocatePaymentParams {
+  tenantId: string;
+  studentId: string;
+  paymentId: string;
+  /** Total amount to allocate, in kobo (integer) */
+  amountKobo: number;
+  strategy: AllocationStrategyType;
+  /**
+   * Deterministic idempotency reference for the ALLOCATION ledger transaction.
+   * Convention: ALLOC-{gatewayRef}-{invoiceId} or similar.
+   */
+  allocationReference: string;
+  /** Account IDs for the ledger entry: Dr Student Prepayments / Cr AR */
+  prepaymentLiabilityAccountId: string;
+  arAccountId: string;
+  /** Dimension tags for the ledger lines */
+  dimensionStudentId: string;
+  transactionDate: Date;
+}
+
+export interface AllocationOutput {
+  allocations: PaymentAllocation[];
+  /** Remaining kobo not allocated (stays as student credit) */
+  unallocatedKobo: number;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Service
+// ─────────────────────────────────────────────────────────────────────────────
+
 export class PaymentAllocationService {
   constructor(
     private readonly prisma: PrismaClient,
-    private readonly ledgerService: FinancialLedgerService
+    private readonly ledgerService: FinancialLedgerService,
+    private readonly invoiceService: InvoiceService,
   ) {}
 
-  /**
-   * Retrieves the requested strategy instance.
-   */
-  private getStrategy(strategyType: string): AllocationStrategy {
-    switch (strategyType) {
-      case 'OLDEST_FIRST': return new OldestFirstStrategy();
+  private getStrategy(type: AllocationStrategyType): AllocationStrategy {
+    switch (type) {
       case 'PRIORITY_FIRST': return new PriorityFirstStrategy();
-      default: return new OldestFirstStrategy(); // Default fallback
+      case 'OLDEST_FIRST':
+      default:               return new OldestFirstStrategy();
     }
   }
 
   /**
-   * Allocates a payment amount to outstanding invoice items based on the given strategy.
-   * Preserves allocation history and does not overwrite existing allocations.
+   * Allocates a payment (already received and in Student Prepayments) against
+   * outstanding invoice items for the student.
+   *
+   * Uses SELECT FOR UPDATE locking on invoice items to prevent concurrent
+   * over-allocation.
+   *
+   * Posts a FinancialTransaction(ALLOCATION):
+   *   Dr Student Prepayments / Cr Accounts Receivable
+   *
+   * Updates Invoice.amountPaid cache in the same DB transaction.
+   * Invoice status is derived from the allocation aggregate (authoritative).
    */
-  async allocatePayment(params: {
-    tenantId: string;
-    accountId: string;
-    paymentId: string;
-    amountToAllocate: number;
-    strategy: string;
-    correlationId: string;
-    periodId: string; // Required for ledger posting
-  }): Promise<{ allocations: PaymentAllocation[]; unallocated: number }> {
-    return await this.prisma.$transaction(async (tx) => {
-      // 1. Fetch outstanding invoice items for the account
-      // Note: In real life, we would join with FeeItem to get the priority, 
-      // but for this scaffold we mock the priority or fetch if available.
-      const outstandingInvoices = await tx.invoice.findMany({
-        where: { 
-          tenantId: params.tenantId, 
-          accountId: params.accountId,
-          status: { in: ['ISSUED', 'PARTIALLY_PAID'] }
-        },
-        include: { items: true }
-      });
+  async allocatePayment(params: AllocatePaymentParams): Promise<AllocationOutput> {
+    if (!Number.isInteger(params.amountKobo) || params.amountKobo <= 0) {
+      throw new InvalidAllocationError('amountKobo must be a positive integer');
+    }
 
-      const outstandingItems = outstandingInvoices.flatMap(inv => 
-        inv.items.map(item => ({
-          id: item.id,
-          invoiceId: inv.id,
-          amountBilled: Number(item.amount),
-          amountPaid: Number(item.amountPaid),
-          priority: 10, // Mock priority (could be fetched from item.feeItem.priority)
-          dueDate: inv.dueDate,
-        }))
-      ).filter(item => item.amountBilled > item.amountPaid);
+    const amountNaira = params.amountKobo / 100;
 
-      // 2. Delegate to the pluggable strategy
-      const strategyImpl = this.getStrategy(params.strategy);
-      const result = strategyImpl.allocate(params.amountToAllocate, outstandingItems);
+    return await this.prisma.$transaction(
+      async (tx) => {
+        // ── 1. Lock outstanding invoice items (prevents concurrent over-allocation) ──
+        const schemaName = process.env.DATABASE_URL?.match(/schema=([^&]+)/)?.[1] || 'public';
+        const schemaRaw = Prisma.raw(`"${schemaName}".`);
+        
+        // Raw SELECT FOR UPDATE to lock the rows
+        const rawItems = await tx.$queryRaw<
+          Array<{ id: string; invoiceId: string; amount: string; dueDate: Date }>
+        >`
+          SELECT ii.id, ii."invoiceId", ii.amount, inv."dueDate"
+          FROM ${schemaRaw}"fin_invoice_items" ii
+          JOIN ${schemaRaw}"fin_invoices" inv ON inv.id = ii."invoiceId"
+          WHERE inv."tenantId" = ${params.tenantId}
+            AND inv."studentId" = ${params.studentId}
+            AND inv.status IN ('SENT', 'PARTIAL')
+            AND inv."deletedAt" IS NULL
+          FOR UPDATE OF inv
+        `;
 
-      // 3. Create the FinancialTransaction root for this operation
-      const finTx = await tx.financialTransaction.create({
-        data: {
-          tenantId: params.tenantId,
-          transactionRef: params.correlationId,
-          type: 'PAYMENT_ALLOCATION',
-          source: 'SYSTEM',
-          status: 'COMPLETED',
-          description: `Allocation of Payment ${params.paymentId}`,
+        if (rawItems.length === 0) {
+          throw new InvalidAllocationError(
+            `No outstanding invoices found for student ${params.studentId}`,
+          );
         }
-      });
 
-      // 4. Record allocations and update items
-      const createdAllocations: PaymentAllocation[] = [];
-      for (const alloc of result.allocations) {
-        // Create immutable allocation record
-        const record = await tx.paymentAllocation.create({
-          data: {
+        // ── 2. Compute outstanding per item from PaymentAllocation aggregate ──
+        const itemIds = rawItems.map((i) => i.id);
+
+        const allocSums = await tx.paymentAllocation.groupBy({
+          by: ['invoiceItemId'],
+          where: { tenantId: params.tenantId, invoiceItemId: { in: itemIds } },
+          _sum: { amount: true },
+        });
+
+        const allocMap = new Map(
+          allocSums.map((a) => [a.invoiceItemId, Number(a._sum.amount ?? 0)]),
+        );
+
+        const outstandingItems = rawItems
+          .map((item) => ({
+            invoiceItemId: item.id,
+            invoiceId: item.invoiceId,
+            outstandingAmount: Math.max(0, Number(item.amount) - (allocMap.get(item.id) ?? 0)),
+            priority: 10,
+            dueDate: new Date(item.dueDate),
+          }))
+          .filter((i) => i.outstandingAmount > 0);
+
+        // ── 3. Run allocation strategy ──
+        const strategy = this.getStrategy(params.strategy);
+        const result = strategy.allocate(amountNaira, outstandingItems);
+
+        if (result.allocations.length === 0) {
+          throw new InvalidAllocationError(
+            'No allocatable outstanding items found. All invoices may be fully paid.',
+          );
+        }
+
+        // ── 4. Post ALLOCATION ledger transaction ──
+        //    Dr Student Prepayments / Cr Accounts Receivable
+        const allocatedNaira = result.allocations.reduce((s, a) => s + a.amount, 0);
+
+        const ledgerTx = await this.ledgerService.recordTransaction({
+          tenantId: params.tenantId,
+          reference: params.allocationReference,
+          type: 'ALLOCATION',
+          source: 'SYSTEM',
+          transactionDate: params.transactionDate,
+          lines: [
+            {
+              accountId: params.prepaymentLiabilityAccountId,
+              debit: new Prisma.Decimal(allocatedNaira),
+              credit: new Prisma.Decimal(0),
+              dimensionStudentId: params.dimensionStudentId,
+            },
+            {
+              accountId: params.arAccountId,
+              debit: new Prisma.Decimal(0),
+              credit: new Prisma.Decimal(allocatedNaira),
+            },
+          ],
+        }, tx as unknown as Prisma.TransactionClient);
+
+        // ── 5. Create PaymentAllocation records ──
+        const createdAllocations: PaymentAllocation[] = [];
+        const affectedInvoiceIds = new Set<string>();
+
+        for (const alloc of result.allocations) {
+          const record = await tx.paymentAllocation.create({
+            data: {
+              tenantId: params.tenantId,
+              paymentId: params.paymentId,
+              invoiceItemId: alloc.invoiceItemId,
+              // Link to the ALLOCATION FinancialTransaction
+              transactionId: ledgerTx.id,
+              amount: new Prisma.Decimal(alloc.amount),
+            },
+          });
+          createdAllocations.push(record);
+          affectedInvoiceIds.add(alloc.invoiceId);
+        }
+
+        // ── 6. Sync Invoice.amountPaid cache + status (in same TX) ──
+        for (const invoiceId of affectedInvoiceIds) {
+          await this.invoiceService.syncInvoicePaymentStatus({
             tenantId: params.tenantId,
-            paymentId: params.paymentId,
-            invoiceItemId: alloc.invoiceItemId,
-            transactionId: finTx.id,
-            amount: alloc.amount
-          }
-        });
-        createdAllocations.push(record);
+            invoiceId,
+            tx: tx as unknown as Prisma.TransactionClient,
+          });
+        }
 
-        // Update the item's amountPaid
-        await tx.invoiceItem.update({
-          where: { id: alloc.invoiceItemId },
-          data: { amountPaid: { increment: alloc.amount } }
-        });
-      }
-
-      // 5. If there's unallocated amount, we keep it as Student Credit 
-      // (This is inherently handled by the Ledger Service taking the full amount vs allocated amount)
-      
-      // Let's assume FinancialLedgerService will be called either here or in the caller 
-      // to actually post the JournalEntry for this allocation event (moving money from 
-      // Unallocated Cash to Accounts Receivable). For simplicity of the architecture scaffold,
-      // we'll assume the ledger call is made by PaymentProcessingService which orchestrates this.
-
-      return {
-        allocations: createdAllocations,
-        unallocated: result.unallocatedAmount
-      };
-    });
+        return {
+          allocations: createdAllocations,
+          unallocatedKobo: Math.round(result.unallocatedAmount * 100),
+        };
+      },
+      {
+        // Serializable isolation to prevent phantom reads in concurrent allocation
+        isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
+        timeout: 30_000,
+      },
+    );
   }
 }
