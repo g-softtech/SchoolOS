@@ -108,9 +108,11 @@ model Tenant {
   FinancialTransaction FinancialTransaction[]
   JournalEntryLine     JournalEntryLine[]
 
-  Document    Document[]
-  IdCard      IdCard[]
-  LibraryFine LibraryFine[]
+  Document              Document[]
+  IdCard                IdCard[]
+  LibraryFine           LibraryFine[]
+  VehicleMaintenanceLog VehicleMaintenanceLog[]
+  TransportAllocation   TransportAllocation[]
 
   @@map("plt_tenants")
 }
@@ -662,13 +664,14 @@ model Student {
   disciplineRecords DisciplineRecord[]
   attendance        Attendance[]
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  Invoice       Invoice[]
-  Scholarship   Scholarship[]
-  Result        Result[]
-  BedAllocation BedAllocation[]
-  BookBorrowing BookBorrowing[]
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  Invoice              Invoice[]
+  Scholarship          Scholarship[]
+  Result               Result[]
+  BedAllocation        BedAllocation[]
+  BookBorrowing        BookBorrowing[]
+  transportAllocations TransportAllocation[]
 
   journalLines JournalEntryLine[]
 
@@ -841,6 +844,7 @@ model Staff {
   employment     Employment?
   payrollRecords Payroll[]
   leaveRequests  LeaveRequest[]
+  drivenVehicles TransportVehicle[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1420,17 +1424,43 @@ model TransportVehicle {
   tenantId String
   tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  plateNumber String
-  driverName  String?
-  capacity    Int
+  plateNumber  String
+  capacity     Int
+  driverId     String?
+  driver       Staff?  @relation(fields: [driverId], references: [id], onDelete: SetNull)
+  lastLocation Json? // e.g., { lat: number, lng: number, timestamp: string }
+  status       String  @default("ACTIVE") // ACTIVE, MAINTENANCE, INACTIVE
 
-  routes TransportRoute[]
+  routes      TransportRoute[]
+  maintenance VehicleMaintenanceLog[]
+  allocations TransportAllocation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([tenantId])
+  @@index([driverId])
   @@map("ent_transport_vehicles")
+}
+
+model VehicleMaintenanceLog {
+  id        String           @id @default(uuid())
+  tenantId  String
+  tenant    Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  vehicleId String
+  vehicle   TransportVehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  date        DateTime
+  description String
+  cost        Decimal?
+  status      String   @default("COMPLETED") // PENDING, IN_PROGRESS, COMPLETED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([vehicleId])
+  @@map("ent_transport_maintenance")
 }
 
 model TransportRoute {
@@ -1438,14 +1468,38 @@ model TransportRoute {
   vehicleId String
   vehicle   TransportVehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
 
-  routeName String
-  stops     Json
+  routeName   String
+  stops       Json
+  allocations TransportAllocation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([vehicleId])
   @@map("ent_transport_routes")
+}
+
+model TransportAllocation {
+  id        String           @id @default(uuid())
+  tenantId  String
+  tenant    Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  studentId String
+  student   Student          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  vehicleId String
+  vehicle   TransportVehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  routeId   String
+  route     TransportRoute   @relation(fields: [routeId], references: [id], onDelete: Cascade)
+
+  pickupPoint String
+  status      String @default("ACTIVE") // ACTIVE, INACTIVE, SUSPENDED
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([studentId])
+  @@index([vehicleId])
+  @@map("ent_transport_allocations")
 }
 
 model LibraryBook {

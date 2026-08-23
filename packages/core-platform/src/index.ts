@@ -50,3 +50,9 @@ export * from './domain/documents/services/IdCardService';
 export * from './domain/library/services/BookService';
 export * from './domain/library/services/CirculationService';
 export * from './domain/library/services/FineService';
+
+// Transport Domain Services
+export * from './domain/transport/services/VehicleService';
+export * from './domain/transport/services/RouteService';
+export * from './domain/transport/services/MaintenanceService';
+export * from './domain/transport/services/AllocationService';
