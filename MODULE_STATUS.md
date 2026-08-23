@@ -9,7 +9,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Reporting | ⚪ Certified Frozen |
 | Credentials | ⚪ Certified Frozen |
 | Parent Portal (BFF) | 🟡 Architecture Complete |
-| Finance | 🟡 Feature Complete (Certification Pending) |
+| Finance | ✅ Certified |
 | Identity Platform | 🟡 Under Certification |
 | Students | ✅ Certified |
 | Academics | ✅ Certified |

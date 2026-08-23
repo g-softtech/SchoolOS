@@ -26,7 +26,7 @@ This document is the "Constitution" of the SchoolOS project. It is the single so
 | Admissions         | 🟢 CERTIFIED |
 | Student Management | 🟢 CERTIFIED |
 | Academics          | 🟢 CERTIFIED |
-| Finance            | ⏳ Pending  |
+| Finance            | 🟢 CERTIFIED |
 | HR                 | 🟢 CERTIFIED |
 | Website Builder    | ⏳ Pending  |
 | AI                 | ⏳ Pending  |
