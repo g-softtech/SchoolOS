@@ -33,8 +33,8 @@ For a module to be marked as complete, it must pass the following checks:
 - [ ] Assignments & Homework
 
 ### Financials & HR
-- [ ] Fees & Invoicing
-- [ ] Accounting
+- [x] Fees & Invoicing
+- [x] Accounting
 - [ ] Payroll
 - [ ] HR
 

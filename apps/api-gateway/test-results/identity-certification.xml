@@ -1,65 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="5" errors="0" time="48.208">
-  <testsuite name="StaffController (e2e)" errors="0" failures="5" skipped="0" timestamp="2026-08-22T09:59:10" time="46.81" tests="5">
-    <testcase classname="StaffController (e2e) Departments POST /departments - should create department" name="StaffController (e2e) Departments POST /departments - should create department" time="0.003">
-      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
+<testsuites name="jest tests" tests="2" failures="2" errors="0" time="4">
+  <testsuite name="Finance Frontend Integration (e2e)" errors="0" failures="2" skipped="0" timestamp="2026-08-23T03:38:53" time="3.868" tests="2">
+    <testcase classname="Finance Frontend Integration (e2e) /finance/reports/summary (GET) returns shape matching Frontend TrialBalance" name="Finance Frontend Integration (e2e) /finance/reports/summary (GET) returns shape matching Frontend TrialBalance" time="0.004">
+      <failure>Error: Nest can&apos;t resolve dependencies of the PolicyService (?, PolicyRegistry, EventEmitter, CACHE_MANAGER). Please make sure that the argument PrismaService at index [0] is available in the PolicyModule module.
 
-Please make sure your database server is running at `localhost:5432`.
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+Potential solutions:
+- Is PolicyModule a valid NestJS module?
+- If PrismaService is a provider, is it part of the current PolicyModule?
+- If PrismaService is exported from a separate @Module, is that module imported within PolicyModule?
+  @Module({
+    imports: [ /* the Module containing PrismaService */ ]
+  })
+
+For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+    at TestingInjector.lookupComponentInParentModules (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:300:19)
+    at TestingInjector.resolveComponentWrapper (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-injector.js:19:45)
+    at resolveParam (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:150:38)
     at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    at TestingInjector.resolveConstructorParams (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:179:27)
+    at TestingInjector.loadInstance (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:77:13)
+    at TestingInjector.loadProvider (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:111:9)
+    at C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:56:13
+    at async Promise.all (index 3)
+    at TestingInstanceLoader.createInstancesOfProviders (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:55:9)
+    at C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:40:13
+    at async Promise.all (index 17)
+    at TestingInstanceLoader.createInstances (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:39:9)
+    at TestingInstanceLoader.createInstancesOfDependencies (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:22:13)
+    at TestingInstanceLoader.createInstancesOfDependencies (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-instance-loader.js:9:9)
+    at TestingModuleBuilder.createInstancesOfDependencies (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-module.builder.js:119:9)
+    at TestingModuleBuilder.compile (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-module.builder.js:74:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\test\finance-frontend.e2e-spec.ts:11:42)</failure>
     </testcase>
-    <testcase classname="StaffController (e2e) Departments GET /departments - should isolate and list departments" name="StaffController (e2e) Departments GET /departments - should isolate and list departments" time="0.001">
-      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
+    <testcase classname="Finance Frontend Integration (e2e) /finance/invoices (GET) returns shape matching Frontend Invoice[]" name="Finance Frontend Integration (e2e) /finance/invoices (GET) returns shape matching Frontend Invoice[]" time="0.002">
+      <failure>Error: Nest can&apos;t resolve dependencies of the PolicyService (?, PolicyRegistry, EventEmitter, CACHE_MANAGER). Please make sure that the argument PrismaService at index [0] is available in the PolicyModule module.
 
-Please make sure your database server is running at `localhost:5432`.
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
+Potential solutions:
+- Is PolicyModule a valid NestJS module?
+- If PrismaService is a provider, is it part of the current PolicyModule?
+- If PrismaService is exported from a separate @Module, is that module imported within PolicyModule?
+  @Module({
+    imports: [ /* the Module containing PrismaService */ ]
+  })
+
+For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+    at TestingInjector.lookupComponentInParentModules (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:300:19)
+    at TestingInjector.resolveComponentWrapper (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-injector.js:19:45)
+    at resolveParam (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:150:38)
     at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    at TestingInjector.resolveConstructorParams (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:179:27)
+    at TestingInjector.loadInstance (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:77:13)
+    at TestingInjector.loadProvider (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\injector.js:111:9)
+    at C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:56:13
+    at async Promise.all (index 3)
+    at TestingInstanceLoader.createInstancesOfProviders (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:55:9)
+    at C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:40:13
+    at async Promise.all (index 17)
+    at TestingInstanceLoader.createInstances (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:39:9)
+    at TestingInstanceLoader.createInstancesOfDependencies (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\injector\instance-loader.js:22:13)
+    at TestingInstanceLoader.createInstancesOfDependencies (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-instance-loader.js:9:9)
+    at TestingModuleBuilder.createInstancesOfDependencies (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-module.builder.js:119:9)
+    at TestingModuleBuilder.compile (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+testing@11.1.27_@ne_319d436b2fe166c1fd7c6e0518e64d47\node_modules\@nestjs\testing\testing-module.builder.js:74:9)
+    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\test\finance-frontend.e2e-spec.ts:11:42)</failure>
     </testcase>
-    <testcase classname="StaffController (e2e) Staff &amp; Employment POST /staff - should hire staff and isolate by tenant" name="StaffController (e2e) Staff &amp; Employment POST /staff - should hire staff and isolate by tenant" time="0">
-      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
-
-Please make sure your database server is running at `localhost:5432`.
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
-    </testcase>
-    <testcase classname="StaffController (e2e) Staff &amp; Employment PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant" name="StaffController (e2e) Staff &amp; Employment PATCH /staff/:staffId/employment/status - should update status and reject cross-tenant" time="0.001">
-      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
-
-Please make sure your database server is running at `localhost:5432`.
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
-    </testcase>
-    <testcase classname="StaffController (e2e) Timetable Eligibility (M12.3) GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership" name="StaffController (e2e) Timetable Eligibility (M12.3) GET /assignment/eligible-teachers - should return only ACTIVE staff with ACTIVE membership" time="0">
-      <failure>PrismaClientInitializationError: Can&apos;t reach database server at `localhost:5432`
-
-Please make sure your database server is running at `localhost:5432`.
-    at t (C:\my_school_app\saas-platform\packages\core-platform\prisma\generated\client\runtime\library.js:112:2488)
-    at Proxy.onModuleInit (C:\my_school_app\saas-platform\packages\core-platform\src\providers\prisma.service.ts:7:5)
-    at async Promise.all (index 0)
-    at callModuleInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\hooks\on-module-init.hook.js:43:5)
-    at Proxy.callInitHook (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application-context.js:252:13)
-    at Proxy.init (C:\my_school_app\saas-platform\node_modules\.pnpm\@nestjs+core@11.1.27_@nestj_ac0670a6e3f8e63546ebcb00c65eb5fd\node_modules\@nestjs\core\nest-application.js:105:9)
-    at Object.&lt;anonymous&gt; (C:\my_school_app\saas-platform\apps\api-gateway\src\modules\staff\tests\e2e\staff.e2e-spec.ts:44:5)</failure>
+    <testcase classname=" Test execution failure: could be caused by test hooks like &apos;afterAll&apos;." name=" Test execution failure: could be caused by test hooks like &apos;afterAll&apos;." time="0">
+      <failure>{&quot;message&quot;:&quot;&quot;,&quot;stack&quot;:&quot;TypeError: Cannot read properties of undefined (reading &apos;close&apos;)\n    at Object.&lt;anonymous&gt; (C:\\my_school_app\\saas-platform\\apps\\api-gateway\\test\\finance-frontend.e2e-spec.ts:27:15)\n    at Promise.finally.completed (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:1561:28)\n    at new Promise (&lt;anonymous&gt;)\n    at callAsyncCircusFn (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:1501:10)\n    at _callCircusHook (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:980:40)\n    at _runTestsForDescribeBlock (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:895:7)\n    at _runTestsForDescribeBlock (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:861:11)\n    at run (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:765:3)\n    at runAndTransformResultsToJestFormat (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\jestAdapterInit.js:1993:21)\n    at jestAdapter (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-circus@30.4.2\\node_modules\\jest-circus\\build\\runner.js:111:19)\n    at runTestInternal (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-runner@30.4.2\\node_modules\\jest-runner\\build\\index.js:276:16)\n    at runTest (C:\\my_school_app\\saas-platform\\node_modules\\.pnpm\\jest-runner@30.4.2\\node_modules\\jest-runner\\build\\index.js:344:7)&quot;}</failure>
     </testcase>
   </testsuite>
 </testsuites>
