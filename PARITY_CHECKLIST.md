@@ -42,7 +42,7 @@ For a module to be marked as complete, it must pass the following checks:
 - [ ] Messaging & Notifications
 - [x] Events & Documents (Phase 16 - ID Cards & Documents)
 - [x] Library (Phase 17)
-- [ ] Transport
+- [x] Transport
 - [ ] Hostel
 - [ ] Inventory
 - [ ] Multi-campus Manager

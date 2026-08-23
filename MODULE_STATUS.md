@@ -19,7 +19,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Results | ⬜ Pending |
 | HR & Staff (Phase 12) | ✅ Certified |
 | Library | ✅ Complete (Phase 17) |
-| Transport | ⬜ Pending |
+| Transport | ✅ Complete (Phase 18) |
 | Hostel | ⬜ Pending |
 | Inventory | ⬜ Pending |
 | AI Assistant | ⬜ Pending |
