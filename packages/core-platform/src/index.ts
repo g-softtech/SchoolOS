@@ -45,3 +45,8 @@ export * from './domain/finance/services/allocation/PriorityFirstStrategy';
 // Document Domain Services
 export * from './domain/documents/services/DocumentService';
 export * from './domain/documents/services/IdCardService';
+
+// Library Domain Services
+export * from './domain/library/services/BookService';
+export * from './domain/library/services/CirculationService';
+export * from './domain/library/services/FineService';

@@ -75,8 +75,8 @@ export class FineService {
     // 2. Issue the invoice immediately (Library fines are active instantly)
     // For issuing, we need AR and Revenue accounts. We'll fetch defaults or dummy them if missing.
     // In production, these should come from tenant settings.
-    const arAccount = await this.prisma.chartOfAccount.findFirst({ where: { tenantId: data.tenantId, accountType: 'ASSET' }});
-    const revAccount = await this.prisma.chartOfAccount.findFirst({ where: { tenantId: data.tenantId, accountType: 'REVENUE' }});
+    const arAccount = await this.prisma.chartOfAccount.findFirst({ where: { tenantId: data.tenantId, type: 'ASSET' }});
+    const revAccount = await this.prisma.chartOfAccount.findFirst({ where: { tenantId: data.tenantId, type: 'REVENUE' }});
     
     if (arAccount && revAccount) {
       await this.invoiceService.issueInvoice({
