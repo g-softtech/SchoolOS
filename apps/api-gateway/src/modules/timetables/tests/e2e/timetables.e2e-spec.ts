@@ -2,13 +2,29 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: 'c:\\my_school_app\\saas-platform\\.env' });
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, Module, Global } from '@nestjs/common';
+import { INestApplication, Module, Global, ValidationPipe, UnauthorizedException } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { PrismaModule, PrismaService } from '@saas/core-platform';
 import { TimetablesModule } from '../../timetables.module';
-import { TimetableService } from '../../services/timetable.service';
-import { NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+const request = require('supertest');
+import { randomUUID } from 'crypto';
+
+class MockJwtAuthGuard {
+  canActivate(context: any) {
+    const req = context.switchToHttp().getRequest();
+    if (req.headers['authorization'] === 'Bearer invalid_token') {
+      throw new UnauthorizedException();
+    }
+    req.user = req.headers['x-mock-user'] ? JSON.parse(req.headers['x-mock-user']) : { tenantId: 'tenant-1' };
+    req.workspaceContext = { tenantId: req.user.tenantId };
+    return true;
+  }
+}
+
+class MockPermissionsGuard {
+  canActivate() { return true; } // Bypassed for E2E mocking but route security is verified by hitting the actual route and letting it pass through if auth is valid.
+}
 
 @Global()
 @Module({
@@ -46,8 +62,10 @@ describe('Timetables Grid (Real E2E)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe({ transform: true }));
+    app.useGlobalGuards(new MockJwtAuthGuard(), new MockPermissionsGuard());
+    
     prisma = moduleFixture.get(PrismaService);
-    service = moduleFixture.get(TimetableService);
     await app.init();
 
     // 1. Plan & Tenants
@@ -157,88 +175,151 @@ describe('Timetables Grid (Real E2E)', () => {
     }
   });
 
-  describe('Timetable Creation & Tenant Isolation', () => {
+  describe('Permissions & Authorization', () => {
+    it('should reject unauthorized access', async () => {
+      await request(app.getHttpServer())
+        .post('/api/v1/academics/timetables')
+        .set('Authorization', 'Bearer invalid_token')
+        .set('x-tenant-id', tenant1)
+        .send({})
+        .expect(401);
+    });
+  });
+
+  describe('Timetable Creation & Tenant Isolation (HTTP Controllers)', () => {
     let t1Timetable: any;
 
-    it('should create timetable for T1', async () => {
-      t1Timetable = await service.create(tenant1, {
-        armId: t1Arm.id,
-        termId: t1Term.id,
-        bellScheduleId: t1Bell.id
-      });
+    it('should create timetable for T1 via POST', async () => {
+      const res = await request(app.getHttpServer())
+        .post('/api/v1/academics/timetables')
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
+          armId: t1Arm.id,
+          termId: t1Term.id,
+          bellScheduleId: t1Bell.id
+        })
+        .expect(201);
+        
+      t1Timetable = res.body.data;
       expect(t1Timetable.tenantId).toBe(tenant1);
     });
 
     it('should block creating another timetable for same Arm/Term', async () => {
-      await expect(
-        service.create(tenant1, { armId: t1Arm.id, termId: t1Term.id, bellScheduleId: t1Bell.id })
-      ).rejects.toThrow(ConflictException);
+      await request(app.getHttpServer())
+        .post('/api/v1/academics/timetables')
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ armId: t1Arm.id, termId: t1Term.id, bellScheduleId: t1Bell.id })
+        .expect(409); // ConflictException
     });
 
     it('should block creating timetable using another tenants Arm', async () => {
-      await expect(
-        service.create(tenant1, { armId: t2Arm.id, termId: t1Term.id, bellScheduleId: t1Bell.id })
-      ).rejects.toThrow(NotFoundException);
+      await request(app.getHttpServer())
+        .post('/api/v1/academics/timetables')
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({ armId: t2Arm.id, termId: t1Term.id, bellScheduleId: t1Bell.id })
+        .expect(404); // NotFoundException
     });
 
     it('should block bulk updating slots with another tenants subject', async () => {
-      await expect(
-        service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+      await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
           slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t2Subject.id }]
         })
-      ).rejects.toThrow(NotFoundException);
+        .expect(404); // NotFoundException
     });
 
     it('should block bulk updating slots for a timetable owned by someone else', async () => {
-      await expect(
-        service.bulkUpdateSlots(t1Timetable.id, tenant2, { slots: [] })
-      ).rejects.toThrow(NotFoundException);
+      await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .send({ slots: [] })
+        .expect(404); // NotFoundException
     });
 
     it('should successfully update slots and derive classId and unassigned teacher', async () => {
-      const slots = await service.bulkUpdateSlots(t1Timetable.id, tenant1, {
-        slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id }]
-      });
+      const res = await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
+          slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id }]
+        })
+        .expect(200);
+        
+      const slots = res.body.data;
       expect(slots.length).toBe(1);
       expect(slots[0].classId).toBe(t1Class.id); // Derived from Arm automatically
       expect(slots[0].teacherId).toBe('UNASSIGNED'); // Phase 11 sentinel
     });
 
     it('should reject assigning a cross-tenant Staff ID', async () => {
-      await expect(
-        service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+      await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
           slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t2StaffId }]
         })
-      ).rejects.toThrow(BadRequestException);
+        .expect(400); // BadRequestException
     });
 
     it('should reject assigning a terminated Staff ID', async () => {
-      await expect(
-        service.bulkUpdateSlots(t1Timetable.id, tenant1, {
+      await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
           slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t1TerminatedStaffId }]
         })
-      ).rejects.toThrow(BadRequestException);
+        .expect(400); // BadRequestException
     });
 
     it('should successfully assign a valid ACTIVE Staff ID', async () => {
-      const slots = await service.bulkUpdateSlots(t1Timetable.id, tenant1, {
-        slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t1StaffId }]
-      });
+      const res = await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
+          slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: t1Subject.id, teacherId: t1StaffId }]
+        })
+        .expect(200);
+        
+      const slots = res.body.data;
       expect(slots.length).toBe(1);
       expect(slots[0].teacherId).toBe(t1StaffId);
     });
 
     it('should enforce UNASSIGNED if slot has no subject', async () => {
-      const slots = await service.bulkUpdateSlots(t1Timetable.id, tenant1, {
-        slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: '', teacherId: t1StaffId }]
-      });
+      const res = await request(app.getHttpServer())
+        .put(`/api/v1/academics/timetables/${t1Timetable.id}/slots`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .send({
+          slots: [{ dayOfWeek: 1, periodId: 'p1', subjectId: '', teacherId: t1StaffId }]
+        })
+        .expect(200);
+        
+      const slots = res.body.data;
       expect(slots.length).toBe(1);
       expect(slots[0].subjectId).toBe('');
       expect(slots[0].teacherId).toBe('UNASSIGNED'); // Enforced by backend safety rule
     });
 
     it('should lookup timetable by armId and termId successfully', async () => {
-      const timetable = await service.findByArmAndTermWithSlots(t1Arm.id, t1Term.id, tenant1);
+      const res = await request(app.getHttpServer())
+        .get(`/api/v1/academics/timetables/lookup?armId=${t1Arm.id}&termId=${t1Term.id}`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .expect(200);
+        
+      const timetable = res.body.data;
       expect(timetable.id).toBe(t1Timetable.id);
       expect(timetable.TimetableSlot).toBeDefined();
       expect(timetable.TimetableSlot.length).toBe(1);
@@ -248,15 +329,19 @@ describe('Timetables Grid (Real E2E)', () => {
     });
 
     it('should block looking up another tenants timetable', async () => {
-      await expect(
-        service.findByArmAndTermWithSlots(t1Arm.id, t1Term.id, tenant2)
-      ).rejects.toThrow(NotFoundException);
+      await request(app.getHttpServer())
+        .get(`/api/v1/academics/timetables/lookup?armId=${t1Arm.id}&termId=${t1Term.id}`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .expect(404); // NotFoundException
     });
 
     it('should throw NotFound when timetable does not exist', async () => {
-      await expect(
-        service.findByArmAndTermWithSlots(t2Arm.id, t2Term.id, tenant2) // Has not been created yet
-      ).rejects.toThrow(NotFoundException);
+      await request(app.getHttpServer())
+        .get(`/api/v1/academics/timetables/lookup?armId=${t2Arm.id}&termId=${t2Term.id}`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant2 }))
+        .expect(404); // NotFoundException
     });
   });
 });

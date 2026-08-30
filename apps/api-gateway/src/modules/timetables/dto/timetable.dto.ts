@@ -31,10 +31,10 @@ export class TimetableSlotDto {
   @IsNotEmpty()
   periodId: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsString()
-  @IsNotEmpty()
-  subjectId: string;
+  @IsOptional()
+  subjectId?: string;
 
   @ApiProperty({ required: false })
   @IsString()

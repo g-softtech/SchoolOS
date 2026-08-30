@@ -26,6 +26,8 @@ import { LibraryModule } from './modules/library/library.module';
 import { TransportModule } from './modules/transport/transport.module';
 import { HostelApiModule } from './modules/hostel/hostel.module';
 import { ReportingApiModule } from './modules/reporting/reporting-api.module';
+import { StaffModule } from './modules/staff/staff.module';
+import { TimetablesModule } from './modules/timetables/timetables.module';
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { ReportingApiModule } from './modules/reporting/reporting-api.module';
     TransportModule,
     HostelApiModule,
     ReportingApiModule,
+    StaffModule,
+    TimetablesModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
