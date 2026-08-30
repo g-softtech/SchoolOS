@@ -308,7 +308,7 @@ describe('Timetables Grid (Real E2E)', () => {
         
       const slots = res.body.data;
       expect(slots.length).toBe(1);
-      expect(slots[0].subjectId).toBe('');
+      expect(slots[0].subjectId).toBe('UNASSIGNED');
       expect(slots[0].teacherId).toBe('UNASSIGNED'); // Enforced by backend safety rule
     });
 
@@ -324,7 +324,7 @@ describe('Timetables Grid (Real E2E)', () => {
       expect(timetable.TimetableSlot).toBeDefined();
       expect(timetable.TimetableSlot.length).toBe(1);
       // It should have the state from the last valid update (no subject, UNASSIGNED)
-      expect(timetable.TimetableSlot[0].subjectId).toBe('');
+      expect(timetable.TimetableSlot[0].subjectId).toBe('UNASSIGNED');
       expect(timetable.TimetableSlot[0].teacherId).toBe('UNASSIGNED');
     });
 
