@@ -24,6 +24,7 @@ import { ConfigService } from '@nestjs/config';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { LibraryModule } from './modules/library/library.module';
 import { TransportModule } from './modules/transport/transport.module';
+import { HostelApiModule } from './modules/hostel/hostel.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { TransportModule } from './modules/transport/transport.module';
     DocumentsModule,
     LibraryModule,
     TransportModule,
+    HostelApiModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
