@@ -31,19 +31,16 @@ export class FinanceReporter implements OnModuleInit {
       dependsOn: [],
       explainabilityTemplate: 'Collection rate is {rate}% based on total invoices generated vs received payments.',
       calculate: async (ctx: MetricCalculationContext) => {
-        // Example: calculate total payments vs total invoices for a term
-        // This is a heavy calculation typically done in a background job, but defined here for portability
-        const result = await this.prisma.$queryRaw<{ collectionRate: number }[]>`
-          SELECT 
-            CASE 
-              WHEN SUM(invoice_amount) > 0 THEN (SUM(payment_amount) / SUM(invoice_amount)) * 100
-              ELSE 0 
-            END as "collectionRate"
-          FROM "FinancialLedgerSnapshot" 
-          WHERE tenant_id = ${ctx.tenantId}
-        `;
-        const rate = result[0]?.collectionRate || 0;
-        return { value: rate, explanationArgs: { rate } };
+        const result = await this.prisma.invoice.aggregate({
+          where: { tenantId: ctx.tenantId, status: { not: 'DRAFT' } },
+          _sum: { totalAmount: true, amountPaid: true }
+        });
+        
+        const total = Number(result._sum.totalAmount || 0);
+        const paid = Number(result._sum.amountPaid || 0);
+        const rate = total > 0 ? (paid / total) * 100 : 0;
+        
+        return { value: rate, explanationArgs: { rate: rate.toFixed(2) } };
       }
     });
 
@@ -62,15 +59,19 @@ export class FinanceReporter implements OnModuleInit {
       dependsOn: [],
       explainabilityTemplate: 'Outstanding balance of {balance} is derived directly from the canonical Finance Ledger.',
       calculate: async (ctx: MetricCalculationContext) => {
-        if (!ctx.studentId) throw new Error('studentId is required for OUTSTANDING_BALANCE_V1');
-        
-        // Example: Derived live from the actual transactional ledger
-        const ledger = await this.prisma.financialTransaction.aggregate({
-          where: { tenantId: ctx.tenantId, studentId: ctx.studentId },
-          _sum: { amount: true } // Assuming normalized debit/credit arithmetic
+        const where: any = { tenantId: ctx.tenantId, status: { not: 'DRAFT' } };
+        if (ctx.studentId) {
+          where.studentId = ctx.studentId;
+        }        
+        const result = await this.prisma.invoice.aggregate({
+          where,
+          _sum: { totalAmount: true, amountPaid: true }
         });
         
-        const balance = Number(ledger._sum.amount) || 0;
+        const total = Number(result._sum.totalAmount || 0);
+        const paid = Number(result._sum.amountPaid || 0);
+        const balance = total - paid;
+        
         return { value: balance, explanationArgs: { balance } };
       }
     });

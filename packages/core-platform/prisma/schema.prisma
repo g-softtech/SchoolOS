@@ -114,6 +114,7 @@ model Tenant {
   VehicleMaintenanceLog VehicleMaintenanceLog[]
   TransportAllocation   TransportAllocation[]
   BedAllocation         BedAllocation[]
+  MetricSnapshot        MetricSnapshot[]
 
   @@map("plt_tenants")
 }
@@ -2297,4 +2298,35 @@ model IdCard {
   @@index([tenantId])
   @@index([ownerType, ownerId])
   @@map("ops_id_cards")
+}
+
+// ---------------------------------------------------------------------------
+// REPORTING DOMAIN
+// ---------------------------------------------------------------------------
+
+model MetricSnapshot {
+  id                    String    @id @default(uuid())
+  tenantId              String
+  tenant                Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  metricName            String
+  metricVersion         String
+  value                 Float
+  snapshotDate          DateTime
+  isLatest              Boolean   @default(true)
+  generatedBy           String
+  lineageId             String? // Maps to ScheduledJob.id
+  calculationDurationMs Int?
+  explainabilityString  String?
+  supersededAt          DateTime?
+
+  // Dimensions
+  campusId  String?
+  sessionId String?
+  classId   String?
+  studentId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, metricName, isLatest])
 }

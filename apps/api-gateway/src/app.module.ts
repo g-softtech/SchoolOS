@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TenantMiddleware } from './middleware/tenant.middleware';
-import { PrismaService } from './database/prisma.service';
+import { DatabaseModule } from './database/database.module';
 import { RedisCacheModule } from './platform-services/redis/redis.module';
 import { ConfigurationModule } from './platform-services/configuration/configuration.module';
 import { FeatureFlagsModule } from './platform-services/feature-flags/feature-flags.module';
@@ -25,10 +25,15 @@ import { DocumentsModule } from './modules/documents/documents.module';
 import { LibraryModule } from './modules/library/library.module';
 import { TransportModule } from './modules/transport/transport.module';
 import { HostelApiModule } from './modules/hostel/hostel.module';
+import { ReportingApiModule } from './modules/reporting/reporting-api.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ 
+      isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'test' ? '../../.env.test' : '.env',
+    }),
+    DatabaseModule,
     RedisCacheModule,
     ConfigurationModule,
     FeatureFlagsModule,
@@ -48,20 +53,29 @@ import { HostelApiModule } from './modules/hostel/hostel.module';
     LibraryModule,
     TransportModule,
     HostelApiModule,
+    ReportingApiModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        connection: {
-          host: configService.get('REDIS_HOST') || 'localhost',
-          port: parseInt(configService.get<string>('REDIS_PORT') || '6379', 10),
-          password: configService.get('REDIS_PASSWORD'),
-        },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        if (process.env.NODE_ENV === 'test' || process.env.DISABLE_REDIS === 'true') {
+          const RedisMock = require('ioredis-mock');
+          return {
+            connection: new RedisMock(),
+          };
+        }
+        return {
+          connection: {
+            host: configService.get('REDIS_HOST') || 'localhost',
+            port: parseInt(configService.get<string>('REDIS_PORT') || '6379', 10),
+            password: configService.get('REDIS_PASSWORD'),
+          },
+        };
+      },
       inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

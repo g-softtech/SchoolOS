@@ -25,13 +25,16 @@ import { PaymentController } from './controllers/payment.controller';
 import { WebhookController } from './controllers/webhook.controller';
 import { ReportController } from './controllers/report.controller';
 
+import { FinanceReporter } from '@saas/core-platform';
+import { ReportingModule, MetricRegistry } from '@saas/core-platform';
+
 /**
  * FinanceModule — wires domain services, controllers, and the gateway webhook
  * handlers. No controller may write journal entries directly; all financial
  * mutations go through domain services which call FinancialLedgerService.
  */
 @Module({
-  imports: [CorePlatformModule],
+  imports: [CorePlatformModule, ReportingModule],
   controllers: [
     FinanceAdminController,
     InvoiceController,
@@ -127,6 +130,14 @@ import { ReportController } from './controllers/report.controller';
         new FinanceIntegrityVerificationService(prisma as any),
       inject: [PrismaService],
     },
+    
+    // Finance Metric Reporter
+    {
+      provide: FinanceReporter,
+      useFactory: (prisma: PrismaService, metricRegistry: MetricRegistry) =>
+        new FinanceReporter(prisma as any, metricRegistry),
+      inject: [PrismaService, MetricRegistry],
+    },
   ],
   exports: [
     FinancialLedgerService,
@@ -136,6 +147,7 @@ import { ReportController } from './controllers/report.controller';
     PaymentAllocationService,
     FinancialReportingReadService,
     FinanceIntegrityVerificationService,
+    FinanceReporter,
   ],
 })
 export class FinanceModule {}

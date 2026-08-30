@@ -45,7 +45,7 @@ export class ReportingEngineService {
     metricName: string, 
     context: MetricCalculationContext,
     asOf?: Date
-  ): Promise<{ value: number; explainabilityString: string | null }> {
+  ): Promise<{ value: number; explainabilityString: string | null; metricVersion?: string; generatedAt?: Date; lineageJobId?: string | null }> {
     const metric = this.metricRegistry.getMetric(metricName);
 
     // Governance: Ensure only CERTIFIED metrics are routinely queried
@@ -86,6 +86,12 @@ export class ReportingEngineService {
       return { value: 0, explainabilityString: null };
     }
 
-    return { value: snapshot.value, explainabilityString: snapshot.explainabilityString };
+    return { 
+      value: snapshot.value, 
+      explainabilityString: snapshot.explainabilityString,
+      metricVersion: snapshot.metricVersion,
+      generatedAt: snapshot.snapshotDate,
+      lineageJobId: snapshot.lineageId
+    };
   }
 }

@@ -12,7 +12,9 @@ import { AnalyticalProjectionService } from './AnalyticalProjectionService';
     AnalyticalProjectionService
   ],
   exports: [
-    ReportingEngineService
+    ReportingEngineService,
+    AnalyticalProjectionService,
+    MetricRegistry
   ]
 })
 export class ReportingModule {}

@@ -41,6 +41,7 @@ export * from './domain/finance/services/FinanceIntegrityVerificationService';
 export * from './domain/finance/services/allocation/AllocationStrategy';
 export * from './domain/finance/services/allocation/OldestFirstStrategy';
 export * from './domain/finance/services/allocation/PriorityFirstStrategy';
+export * from './domain/finance/reporters/FinanceReporter';
 
 // Document Domain Services
 export * from './domain/documents/services/DocumentService';
@@ -59,3 +60,10 @@ export * from './domain/transport/services/AllocationService';
 
 // Hostel Domain Services
 export * from './domain/hostel';
+
+// Reporting Domain Services
+export * from './domain/reporting/ReportingDTOs';
+export * from './domain/reporting/MetricRegistry';
+export * from './domain/reporting/ReportingEngineService';
+export * from './domain/reporting/AnalyticalProjectionService';
+export * from './domain/reporting/reporting.module';

@@ -25,37 +25,41 @@ export class AnalyticalProjectionService {
     const correlationId = randomUUID();
     const startTime = Date.now();
     
-    // Create Job History Record
-    const job = await this.prisma.reportingJob.create({
-      data: {
-        jobName: 'AnalyticalProjectionRebuild',
-        status: 'RUNNING',
-        triggerType,
-        tenantScope: incrementalScope?.tenantId,
-        correlationId,
-        startedAt: new Date()
-      }
-    });
-
-    this.logger.log(`Starting Layer 2 Analytical Projection Rebuild [Job: ${job.id}]`);
+    this.logger.log(`Starting Layer 2 Analytical Projection Rebuild [Correlation: ${correlationId}]`);
     const snapshotDate = new Date();
 
     // Use Topological Sort (DAG) to ensure dependencies calculate first
     let analyticalMetrics = this.metricRegistry.getTopologicallySortedAnalyticalMetrics();
     
     if (incrementalScope?.metricName) {
-      // Filter if incremental metric rebuild requested
       analyticalMetrics = analyticalMetrics.filter(m => m.metricName === incrementalScope.metricName);
     }
 
-    const tenantWhere = incrementalScope?.tenantId ? { id: incrementalScope.tenantId } : { status: 'ACTIVE' };
+    const tenantWhere: any = incrementalScope?.tenantId ? { id: incrementalScope.tenantId } : { status: 'ACTIVE' };
     const tenants = await this.prisma.tenant.findMany({ where: tenantWhere });
 
-    let rowsProcessed = 0;
-    let rowsSkipped = 0;
-    let hasError = false;
-
     for (const tenant of tenants) {
+      let rowsProcessed = 0;
+      let rowsSkipped = 0;
+      let hasError = false;
+      const logs: string[] = [];
+
+      // Create Job History Record per tenant
+      const job = await this.prisma.scheduledJob.create({
+        data: {
+          tenantId: tenant.id,
+          type: 'ANALYTICAL_PROJECTION_REBUILD',
+          status: 'RUNNING',
+          payload: {
+            triggerType,
+            correlationId,
+            metricScope: incrementalScope?.metricName || 'ALL'
+          },
+          lastRunAt: new Date(),
+          nextRunAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // Tomorrow
+        }
+      });
+
       for (const metric of analyticalMetrics) {
         try {
           const calcStart = Date.now();
@@ -106,26 +110,36 @@ export class AnalyticalProjectionService {
           });
 
           rowsProcessed++;
+          logs.push(`Successfully rebuilt ${metric.metricName}`);
         } catch (error) {
-          this.logger.error(`Failed to rebuild ${metric.metricName} for Tenant ${tenant.id}: ${error.message}`);
+          const errMsg = `Failed to rebuild ${metric.metricName} for Tenant ${tenant.id}: ${(error as any).message}`;
+          this.logger.error(errMsg);
+          logs.push(errMsg);
           hasError = true;
           rowsSkipped++;
         }
       }
+
+      // Finalize Job
+      await this.prisma.scheduledJob.update({
+        where: { id: job.id },
+        data: {
+          status: hasError ? 'FAILED' : 'COMPLETED',
+          logs: logs as any,
+          payload: {
+            triggerType,
+            correlationId,
+            metricScope: incrementalScope?.metricName || 'ALL',
+            durationMs: Date.now() - startTime,
+            rowsProcessed,
+            rowsSkipped
+          }
+        }
+      });
+      
+      this.logger.log(`Tenant ${tenant.id} rebuild complete [Job: ${job.id}]. Processed: ${rowsProcessed}, Skipped: ${rowsSkipped}`);
     }
 
-    // Finalize Job
-    await this.prisma.reportingJob.update({
-      where: { id: job.id },
-      data: {
-        status: hasError ? 'COMPLETED_WITH_ERRORS' : 'COMPLETED',
-        finishedAt: new Date(),
-        durationMs: Date.now() - startTime,
-        rowsProcessed,
-        rowsSkipped
-      }
-    });
-
-    this.logger.log(`Layer 2 Analytical Projection Rebuild Complete [Job: ${job.id}]. Processed: ${rowsProcessed}, Skipped: ${rowsSkipped}`);
+    this.logger.log(`Layer 2 Analytical Projection Rebuild Complete [Correlation: ${correlationId}].`);
   }
 }
