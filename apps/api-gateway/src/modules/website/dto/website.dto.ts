@@ -8,6 +8,11 @@ export class UpdateWebsiteSettingsDto {
   branding?: any;
 
   @ApiProperty({ required: false })
+  @IsObject()
+  @IsOptional()
+  themeColors?: any;
+
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   themeId?: string;
@@ -37,7 +42,6 @@ export class CreatePageDto {
 
 export class UpdatePageDto {
   @ApiProperty({ required: false })
-  @IsObject()
   @IsOptional()
   contentBlocks?: any;
 

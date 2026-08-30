@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { Page, PrismaClient, Prisma } from '@saas/core-platform';
 import { BaseRepository } from '../../shared/repositories/base.repository';
 
@@ -34,7 +34,7 @@ export class PageRepository extends BaseRepository<
     });
 
     if (result.count === 0) {
-      throw new Error('OptimisticLockException: Page was modified by another transaction');
+      throw new ConflictException('OptimisticLockException: Page was modified by another transaction');
     }
     return this.findById(tenantId, id);
   }

@@ -3,7 +3,7 @@ import { TimetableRepository } from '../repositories/timetable.repository';
 import { BellScheduleRepository } from '../repositories/bell-schedule.repository';
 import { CreateTimetableDto, BulkUpdateSlotsDto } from '../dto/timetable.dto';
 import { PlatformEventBus } from '@saas/core-platform';
-import { TIMETABLE_UNASSIGNED_TEACHER } from '../timetables.constants';
+import { TIMETABLE_UNASSIGNED_TEACHER, TIMETABLE_UNASSIGNED_SUBJECT } from '../timetables.constants';
 
 import { StaffRepository } from '../../staff/staff.repository';
 
@@ -87,7 +87,7 @@ export class TimetableService {
 
     // 3. Validate Subjects & Periods
     if (dto.slots.length > 0) {
-      const subjectIds = Array.from(new Set(dto.slots.filter(s => s.subjectId).map(s => s.subjectId)));
+      const subjectIds = Array.from(new Set(dto.slots.filter(s => !!s.subjectId).map(s => s.subjectId as string)));
       const foundSubjects = await this.timetableRepo.getSubjects(subjectIds, tenantId);
       if (foundSubjects.length !== subjectIds.length) {
         throw new NotFoundException('One or more subjects not found');
@@ -138,7 +138,7 @@ export class TimetableService {
         timetableId: timetable.id,
         dayOfWeek: slot.dayOfWeek,
         periodId: slot.periodId,
-        subjectId: slot.subjectId,
+        subjectId: slot.subjectId || TIMETABLE_UNASSIGNED_SUBJECT,
         teacherId,
         classId, // Derived safely from the server side
       };
