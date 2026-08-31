@@ -238,4 +238,49 @@ describe('Examinations & Results (Real E2E)', () => {
         .expect(400); // Bad request exception from result.service.ts
     });
   });
+
+  describe('Student Results (Read)', () => {
+    it('should reject unauthorized access (401)', () => {
+      return request(app.getHttpServer())
+        .get(`/api/v1/students/${t1Student.id}/results`)
+        .set('Authorization', 'Bearer invalid_token')
+        .expect(401);
+    });
+
+    it('should reject access without exam.view permission (403)', () => {
+      return request(app.getHttpServer())
+        .get(`/api/v1/students/${t1Student.id}/results`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .set('x-mock-permissions', JSON.stringify([]))
+        .expect(403);
+    });
+
+    it('should allow fetching student results with exam.view permission', async () => {
+      const res = await request(app.getHttpServer())
+        .get(`/api/v1/students/${t1Student.id}/results`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .set('x-mock-permissions', JSON.stringify(['exam.view']))
+        .expect(200);
+
+      expect(res.body).toBeInstanceOf(Array);
+      expect(res.body.length).toBe(1);
+      expect(res.body[0].studentId).toBe(t1Student.id);
+      expect(Number(res.body[0].score)).toBe(85);
+      expect(res.body[0].grade).toBe('A');
+      expect(res.body[0].exam).toBeDefined();
+      expect(res.body[0].exam.subject).toBeDefined();
+      expect(res.body[0].exam.subject.name).toBe('Math');
+    });
+
+    it('should return 404 for a student that does not belong to the tenant (Tenant Isolation)', async () => {
+      await request(app.getHttpServer())
+        .get(`/api/v1/students/${t2Student.id}/results`)
+        .set('Authorization', 'Bearer valid_token')
+        .set('x-mock-user', JSON.stringify({ tenantId: tenant1 }))
+        .set('x-mock-permissions', JSON.stringify(['exam.view']))
+        .expect(404);
+    });
+  });
 });

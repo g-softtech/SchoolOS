@@ -131,4 +131,34 @@ export class ResultService {
     this.logger.log(`Upserted ${upserts.length} results for exam ${examId}`);
     return { success: true, count: upserts.length };
   }
+
+  /**
+   * Retrieves the most recent results for a specific student, bounded by limit.
+   */
+  async getRecentResultsForStudent(tenantId: string, studentId: string, limit: number = 5) {
+    // 1. Verify student exists and belongs to the tenant
+    const student = await this.prisma.student.findUnique({
+      where: { id: studentId, tenantId },
+    });
+    
+    if (!student) {
+      throw new NotFoundException('Student not found');
+    }
+
+    // 2. Fetch the student's recent results, including the Exam and Subject metadata
+    const results = await this.prisma.result.findMany({
+      where: { tenantId, studentId },
+      include: {
+        exam: {
+          include: {
+            subject: true
+          }
+        }
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+
+    return results;
+  }
 }

@@ -13,8 +13,11 @@ import { ParentEventsController } from './controllers/ParentEventsController';
 // NOTE: Core Domain Services (like FinancialReportingReadService) must be exported from their 
 // respective Domain Modules and imported here via standard NestJS imports.
 
+import { ExaminationsModule } from '../examinations/examinations.module';
+
 @Module({
   imports: [
+    ExaminationsModule
     // FinanceModule, AttendanceModule, AcademicsModule, etc...
   ],
   controllers: [
