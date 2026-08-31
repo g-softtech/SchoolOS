@@ -34,7 +34,7 @@ export class FamilyQueryGateway {
         this.logger.warn(`Query ${options.queryName} failed (Attempt ${attempt}/${options.retries + 1}). Error: ${error.message} [CorrID: ${correlationId}]`);
         
         if (attempt > options.retries) {
-          this.logger.error(`Query ${options.queryName} exhausted retries. Degrading response. [CorrID: ${correlationId}]`);
+          this.logger.error(`Query ${options.queryName} exhausted retries. Degrading response. Error: ${error.stack} [CorrID: ${correlationId}]`);
           return { 
             data: null, 
             status: { status: 'DEGRADED', reason: error.message, retryAfterSeconds: 30 }, 

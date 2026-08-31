@@ -26,7 +26,7 @@ export class FinanceFacade {
 
     for (const studentId of context.studentIds) {
       // 1. Resolve real student name
-      const student = await this.prisma.student.findUnique({
+      const student = await this.prisma.student.findFirst({
         where: { id: studentId, tenantId: context.tenantId },
         include: { membership: { include: { profile: true } } }
       });
@@ -69,7 +69,7 @@ export class FinanceFacade {
         explanations: lines
           .filter((l) => l.amountKobo !== 0)
           .map((l) => `${l.label}: ₦${(l.amountKobo / 100).toLocaleString('en-NG')}`),
-        classification: 'STANDARD',
+        classification: 'CONFIDENTIAL',
       } as ChildFinanceSummary);
     }
 
@@ -79,7 +79,7 @@ export class FinanceFacade {
       currency: 'NGN',
       children,
       upcomingInstallments: [],
-      classification: 'STANDARD',
+      classification: 'CONFIDENTIAL',
     } as any;
   }
 }

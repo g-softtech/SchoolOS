@@ -41,25 +41,25 @@ export class FamilyDashboardService {
       
       this.gateway.executeSafely(
         () => this.financeFacade.getFamilyFinanceSummary(queryContext, reqCorrelationId),
-        { timeoutMs: 1200, retries: 1, queryName: 'FinanceFacade' },
+        { timeoutMs: 15000, retries: 1, queryName: 'FinanceFacade' },
         reqCorrelationId
       ),
 
       this.gateway.executeSafely(
         () => this.attendanceFacade.getFamilyAttendanceSummary(queryContext, reqCorrelationId),
-        { timeoutMs: 800, retries: 2, queryName: 'AttendanceFacade' },
+        { timeoutMs: 15000, retries: 2, queryName: 'AttendanceFacade' },
         reqCorrelationId
       ),
 
       this.gateway.executeSafely(
         () => this.assessmentFacade.getFamilyAssessments(queryContext, reqCorrelationId),
-        { timeoutMs: 800, retries: 1, queryName: 'AssessmentFacade' },
+        { timeoutMs: 15000, retries: 1, queryName: 'AssessmentFacade' },
         reqCorrelationId
       ),
 
       this.gateway.executeSafely(
         () => this.announcementFacade.getFamilyAnnouncements(queryContext, reqCorrelationId),
-        { timeoutMs: 500, retries: 2, queryName: 'AnnouncementFacade' },
+        { timeoutMs: 15000, retries: 2, queryName: 'AnnouncementFacade' },
         reqCorrelationId
       )
     ]);

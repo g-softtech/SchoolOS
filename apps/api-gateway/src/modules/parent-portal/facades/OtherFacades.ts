@@ -18,7 +18,7 @@ export class AssessmentFacade {
     
     for (const studentId of context.studentIds) {
       // 1. Resolve student name
-      const student = await this.prisma.student.findUnique({
+      const student = await this.prisma.student.findFirst({
         where: { id: studentId, tenantId: context.tenantId },
         include: { membership: { include: { profile: true } } }
       });
@@ -40,7 +40,8 @@ export class AssessmentFacade {
         reportCardsAvailable: 0,
         generatedAt: new Date(),
         sourceStatus: 'FRESH',
-        correlationId
+        correlationId,
+        classification: 'FAMILY'
       });
     }
 

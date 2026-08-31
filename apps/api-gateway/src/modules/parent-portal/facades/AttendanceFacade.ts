@@ -14,7 +14,7 @@ export class AttendanceFacade {
     
     for (const studentId of context.studentIds) {
       // 1. Resolve student name
-      const student = await this.prisma.student.findUnique({
+      const student = await this.prisma.student.findFirst({
         where: { id: studentId, tenantId: context.tenantId },
         include: { membership: { include: { profile: true } } }
       });
@@ -38,12 +38,17 @@ export class AttendanceFacade {
       cards.push({
         studentId,
         firstName,
-        todayStatus: todayRecord?.status || 'UNKNOWN',
+        todayStatus: (todayRecord?.status as any) || 'NOT_RECORDED',
         termPercentage,
         recentAbsences: absent,
         generatedAt: new Date(),
         sourceStatus: 'FRESH',
-        correlationId
+        correlationId,
+        classification: 'FAMILY',
+        accessibility: {
+          attendanceDescription: `${termPercentage}% attendance this term`,
+          statusDescription: `Currently ${todayRecord?.status || 'not recorded'} today`
+        }
       });
     }
 

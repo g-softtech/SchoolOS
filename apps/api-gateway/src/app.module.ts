@@ -28,6 +28,7 @@ import { HostelApiModule } from './modules/hostel/hostel.module';
 import { ReportingApiModule } from './modules/reporting/reporting-api.module';
 import { StaffModule } from './modules/staff/staff.module';
 import { TimetablesModule } from './modules/timetables/timetables.module';
+import { ParentPortalModule } from './modules/parent-portal/parent-portal.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { TimetablesModule } from './modules/timetables/timetables.module';
     ReportingApiModule,
     StaffModule,
     TimetablesModule,
+    ParentPortalModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
