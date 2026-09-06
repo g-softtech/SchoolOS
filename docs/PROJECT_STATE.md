@@ -5,7 +5,7 @@ The architecture is currently mature. Most future work involves adding domains r
 | Area | Status |
 |---|---|
 | Platform Foundation | ⚪ Certified Frozen |
-| Identity | 🟡 Under Certification |
+| Identity | ⚪ Certified Frozen |
 | Admissions | ⚪ Certified Frozen |
 | Finance | 🟡 Feature Complete — Under Certification |
 | Reporting | ⚪ Certified Frozen |
@@ -16,4 +16,5 @@ The architecture is currently mature. Most future work involves adding domains r
 | Staff (Phase 12) | ⚪ Certified Frozen |
 | Attendance (Phase 13) | ⚪ Certified Frozen |
 | Parent Portal BFF | ⚪ Certified Frozen |
+| Website Builder | ⚪ Certified Frozen |
 | Remaining domains | Planned |

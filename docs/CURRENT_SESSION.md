@@ -1,29 +1,25 @@
 # Current Session
 
 **Current Phase:**
-Phase 7 - Website Builder and CMS (Frontend Implementation)
+Phase 6B - Identity Platform Certification
 
 **Current Goal:**
-Implement the Next.js visual editor and public renderer for the Website Builder, consuming the already-certified Headless CMS APIs.
-
-**Current Files (inspect these in order):**
-- `C:\Users\gbemi\.gemini\antigravity-ide\brain\984f8782-9321-416d-a7d8-caf096c94225\implementation_plan.md` (Artifact)
-- `apps/web-app/src/app/dashboard/website/page.tsx` (Pending creation)
+Resolve Identity DI container issues, finalize rate limiting and multi-tenant spoofing defenses, and mark Phase 6 as Certified.
 
 **Last Completed:**
-- Phase 20: Reporting and Analytics
-- Checkpoint A: Wired staff and timetable modules
-- Checkpoint B: Replaced mocked Phase 14 E2E tests and implemented real DB-backed CMS E2E certification
-- Checkpoint C.1a: Implemented real data facades and fixed timetable E2E
-- Checkpoint C.1b: Implemented Phase 14 student-centric result interface and integrated into Parent Portal
-- Checkpoint C.2: Finalized working E2E and module wiring for Parent Portal
+- Phase 7: Website Builder and CMS
+- Checkpoint C.3: Verified build and pushed Phase 7 to master.
+- Checkpoint: Authenticated User Tenant-Isolation Header Spoofing Defenses (E2E Verified).
+- Checkpoint: Cache saturation N+1 fix via structured Redis payloads (Unit Verified).
+- Checkpoint: Token rotation race conditions mitigated via 15s atomic grace window (Unit Verified).
+- Checkpoint: Brute-force protections secured via ThrottlerGuard on AuthController (E2E Verified).
 
-### 🛑 PHASE 7 CHECKPOINT
-**Status:** 🟢 Backend CMS API: 100% Complete & Certified. Frontend: 0% Complete.
+### 🛑 PHASE 6B CHECKPOINT
+**Status:** 🟢 Identity Platform API: 100% Complete & Certified.
 
 **Frozen Components (CONSTITUTIONALLY FROZEN):**
 - Platform Foundation
-- Identity Platform
+- Identity Platform (Phase 6)
 - Admissions
 - Student Management
 - Academics
@@ -38,7 +34,7 @@ Implement the Next.js visual editor and public renderer for the Website Builder,
 - Hostel
 - Reporting
 - Parent Portal BFF
+- Website Builder and CMS (Phase 7)
 
 **Next Immediate Task:**
-1. Wait for user approval on the Phase 7 `implementation_plan.md` artifact.
-2. Scaffold the Next.js Admin UI for `apps/web-app/src/app/dashboard/website/`.
+1. Wait for user instructions on the next phase target.

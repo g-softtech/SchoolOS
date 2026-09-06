@@ -10,7 +10,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Credentials | ⚪ Certified Frozen |
 | Parent Portal (BFF) | ✅ Certified |
 | Finance | ✅ Certified |
-| Identity Platform | 🟡 Under Certification |
+| Identity Platform | ✅ Certified |
 | Students | ✅ Certified |
 | Academics | ✅ Certified |
 | Phase 11: Timetable Management   | ✅ Certified |
@@ -27,6 +27,6 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Teacher Portal | ⬜ Pending |
 | School Owner Dashboard | ⬜ Pending |
 | Marketplace | ⬜ Pending |
-| Website Builder | ⬜ Pending |
+| Website Builder | ✅ Certified |
 
 > **Note**: Always refer to `docs/PROJECT_STATE.md` and the actual codebase for the living truth of module status.

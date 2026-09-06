@@ -35,31 +35,32 @@ export class PoliciesGuard implements CanActivate {
 
     // 1. Resolve Permissions via Redis (CacheProvider)
     const cacheKey = `rbac:role:${roleId}:tenant:${tenantId}`;
-    let permissions = await this.cache.get<string[]>(cacheKey);
+    let cachedRoleData = await this.cache.get<{ isSuperAdmin: boolean; permissions: string[] }>(cacheKey);
 
     // 2. Cache Miss - Query Database
-    if (!permissions) {
+    if (!cachedRoleData) {
       const role = await this.roleRepo.findById(roleId, tenantId);
       
       if (!role) {
         throw new ForbiddenException('Role not found.');
       }
       
-      permissions = (role as any).permissions.map((rp: any) => rp.permission.name);
+      const permissions = (role as any).permissions.map((rp: any) => rp.permission.name);
+      const isSuperAdmin = role.name === 'SUPER_ADMIN';
       
+      cachedRoleData = { isSuperAdmin, permissions };
       // Store in cache for 15 minutes
-      await this.cache.set(cacheKey, permissions, 900);
+      await this.cache.set(cacheKey, cachedRoleData, 900);
     }
 
     // 3. Evaluate Policies
     // Global override for super admin
-    const isSuperAdmin = await this.roleRepo.findById(roleId, tenantId).then(r => r?.name === 'SUPER_ADMIN');
-    if (isSuperAdmin) {
+    if (cachedRoleData.isSuperAdmin) {
       return true;
     }
 
     // Does the user's role contain ALL the required permissions?
-    const hasAllPermissions = requiredPermissions.every(perm => permissions!.includes(perm));
+    const hasAllPermissions = requiredPermissions.every(perm => cachedRoleData!.permissions.includes(perm));
 
     if (!hasAllPermissions) {
       throw new ForbiddenException(`Missing required permissions: ${requiredPermissions.join(', ')}`);

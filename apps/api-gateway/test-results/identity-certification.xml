@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="8" failures="0" errors="0" time="79.475">
-  <testsuite name="Parent Portal (Real E2E)" errors="0" failures="0" skipped="0" timestamp="2026-08-31T06:37:07" time="79.421" tests="8">
-    <testcase classname="Parent Portal (Real E2E) Authorization &amp; Isolation should allow valid guardian and return authorized children on dashboard" name="Parent Portal (Real E2E) Authorization &amp; Isolation should allow valid guardian and return authorized children on dashboard" time="11.675">
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="7.547">
+  <testsuite name="Tenant Isolation &amp; Header Spoofing (e2e)" errors="0" failures="0" skipped="0" timestamp="2026-09-06T14:19:52" time="1.293" tests="2">
+    <testcase classname="Tenant Isolation &amp; Header Spoofing (e2e) should allow access when passing a valid x-tenant-id the user belongs to" name="Tenant Isolation &amp; Header Spoofing (e2e) should allow access when passing a valid x-tenant-id the user belongs to" time="0.029">
     </testcase>
-    <testcase classname="Parent Portal (Real E2E) Authorization &amp; Isolation should reject same-tenant unauthorized child access attempts (FamilyContext restriction)" name="Parent Portal (Real E2E) Authorization &amp; Isolation should reject same-tenant unauthorized child access attempts (FamilyContext restriction)" time="3.882">
+    <testcase classname="Tenant Isolation &amp; Header Spoofing (e2e) should fail with 403 Forbidden when spoofing a foreign x-tenant-id" name="Tenant Isolation &amp; Header Spoofing (e2e) should fail with 403 Forbidden when spoofing a foreign x-tenant-id" time="0.007">
     </testcase>
-    <testcase classname="Parent Portal (Real E2E) Authorization &amp; Isolation should reject cross-tenant child access completely" name="Parent Portal (Real E2E) Authorization &amp; Isolation should reject cross-tenant child access completely" time="3.891">
-    </testcase>
-    <testcase classname="Parent Portal (Real E2E) Data Authenticity finance data should reflect real DB records" name="Parent Portal (Real E2E) Data Authenticity finance data should reflect real DB records" time="3.785">
-    </testcase>
-    <testcase classname="Parent Portal (Real E2E) Data Authenticity attendance data should reflect real DB records" name="Parent Portal (Real E2E) Data Authenticity attendance data should reflect real DB records" time="6.861">
-    </testcase>
-    <testcase classname="Parent Portal (Real E2E) Data Authenticity assessment data should reflect real DB records" name="Parent Portal (Real E2E) Data Authenticity assessment data should reflect real DB records" time="7.27">
-    </testcase>
-    <testcase classname="Parent Portal (Real E2E) Data Authenticity announcements should remain explicitly empty" name="Parent Portal (Real E2E) Data Authenticity announcements should remain explicitly empty" time="6.663">
-    </testcase>
-    <testcase classname="Parent Portal (Real E2E) SSE Stream Security SSE stream should establish connection (tested via simple HTTP GET since Jest Supertest SSE is tricky)" name="Parent Portal (Real E2E) SSE Stream Security SSE stream should establish connection (tested via simple HTTP GET since Jest Supertest SSE is tricky)" time="0.206">
+  </testsuite>
+  <testsuite name="AuthController (e2e)" errors="0" failures="0" skipped="0" timestamp="2026-09-06T14:19:52" time="6.911" tests="1">
+    <testcase classname="AuthController (e2e) /api/v1/auth/login (POST) should enforce rate limiting" name="AuthController (e2e) /api/v1/auth/login (POST) should enforce rate limiting" time="2.886">
     </testcase>
   </testsuite>
 </testsuites>

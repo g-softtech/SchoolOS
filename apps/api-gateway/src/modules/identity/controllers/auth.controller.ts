@@ -1,6 +1,7 @@
 import { Controller, Post, Patch, Body, Ip, UseGuards, HttpCode } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { AuthenticationService } from '../services/authentication.service';
 import { RegistrationService } from '../services/registration.service';
@@ -10,6 +11,7 @@ import { RegisterUserDto, LoginDto, ApiResponseDto } from '../dto/auth.dto';
 
 @ApiTags('Authentication')
 @Controller('api/v1/auth')
+@UseGuards(ThrottlerGuard)
 export class AuthController {
   constructor(
     private readonly authService: AuthenticationService,
@@ -18,6 +20,7 @@ export class AuthController {
     private readonly passwordService: PasswordService
   ) {}
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('register')
   @ApiOperation({ summary: 'Register a new global user account' })
   @ApiResponse({ status: 201, description: 'User successfully registered' })
@@ -29,6 +32,7 @@ export class AuthController {
     };
   }
 
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @Post('login')
   @HttpCode(200)
   @ApiOperation({ summary: 'Authenticate and receive a JWT' })
