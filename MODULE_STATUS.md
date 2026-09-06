@@ -8,7 +8,7 @@ This dashboard tracks every vertical module against the mandatory 8-step lifecyc
 | Admissions | ✅ Certified |
 | Reporting | ⚪ Certified Frozen |
 | Credentials | ⚪ Certified Frozen |
-| Parent Portal (BFF) | 🟡 Architecture Complete |
+| Parent Portal (BFF) | ✅ Certified |
 | Finance | ✅ Certified |
 | Identity Platform | 🟡 Under Certification |
 | Students | ✅ Certified |
