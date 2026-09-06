@@ -4,6 +4,13 @@ import '@testing-library/jest-dom';
 import { BlockRegistry } from '../renderer/BlockRegistry';
 import { ContentBlock } from '@/lib/cms/types';
 
+jest.mock('isomorphic-dompurify', () => ({
+  sanitize: (str: string) => {
+    if (str.includes('<script>')) return str.replace(/<script>.*<\/script>/g, '');
+    return str;
+  }
+}));
+
 describe('BlockRegistry Dispatcher', () => {
   it('renders HeroBlock for type hero', () => {
     const block: ContentBlock = { id: '1', type: 'hero', heading: 'Welcome' };

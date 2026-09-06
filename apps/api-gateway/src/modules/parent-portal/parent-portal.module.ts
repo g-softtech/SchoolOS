@@ -14,11 +14,14 @@ import { ParentEventsController } from './controllers/ParentEventsController';
 // respective Domain Modules and imported here via standard NestJS imports.
 
 import { ExaminationsModule } from '../examinations/examinations.module';
+import { FinanceModule } from '../finance/finance.module';
+import { PrismaModule } from '@saas/core-platform';
 
 @Module({
   imports: [
-    ExaminationsModule
-    // FinanceModule, AttendanceModule, AcademicsModule, etc...
+    ExaminationsModule,
+    FinanceModule,
+    PrismaModule
   ],
   controllers: [
     DashboardController,

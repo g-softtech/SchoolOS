@@ -1,0 +1,90 @@
+﻿7f4bb35 feat(phase20): complete reporting and analytics
+75db715 feat(phase19): complete hostel management and allocation
+2cdb736 feat(phase19): add hostel schema and domain foundation
+a513897 fix(phase18): connect frontend to api and fix linting config
+3b722e6 docs: certify phase 18 transport in roadmap and parity records
+003e549 feat(phase18): implement transport frontend
+8e45220 feat(phase18): implement transport api and rbac
+566993e feat(phase18): add transport domain and schema
+b91720e docs: certify phase 17 library in roadmap and parity records
+135ae27 feat(phase17): implement library frontend
+5bb5aa0 feat(phase17): implement library api and rbac
+af30666 feat(phase17): add library domain and finance-linked fines
+bf71122 feat(phase16): integrate id cards and documents frontend
+aa5a7e6 feat(phase16): add id card lifecycle and verification
+65e1148 feat(phase16): add document storage domain
+d6d4563 feat(finance): add finance frontend integration for parity compliance
+640d409 docs: update module status and master execution plan for Phase 15.2
+369197e chore: fix gitignore encoding
+3b16e53 chore: remove .env.test from tracking
+7d50009 feat(finance): implement Phase 15.2 Finance API and certify 1M cashflow
+b7a04a3 Phase 15.1A: Banking-grade finance ledger foundation - 18/18 tests pass
+49f03f6 chore(examinations): complete phase 14.4 marking and results ui
+4ed6358 chore(examinations): complete phase 14.3 web ui management
+d7cfde9 chore(examinations): complete phase 14.2 backend APIs
+fddfe21 feat(attendance): add staff leave self-service and frontend UI
+e4ba862 feat(attendance): Phase 13.5 Notification Infrastructure Implementation
+1c633fb docs: finalize phase 13 documentation
+f3ccf2c chore(phase13): create final certification checkpoint
+f8c26ae feat(attendance): implement teacher roll call
+b02efea feat(attendance): implement scanner web UI
+6d25787 feat(attendance): M13.2 backend scanner implementation and certification
+dc63023 Update state
+c5628ba chore(phase13): certify M13.1 Attendance backend
+8bb07c1 chore(phase12): create final certification checkpoint
+e9364d8 fix(e2e): Fix Prisma connection leaks in staff and timetable tests
+ee46f44 cert: Phase 12 M12.5 Staff Assignment Certification
+fad0db3 docs: Update PHASE_12_HANDOFF.md for M12.4 completion
+e1f1b2c cert: Phase 12 M12.4 Timetable Staff Integration
+6a151d6 cert: Phase 12 M12.3 Staff Eligibility & Assignment API
+2d835a1 M12.2: Staff Directory & Profiles frontend implementation
+ec51917 test(staff): fix E2E tests, add full coverage and connection fixes for M12.1 verification
+efc40de feat(staff): M12.1 Staff Foundation backend rewrite using Prisma schema
+ccefb19 cert: Phase 11 M11.5 Timetable Certification
+a5c94f1 cert: Phase 11 M11.4 Timetable Builder
+5f689c2 cert: Phase 11 M11.3 Frontend Bell Schedules Configurator
+94f8097 cert: Phase 11 M11.2 Timetable Grid Backend
+bdec4de cert: Phase 11 M11.1 Bell Schedule Backend
+8dbb760 docs: Phase 11 timetable audit and handoff
+9fbb12f cert: Phase 10 M10.7 Academics Certification
+baf3810 cert: Phase 10 M10.6 Frontend Student Placement
+3f961a4 cert: Phase 10 M10.5 Frontend Academic Settings Implementation
+eb0bbf3 cert: Phase 10 M10.4 Student Academic Placement Implementation
+f24b462 cert: Phase 10 M10.3 Institutional Structure Implementation
+19877f1 cert: Phase 10 M10.1 and M10.2 Academic Calendar Foundation
+d66c333 docs: Note Phase 10 discovery in handoff
+5f772e7 docs: Phase 9 final audit and closure
+c98341a docs: Phase 9 agent handoff
+b447835 cert: Phase 9 M7.2a Identity Provisioning Transaction Correctness
+1d37c94 cert: Phase 9 M7.1 Guardian Direct-Link Tenant Isolation
+66d43df cert: Phase 9 M6 Unit Test Suite Repair
+829b69f cert: Phase 9 M5 Frontend Health and Discipline Operations
+055638c cert: Phase 9 M4 SIS Health and Discipline Backend
+c6c59c2 Phase 9 M3.3: Student Directory Refinement
+f2171f8 Phase 9 M3.2: Frontend Guardian UI
+edd162e Phase 9 M3.1: Identity Orchestration & Guardian Provisioning
+de720da cert: Phase 9 M2 Student Lifecycle and Core Pages Certification
+6bb2027 cert: Phase 9 M1 Identity Orchestration & Enrollment Handoff
+1365a1b cert: Phase 8 M6 Admissions operational loop
+878fe6c cert: Phase 8 M5 Admissions write UI integration
+e16394e cert: Phase 8 M5 Admissions read API integration
+5e06309 cert: Phase 8 M4 Admissions real PostgreSQL E2E certification
+831c2de cert: Phase 7 Website and Outbox real database certification
+368ac65 test: align website certification test with finalized schema
+49c71a5 fix: implement Outbox contract and align Website schema
+76d1d67 test(website): Add standalone smoke test and fix website E2E certification test
+26dcb37 feat(website): Phase 7 implement cache subscriber and edge delivery
+9c6aca3 feat(website): Phase 7 rewrite services to use transactional OutboxService
+35522d2 feat: Phase 7 CMS schema architecture additions
+ac41a58 chore: stabilize certified Identity and Admissions schema
+b716d1f chore: snapshot recovered SchoolOS state before stabilization
+a6c72af docs: establish MASTER_EXECUTION_PLAN and ADRs (Phase 5.9 Platform Lock)
+0772761 feat(api): implement Phase 5.5A Platform Services (Configuration, Features, Entitlements, Licensing, Storage, Audit) with Redis caching
+4e6f1d9 feat(db): implement Learning, Website, AI, and Enterprise Domains
+8ed1329 feat(db): implement Finance Domain schema
+e0451b0 feat(db): implement Staff Domain schema
+ed0c5ae feat(db): implement Student Domain schema
+7684a80 feat(db): implement Academic Domain schema
+e1a2b03 feat(db): implement Identity Domain schema
+f7548f7 docs: add database standards constitution
+71500e9 feat(db): implement Platform Domain schema

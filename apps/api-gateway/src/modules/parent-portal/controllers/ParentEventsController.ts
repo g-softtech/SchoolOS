@@ -16,17 +16,26 @@ export class ParentEventsController {
    */
   @Sse('stream')
   streamEvents(@GetFamilyContext() context: FamilyContext): Observable<MessageEvent> {
-    // We listen to a wildcard of domain events, but we strictly filter them 
-    // to ensure they only emit if the event payload's studentId is in the FamilyContext
-    return this.eventEmitter.listenTo(['attendance.*', 'finance.payment.*']).pipe(
-      filter((event: any) => context.studentIds.includes(event.studentId) || event.guardianId === context.guardianId),
-      map((event: any) => ({
-        data: {
-          type: event.type, // e.g., 'Attendance.CheckedIn'
-          payload: event.payload,
-          timestamp: new Date().toISOString()
+    return new Observable<MessageEvent>((subscriber) => {
+      const listener = (event: any) => {
+        if (context.studentIds.includes(event.studentId) || event.guardianId === context.guardianId) {
+          subscriber.next({
+            data: {
+              type: event.type,
+              payload: event.payload,
+              timestamp: new Date().toISOString()
+            }
+          });
         }
-      }))
-    );
+      };
+
+      this.eventEmitter.on('attendance.*', listener);
+      this.eventEmitter.on('finance.payment.*', listener);
+
+      return () => {
+        this.eventEmitter.off('attendance.*', listener);
+        this.eventEmitter.off('finance.payment.*', listener);
+      };
+    });
   }
 }

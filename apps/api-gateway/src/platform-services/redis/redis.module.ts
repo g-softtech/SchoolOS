@@ -11,6 +11,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
+        if (process.env.NODE_ENV === 'test' || process.env.DISABLE_REDIS === 'true') {
+          return {}; // Defaults to memory store
+        }
         return {
           store: await redisStore({
             host: configService.get<string>('REDIS_HOST', 'localhost'),

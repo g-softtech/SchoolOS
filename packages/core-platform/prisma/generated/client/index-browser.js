@@ -759,6 +759,8 @@ exports.Prisma.HostelScalarFieldEnum = {
   tenantId: 'tenantId',
   name: 'name',
   capacity: 'capacity',
+  gender: 'gender',
+  status: 'status',
   wardenId: 'wardenId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -766,18 +768,25 @@ exports.Prisma.HostelScalarFieldEnum = {
 
 exports.Prisma.HostelRoomScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   hostelId: 'hostelId',
   roomNumber: 'roomNumber',
   capacity: 'capacity',
+  type: 'type',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BedAllocationScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   roomId: 'roomId',
   studentId: 'studentId',
   academicYearId: 'academicYearId',
+  status: 'status',
+  allocatedAt: 'allocatedAt',
+  expiresAt: 'expiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -786,8 +795,22 @@ exports.Prisma.TransportVehicleScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   plateNumber: 'plateNumber',
-  driverName: 'driverName',
   capacity: 'capacity',
+  driverId: 'driverId',
+  lastLocation: 'lastLocation',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VehicleMaintenanceLogScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  vehicleId: 'vehicleId',
+  date: 'date',
+  description: 'description',
+  cost: 'cost',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -797,6 +820,18 @@ exports.Prisma.TransportRouteScalarFieldEnum = {
   vehicleId: 'vehicleId',
   routeName: 'routeName',
   stops: 'stops',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TransportAllocationScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  studentId: 'studentId',
+  vehicleId: 'vehicleId',
+  routeId: 'routeId',
+  pickupPoint: 'pickupPoint',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1253,6 +1288,27 @@ exports.Prisma.IdCardScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MetricSnapshotScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  metricName: 'metricName',
+  metricVersion: 'metricVersion',
+  value: 'value',
+  snapshotDate: 'snapshotDate',
+  isLatest: 'isLatest',
+  generatedBy: 'generatedBy',
+  lineageId: 'lineageId',
+  calculationDurationMs: 'calculationDurationMs',
+  explainabilityString: 'explainabilityString',
+  supersededAt: 'supersededAt',
+  campusId: 'campusId',
+  sessionId: 'sessionId',
+  classId: 'classId',
+  studentId: 'studentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1567,7 +1623,9 @@ exports.Prisma.ModelName = {
   HostelRoom: 'HostelRoom',
   BedAllocation: 'BedAllocation',
   TransportVehicle: 'TransportVehicle',
+  VehicleMaintenanceLog: 'VehicleMaintenanceLog',
   TransportRoute: 'TransportRoute',
+  TransportAllocation: 'TransportAllocation',
   LibraryBook: 'LibraryBook',
   BookBorrowing: 'BookBorrowing',
   LibraryFine: 'LibraryFine',
@@ -1605,7 +1663,8 @@ exports.Prisma.ModelName = {
   OutboxQueue: 'OutboxQueue',
   IdempotencyRecord: 'IdempotencyRecord',
   Document: 'Document',
-  IdCard: 'IdCard'
+  IdCard: 'IdCard',
+  MetricSnapshot: 'MetricSnapshot'
 };
 
 /**

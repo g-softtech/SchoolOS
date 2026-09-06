@@ -8,9 +8,11 @@ import {
   RouteService,
   MaintenanceService,
   AllocationService,
+  CorePlatformModule
 } from '@saas/core-platform';
 
 @Module({
+  imports: [CorePlatformModule],
   controllers: [
     VehiclesController,
     RoutesController,

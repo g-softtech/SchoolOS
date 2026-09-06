@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { BooksController } from './controllers/books.controller';
 import { CirculationController } from './controllers/circulation.controller';
-import { BookService, CirculationService, FineService, InvoiceService, FinancialLedgerService } from '@saas/core-platform';
+import { BookService, CirculationService, FineService, InvoiceService, FinancialLedgerService, CorePlatformModule } from '@saas/core-platform';
 
 @Module({
+  imports: [CorePlatformModule],
   controllers: [BooksController, CirculationController],
   providers: [
     BookService,

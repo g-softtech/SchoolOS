@@ -324,10 +324,20 @@ export type BedAllocation = $Result.DefaultSelection<Prisma.$BedAllocationPayloa
  */
 export type TransportVehicle = $Result.DefaultSelection<Prisma.$TransportVehiclePayload>
 /**
+ * Model VehicleMaintenanceLog
+ * 
+ */
+export type VehicleMaintenanceLog = $Result.DefaultSelection<Prisma.$VehicleMaintenanceLogPayload>
+/**
  * Model TransportRoute
  * 
  */
 export type TransportRoute = $Result.DefaultSelection<Prisma.$TransportRoutePayload>
+/**
+ * Model TransportAllocation
+ * 
+ */
+export type TransportAllocation = $Result.DefaultSelection<Prisma.$TransportAllocationPayload>
 /**
  * Model LibraryBook
  * 
@@ -518,6 +528,11 @@ export type Document = $Result.DefaultSelection<Prisma.$DocumentPayload>
  * 
  */
 export type IdCard = $Result.DefaultSelection<Prisma.$IdCardPayload>
+/**
+ * Model MetricSnapshot
+ * 
+ */
+export type MetricSnapshot = $Result.DefaultSelection<Prisma.$MetricSnapshotPayload>
 
 /**
  * Enums
@@ -1714,6 +1729,16 @@ export class PrismaClient<
   get transportVehicle(): Prisma.TransportVehicleDelegate<ExtArgs>;
 
   /**
+   * `prisma.vehicleMaintenanceLog`: Exposes CRUD operations for the **VehicleMaintenanceLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VehicleMaintenanceLogs
+    * const vehicleMaintenanceLogs = await prisma.vehicleMaintenanceLog.findMany()
+    * ```
+    */
+  get vehicleMaintenanceLog(): Prisma.VehicleMaintenanceLogDelegate<ExtArgs>;
+
+  /**
    * `prisma.transportRoute`: Exposes CRUD operations for the **TransportRoute** model.
     * Example usage:
     * ```ts
@@ -1722,6 +1747,16 @@ export class PrismaClient<
     * ```
     */
   get transportRoute(): Prisma.TransportRouteDelegate<ExtArgs>;
+
+  /**
+   * `prisma.transportAllocation`: Exposes CRUD operations for the **TransportAllocation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TransportAllocations
+    * const transportAllocations = await prisma.transportAllocation.findMany()
+    * ```
+    */
+  get transportAllocation(): Prisma.TransportAllocationDelegate<ExtArgs>;
 
   /**
    * `prisma.libraryBook`: Exposes CRUD operations for the **LibraryBook** model.
@@ -2102,6 +2137,16 @@ export class PrismaClient<
     * ```
     */
   get idCard(): Prisma.IdCardDelegate<ExtArgs>;
+
+  /**
+   * `prisma.metricSnapshot`: Exposes CRUD operations for the **MetricSnapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MetricSnapshots
+    * const metricSnapshots = await prisma.metricSnapshot.findMany()
+    * ```
+    */
+  get metricSnapshot(): Prisma.MetricSnapshotDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -2605,7 +2650,9 @@ export namespace Prisma {
     HostelRoom: 'HostelRoom',
     BedAllocation: 'BedAllocation',
     TransportVehicle: 'TransportVehicle',
+    VehicleMaintenanceLog: 'VehicleMaintenanceLog',
     TransportRoute: 'TransportRoute',
+    TransportAllocation: 'TransportAllocation',
     LibraryBook: 'LibraryBook',
     BookBorrowing: 'BookBorrowing',
     LibraryFine: 'LibraryFine',
@@ -2643,7 +2690,8 @@ export namespace Prisma {
     OutboxQueue: 'OutboxQueue',
     IdempotencyRecord: 'IdempotencyRecord',
     Document: 'Document',
-    IdCard: 'IdCard'
+    IdCard: 'IdCard',
+    MetricSnapshot: 'MetricSnapshot'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2659,7 +2707,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "transportRoute" | "libraryBook" | "bookBorrowing" | "libraryFine" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "chartOfAccount" | "bankAccount" | "accountingPeriod" | "financialTransaction" | "journalEntryLine" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord" | "document" | "idCard"
+      modelProps: "platformPlan" | "tenant" | "platformSubscription" | "marketplaceApp" | "tenantMarketplaceApp" | "tenantDomain" | "tenantBranding" | "tenantSettings" | "featureFlag" | "auditSeed" | "user" | "lifecycleTransition" | "tenantMembership" | "profile" | "role" | "permission" | "rolePermission" | "session" | "verificationToken" | "auditLog" | "campus" | "academicYear" | "term" | "department" | "class" | "arm" | "subjectGroup" | "subject" | "timetable" | "student" | "guardian" | "studentGuardian" | "admission" | "medicalRecord" | "disciplineRecord" | "attendance" | "staff" | "employment" | "payroll" | "leaveRequest" | "feeCategory" | "invoice" | "invoiceItem" | "payment" | "expense" | "income" | "scholarship" | "exam" | "cBTQuestion" | "result" | "assignment" | "lessonNote" | "website" | "page" | "navigationMenu" | "aIProviderConfig" | "aIUsageLog" | "promptTemplate" | "hostel" | "hostelRoom" | "bedAllocation" | "transportVehicle" | "vehicleMaintenanceLog" | "transportRoute" | "transportAllocation" | "libraryBook" | "bookBorrowing" | "libraryFine" | "notificationQueue" | "paymentAttempt" | "paymentAllocation" | "paymentPlanVersion" | "chartOfAccount" | "bankAccount" | "accountingPeriod" | "financialTransaction" | "journalEntryLine" | "approvalWorkflow" | "approvalStep" | "scheduledJob" | "sequenceGenerator" | "asset" | "websiteDomain" | "bellSchedule" | "timetableSlot" | "policy" | "policyVersion" | "supportAccessGrant" | "admissionCampaign" | "admissionWorkflow" | "admissionWorkflowStage" | "admissionForm" | "admissionField" | "admissionFieldOption" | "admissionRequiredDocument" | "admissionApplication" | "admissionDocument" | "admissionReview" | "domainEventLog" | "outboxQueue" | "idempotencyRecord" | "document" | "idCard" | "metricSnapshot"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7003,6 +7051,76 @@ export namespace Prisma {
           }
         }
       }
+      VehicleMaintenanceLog: {
+        payload: Prisma.$VehicleMaintenanceLogPayload<ExtArgs>
+        fields: Prisma.VehicleMaintenanceLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VehicleMaintenanceLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VehicleMaintenanceLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>
+          }
+          findFirst: {
+            args: Prisma.VehicleMaintenanceLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VehicleMaintenanceLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>
+          }
+          findMany: {
+            args: Prisma.VehicleMaintenanceLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>[]
+          }
+          create: {
+            args: Prisma.VehicleMaintenanceLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>
+          }
+          createMany: {
+            args: Prisma.VehicleMaintenanceLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VehicleMaintenanceLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>[]
+          }
+          delete: {
+            args: Prisma.VehicleMaintenanceLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>
+          }
+          update: {
+            args: Prisma.VehicleMaintenanceLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.VehicleMaintenanceLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VehicleMaintenanceLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.VehicleMaintenanceLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VehicleMaintenanceLogPayload>
+          }
+          aggregate: {
+            args: Prisma.VehicleMaintenanceLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVehicleMaintenanceLog>
+          }
+          groupBy: {
+            args: Prisma.VehicleMaintenanceLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VehicleMaintenanceLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VehicleMaintenanceLogCountArgs<ExtArgs>
+            result: $Utils.Optional<VehicleMaintenanceLogCountAggregateOutputType> | number
+          }
+        }
+      }
       TransportRoute: {
         payload: Prisma.$TransportRoutePayload<ExtArgs>
         fields: Prisma.TransportRouteFieldRefs
@@ -7070,6 +7188,76 @@ export namespace Prisma {
           count: {
             args: Prisma.TransportRouteCountArgs<ExtArgs>
             result: $Utils.Optional<TransportRouteCountAggregateOutputType> | number
+          }
+        }
+      }
+      TransportAllocation: {
+        payload: Prisma.$TransportAllocationPayload<ExtArgs>
+        fields: Prisma.TransportAllocationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransportAllocationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransportAllocationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>
+          }
+          findFirst: {
+            args: Prisma.TransportAllocationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransportAllocationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>
+          }
+          findMany: {
+            args: Prisma.TransportAllocationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>[]
+          }
+          create: {
+            args: Prisma.TransportAllocationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>
+          }
+          createMany: {
+            args: Prisma.TransportAllocationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TransportAllocationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>[]
+          }
+          delete: {
+            args: Prisma.TransportAllocationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>
+          }
+          update: {
+            args: Prisma.TransportAllocationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransportAllocationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransportAllocationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TransportAllocationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransportAllocationPayload>
+          }
+          aggregate: {
+            args: Prisma.TransportAllocationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransportAllocation>
+          }
+          groupBy: {
+            args: Prisma.TransportAllocationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransportAllocationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransportAllocationCountArgs<ExtArgs>
+            result: $Utils.Optional<TransportAllocationCountAggregateOutputType> | number
           }
         }
       }
@@ -9733,6 +9921,76 @@ export namespace Prisma {
           }
         }
       }
+      MetricSnapshot: {
+        payload: Prisma.$MetricSnapshotPayload<ExtArgs>
+        fields: Prisma.MetricSnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MetricSnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MetricSnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.MetricSnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MetricSnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.MetricSnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.MetricSnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.MetricSnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MetricSnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.MetricSnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>
+          }
+          update: {
+            args: Prisma.MetricSnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.MetricSnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MetricSnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MetricSnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MetricSnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.MetricSnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMetricSnapshot>
+          }
+          groupBy: {
+            args: Prisma.MetricSnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MetricSnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MetricSnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<MetricSnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -9999,6 +10257,10 @@ export namespace Prisma {
     Document: number
     IdCard: number
     LibraryFine: number
+    VehicleMaintenanceLog: number
+    TransportAllocation: number
+    BedAllocation: number
+    MetricSnapshot: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10067,6 +10329,10 @@ export namespace Prisma {
     Document?: boolean | TenantCountOutputTypeCountDocumentArgs
     IdCard?: boolean | TenantCountOutputTypeCountIdCardArgs
     LibraryFine?: boolean | TenantCountOutputTypeCountLibraryFineArgs
+    VehicleMaintenanceLog?: boolean | TenantCountOutputTypeCountVehicleMaintenanceLogArgs
+    TransportAllocation?: boolean | TenantCountOutputTypeCountTransportAllocationArgs
+    BedAllocation?: boolean | TenantCountOutputTypeCountBedAllocationArgs
+    MetricSnapshot?: boolean | TenantCountOutputTypeCountMetricSnapshotArgs
   }
 
   // Custom InputTypes
@@ -10533,6 +10799,34 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountLibraryFineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LibraryFineWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountVehicleMaintenanceLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceLogWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountTransportAllocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportAllocationWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountBedAllocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BedAllocationWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountMetricSnapshotArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MetricSnapshotWhereInput
   }
 
 
@@ -11098,6 +11392,7 @@ export namespace Prisma {
     Result: number
     BedAllocation: number
     BookBorrowing: number
+    transportAllocations: number
     journalLines: number
   }
 
@@ -11112,6 +11407,7 @@ export namespace Prisma {
     Result?: boolean | StudentCountOutputTypeCountResultArgs
     BedAllocation?: boolean | StudentCountOutputTypeCountBedAllocationArgs
     BookBorrowing?: boolean | StudentCountOutputTypeCountBookBorrowingArgs
+    transportAllocations?: boolean | StudentCountOutputTypeCountTransportAllocationsArgs
     journalLines?: boolean | StudentCountOutputTypeCountJournalLinesArgs
   }
 
@@ -11199,6 +11495,13 @@ export namespace Prisma {
   /**
    * StudentCountOutputType without action
    */
+  export type StudentCountOutputTypeCountTransportAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportAllocationWhereInput
+  }
+
+  /**
+   * StudentCountOutputType without action
+   */
   export type StudentCountOutputTypeCountJournalLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JournalEntryLineWhereInput
   }
@@ -11242,11 +11545,15 @@ export namespace Prisma {
   export type StaffCountOutputType = {
     payrollRecords: number
     leaveRequests: number
+    drivenVehicles: number
+    managedHostels: number
   }
 
   export type StaffCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payrollRecords?: boolean | StaffCountOutputTypeCountPayrollRecordsArgs
     leaveRequests?: boolean | StaffCountOutputTypeCountLeaveRequestsArgs
+    drivenVehicles?: boolean | StaffCountOutputTypeCountDrivenVehiclesArgs
+    managedHostels?: boolean | StaffCountOutputTypeCountManagedHostelsArgs
   }
 
   // Custom InputTypes
@@ -11272,6 +11579,20 @@ export namespace Prisma {
    */
   export type StaffCountOutputTypeCountLeaveRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeaveRequestWhereInput
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountDrivenVehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportVehicleWhereInput
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountManagedHostelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HostelWhereInput
   }
 
 
@@ -11574,10 +11895,14 @@ export namespace Prisma {
 
   export type TransportVehicleCountOutputType = {
     routes: number
+    maintenance: number
+    allocations: number
   }
 
   export type TransportVehicleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     routes?: boolean | TransportVehicleCountOutputTypeCountRoutesArgs
+    maintenance?: boolean | TransportVehicleCountOutputTypeCountMaintenanceArgs
+    allocations?: boolean | TransportVehicleCountOutputTypeCountAllocationsArgs
   }
 
   // Custom InputTypes
@@ -11596,6 +11921,51 @@ export namespace Prisma {
    */
   export type TransportVehicleCountOutputTypeCountRoutesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransportRouteWhereInput
+  }
+
+  /**
+   * TransportVehicleCountOutputType without action
+   */
+  export type TransportVehicleCountOutputTypeCountMaintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceLogWhereInput
+  }
+
+  /**
+   * TransportVehicleCountOutputType without action
+   */
+  export type TransportVehicleCountOutputTypeCountAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportAllocationWhereInput
+  }
+
+
+  /**
+   * Count Type TransportRouteCountOutputType
+   */
+
+  export type TransportRouteCountOutputType = {
+    allocations: number
+  }
+
+  export type TransportRouteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    allocations?: boolean | TransportRouteCountOutputTypeCountAllocationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TransportRouteCountOutputType without action
+   */
+  export type TransportRouteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportRouteCountOutputType
+     */
+    select?: TransportRouteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TransportRouteCountOutputType without action
+   */
+  export type TransportRouteCountOutputTypeCountAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportAllocationWhereInput
   }
 
 
@@ -13331,6 +13701,10 @@ export namespace Prisma {
     Document?: boolean | Tenant$DocumentArgs<ExtArgs>
     IdCard?: boolean | Tenant$IdCardArgs<ExtArgs>
     LibraryFine?: boolean | Tenant$LibraryFineArgs<ExtArgs>
+    VehicleMaintenanceLog?: boolean | Tenant$VehicleMaintenanceLogArgs<ExtArgs>
+    TransportAllocation?: boolean | Tenant$TransportAllocationArgs<ExtArgs>
+    BedAllocation?: boolean | Tenant$BedAllocationArgs<ExtArgs>
+    MetricSnapshot?: boolean | Tenant$MetricSnapshotArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -13427,6 +13801,10 @@ export namespace Prisma {
     Document?: boolean | Tenant$DocumentArgs<ExtArgs>
     IdCard?: boolean | Tenant$IdCardArgs<ExtArgs>
     LibraryFine?: boolean | Tenant$LibraryFineArgs<ExtArgs>
+    VehicleMaintenanceLog?: boolean | Tenant$VehicleMaintenanceLogArgs<ExtArgs>
+    TransportAllocation?: boolean | Tenant$TransportAllocationArgs<ExtArgs>
+    BedAllocation?: boolean | Tenant$BedAllocationArgs<ExtArgs>
+    MetricSnapshot?: boolean | Tenant$MetricSnapshotArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13505,6 +13883,10 @@ export namespace Prisma {
       Document: Prisma.$DocumentPayload<ExtArgs>[]
       IdCard: Prisma.$IdCardPayload<ExtArgs>[]
       LibraryFine: Prisma.$LibraryFinePayload<ExtArgs>[]
+      VehicleMaintenanceLog: Prisma.$VehicleMaintenanceLogPayload<ExtArgs>[]
+      TransportAllocation: Prisma.$TransportAllocationPayload<ExtArgs>[]
+      BedAllocation: Prisma.$BedAllocationPayload<ExtArgs>[]
+      MetricSnapshot: Prisma.$MetricSnapshotPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13948,6 +14330,10 @@ export namespace Prisma {
     Document<T extends Tenant$DocumentArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$DocumentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany"> | Null>
     IdCard<T extends Tenant$IdCardArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$IdCardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IdCardPayload<ExtArgs>, T, "findMany"> | Null>
     LibraryFine<T extends Tenant$LibraryFineArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$LibraryFineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LibraryFinePayload<ExtArgs>, T, "findMany"> | Null>
+    VehicleMaintenanceLog<T extends Tenant$VehicleMaintenanceLogArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$VehicleMaintenanceLogArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findMany"> | Null>
+    TransportAllocation<T extends Tenant$TransportAllocationArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$TransportAllocationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findMany"> | Null>
+    BedAllocation<T extends Tenant$BedAllocationArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$BedAllocationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BedAllocationPayload<ExtArgs>, T, "findMany"> | Null>
+    MetricSnapshot<T extends Tenant$MetricSnapshotArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$MetricSnapshotArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15645,6 +16031,86 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LibraryFineScalarFieldEnum | LibraryFineScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.VehicleMaintenanceLog
+   */
+  export type Tenant$VehicleMaintenanceLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    where?: VehicleMaintenanceLogWhereInput
+    orderBy?: VehicleMaintenanceLogOrderByWithRelationInput | VehicleMaintenanceLogOrderByWithRelationInput[]
+    cursor?: VehicleMaintenanceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleMaintenanceLogScalarFieldEnum | VehicleMaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.TransportAllocation
+   */
+  export type Tenant$TransportAllocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    where?: TransportAllocationWhereInput
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    cursor?: TransportAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.BedAllocation
+   */
+  export type Tenant$BedAllocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BedAllocation
+     */
+    select?: BedAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BedAllocationInclude<ExtArgs> | null
+    where?: BedAllocationWhereInput
+    orderBy?: BedAllocationOrderByWithRelationInput | BedAllocationOrderByWithRelationInput[]
+    cursor?: BedAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BedAllocationScalarFieldEnum | BedAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.MetricSnapshot
+   */
+  export type Tenant$MetricSnapshotArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    where?: MetricSnapshotWhereInput
+    orderBy?: MetricSnapshotOrderByWithRelationInput | MetricSnapshotOrderByWithRelationInput[]
+    cursor?: MetricSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MetricSnapshotScalarFieldEnum | MetricSnapshotScalarFieldEnum[]
   }
 
   /**
@@ -42595,6 +43061,7 @@ export namespace Prisma {
     Result?: boolean | Student$ResultArgs<ExtArgs>
     BedAllocation?: boolean | Student$BedAllocationArgs<ExtArgs>
     BookBorrowing?: boolean | Student$BookBorrowingArgs<ExtArgs>
+    transportAllocations?: boolean | Student$transportAllocationsArgs<ExtArgs>
     journalLines?: boolean | Student$journalLinesArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
@@ -42638,6 +43105,7 @@ export namespace Prisma {
     Result?: boolean | Student$ResultArgs<ExtArgs>
     BedAllocation?: boolean | Student$BedAllocationArgs<ExtArgs>
     BookBorrowing?: boolean | Student$BookBorrowingArgs<ExtArgs>
+    transportAllocations?: boolean | Student$transportAllocationsArgs<ExtArgs>
     journalLines?: boolean | Student$journalLinesArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -42663,6 +43131,7 @@ export namespace Prisma {
       Result: Prisma.$ResultPayload<ExtArgs>[]
       BedAllocation: Prisma.$BedAllocationPayload<ExtArgs>[]
       BookBorrowing: Prisma.$BookBorrowingPayload<ExtArgs>[]
+      transportAllocations: Prisma.$TransportAllocationPayload<ExtArgs>[]
       journalLines: Prisma.$JournalEntryLinePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -43051,6 +43520,7 @@ export namespace Prisma {
     Result<T extends Student$ResultArgs<ExtArgs> = {}>(args?: Subset<T, Student$ResultArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResultPayload<ExtArgs>, T, "findMany"> | Null>
     BedAllocation<T extends Student$BedAllocationArgs<ExtArgs> = {}>(args?: Subset<T, Student$BedAllocationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BedAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     BookBorrowing<T extends Student$BookBorrowingArgs<ExtArgs> = {}>(args?: Subset<T, Student$BookBorrowingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookBorrowingPayload<ExtArgs>, T, "findMany"> | Null>
+    transportAllocations<T extends Student$transportAllocationsArgs<ExtArgs> = {}>(args?: Subset<T, Student$transportAllocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     journalLines<T extends Student$journalLinesArgs<ExtArgs> = {}>(args?: Subset<T, Student$journalLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalEntryLinePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -43619,6 +44089,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BookBorrowingScalarFieldEnum | BookBorrowingScalarFieldEnum[]
+  }
+
+  /**
+   * Student.transportAllocations
+   */
+  export type Student$transportAllocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    where?: TransportAllocationWhereInput
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    cursor?: TransportAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
   }
 
   /**
@@ -49720,6 +50210,8 @@ export namespace Prisma {
     employment?: boolean | Staff$employmentArgs<ExtArgs>
     payrollRecords?: boolean | Staff$payrollRecordsArgs<ExtArgs>
     leaveRequests?: boolean | Staff$leaveRequestsArgs<ExtArgs>
+    drivenVehicles?: boolean | Staff$drivenVehiclesArgs<ExtArgs>
+    managedHostels?: boolean | Staff$managedHostelsArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["staff"]>
 
@@ -49755,6 +50247,8 @@ export namespace Prisma {
     employment?: boolean | Staff$employmentArgs<ExtArgs>
     payrollRecords?: boolean | Staff$payrollRecordsArgs<ExtArgs>
     leaveRequests?: boolean | Staff$leaveRequestsArgs<ExtArgs>
+    drivenVehicles?: boolean | Staff$drivenVehiclesArgs<ExtArgs>
+    managedHostels?: boolean | Staff$managedHostelsArgs<ExtArgs>
     _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StaffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -49772,6 +50266,8 @@ export namespace Prisma {
       employment: Prisma.$EmploymentPayload<ExtArgs> | null
       payrollRecords: Prisma.$PayrollPayload<ExtArgs>[]
       leaveRequests: Prisma.$LeaveRequestPayload<ExtArgs>[]
+      drivenVehicles: Prisma.$TransportVehiclePayload<ExtArgs>[]
+      managedHostels: Prisma.$HostelPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -50152,6 +50648,8 @@ export namespace Prisma {
     employment<T extends Staff$employmentArgs<ExtArgs> = {}>(args?: Subset<T, Staff$employmentArgs<ExtArgs>>): Prisma__EmploymentClient<$Result.GetResult<Prisma.$EmploymentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     payrollRecords<T extends Staff$payrollRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$payrollRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PayrollPayload<ExtArgs>, T, "findMany"> | Null>
     leaveRequests<T extends Staff$leaveRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$leaveRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveRequestPayload<ExtArgs>, T, "findMany"> | Null>
+    drivenVehicles<T extends Staff$drivenVehiclesArgs<ExtArgs> = {}>(args?: Subset<T, Staff$drivenVehiclesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportVehiclePayload<ExtArgs>, T, "findMany"> | Null>
+    managedHostels<T extends Staff$managedHostelsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$managedHostelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostelPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -50574,6 +51072,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeaveRequestScalarFieldEnum | LeaveRequestScalarFieldEnum[]
+  }
+
+  /**
+   * Staff.drivenVehicles
+   */
+  export type Staff$drivenVehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportVehicle
+     */
+    select?: TransportVehicleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportVehicleInclude<ExtArgs> | null
+    where?: TransportVehicleWhereInput
+    orderBy?: TransportVehicleOrderByWithRelationInput | TransportVehicleOrderByWithRelationInput[]
+    cursor?: TransportVehicleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransportVehicleScalarFieldEnum | TransportVehicleScalarFieldEnum[]
+  }
+
+  /**
+   * Staff.managedHostels
+   */
+  export type Staff$managedHostelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hostel
+     */
+    select?: HostelSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostelInclude<ExtArgs> | null
+    where?: HostelWhereInput
+    orderBy?: HostelOrderByWithRelationInput | HostelOrderByWithRelationInput[]
+    cursor?: HostelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HostelScalarFieldEnum | HostelScalarFieldEnum[]
   }
 
   /**
@@ -72229,6 +72767,8 @@ export namespace Prisma {
     tenantId: string | null
     name: string | null
     capacity: number | null
+    gender: string | null
+    status: string | null
     wardenId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -72239,6 +72779,8 @@ export namespace Prisma {
     tenantId: string | null
     name: string | null
     capacity: number | null
+    gender: string | null
+    status: string | null
     wardenId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -72249,6 +72791,8 @@ export namespace Prisma {
     tenantId: number
     name: number
     capacity: number
+    gender: number
+    status: number
     wardenId: number
     createdAt: number
     updatedAt: number
@@ -72269,6 +72813,8 @@ export namespace Prisma {
     tenantId?: true
     name?: true
     capacity?: true
+    gender?: true
+    status?: true
     wardenId?: true
     createdAt?: true
     updatedAt?: true
@@ -72279,6 +72825,8 @@ export namespace Prisma {
     tenantId?: true
     name?: true
     capacity?: true
+    gender?: true
+    status?: true
     wardenId?: true
     createdAt?: true
     updatedAt?: true
@@ -72289,6 +72837,8 @@ export namespace Prisma {
     tenantId?: true
     name?: true
     capacity?: true
+    gender?: true
+    status?: true
     wardenId?: true
     createdAt?: true
     updatedAt?: true
@@ -72386,6 +72936,8 @@ export namespace Prisma {
     tenantId: string
     name: string
     capacity: number
+    gender: string
+    status: string
     wardenId: string | null
     createdAt: Date
     updatedAt: Date
@@ -72415,10 +72967,13 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     capacity?: boolean
+    gender?: boolean
+    status?: boolean
     wardenId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    warden?: boolean | Hostel$wardenArgs<ExtArgs>
     rooms?: boolean | Hostel$roomsArgs<ExtArgs>
     _count?: boolean | HostelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["hostel"]>
@@ -72428,10 +72983,13 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     capacity?: boolean
+    gender?: boolean
+    status?: boolean
     wardenId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    warden?: boolean | Hostel$wardenArgs<ExtArgs>
   }, ExtArgs["result"]["hostel"]>
 
   export type HostelSelectScalar = {
@@ -72439,6 +72997,8 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     capacity?: boolean
+    gender?: boolean
+    status?: boolean
     wardenId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -72446,17 +73006,20 @@ export namespace Prisma {
 
   export type HostelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    warden?: boolean | Hostel$wardenArgs<ExtArgs>
     rooms?: boolean | Hostel$roomsArgs<ExtArgs>
     _count?: boolean | HostelCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HostelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    warden?: boolean | Hostel$wardenArgs<ExtArgs>
   }
 
   export type $HostelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Hostel"
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
+      warden: Prisma.$StaffPayload<ExtArgs> | null
       rooms: Prisma.$HostelRoomPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -72464,6 +73027,8 @@ export namespace Prisma {
       tenantId: string
       name: string
       capacity: number
+      gender: string
+      status: string
       wardenId: string | null
       createdAt: Date
       updatedAt: Date
@@ -72832,6 +73397,7 @@ export namespace Prisma {
   export interface Prisma__HostelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    warden<T extends Hostel$wardenArgs<ExtArgs> = {}>(args?: Subset<T, Hostel$wardenArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     rooms<T extends Hostel$roomsArgs<ExtArgs> = {}>(args?: Subset<T, Hostel$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostelRoomPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -72866,6 +73432,8 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"Hostel", 'String'>
     readonly name: FieldRef<"Hostel", 'String'>
     readonly capacity: FieldRef<"Hostel", 'Int'>
+    readonly gender: FieldRef<"Hostel", 'String'>
+    readonly status: FieldRef<"Hostel", 'String'>
     readonly wardenId: FieldRef<"Hostel", 'String'>
     readonly createdAt: FieldRef<"Hostel", 'DateTime'>
     readonly updatedAt: FieldRef<"Hostel", 'DateTime'>
@@ -73187,6 +73755,21 @@ export namespace Prisma {
   }
 
   /**
+   * Hostel.warden
+   */
+  export type Hostel$wardenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    where?: StaffWhereInput
+  }
+
+  /**
    * Hostel.rooms
    */
   export type Hostel$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -73243,27 +73826,36 @@ export namespace Prisma {
 
   export type HostelRoomMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     hostelId: string | null
     roomNumber: string | null
     capacity: number | null
+    type: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type HostelRoomMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     hostelId: string | null
     roomNumber: string | null
     capacity: number | null
+    type: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type HostelRoomCountAggregateOutputType = {
     id: number
+    tenantId: number
     hostelId: number
     roomNumber: number
     capacity: number
+    type: number
+    status: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -73280,27 +73872,36 @@ export namespace Prisma {
 
   export type HostelRoomMinAggregateInputType = {
     id?: true
+    tenantId?: true
     hostelId?: true
     roomNumber?: true
     capacity?: true
+    type?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type HostelRoomMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     hostelId?: true
     roomNumber?: true
     capacity?: true
+    type?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type HostelRoomCountAggregateInputType = {
     id?: true
+    tenantId?: true
     hostelId?: true
     roomNumber?: true
     capacity?: true
+    type?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -73394,9 +73995,12 @@ export namespace Prisma {
 
   export type HostelRoomGroupByOutputType = {
     id: string
+    tenantId: string
     hostelId: string
     roomNumber: string
     capacity: number
+    type: string
+    status: string
     createdAt: Date
     updatedAt: Date
     _count: HostelRoomCountAggregateOutputType | null
@@ -73422,9 +74026,12 @@ export namespace Prisma {
 
   export type HostelRoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     hostelId?: boolean
     roomNumber?: boolean
     capacity?: boolean
+    type?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     hostel?: boolean | HostelDefaultArgs<ExtArgs>
@@ -73434,9 +74041,12 @@ export namespace Prisma {
 
   export type HostelRoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     hostelId?: boolean
     roomNumber?: boolean
     capacity?: boolean
+    type?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     hostel?: boolean | HostelDefaultArgs<ExtArgs>
@@ -73444,9 +74054,12 @@ export namespace Prisma {
 
   export type HostelRoomSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     hostelId?: boolean
     roomNumber?: boolean
     capacity?: boolean
+    type?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -73468,9 +74081,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       hostelId: string
       roomNumber: string
       capacity: number
+      type: string
+      status: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["hostelRoom"]>
@@ -73869,9 +74485,12 @@ export namespace Prisma {
    */ 
   interface HostelRoomFieldRefs {
     readonly id: FieldRef<"HostelRoom", 'String'>
+    readonly tenantId: FieldRef<"HostelRoom", 'String'>
     readonly hostelId: FieldRef<"HostelRoom", 'String'>
     readonly roomNumber: FieldRef<"HostelRoom", 'String'>
     readonly capacity: FieldRef<"HostelRoom", 'Int'>
+    readonly type: FieldRef<"HostelRoom", 'String'>
+    readonly status: FieldRef<"HostelRoom", 'String'>
     readonly createdAt: FieldRef<"HostelRoom", 'DateTime'>
     readonly updatedAt: FieldRef<"HostelRoom", 'DateTime'>
   }
@@ -74238,27 +74857,39 @@ export namespace Prisma {
 
   export type BedAllocationMinAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     roomId: string | null
     studentId: string | null
     academicYearId: string | null
+    status: string | null
+    allocatedAt: Date | null
+    expiresAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type BedAllocationMaxAggregateOutputType = {
     id: string | null
+    tenantId: string | null
     roomId: string | null
     studentId: string | null
     academicYearId: string | null
+    status: string | null
+    allocatedAt: Date | null
+    expiresAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type BedAllocationCountAggregateOutputType = {
     id: number
+    tenantId: number
     roomId: number
     studentId: number
     academicYearId: number
+    status: number
+    allocatedAt: number
+    expiresAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -74267,27 +74898,39 @@ export namespace Prisma {
 
   export type BedAllocationMinAggregateInputType = {
     id?: true
+    tenantId?: true
     roomId?: true
     studentId?: true
     academicYearId?: true
+    status?: true
+    allocatedAt?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type BedAllocationMaxAggregateInputType = {
     id?: true
+    tenantId?: true
     roomId?: true
     studentId?: true
     academicYearId?: true
+    status?: true
+    allocatedAt?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type BedAllocationCountAggregateInputType = {
     id?: true
+    tenantId?: true
     roomId?: true
     studentId?: true
     academicYearId?: true
+    status?: true
+    allocatedAt?: true
+    expiresAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -74367,9 +75010,13 @@ export namespace Prisma {
 
   export type BedAllocationGroupByOutputType = {
     id: string
+    tenantId: string
     roomId: string
     studentId: string
-    academicYearId: string
+    academicYearId: string | null
+    status: string
+    allocatedAt: Date
+    expiresAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: BedAllocationCountAggregateOutputType | null
@@ -74393,40 +75040,56 @@ export namespace Prisma {
 
   export type BedAllocationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     roomId?: boolean
     studentId?: boolean
     academicYearId?: boolean
+    status?: boolean
+    allocatedAt?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     room?: boolean | HostelRoomDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bedAllocation"]>
 
   export type BedAllocationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tenantId?: boolean
     roomId?: boolean
     studentId?: boolean
     academicYearId?: boolean
+    status?: boolean
+    allocatedAt?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     room?: boolean | HostelRoomDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bedAllocation"]>
 
   export type BedAllocationSelectScalar = {
     id?: boolean
+    tenantId?: boolean
     roomId?: boolean
     studentId?: boolean
     academicYearId?: boolean
+    status?: boolean
+    allocatedAt?: boolean
+    expiresAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type BedAllocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     room?: boolean | HostelRoomDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
   export type BedAllocationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
     room?: boolean | HostelRoomDefaultArgs<ExtArgs>
     student?: boolean | StudentDefaultArgs<ExtArgs>
   }
@@ -74434,14 +75097,19 @@ export namespace Prisma {
   export type $BedAllocationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BedAllocation"
     objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
       room: Prisma.$HostelRoomPayload<ExtArgs>
       student: Prisma.$StudentPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tenantId: string
       roomId: string
       studentId: string
-      academicYearId: string
+      academicYearId: string | null
+      status: string
+      allocatedAt: Date
+      expiresAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["bedAllocation"]>
@@ -74808,6 +75476,7 @@ export namespace Prisma {
    */
   export interface Prisma__BedAllocationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     room<T extends HostelRoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HostelRoomDefaultArgs<ExtArgs>>): Prisma__HostelRoomClient<$Result.GetResult<Prisma.$HostelRoomPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
@@ -74840,9 +75509,13 @@ export namespace Prisma {
    */ 
   interface BedAllocationFieldRefs {
     readonly id: FieldRef<"BedAllocation", 'String'>
+    readonly tenantId: FieldRef<"BedAllocation", 'String'>
     readonly roomId: FieldRef<"BedAllocation", 'String'>
     readonly studentId: FieldRef<"BedAllocation", 'String'>
     readonly academicYearId: FieldRef<"BedAllocation", 'String'>
+    readonly status: FieldRef<"BedAllocation", 'String'>
+    readonly allocatedAt: FieldRef<"BedAllocation", 'DateTime'>
+    readonly expiresAt: FieldRef<"BedAllocation", 'DateTime'>
     readonly createdAt: FieldRef<"BedAllocation", 'DateTime'>
     readonly updatedAt: FieldRef<"BedAllocation", 'DateTime'>
   }
@@ -75201,8 +75874,9 @@ export namespace Prisma {
     id: string | null
     tenantId: string | null
     plateNumber: string | null
-    driverName: string | null
     capacity: number | null
+    driverId: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -75211,8 +75885,9 @@ export namespace Prisma {
     id: string | null
     tenantId: string | null
     plateNumber: string | null
-    driverName: string | null
     capacity: number | null
+    driverId: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -75221,8 +75896,10 @@ export namespace Prisma {
     id: number
     tenantId: number
     plateNumber: number
-    driverName: number
     capacity: number
+    driverId: number
+    lastLocation: number
+    status: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -75241,8 +75918,9 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     plateNumber?: true
-    driverName?: true
     capacity?: true
+    driverId?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -75251,8 +75929,9 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     plateNumber?: true
-    driverName?: true
     capacity?: true
+    driverId?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -75261,8 +75940,10 @@ export namespace Prisma {
     id?: true
     tenantId?: true
     plateNumber?: true
-    driverName?: true
     capacity?: true
+    driverId?: true
+    lastLocation?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -75358,8 +76039,10 @@ export namespace Prisma {
     id: string
     tenantId: string
     plateNumber: string
-    driverName: string | null
     capacity: number
+    driverId: string | null
+    lastLocation: JsonValue | null
+    status: string
     createdAt: Date
     updatedAt: Date
     _count: TransportVehicleCountAggregateOutputType | null
@@ -75387,12 +76070,17 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     plateNumber?: boolean
-    driverName?: boolean
     capacity?: boolean
+    driverId?: boolean
+    lastLocation?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    driver?: boolean | TransportVehicle$driverArgs<ExtArgs>
     routes?: boolean | TransportVehicle$routesArgs<ExtArgs>
+    maintenance?: boolean | TransportVehicle$maintenanceArgs<ExtArgs>
+    allocations?: boolean | TransportVehicle$allocationsArgs<ExtArgs>
     _count?: boolean | TransportVehicleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transportVehicle"]>
 
@@ -75400,44 +76088,58 @@ export namespace Prisma {
     id?: boolean
     tenantId?: boolean
     plateNumber?: boolean
-    driverName?: boolean
     capacity?: boolean
+    driverId?: boolean
+    lastLocation?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    driver?: boolean | TransportVehicle$driverArgs<ExtArgs>
   }, ExtArgs["result"]["transportVehicle"]>
 
   export type TransportVehicleSelectScalar = {
     id?: boolean
     tenantId?: boolean
     plateNumber?: boolean
-    driverName?: boolean
     capacity?: boolean
+    driverId?: boolean
+    lastLocation?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type TransportVehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    driver?: boolean | TransportVehicle$driverArgs<ExtArgs>
     routes?: boolean | TransportVehicle$routesArgs<ExtArgs>
+    maintenance?: boolean | TransportVehicle$maintenanceArgs<ExtArgs>
+    allocations?: boolean | TransportVehicle$allocationsArgs<ExtArgs>
     _count?: boolean | TransportVehicleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TransportVehicleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    driver?: boolean | TransportVehicle$driverArgs<ExtArgs>
   }
 
   export type $TransportVehiclePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TransportVehicle"
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
+      driver: Prisma.$StaffPayload<ExtArgs> | null
       routes: Prisma.$TransportRoutePayload<ExtArgs>[]
+      maintenance: Prisma.$VehicleMaintenanceLogPayload<ExtArgs>[]
+      allocations: Prisma.$TransportAllocationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tenantId: string
       plateNumber: string
-      driverName: string | null
       capacity: number
+      driverId: string | null
+      lastLocation: Prisma.JsonValue | null
+      status: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["transportVehicle"]>
@@ -75805,7 +76507,10 @@ export namespace Prisma {
   export interface Prisma__TransportVehicleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    driver<T extends TransportVehicle$driverArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicle$driverArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     routes<T extends TransportVehicle$routesArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicle$routesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportRoutePayload<ExtArgs>, T, "findMany"> | Null>
+    maintenance<T extends TransportVehicle$maintenanceArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicle$maintenanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findMany"> | Null>
+    allocations<T extends TransportVehicle$allocationsArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicle$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -75838,8 +76543,10 @@ export namespace Prisma {
     readonly id: FieldRef<"TransportVehicle", 'String'>
     readonly tenantId: FieldRef<"TransportVehicle", 'String'>
     readonly plateNumber: FieldRef<"TransportVehicle", 'String'>
-    readonly driverName: FieldRef<"TransportVehicle", 'String'>
     readonly capacity: FieldRef<"TransportVehicle", 'Int'>
+    readonly driverId: FieldRef<"TransportVehicle", 'String'>
+    readonly lastLocation: FieldRef<"TransportVehicle", 'Json'>
+    readonly status: FieldRef<"TransportVehicle", 'String'>
     readonly createdAt: FieldRef<"TransportVehicle", 'DateTime'>
     readonly updatedAt: FieldRef<"TransportVehicle", 'DateTime'>
   }
@@ -76160,6 +76867,21 @@ export namespace Prisma {
   }
 
   /**
+   * TransportVehicle.driver
+   */
+  export type TransportVehicle$driverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    where?: StaffWhereInput
+  }
+
+  /**
    * TransportVehicle.routes
    */
   export type TransportVehicle$routesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -76180,6 +76902,46 @@ export namespace Prisma {
   }
 
   /**
+   * TransportVehicle.maintenance
+   */
+  export type TransportVehicle$maintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    where?: VehicleMaintenanceLogWhereInput
+    orderBy?: VehicleMaintenanceLogOrderByWithRelationInput | VehicleMaintenanceLogOrderByWithRelationInput[]
+    cursor?: VehicleMaintenanceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VehicleMaintenanceLogScalarFieldEnum | VehicleMaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * TransportVehicle.allocations
+   */
+  export type TransportVehicle$allocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    where?: TransportAllocationWhereInput
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    cursor?: TransportAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
+  }
+
+  /**
    * TransportVehicle without action
    */
   export type TransportVehicleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -76191,6 +76953,1027 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TransportVehicleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VehicleMaintenanceLog
+   */
+
+  export type AggregateVehicleMaintenanceLog = {
+    _count: VehicleMaintenanceLogCountAggregateOutputType | null
+    _avg: VehicleMaintenanceLogAvgAggregateOutputType | null
+    _sum: VehicleMaintenanceLogSumAggregateOutputType | null
+    _min: VehicleMaintenanceLogMinAggregateOutputType | null
+    _max: VehicleMaintenanceLogMaxAggregateOutputType | null
+  }
+
+  export type VehicleMaintenanceLogAvgAggregateOutputType = {
+    cost: Decimal | null
+  }
+
+  export type VehicleMaintenanceLogSumAggregateOutputType = {
+    cost: Decimal | null
+  }
+
+  export type VehicleMaintenanceLogMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    vehicleId: string | null
+    date: Date | null
+    description: string | null
+    cost: Decimal | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VehicleMaintenanceLogMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    vehicleId: string | null
+    date: Date | null
+    description: string | null
+    cost: Decimal | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VehicleMaintenanceLogCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    vehicleId: number
+    date: number
+    description: number
+    cost: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VehicleMaintenanceLogAvgAggregateInputType = {
+    cost?: true
+  }
+
+  export type VehicleMaintenanceLogSumAggregateInputType = {
+    cost?: true
+  }
+
+  export type VehicleMaintenanceLogMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    vehicleId?: true
+    date?: true
+    description?: true
+    cost?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VehicleMaintenanceLogMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    vehicleId?: true
+    date?: true
+    description?: true
+    cost?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VehicleMaintenanceLogCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    vehicleId?: true
+    date?: true
+    description?: true
+    cost?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VehicleMaintenanceLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleMaintenanceLog to aggregate.
+     */
+    where?: VehicleMaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceLogs to fetch.
+     */
+    orderBy?: VehicleMaintenanceLogOrderByWithRelationInput | VehicleMaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VehicleMaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VehicleMaintenanceLogs
+    **/
+    _count?: true | VehicleMaintenanceLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VehicleMaintenanceLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VehicleMaintenanceLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VehicleMaintenanceLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VehicleMaintenanceLogMaxAggregateInputType
+  }
+
+  export type GetVehicleMaintenanceLogAggregateType<T extends VehicleMaintenanceLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateVehicleMaintenanceLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVehicleMaintenanceLog[P]>
+      : GetScalarType<T[P], AggregateVehicleMaintenanceLog[P]>
+  }
+
+
+
+
+  export type VehicleMaintenanceLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VehicleMaintenanceLogWhereInput
+    orderBy?: VehicleMaintenanceLogOrderByWithAggregationInput | VehicleMaintenanceLogOrderByWithAggregationInput[]
+    by: VehicleMaintenanceLogScalarFieldEnum[] | VehicleMaintenanceLogScalarFieldEnum
+    having?: VehicleMaintenanceLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VehicleMaintenanceLogCountAggregateInputType | true
+    _avg?: VehicleMaintenanceLogAvgAggregateInputType
+    _sum?: VehicleMaintenanceLogSumAggregateInputType
+    _min?: VehicleMaintenanceLogMinAggregateInputType
+    _max?: VehicleMaintenanceLogMaxAggregateInputType
+  }
+
+  export type VehicleMaintenanceLogGroupByOutputType = {
+    id: string
+    tenantId: string
+    vehicleId: string
+    date: Date
+    description: string
+    cost: Decimal | null
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: VehicleMaintenanceLogCountAggregateOutputType | null
+    _avg: VehicleMaintenanceLogAvgAggregateOutputType | null
+    _sum: VehicleMaintenanceLogSumAggregateOutputType | null
+    _min: VehicleMaintenanceLogMinAggregateOutputType | null
+    _max: VehicleMaintenanceLogMaxAggregateOutputType | null
+  }
+
+  type GetVehicleMaintenanceLogGroupByPayload<T extends VehicleMaintenanceLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VehicleMaintenanceLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VehicleMaintenanceLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VehicleMaintenanceLogGroupByOutputType[P]>
+            : GetScalarType<T[P], VehicleMaintenanceLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VehicleMaintenanceLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    vehicleId?: boolean
+    date?: boolean
+    description?: boolean
+    cost?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicleMaintenanceLog"]>
+
+  export type VehicleMaintenanceLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    vehicleId?: boolean
+    date?: boolean
+    description?: boolean
+    cost?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["vehicleMaintenanceLog"]>
+
+  export type VehicleMaintenanceLogSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    vehicleId?: boolean
+    date?: boolean
+    description?: boolean
+    cost?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VehicleMaintenanceLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+  }
+  export type VehicleMaintenanceLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+  }
+
+  export type $VehicleMaintenanceLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VehicleMaintenanceLog"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      vehicle: Prisma.$TransportVehiclePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      vehicleId: string
+      date: Date
+      description: string
+      cost: Prisma.Decimal | null
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["vehicleMaintenanceLog"]>
+    composites: {}
+  }
+
+  type VehicleMaintenanceLogGetPayload<S extends boolean | null | undefined | VehicleMaintenanceLogDefaultArgs> = $Result.GetResult<Prisma.$VehicleMaintenanceLogPayload, S>
+
+  type VehicleMaintenanceLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<VehicleMaintenanceLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: VehicleMaintenanceLogCountAggregateInputType | true
+    }
+
+  export interface VehicleMaintenanceLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VehicleMaintenanceLog'], meta: { name: 'VehicleMaintenanceLog' } }
+    /**
+     * Find zero or one VehicleMaintenanceLog that matches the filter.
+     * @param {VehicleMaintenanceLogFindUniqueArgs} args - Arguments to find a VehicleMaintenanceLog
+     * @example
+     * // Get one VehicleMaintenanceLog
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VehicleMaintenanceLogFindUniqueArgs>(args: SelectSubset<T, VehicleMaintenanceLogFindUniqueArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one VehicleMaintenanceLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {VehicleMaintenanceLogFindUniqueOrThrowArgs} args - Arguments to find a VehicleMaintenanceLog
+     * @example
+     * // Get one VehicleMaintenanceLog
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VehicleMaintenanceLogFindUniqueOrThrowArgs>(args: SelectSubset<T, VehicleMaintenanceLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first VehicleMaintenanceLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogFindFirstArgs} args - Arguments to find a VehicleMaintenanceLog
+     * @example
+     * // Get one VehicleMaintenanceLog
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VehicleMaintenanceLogFindFirstArgs>(args?: SelectSubset<T, VehicleMaintenanceLogFindFirstArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first VehicleMaintenanceLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogFindFirstOrThrowArgs} args - Arguments to find a VehicleMaintenanceLog
+     * @example
+     * // Get one VehicleMaintenanceLog
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VehicleMaintenanceLogFindFirstOrThrowArgs>(args?: SelectSubset<T, VehicleMaintenanceLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more VehicleMaintenanceLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VehicleMaintenanceLogs
+     * const vehicleMaintenanceLogs = await prisma.vehicleMaintenanceLog.findMany()
+     * 
+     * // Get first 10 VehicleMaintenanceLogs
+     * const vehicleMaintenanceLogs = await prisma.vehicleMaintenanceLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const vehicleMaintenanceLogWithIdOnly = await prisma.vehicleMaintenanceLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VehicleMaintenanceLogFindManyArgs>(args?: SelectSubset<T, VehicleMaintenanceLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a VehicleMaintenanceLog.
+     * @param {VehicleMaintenanceLogCreateArgs} args - Arguments to create a VehicleMaintenanceLog.
+     * @example
+     * // Create one VehicleMaintenanceLog
+     * const VehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.create({
+     *   data: {
+     *     // ... data to create a VehicleMaintenanceLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends VehicleMaintenanceLogCreateArgs>(args: SelectSubset<T, VehicleMaintenanceLogCreateArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many VehicleMaintenanceLogs.
+     * @param {VehicleMaintenanceLogCreateManyArgs} args - Arguments to create many VehicleMaintenanceLogs.
+     * @example
+     * // Create many VehicleMaintenanceLogs
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VehicleMaintenanceLogCreateManyArgs>(args?: SelectSubset<T, VehicleMaintenanceLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VehicleMaintenanceLogs and returns the data saved in the database.
+     * @param {VehicleMaintenanceLogCreateManyAndReturnArgs} args - Arguments to create many VehicleMaintenanceLogs.
+     * @example
+     * // Create many VehicleMaintenanceLogs
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VehicleMaintenanceLogs and only return the `id`
+     * const vehicleMaintenanceLogWithIdOnly = await prisma.vehicleMaintenanceLog.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VehicleMaintenanceLogCreateManyAndReturnArgs>(args?: SelectSubset<T, VehicleMaintenanceLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a VehicleMaintenanceLog.
+     * @param {VehicleMaintenanceLogDeleteArgs} args - Arguments to delete one VehicleMaintenanceLog.
+     * @example
+     * // Delete one VehicleMaintenanceLog
+     * const VehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.delete({
+     *   where: {
+     *     // ... filter to delete one VehicleMaintenanceLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VehicleMaintenanceLogDeleteArgs>(args: SelectSubset<T, VehicleMaintenanceLogDeleteArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one VehicleMaintenanceLog.
+     * @param {VehicleMaintenanceLogUpdateArgs} args - Arguments to update one VehicleMaintenanceLog.
+     * @example
+     * // Update one VehicleMaintenanceLog
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VehicleMaintenanceLogUpdateArgs>(args: SelectSubset<T, VehicleMaintenanceLogUpdateArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more VehicleMaintenanceLogs.
+     * @param {VehicleMaintenanceLogDeleteManyArgs} args - Arguments to filter VehicleMaintenanceLogs to delete.
+     * @example
+     * // Delete a few VehicleMaintenanceLogs
+     * const { count } = await prisma.vehicleMaintenanceLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VehicleMaintenanceLogDeleteManyArgs>(args?: SelectSubset<T, VehicleMaintenanceLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VehicleMaintenanceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VehicleMaintenanceLogs
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VehicleMaintenanceLogUpdateManyArgs>(args: SelectSubset<T, VehicleMaintenanceLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one VehicleMaintenanceLog.
+     * @param {VehicleMaintenanceLogUpsertArgs} args - Arguments to update or create a VehicleMaintenanceLog.
+     * @example
+     * // Update or create a VehicleMaintenanceLog
+     * const vehicleMaintenanceLog = await prisma.vehicleMaintenanceLog.upsert({
+     *   create: {
+     *     // ... data to create a VehicleMaintenanceLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VehicleMaintenanceLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VehicleMaintenanceLogUpsertArgs>(args: SelectSubset<T, VehicleMaintenanceLogUpsertArgs<ExtArgs>>): Prisma__VehicleMaintenanceLogClient<$Result.GetResult<Prisma.$VehicleMaintenanceLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of VehicleMaintenanceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogCountArgs} args - Arguments to filter VehicleMaintenanceLogs to count.
+     * @example
+     * // Count the number of VehicleMaintenanceLogs
+     * const count = await prisma.vehicleMaintenanceLog.count({
+     *   where: {
+     *     // ... the filter for the VehicleMaintenanceLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends VehicleMaintenanceLogCountArgs>(
+      args?: Subset<T, VehicleMaintenanceLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VehicleMaintenanceLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VehicleMaintenanceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VehicleMaintenanceLogAggregateArgs>(args: Subset<T, VehicleMaintenanceLogAggregateArgs>): Prisma.PrismaPromise<GetVehicleMaintenanceLogAggregateType<T>>
+
+    /**
+     * Group by VehicleMaintenanceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VehicleMaintenanceLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VehicleMaintenanceLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VehicleMaintenanceLogGroupByArgs['orderBy'] }
+        : { orderBy?: VehicleMaintenanceLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VehicleMaintenanceLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVehicleMaintenanceLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VehicleMaintenanceLog model
+   */
+  readonly fields: VehicleMaintenanceLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VehicleMaintenanceLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VehicleMaintenanceLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    vehicle<T extends TransportVehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicleDefaultArgs<ExtArgs>>): Prisma__TransportVehicleClient<$Result.GetResult<Prisma.$TransportVehiclePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VehicleMaintenanceLog model
+   */ 
+  interface VehicleMaintenanceLogFieldRefs {
+    readonly id: FieldRef<"VehicleMaintenanceLog", 'String'>
+    readonly tenantId: FieldRef<"VehicleMaintenanceLog", 'String'>
+    readonly vehicleId: FieldRef<"VehicleMaintenanceLog", 'String'>
+    readonly date: FieldRef<"VehicleMaintenanceLog", 'DateTime'>
+    readonly description: FieldRef<"VehicleMaintenanceLog", 'String'>
+    readonly cost: FieldRef<"VehicleMaintenanceLog", 'Decimal'>
+    readonly status: FieldRef<"VehicleMaintenanceLog", 'String'>
+    readonly createdAt: FieldRef<"VehicleMaintenanceLog", 'DateTime'>
+    readonly updatedAt: FieldRef<"VehicleMaintenanceLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VehicleMaintenanceLog findUnique
+   */
+  export type VehicleMaintenanceLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceLog to fetch.
+     */
+    where: VehicleMaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * VehicleMaintenanceLog findUniqueOrThrow
+   */
+  export type VehicleMaintenanceLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceLog to fetch.
+     */
+    where: VehicleMaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * VehicleMaintenanceLog findFirst
+   */
+  export type VehicleMaintenanceLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceLog to fetch.
+     */
+    where?: VehicleMaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceLogs to fetch.
+     */
+    orderBy?: VehicleMaintenanceLogOrderByWithRelationInput | VehicleMaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleMaintenanceLogs.
+     */
+    cursor?: VehicleMaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleMaintenanceLogs.
+     */
+    distinct?: VehicleMaintenanceLogScalarFieldEnum | VehicleMaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * VehicleMaintenanceLog findFirstOrThrow
+   */
+  export type VehicleMaintenanceLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceLog to fetch.
+     */
+    where?: VehicleMaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceLogs to fetch.
+     */
+    orderBy?: VehicleMaintenanceLogOrderByWithRelationInput | VehicleMaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VehicleMaintenanceLogs.
+     */
+    cursor?: VehicleMaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VehicleMaintenanceLogs.
+     */
+    distinct?: VehicleMaintenanceLogScalarFieldEnum | VehicleMaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * VehicleMaintenanceLog findMany
+   */
+  export type VehicleMaintenanceLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which VehicleMaintenanceLogs to fetch.
+     */
+    where?: VehicleMaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VehicleMaintenanceLogs to fetch.
+     */
+    orderBy?: VehicleMaintenanceLogOrderByWithRelationInput | VehicleMaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VehicleMaintenanceLogs.
+     */
+    cursor?: VehicleMaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VehicleMaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VehicleMaintenanceLogs.
+     */
+    skip?: number
+    distinct?: VehicleMaintenanceLogScalarFieldEnum | VehicleMaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * VehicleMaintenanceLog create
+   */
+  export type VehicleMaintenanceLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VehicleMaintenanceLog.
+     */
+    data: XOR<VehicleMaintenanceLogCreateInput, VehicleMaintenanceLogUncheckedCreateInput>
+  }
+
+  /**
+   * VehicleMaintenanceLog createMany
+   */
+  export type VehicleMaintenanceLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VehicleMaintenanceLogs.
+     */
+    data: VehicleMaintenanceLogCreateManyInput | VehicleMaintenanceLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VehicleMaintenanceLog createManyAndReturn
+   */
+  export type VehicleMaintenanceLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many VehicleMaintenanceLogs.
+     */
+    data: VehicleMaintenanceLogCreateManyInput | VehicleMaintenanceLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VehicleMaintenanceLog update
+   */
+  export type VehicleMaintenanceLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VehicleMaintenanceLog.
+     */
+    data: XOR<VehicleMaintenanceLogUpdateInput, VehicleMaintenanceLogUncheckedUpdateInput>
+    /**
+     * Choose, which VehicleMaintenanceLog to update.
+     */
+    where: VehicleMaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * VehicleMaintenanceLog updateMany
+   */
+  export type VehicleMaintenanceLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VehicleMaintenanceLogs.
+     */
+    data: XOR<VehicleMaintenanceLogUpdateManyMutationInput, VehicleMaintenanceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which VehicleMaintenanceLogs to update
+     */
+    where?: VehicleMaintenanceLogWhereInput
+  }
+
+  /**
+   * VehicleMaintenanceLog upsert
+   */
+  export type VehicleMaintenanceLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VehicleMaintenanceLog to update in case it exists.
+     */
+    where: VehicleMaintenanceLogWhereUniqueInput
+    /**
+     * In case the VehicleMaintenanceLog found by the `where` argument doesn't exist, create a new VehicleMaintenanceLog with this data.
+     */
+    create: XOR<VehicleMaintenanceLogCreateInput, VehicleMaintenanceLogUncheckedCreateInput>
+    /**
+     * In case the VehicleMaintenanceLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VehicleMaintenanceLogUpdateInput, VehicleMaintenanceLogUncheckedUpdateInput>
+  }
+
+  /**
+   * VehicleMaintenanceLog delete
+   */
+  export type VehicleMaintenanceLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter which VehicleMaintenanceLog to delete.
+     */
+    where: VehicleMaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * VehicleMaintenanceLog deleteMany
+   */
+  export type VehicleMaintenanceLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VehicleMaintenanceLogs to delete
+     */
+    where?: VehicleMaintenanceLogWhereInput
+  }
+
+  /**
+   * VehicleMaintenanceLog without action
+   */
+  export type VehicleMaintenanceLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VehicleMaintenanceLog
+     */
+    select?: VehicleMaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VehicleMaintenanceLogInclude<ExtArgs> | null
   }
 
 
@@ -76363,6 +78146,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+    allocations?: boolean | TransportRoute$allocationsArgs<ExtArgs>
+    _count?: boolean | TransportRouteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["transportRoute"]>
 
   export type TransportRouteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -76386,6 +78171,8 @@ export namespace Prisma {
 
   export type TransportRouteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+    allocations?: boolean | TransportRoute$allocationsArgs<ExtArgs>
+    _count?: boolean | TransportRouteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TransportRouteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
@@ -76395,6 +78182,7 @@ export namespace Prisma {
     name: "TransportRoute"
     objects: {
       vehicle: Prisma.$TransportVehiclePayload<ExtArgs>
+      allocations: Prisma.$TransportAllocationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -76768,6 +78556,7 @@ export namespace Prisma {
   export interface Prisma__TransportRouteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     vehicle<T extends TransportVehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicleDefaultArgs<ExtArgs>>): Prisma__TransportVehicleClient<$Result.GetResult<Prisma.$TransportVehiclePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    allocations<T extends TransportRoute$allocationsArgs<ExtArgs> = {}>(args?: Subset<T, TransportRoute$allocationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -77121,6 +78910,26 @@ export namespace Prisma {
   }
 
   /**
+   * TransportRoute.allocations
+   */
+  export type TransportRoute$allocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    where?: TransportAllocationWhereInput
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    cursor?: TransportAllocationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
+  }
+
+  /**
    * TransportRoute without action
    */
   export type TransportRouteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -77132,6 +78941,1005 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TransportRouteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TransportAllocation
+   */
+
+  export type AggregateTransportAllocation = {
+    _count: TransportAllocationCountAggregateOutputType | null
+    _min: TransportAllocationMinAggregateOutputType | null
+    _max: TransportAllocationMaxAggregateOutputType | null
+  }
+
+  export type TransportAllocationMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    studentId: string | null
+    vehicleId: string | null
+    routeId: string | null
+    pickupPoint: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TransportAllocationMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    studentId: string | null
+    vehicleId: string | null
+    routeId: string | null
+    pickupPoint: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TransportAllocationCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    studentId: number
+    vehicleId: number
+    routeId: number
+    pickupPoint: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TransportAllocationMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    studentId?: true
+    vehicleId?: true
+    routeId?: true
+    pickupPoint?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TransportAllocationMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    studentId?: true
+    vehicleId?: true
+    routeId?: true
+    pickupPoint?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TransportAllocationCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    studentId?: true
+    vehicleId?: true
+    routeId?: true
+    pickupPoint?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TransportAllocationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TransportAllocation to aggregate.
+     */
+    where?: TransportAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransportAllocations to fetch.
+     */
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransportAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransportAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransportAllocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TransportAllocations
+    **/
+    _count?: true | TransportAllocationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransportAllocationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransportAllocationMaxAggregateInputType
+  }
+
+  export type GetTransportAllocationAggregateType<T extends TransportAllocationAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransportAllocation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransportAllocation[P]>
+      : GetScalarType<T[P], AggregateTransportAllocation[P]>
+  }
+
+
+
+
+  export type TransportAllocationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransportAllocationWhereInput
+    orderBy?: TransportAllocationOrderByWithAggregationInput | TransportAllocationOrderByWithAggregationInput[]
+    by: TransportAllocationScalarFieldEnum[] | TransportAllocationScalarFieldEnum
+    having?: TransportAllocationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransportAllocationCountAggregateInputType | true
+    _min?: TransportAllocationMinAggregateInputType
+    _max?: TransportAllocationMaxAggregateInputType
+  }
+
+  export type TransportAllocationGroupByOutputType = {
+    id: string
+    tenantId: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TransportAllocationCountAggregateOutputType | null
+    _min: TransportAllocationMinAggregateOutputType | null
+    _max: TransportAllocationMaxAggregateOutputType | null
+  }
+
+  type GetTransportAllocationGroupByPayload<T extends TransportAllocationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransportAllocationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransportAllocationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransportAllocationGroupByOutputType[P]>
+            : GetScalarType<T[P], TransportAllocationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransportAllocationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    studentId?: boolean
+    vehicleId?: boolean
+    routeId?: boolean
+    pickupPoint?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+    route?: boolean | TransportRouteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transportAllocation"]>
+
+  export type TransportAllocationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    studentId?: boolean
+    vehicleId?: boolean
+    routeId?: boolean
+    pickupPoint?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+    route?: boolean | TransportRouteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transportAllocation"]>
+
+  export type TransportAllocationSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    studentId?: boolean
+    vehicleId?: boolean
+    routeId?: boolean
+    pickupPoint?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TransportAllocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+    route?: boolean | TransportRouteDefaultArgs<ExtArgs>
+  }
+  export type TransportAllocationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    student?: boolean | StudentDefaultArgs<ExtArgs>
+    vehicle?: boolean | TransportVehicleDefaultArgs<ExtArgs>
+    route?: boolean | TransportRouteDefaultArgs<ExtArgs>
+  }
+
+  export type $TransportAllocationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TransportAllocation"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      student: Prisma.$StudentPayload<ExtArgs>
+      vehicle: Prisma.$TransportVehiclePayload<ExtArgs>
+      route: Prisma.$TransportRoutePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      studentId: string
+      vehicleId: string
+      routeId: string
+      pickupPoint: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["transportAllocation"]>
+    composites: {}
+  }
+
+  type TransportAllocationGetPayload<S extends boolean | null | undefined | TransportAllocationDefaultArgs> = $Result.GetResult<Prisma.$TransportAllocationPayload, S>
+
+  type TransportAllocationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TransportAllocationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TransportAllocationCountAggregateInputType | true
+    }
+
+  export interface TransportAllocationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TransportAllocation'], meta: { name: 'TransportAllocation' } }
+    /**
+     * Find zero or one TransportAllocation that matches the filter.
+     * @param {TransportAllocationFindUniqueArgs} args - Arguments to find a TransportAllocation
+     * @example
+     * // Get one TransportAllocation
+     * const transportAllocation = await prisma.transportAllocation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransportAllocationFindUniqueArgs>(args: SelectSubset<T, TransportAllocationFindUniqueArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TransportAllocation that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TransportAllocationFindUniqueOrThrowArgs} args - Arguments to find a TransportAllocation
+     * @example
+     * // Get one TransportAllocation
+     * const transportAllocation = await prisma.transportAllocation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransportAllocationFindUniqueOrThrowArgs>(args: SelectSubset<T, TransportAllocationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TransportAllocation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationFindFirstArgs} args - Arguments to find a TransportAllocation
+     * @example
+     * // Get one TransportAllocation
+     * const transportAllocation = await prisma.transportAllocation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransportAllocationFindFirstArgs>(args?: SelectSubset<T, TransportAllocationFindFirstArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TransportAllocation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationFindFirstOrThrowArgs} args - Arguments to find a TransportAllocation
+     * @example
+     * // Get one TransportAllocation
+     * const transportAllocation = await prisma.transportAllocation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransportAllocationFindFirstOrThrowArgs>(args?: SelectSubset<T, TransportAllocationFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TransportAllocations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TransportAllocations
+     * const transportAllocations = await prisma.transportAllocation.findMany()
+     * 
+     * // Get first 10 TransportAllocations
+     * const transportAllocations = await prisma.transportAllocation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const transportAllocationWithIdOnly = await prisma.transportAllocation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TransportAllocationFindManyArgs>(args?: SelectSubset<T, TransportAllocationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TransportAllocation.
+     * @param {TransportAllocationCreateArgs} args - Arguments to create a TransportAllocation.
+     * @example
+     * // Create one TransportAllocation
+     * const TransportAllocation = await prisma.transportAllocation.create({
+     *   data: {
+     *     // ... data to create a TransportAllocation
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransportAllocationCreateArgs>(args: SelectSubset<T, TransportAllocationCreateArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TransportAllocations.
+     * @param {TransportAllocationCreateManyArgs} args - Arguments to create many TransportAllocations.
+     * @example
+     * // Create many TransportAllocations
+     * const transportAllocation = await prisma.transportAllocation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransportAllocationCreateManyArgs>(args?: SelectSubset<T, TransportAllocationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TransportAllocations and returns the data saved in the database.
+     * @param {TransportAllocationCreateManyAndReturnArgs} args - Arguments to create many TransportAllocations.
+     * @example
+     * // Create many TransportAllocations
+     * const transportAllocation = await prisma.transportAllocation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TransportAllocations and only return the `id`
+     * const transportAllocationWithIdOnly = await prisma.transportAllocation.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransportAllocationCreateManyAndReturnArgs>(args?: SelectSubset<T, TransportAllocationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TransportAllocation.
+     * @param {TransportAllocationDeleteArgs} args - Arguments to delete one TransportAllocation.
+     * @example
+     * // Delete one TransportAllocation
+     * const TransportAllocation = await prisma.transportAllocation.delete({
+     *   where: {
+     *     // ... filter to delete one TransportAllocation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransportAllocationDeleteArgs>(args: SelectSubset<T, TransportAllocationDeleteArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TransportAllocation.
+     * @param {TransportAllocationUpdateArgs} args - Arguments to update one TransportAllocation.
+     * @example
+     * // Update one TransportAllocation
+     * const transportAllocation = await prisma.transportAllocation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransportAllocationUpdateArgs>(args: SelectSubset<T, TransportAllocationUpdateArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TransportAllocations.
+     * @param {TransportAllocationDeleteManyArgs} args - Arguments to filter TransportAllocations to delete.
+     * @example
+     * // Delete a few TransportAllocations
+     * const { count } = await prisma.transportAllocation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransportAllocationDeleteManyArgs>(args?: SelectSubset<T, TransportAllocationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TransportAllocations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TransportAllocations
+     * const transportAllocation = await prisma.transportAllocation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransportAllocationUpdateManyArgs>(args: SelectSubset<T, TransportAllocationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TransportAllocation.
+     * @param {TransportAllocationUpsertArgs} args - Arguments to update or create a TransportAllocation.
+     * @example
+     * // Update or create a TransportAllocation
+     * const transportAllocation = await prisma.transportAllocation.upsert({
+     *   create: {
+     *     // ... data to create a TransportAllocation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TransportAllocation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransportAllocationUpsertArgs>(args: SelectSubset<T, TransportAllocationUpsertArgs<ExtArgs>>): Prisma__TransportAllocationClient<$Result.GetResult<Prisma.$TransportAllocationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TransportAllocations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationCountArgs} args - Arguments to filter TransportAllocations to count.
+     * @example
+     * // Count the number of TransportAllocations
+     * const count = await prisma.transportAllocation.count({
+     *   where: {
+     *     // ... the filter for the TransportAllocations we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransportAllocationCountArgs>(
+      args?: Subset<T, TransportAllocationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransportAllocationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TransportAllocation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransportAllocationAggregateArgs>(args: Subset<T, TransportAllocationAggregateArgs>): Prisma.PrismaPromise<GetTransportAllocationAggregateType<T>>
+
+    /**
+     * Group by TransportAllocation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransportAllocationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransportAllocationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransportAllocationGroupByArgs['orderBy'] }
+        : { orderBy?: TransportAllocationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransportAllocationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransportAllocationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TransportAllocation model
+   */
+  readonly fields: TransportAllocationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TransportAllocation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransportAllocationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    student<T extends StudentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudentDefaultArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    vehicle<T extends TransportVehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransportVehicleDefaultArgs<ExtArgs>>): Prisma__TransportVehicleClient<$Result.GetResult<Prisma.$TransportVehiclePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    route<T extends TransportRouteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TransportRouteDefaultArgs<ExtArgs>>): Prisma__TransportRouteClient<$Result.GetResult<Prisma.$TransportRoutePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TransportAllocation model
+   */ 
+  interface TransportAllocationFieldRefs {
+    readonly id: FieldRef<"TransportAllocation", 'String'>
+    readonly tenantId: FieldRef<"TransportAllocation", 'String'>
+    readonly studentId: FieldRef<"TransportAllocation", 'String'>
+    readonly vehicleId: FieldRef<"TransportAllocation", 'String'>
+    readonly routeId: FieldRef<"TransportAllocation", 'String'>
+    readonly pickupPoint: FieldRef<"TransportAllocation", 'String'>
+    readonly status: FieldRef<"TransportAllocation", 'String'>
+    readonly createdAt: FieldRef<"TransportAllocation", 'DateTime'>
+    readonly updatedAt: FieldRef<"TransportAllocation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TransportAllocation findUnique
+   */
+  export type TransportAllocationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which TransportAllocation to fetch.
+     */
+    where: TransportAllocationWhereUniqueInput
+  }
+
+  /**
+   * TransportAllocation findUniqueOrThrow
+   */
+  export type TransportAllocationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which TransportAllocation to fetch.
+     */
+    where: TransportAllocationWhereUniqueInput
+  }
+
+  /**
+   * TransportAllocation findFirst
+   */
+  export type TransportAllocationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which TransportAllocation to fetch.
+     */
+    where?: TransportAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransportAllocations to fetch.
+     */
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TransportAllocations.
+     */
+    cursor?: TransportAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransportAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransportAllocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TransportAllocations.
+     */
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * TransportAllocation findFirstOrThrow
+   */
+  export type TransportAllocationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which TransportAllocation to fetch.
+     */
+    where?: TransportAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransportAllocations to fetch.
+     */
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TransportAllocations.
+     */
+    cursor?: TransportAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransportAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransportAllocations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TransportAllocations.
+     */
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * TransportAllocation findMany
+   */
+  export type TransportAllocationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * Filter, which TransportAllocations to fetch.
+     */
+    where?: TransportAllocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TransportAllocations to fetch.
+     */
+    orderBy?: TransportAllocationOrderByWithRelationInput | TransportAllocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TransportAllocations.
+     */
+    cursor?: TransportAllocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TransportAllocations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TransportAllocations.
+     */
+    skip?: number
+    distinct?: TransportAllocationScalarFieldEnum | TransportAllocationScalarFieldEnum[]
+  }
+
+  /**
+   * TransportAllocation create
+   */
+  export type TransportAllocationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TransportAllocation.
+     */
+    data: XOR<TransportAllocationCreateInput, TransportAllocationUncheckedCreateInput>
+  }
+
+  /**
+   * TransportAllocation createMany
+   */
+  export type TransportAllocationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TransportAllocations.
+     */
+    data: TransportAllocationCreateManyInput | TransportAllocationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TransportAllocation createManyAndReturn
+   */
+  export type TransportAllocationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TransportAllocations.
+     */
+    data: TransportAllocationCreateManyInput | TransportAllocationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TransportAllocation update
+   */
+  export type TransportAllocationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TransportAllocation.
+     */
+    data: XOR<TransportAllocationUpdateInput, TransportAllocationUncheckedUpdateInput>
+    /**
+     * Choose, which TransportAllocation to update.
+     */
+    where: TransportAllocationWhereUniqueInput
+  }
+
+  /**
+   * TransportAllocation updateMany
+   */
+  export type TransportAllocationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TransportAllocations.
+     */
+    data: XOR<TransportAllocationUpdateManyMutationInput, TransportAllocationUncheckedUpdateManyInput>
+    /**
+     * Filter which TransportAllocations to update
+     */
+    where?: TransportAllocationWhereInput
+  }
+
+  /**
+   * TransportAllocation upsert
+   */
+  export type TransportAllocationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TransportAllocation to update in case it exists.
+     */
+    where: TransportAllocationWhereUniqueInput
+    /**
+     * In case the TransportAllocation found by the `where` argument doesn't exist, create a new TransportAllocation with this data.
+     */
+    create: XOR<TransportAllocationCreateInput, TransportAllocationUncheckedCreateInput>
+    /**
+     * In case the TransportAllocation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransportAllocationUpdateInput, TransportAllocationUncheckedUpdateInput>
+  }
+
+  /**
+   * TransportAllocation delete
+   */
+  export type TransportAllocationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
+    /**
+     * Filter which TransportAllocation to delete.
+     */
+    where: TransportAllocationWhereUniqueInput
+  }
+
+  /**
+   * TransportAllocation deleteMany
+   */
+  export type TransportAllocationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TransportAllocations to delete
+     */
+    where?: TransportAllocationWhereInput
+  }
+
+  /**
+   * TransportAllocation without action
+   */
+  export type TransportAllocationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TransportAllocation
+     */
+    select?: TransportAllocationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransportAllocationInclude<ExtArgs> | null
   }
 
 
@@ -115551,6 +118359,1133 @@ export namespace Prisma {
 
 
   /**
+   * Model MetricSnapshot
+   */
+
+  export type AggregateMetricSnapshot = {
+    _count: MetricSnapshotCountAggregateOutputType | null
+    _avg: MetricSnapshotAvgAggregateOutputType | null
+    _sum: MetricSnapshotSumAggregateOutputType | null
+    _min: MetricSnapshotMinAggregateOutputType | null
+    _max: MetricSnapshotMaxAggregateOutputType | null
+  }
+
+  export type MetricSnapshotAvgAggregateOutputType = {
+    value: number | null
+    calculationDurationMs: number | null
+  }
+
+  export type MetricSnapshotSumAggregateOutputType = {
+    value: number | null
+    calculationDurationMs: number | null
+  }
+
+  export type MetricSnapshotMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    metricName: string | null
+    metricVersion: string | null
+    value: number | null
+    snapshotDate: Date | null
+    isLatest: boolean | null
+    generatedBy: string | null
+    lineageId: string | null
+    calculationDurationMs: number | null
+    explainabilityString: string | null
+    supersededAt: Date | null
+    campusId: string | null
+    sessionId: string | null
+    classId: string | null
+    studentId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MetricSnapshotMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    metricName: string | null
+    metricVersion: string | null
+    value: number | null
+    snapshotDate: Date | null
+    isLatest: boolean | null
+    generatedBy: string | null
+    lineageId: string | null
+    calculationDurationMs: number | null
+    explainabilityString: string | null
+    supersededAt: Date | null
+    campusId: string | null
+    sessionId: string | null
+    classId: string | null
+    studentId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MetricSnapshotCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    metricName: number
+    metricVersion: number
+    value: number
+    snapshotDate: number
+    isLatest: number
+    generatedBy: number
+    lineageId: number
+    calculationDurationMs: number
+    explainabilityString: number
+    supersededAt: number
+    campusId: number
+    sessionId: number
+    classId: number
+    studentId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MetricSnapshotAvgAggregateInputType = {
+    value?: true
+    calculationDurationMs?: true
+  }
+
+  export type MetricSnapshotSumAggregateInputType = {
+    value?: true
+    calculationDurationMs?: true
+  }
+
+  export type MetricSnapshotMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    metricName?: true
+    metricVersion?: true
+    value?: true
+    snapshotDate?: true
+    isLatest?: true
+    generatedBy?: true
+    lineageId?: true
+    calculationDurationMs?: true
+    explainabilityString?: true
+    supersededAt?: true
+    campusId?: true
+    sessionId?: true
+    classId?: true
+    studentId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MetricSnapshotMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    metricName?: true
+    metricVersion?: true
+    value?: true
+    snapshotDate?: true
+    isLatest?: true
+    generatedBy?: true
+    lineageId?: true
+    calculationDurationMs?: true
+    explainabilityString?: true
+    supersededAt?: true
+    campusId?: true
+    sessionId?: true
+    classId?: true
+    studentId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MetricSnapshotCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    metricName?: true
+    metricVersion?: true
+    value?: true
+    snapshotDate?: true
+    isLatest?: true
+    generatedBy?: true
+    lineageId?: true
+    calculationDurationMs?: true
+    explainabilityString?: true
+    supersededAt?: true
+    campusId?: true
+    sessionId?: true
+    classId?: true
+    studentId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MetricSnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MetricSnapshot to aggregate.
+     */
+    where?: MetricSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetricSnapshots to fetch.
+     */
+    orderBy?: MetricSnapshotOrderByWithRelationInput | MetricSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MetricSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetricSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetricSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MetricSnapshots
+    **/
+    _count?: true | MetricSnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MetricSnapshotAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MetricSnapshotSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MetricSnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MetricSnapshotMaxAggregateInputType
+  }
+
+  export type GetMetricSnapshotAggregateType<T extends MetricSnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateMetricSnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMetricSnapshot[P]>
+      : GetScalarType<T[P], AggregateMetricSnapshot[P]>
+  }
+
+
+
+
+  export type MetricSnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MetricSnapshotWhereInput
+    orderBy?: MetricSnapshotOrderByWithAggregationInput | MetricSnapshotOrderByWithAggregationInput[]
+    by: MetricSnapshotScalarFieldEnum[] | MetricSnapshotScalarFieldEnum
+    having?: MetricSnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MetricSnapshotCountAggregateInputType | true
+    _avg?: MetricSnapshotAvgAggregateInputType
+    _sum?: MetricSnapshotSumAggregateInputType
+    _min?: MetricSnapshotMinAggregateInputType
+    _max?: MetricSnapshotMaxAggregateInputType
+  }
+
+  export type MetricSnapshotGroupByOutputType = {
+    id: string
+    tenantId: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date
+    isLatest: boolean
+    generatedBy: string
+    lineageId: string | null
+    calculationDurationMs: number | null
+    explainabilityString: string | null
+    supersededAt: Date | null
+    campusId: string | null
+    sessionId: string | null
+    classId: string | null
+    studentId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MetricSnapshotCountAggregateOutputType | null
+    _avg: MetricSnapshotAvgAggregateOutputType | null
+    _sum: MetricSnapshotSumAggregateOutputType | null
+    _min: MetricSnapshotMinAggregateOutputType | null
+    _max: MetricSnapshotMaxAggregateOutputType | null
+  }
+
+  type GetMetricSnapshotGroupByPayload<T extends MetricSnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MetricSnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MetricSnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MetricSnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], MetricSnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MetricSnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    metricName?: boolean
+    metricVersion?: boolean
+    value?: boolean
+    snapshotDate?: boolean
+    isLatest?: boolean
+    generatedBy?: boolean
+    lineageId?: boolean
+    calculationDurationMs?: boolean
+    explainabilityString?: boolean
+    supersededAt?: boolean
+    campusId?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    studentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["metricSnapshot"]>
+
+  export type MetricSnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    metricName?: boolean
+    metricVersion?: boolean
+    value?: boolean
+    snapshotDate?: boolean
+    isLatest?: boolean
+    generatedBy?: boolean
+    lineageId?: boolean
+    calculationDurationMs?: boolean
+    explainabilityString?: boolean
+    supersededAt?: boolean
+    campusId?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    studentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["metricSnapshot"]>
+
+  export type MetricSnapshotSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    metricName?: boolean
+    metricVersion?: boolean
+    value?: boolean
+    snapshotDate?: boolean
+    isLatest?: boolean
+    generatedBy?: boolean
+    lineageId?: boolean
+    calculationDurationMs?: boolean
+    explainabilityString?: boolean
+    supersededAt?: boolean
+    campusId?: boolean
+    sessionId?: boolean
+    classId?: boolean
+    studentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MetricSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type MetricSnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $MetricSnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MetricSnapshot"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      metricName: string
+      metricVersion: string
+      value: number
+      snapshotDate: Date
+      isLatest: boolean
+      generatedBy: string
+      lineageId: string | null
+      calculationDurationMs: number | null
+      explainabilityString: string | null
+      supersededAt: Date | null
+      campusId: string | null
+      sessionId: string | null
+      classId: string | null
+      studentId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["metricSnapshot"]>
+    composites: {}
+  }
+
+  type MetricSnapshotGetPayload<S extends boolean | null | undefined | MetricSnapshotDefaultArgs> = $Result.GetResult<Prisma.$MetricSnapshotPayload, S>
+
+  type MetricSnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MetricSnapshotFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MetricSnapshotCountAggregateInputType | true
+    }
+
+  export interface MetricSnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MetricSnapshot'], meta: { name: 'MetricSnapshot' } }
+    /**
+     * Find zero or one MetricSnapshot that matches the filter.
+     * @param {MetricSnapshotFindUniqueArgs} args - Arguments to find a MetricSnapshot
+     * @example
+     * // Get one MetricSnapshot
+     * const metricSnapshot = await prisma.metricSnapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MetricSnapshotFindUniqueArgs>(args: SelectSubset<T, MetricSnapshotFindUniqueArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MetricSnapshot that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MetricSnapshotFindUniqueOrThrowArgs} args - Arguments to find a MetricSnapshot
+     * @example
+     * // Get one MetricSnapshot
+     * const metricSnapshot = await prisma.metricSnapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MetricSnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, MetricSnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MetricSnapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotFindFirstArgs} args - Arguments to find a MetricSnapshot
+     * @example
+     * // Get one MetricSnapshot
+     * const metricSnapshot = await prisma.metricSnapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MetricSnapshotFindFirstArgs>(args?: SelectSubset<T, MetricSnapshotFindFirstArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MetricSnapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotFindFirstOrThrowArgs} args - Arguments to find a MetricSnapshot
+     * @example
+     * // Get one MetricSnapshot
+     * const metricSnapshot = await prisma.metricSnapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MetricSnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, MetricSnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MetricSnapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MetricSnapshots
+     * const metricSnapshots = await prisma.metricSnapshot.findMany()
+     * 
+     * // Get first 10 MetricSnapshots
+     * const metricSnapshots = await prisma.metricSnapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const metricSnapshotWithIdOnly = await prisma.metricSnapshot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MetricSnapshotFindManyArgs>(args?: SelectSubset<T, MetricSnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MetricSnapshot.
+     * @param {MetricSnapshotCreateArgs} args - Arguments to create a MetricSnapshot.
+     * @example
+     * // Create one MetricSnapshot
+     * const MetricSnapshot = await prisma.metricSnapshot.create({
+     *   data: {
+     *     // ... data to create a MetricSnapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends MetricSnapshotCreateArgs>(args: SelectSubset<T, MetricSnapshotCreateArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MetricSnapshots.
+     * @param {MetricSnapshotCreateManyArgs} args - Arguments to create many MetricSnapshots.
+     * @example
+     * // Create many MetricSnapshots
+     * const metricSnapshot = await prisma.metricSnapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MetricSnapshotCreateManyArgs>(args?: SelectSubset<T, MetricSnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MetricSnapshots and returns the data saved in the database.
+     * @param {MetricSnapshotCreateManyAndReturnArgs} args - Arguments to create many MetricSnapshots.
+     * @example
+     * // Create many MetricSnapshots
+     * const metricSnapshot = await prisma.metricSnapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MetricSnapshots and only return the `id`
+     * const metricSnapshotWithIdOnly = await prisma.metricSnapshot.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MetricSnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, MetricSnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MetricSnapshot.
+     * @param {MetricSnapshotDeleteArgs} args - Arguments to delete one MetricSnapshot.
+     * @example
+     * // Delete one MetricSnapshot
+     * const MetricSnapshot = await prisma.metricSnapshot.delete({
+     *   where: {
+     *     // ... filter to delete one MetricSnapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MetricSnapshotDeleteArgs>(args: SelectSubset<T, MetricSnapshotDeleteArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MetricSnapshot.
+     * @param {MetricSnapshotUpdateArgs} args - Arguments to update one MetricSnapshot.
+     * @example
+     * // Update one MetricSnapshot
+     * const metricSnapshot = await prisma.metricSnapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MetricSnapshotUpdateArgs>(args: SelectSubset<T, MetricSnapshotUpdateArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MetricSnapshots.
+     * @param {MetricSnapshotDeleteManyArgs} args - Arguments to filter MetricSnapshots to delete.
+     * @example
+     * // Delete a few MetricSnapshots
+     * const { count } = await prisma.metricSnapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MetricSnapshotDeleteManyArgs>(args?: SelectSubset<T, MetricSnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MetricSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MetricSnapshots
+     * const metricSnapshot = await prisma.metricSnapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MetricSnapshotUpdateManyArgs>(args: SelectSubset<T, MetricSnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MetricSnapshot.
+     * @param {MetricSnapshotUpsertArgs} args - Arguments to update or create a MetricSnapshot.
+     * @example
+     * // Update or create a MetricSnapshot
+     * const metricSnapshot = await prisma.metricSnapshot.upsert({
+     *   create: {
+     *     // ... data to create a MetricSnapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MetricSnapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MetricSnapshotUpsertArgs>(args: SelectSubset<T, MetricSnapshotUpsertArgs<ExtArgs>>): Prisma__MetricSnapshotClient<$Result.GetResult<Prisma.$MetricSnapshotPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MetricSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotCountArgs} args - Arguments to filter MetricSnapshots to count.
+     * @example
+     * // Count the number of MetricSnapshots
+     * const count = await prisma.metricSnapshot.count({
+     *   where: {
+     *     // ... the filter for the MetricSnapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends MetricSnapshotCountArgs>(
+      args?: Subset<T, MetricSnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MetricSnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MetricSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MetricSnapshotAggregateArgs>(args: Subset<T, MetricSnapshotAggregateArgs>): Prisma.PrismaPromise<GetMetricSnapshotAggregateType<T>>
+
+    /**
+     * Group by MetricSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MetricSnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MetricSnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MetricSnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: MetricSnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MetricSnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMetricSnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MetricSnapshot model
+   */
+  readonly fields: MetricSnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MetricSnapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MetricSnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MetricSnapshot model
+   */ 
+  interface MetricSnapshotFieldRefs {
+    readonly id: FieldRef<"MetricSnapshot", 'String'>
+    readonly tenantId: FieldRef<"MetricSnapshot", 'String'>
+    readonly metricName: FieldRef<"MetricSnapshot", 'String'>
+    readonly metricVersion: FieldRef<"MetricSnapshot", 'String'>
+    readonly value: FieldRef<"MetricSnapshot", 'Float'>
+    readonly snapshotDate: FieldRef<"MetricSnapshot", 'DateTime'>
+    readonly isLatest: FieldRef<"MetricSnapshot", 'Boolean'>
+    readonly generatedBy: FieldRef<"MetricSnapshot", 'String'>
+    readonly lineageId: FieldRef<"MetricSnapshot", 'String'>
+    readonly calculationDurationMs: FieldRef<"MetricSnapshot", 'Int'>
+    readonly explainabilityString: FieldRef<"MetricSnapshot", 'String'>
+    readonly supersededAt: FieldRef<"MetricSnapshot", 'DateTime'>
+    readonly campusId: FieldRef<"MetricSnapshot", 'String'>
+    readonly sessionId: FieldRef<"MetricSnapshot", 'String'>
+    readonly classId: FieldRef<"MetricSnapshot", 'String'>
+    readonly studentId: FieldRef<"MetricSnapshot", 'String'>
+    readonly createdAt: FieldRef<"MetricSnapshot", 'DateTime'>
+    readonly updatedAt: FieldRef<"MetricSnapshot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MetricSnapshot findUnique
+   */
+  export type MetricSnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which MetricSnapshot to fetch.
+     */
+    where: MetricSnapshotWhereUniqueInput
+  }
+
+  /**
+   * MetricSnapshot findUniqueOrThrow
+   */
+  export type MetricSnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which MetricSnapshot to fetch.
+     */
+    where: MetricSnapshotWhereUniqueInput
+  }
+
+  /**
+   * MetricSnapshot findFirst
+   */
+  export type MetricSnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which MetricSnapshot to fetch.
+     */
+    where?: MetricSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetricSnapshots to fetch.
+     */
+    orderBy?: MetricSnapshotOrderByWithRelationInput | MetricSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MetricSnapshots.
+     */
+    cursor?: MetricSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetricSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetricSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MetricSnapshots.
+     */
+    distinct?: MetricSnapshotScalarFieldEnum | MetricSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * MetricSnapshot findFirstOrThrow
+   */
+  export type MetricSnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which MetricSnapshot to fetch.
+     */
+    where?: MetricSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetricSnapshots to fetch.
+     */
+    orderBy?: MetricSnapshotOrderByWithRelationInput | MetricSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MetricSnapshots.
+     */
+    cursor?: MetricSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetricSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetricSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MetricSnapshots.
+     */
+    distinct?: MetricSnapshotScalarFieldEnum | MetricSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * MetricSnapshot findMany
+   */
+  export type MetricSnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which MetricSnapshots to fetch.
+     */
+    where?: MetricSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MetricSnapshots to fetch.
+     */
+    orderBy?: MetricSnapshotOrderByWithRelationInput | MetricSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MetricSnapshots.
+     */
+    cursor?: MetricSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MetricSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MetricSnapshots.
+     */
+    skip?: number
+    distinct?: MetricSnapshotScalarFieldEnum | MetricSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * MetricSnapshot create
+   */
+  export type MetricSnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MetricSnapshot.
+     */
+    data: XOR<MetricSnapshotCreateInput, MetricSnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * MetricSnapshot createMany
+   */
+  export type MetricSnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MetricSnapshots.
+     */
+    data: MetricSnapshotCreateManyInput | MetricSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MetricSnapshot createManyAndReturn
+   */
+  export type MetricSnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MetricSnapshots.
+     */
+    data: MetricSnapshotCreateManyInput | MetricSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MetricSnapshot update
+   */
+  export type MetricSnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MetricSnapshot.
+     */
+    data: XOR<MetricSnapshotUpdateInput, MetricSnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which MetricSnapshot to update.
+     */
+    where: MetricSnapshotWhereUniqueInput
+  }
+
+  /**
+   * MetricSnapshot updateMany
+   */
+  export type MetricSnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MetricSnapshots.
+     */
+    data: XOR<MetricSnapshotUpdateManyMutationInput, MetricSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which MetricSnapshots to update
+     */
+    where?: MetricSnapshotWhereInput
+  }
+
+  /**
+   * MetricSnapshot upsert
+   */
+  export type MetricSnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MetricSnapshot to update in case it exists.
+     */
+    where: MetricSnapshotWhereUniqueInput
+    /**
+     * In case the MetricSnapshot found by the `where` argument doesn't exist, create a new MetricSnapshot with this data.
+     */
+    create: XOR<MetricSnapshotCreateInput, MetricSnapshotUncheckedCreateInput>
+    /**
+     * In case the MetricSnapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MetricSnapshotUpdateInput, MetricSnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * MetricSnapshot delete
+   */
+  export type MetricSnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter which MetricSnapshot to delete.
+     */
+    where: MetricSnapshotWhereUniqueInput
+  }
+
+  /**
+   * MetricSnapshot deleteMany
+   */
+  export type MetricSnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MetricSnapshots to delete
+     */
+    where?: MetricSnapshotWhereInput
+  }
+
+  /**
+   * MetricSnapshot without action
+   */
+  export type MetricSnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MetricSnapshot
+     */
+    select?: MetricSnapshotSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MetricSnapshotInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -116375,6 +120310,8 @@ export namespace Prisma {
     tenantId: 'tenantId',
     name: 'name',
     capacity: 'capacity',
+    gender: 'gender',
+    status: 'status',
     wardenId: 'wardenId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -116385,9 +120322,12 @@ export namespace Prisma {
 
   export const HostelRoomScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     hostelId: 'hostelId',
     roomNumber: 'roomNumber',
     capacity: 'capacity',
+    type: 'type',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -116397,9 +120337,13 @@ export namespace Prisma {
 
   export const BedAllocationScalarFieldEnum: {
     id: 'id',
+    tenantId: 'tenantId',
     roomId: 'roomId',
     studentId: 'studentId',
     academicYearId: 'academicYearId',
+    status: 'status',
+    allocatedAt: 'allocatedAt',
+    expiresAt: 'expiresAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -116411,13 +120355,30 @@ export namespace Prisma {
     id: 'id',
     tenantId: 'tenantId',
     plateNumber: 'plateNumber',
-    driverName: 'driverName',
     capacity: 'capacity',
+    driverId: 'driverId',
+    lastLocation: 'lastLocation',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type TransportVehicleScalarFieldEnum = (typeof TransportVehicleScalarFieldEnum)[keyof typeof TransportVehicleScalarFieldEnum]
+
+
+  export const VehicleMaintenanceLogScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    vehicleId: 'vehicleId',
+    date: 'date',
+    description: 'description',
+    cost: 'cost',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VehicleMaintenanceLogScalarFieldEnum = (typeof VehicleMaintenanceLogScalarFieldEnum)[keyof typeof VehicleMaintenanceLogScalarFieldEnum]
 
 
   export const TransportRouteScalarFieldEnum: {
@@ -116430,6 +120391,21 @@ export namespace Prisma {
   };
 
   export type TransportRouteScalarFieldEnum = (typeof TransportRouteScalarFieldEnum)[keyof typeof TransportRouteScalarFieldEnum]
+
+
+  export const TransportAllocationScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    studentId: 'studentId',
+    vehicleId: 'vehicleId',
+    routeId: 'routeId',
+    pickupPoint: 'pickupPoint',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TransportAllocationScalarFieldEnum = (typeof TransportAllocationScalarFieldEnum)[keyof typeof TransportAllocationScalarFieldEnum]
 
 
   export const LibraryBookScalarFieldEnum: {
@@ -116996,6 +120972,30 @@ export namespace Prisma {
   };
 
   export type IdCardScalarFieldEnum = (typeof IdCardScalarFieldEnum)[keyof typeof IdCardScalarFieldEnum]
+
+
+  export const MetricSnapshotScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    metricName: 'metricName',
+    metricVersion: 'metricVersion',
+    value: 'value',
+    snapshotDate: 'snapshotDate',
+    isLatest: 'isLatest',
+    generatedBy: 'generatedBy',
+    lineageId: 'lineageId',
+    calculationDurationMs: 'calculationDurationMs',
+    explainabilityString: 'explainabilityString',
+    supersededAt: 'supersededAt',
+    campusId: 'campusId',
+    sessionId: 'sessionId',
+    classId: 'classId',
+    studentId: 'studentId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MetricSnapshotScalarFieldEnum = (typeof MetricSnapshotScalarFieldEnum)[keyof typeof MetricSnapshotScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -117732,6 +121732,10 @@ export namespace Prisma {
     Document?: DocumentListRelationFilter
     IdCard?: IdCardListRelationFilter
     LibraryFine?: LibraryFineListRelationFilter
+    VehicleMaintenanceLog?: VehicleMaintenanceLogListRelationFilter
+    TransportAllocation?: TransportAllocationListRelationFilter
+    BedAllocation?: BedAllocationListRelationFilter
+    MetricSnapshot?: MetricSnapshotListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -117812,6 +121816,10 @@ export namespace Prisma {
     Document?: DocumentOrderByRelationAggregateInput
     IdCard?: IdCardOrderByRelationAggregateInput
     LibraryFine?: LibraryFineOrderByRelationAggregateInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogOrderByRelationAggregateInput
+    TransportAllocation?: TransportAllocationOrderByRelationAggregateInput
+    BedAllocation?: BedAllocationOrderByRelationAggregateInput
+    MetricSnapshot?: MetricSnapshotOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -117895,6 +121903,10 @@ export namespace Prisma {
     Document?: DocumentListRelationFilter
     IdCard?: IdCardListRelationFilter
     LibraryFine?: LibraryFineListRelationFilter
+    VehicleMaintenanceLog?: VehicleMaintenanceLogListRelationFilter
+    TransportAllocation?: TransportAllocationListRelationFilter
+    BedAllocation?: BedAllocationListRelationFilter
+    MetricSnapshot?: MetricSnapshotListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -119845,6 +123857,7 @@ export namespace Prisma {
     Result?: ResultListRelationFilter
     BedAllocation?: BedAllocationListRelationFilter
     BookBorrowing?: BookBorrowingListRelationFilter
+    transportAllocations?: TransportAllocationListRelationFilter
     journalLines?: JournalEntryLineListRelationFilter
   }
 
@@ -119870,6 +123883,7 @@ export namespace Prisma {
     Result?: ResultOrderByRelationAggregateInput
     BedAllocation?: BedAllocationOrderByRelationAggregateInput
     BookBorrowing?: BookBorrowingOrderByRelationAggregateInput
+    transportAllocations?: TransportAllocationOrderByRelationAggregateInput
     journalLines?: JournalEntryLineOrderByRelationAggregateInput
   }
 
@@ -119899,6 +123913,7 @@ export namespace Prisma {
     Result?: ResultListRelationFilter
     BedAllocation?: BedAllocationListRelationFilter
     BookBorrowing?: BookBorrowingListRelationFilter
+    transportAllocations?: TransportAllocationListRelationFilter
     journalLines?: JournalEntryLineListRelationFilter
   }, "id" | "membershipId" | "tenantId_admissionNumber">
 
@@ -120389,6 +124404,8 @@ export namespace Prisma {
     employment?: XOR<EmploymentNullableRelationFilter, EmploymentWhereInput> | null
     payrollRecords?: PayrollListRelationFilter
     leaveRequests?: LeaveRequestListRelationFilter
+    drivenVehicles?: TransportVehicleListRelationFilter
+    managedHostels?: HostelListRelationFilter
   }
 
   export type StaffOrderByWithRelationInput = {
@@ -120406,6 +124423,8 @@ export namespace Prisma {
     employment?: EmploymentOrderByWithRelationInput
     payrollRecords?: PayrollOrderByRelationAggregateInput
     leaveRequests?: LeaveRequestOrderByRelationAggregateInput
+    drivenVehicles?: TransportVehicleOrderByRelationAggregateInput
+    managedHostels?: HostelOrderByRelationAggregateInput
   }
 
   export type StaffWhereUniqueInput = Prisma.AtLeast<{
@@ -120427,6 +124446,8 @@ export namespace Prisma {
     employment?: XOR<EmploymentNullableRelationFilter, EmploymentWhereInput> | null
     payrollRecords?: PayrollListRelationFilter
     leaveRequests?: LeaveRequestListRelationFilter
+    drivenVehicles?: TransportVehicleListRelationFilter
+    managedHostels?: HostelListRelationFilter
   }, "id" | "membershipId" | "tenantId_staffIdNumber">
 
   export type StaffOrderByWithAggregationInput = {
@@ -122178,10 +126199,13 @@ export namespace Prisma {
     tenantId?: StringFilter<"Hostel"> | string
     name?: StringFilter<"Hostel"> | string
     capacity?: IntFilter<"Hostel"> | number
+    gender?: StringFilter<"Hostel"> | string
+    status?: StringFilter<"Hostel"> | string
     wardenId?: StringNullableFilter<"Hostel"> | string | null
     createdAt?: DateTimeFilter<"Hostel"> | Date | string
     updatedAt?: DateTimeFilter<"Hostel"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    warden?: XOR<StaffNullableRelationFilter, StaffWhereInput> | null
     rooms?: HostelRoomListRelationFilter
   }
 
@@ -122190,10 +126214,13 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    gender?: SortOrder
+    status?: SortOrder
     wardenId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
+    warden?: StaffOrderByWithRelationInput
     rooms?: HostelRoomOrderByRelationAggregateInput
   }
 
@@ -122205,10 +126232,13 @@ export namespace Prisma {
     tenantId?: StringFilter<"Hostel"> | string
     name?: StringFilter<"Hostel"> | string
     capacity?: IntFilter<"Hostel"> | number
+    gender?: StringFilter<"Hostel"> | string
+    status?: StringFilter<"Hostel"> | string
     wardenId?: StringNullableFilter<"Hostel"> | string | null
     createdAt?: DateTimeFilter<"Hostel"> | Date | string
     updatedAt?: DateTimeFilter<"Hostel"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    warden?: XOR<StaffNullableRelationFilter, StaffWhereInput> | null
     rooms?: HostelRoomListRelationFilter
   }, "id">
 
@@ -122217,6 +126247,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    gender?: SortOrder
+    status?: SortOrder
     wardenId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -122235,6 +126267,8 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"Hostel"> | string
     name?: StringWithAggregatesFilter<"Hostel"> | string
     capacity?: IntWithAggregatesFilter<"Hostel"> | number
+    gender?: StringWithAggregatesFilter<"Hostel"> | string
+    status?: StringWithAggregatesFilter<"Hostel"> | string
     wardenId?: StringNullableWithAggregatesFilter<"Hostel"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Hostel"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Hostel"> | Date | string
@@ -122245,9 +126279,12 @@ export namespace Prisma {
     OR?: HostelRoomWhereInput[]
     NOT?: HostelRoomWhereInput | HostelRoomWhereInput[]
     id?: StringFilter<"HostelRoom"> | string
+    tenantId?: StringFilter<"HostelRoom"> | string
     hostelId?: StringFilter<"HostelRoom"> | string
     roomNumber?: StringFilter<"HostelRoom"> | string
     capacity?: IntFilter<"HostelRoom"> | number
+    type?: StringFilter<"HostelRoom"> | string
+    status?: StringFilter<"HostelRoom"> | string
     createdAt?: DateTimeFilter<"HostelRoom"> | Date | string
     updatedAt?: DateTimeFilter<"HostelRoom"> | Date | string
     hostel?: XOR<HostelRelationFilter, HostelWhereInput>
@@ -122256,9 +126293,12 @@ export namespace Prisma {
 
   export type HostelRoomOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     hostelId?: SortOrder
     roomNumber?: SortOrder
     capacity?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     hostel?: HostelOrderByWithRelationInput
@@ -122270,9 +126310,12 @@ export namespace Prisma {
     AND?: HostelRoomWhereInput | HostelRoomWhereInput[]
     OR?: HostelRoomWhereInput[]
     NOT?: HostelRoomWhereInput | HostelRoomWhereInput[]
+    tenantId?: StringFilter<"HostelRoom"> | string
     hostelId?: StringFilter<"HostelRoom"> | string
     roomNumber?: StringFilter<"HostelRoom"> | string
     capacity?: IntFilter<"HostelRoom"> | number
+    type?: StringFilter<"HostelRoom"> | string
+    status?: StringFilter<"HostelRoom"> | string
     createdAt?: DateTimeFilter<"HostelRoom"> | Date | string
     updatedAt?: DateTimeFilter<"HostelRoom"> | Date | string
     hostel?: XOR<HostelRelationFilter, HostelWhereInput>
@@ -122281,9 +126324,12 @@ export namespace Prisma {
 
   export type HostelRoomOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     hostelId?: SortOrder
     roomNumber?: SortOrder
     capacity?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: HostelRoomCountOrderByAggregateInput
@@ -122298,9 +126344,12 @@ export namespace Prisma {
     OR?: HostelRoomScalarWhereWithAggregatesInput[]
     NOT?: HostelRoomScalarWhereWithAggregatesInput | HostelRoomScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"HostelRoom"> | string
+    tenantId?: StringWithAggregatesFilter<"HostelRoom"> | string
     hostelId?: StringWithAggregatesFilter<"HostelRoom"> | string
     roomNumber?: StringWithAggregatesFilter<"HostelRoom"> | string
     capacity?: IntWithAggregatesFilter<"HostelRoom"> | number
+    type?: StringWithAggregatesFilter<"HostelRoom"> | string
+    status?: StringWithAggregatesFilter<"HostelRoom"> | string
     createdAt?: DateTimeWithAggregatesFilter<"HostelRoom"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"HostelRoom"> | Date | string
   }
@@ -122310,22 +126359,32 @@ export namespace Prisma {
     OR?: BedAllocationWhereInput[]
     NOT?: BedAllocationWhereInput | BedAllocationWhereInput[]
     id?: StringFilter<"BedAllocation"> | string
+    tenantId?: StringFilter<"BedAllocation"> | string
     roomId?: StringFilter<"BedAllocation"> | string
     studentId?: StringFilter<"BedAllocation"> | string
-    academicYearId?: StringFilter<"BedAllocation"> | string
+    academicYearId?: StringNullableFilter<"BedAllocation"> | string | null
+    status?: StringFilter<"BedAllocation"> | string
+    allocatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
+    expiresAt?: DateTimeNullableFilter<"BedAllocation"> | Date | string | null
     createdAt?: DateTimeFilter<"BedAllocation"> | Date | string
     updatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     room?: XOR<HostelRoomRelationFilter, HostelRoomWhereInput>
     student?: XOR<StudentRelationFilter, StudentWhereInput>
   }
 
   export type BedAllocationOrderByWithRelationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     roomId?: SortOrder
     studentId?: SortOrder
-    academicYearId?: SortOrder
+    academicYearId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    allocatedAt?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
     room?: HostelRoomOrderByWithRelationInput
     student?: StudentOrderByWithRelationInput
   }
@@ -122335,20 +126394,29 @@ export namespace Prisma {
     AND?: BedAllocationWhereInput | BedAllocationWhereInput[]
     OR?: BedAllocationWhereInput[]
     NOT?: BedAllocationWhereInput | BedAllocationWhereInput[]
+    tenantId?: StringFilter<"BedAllocation"> | string
     roomId?: StringFilter<"BedAllocation"> | string
     studentId?: StringFilter<"BedAllocation"> | string
-    academicYearId?: StringFilter<"BedAllocation"> | string
+    academicYearId?: StringNullableFilter<"BedAllocation"> | string | null
+    status?: StringFilter<"BedAllocation"> | string
+    allocatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
+    expiresAt?: DateTimeNullableFilter<"BedAllocation"> | Date | string | null
     createdAt?: DateTimeFilter<"BedAllocation"> | Date | string
     updatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     room?: XOR<HostelRoomRelationFilter, HostelRoomWhereInput>
     student?: XOR<StudentRelationFilter, StudentWhereInput>
   }, "id">
 
   export type BedAllocationOrderByWithAggregationInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     roomId?: SortOrder
     studentId?: SortOrder
-    academicYearId?: SortOrder
+    academicYearId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    allocatedAt?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BedAllocationCountOrderByAggregateInput
@@ -122361,9 +126429,13 @@ export namespace Prisma {
     OR?: BedAllocationScalarWhereWithAggregatesInput[]
     NOT?: BedAllocationScalarWhereWithAggregatesInput | BedAllocationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BedAllocation"> | string
+    tenantId?: StringWithAggregatesFilter<"BedAllocation"> | string
     roomId?: StringWithAggregatesFilter<"BedAllocation"> | string
     studentId?: StringWithAggregatesFilter<"BedAllocation"> | string
-    academicYearId?: StringWithAggregatesFilter<"BedAllocation"> | string
+    academicYearId?: StringNullableWithAggregatesFilter<"BedAllocation"> | string | null
+    status?: StringWithAggregatesFilter<"BedAllocation"> | string
+    allocatedAt?: DateTimeWithAggregatesFilter<"BedAllocation"> | Date | string
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"BedAllocation"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BedAllocation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BedAllocation"> | Date | string
   }
@@ -122375,24 +126447,34 @@ export namespace Prisma {
     id?: StringFilter<"TransportVehicle"> | string
     tenantId?: StringFilter<"TransportVehicle"> | string
     plateNumber?: StringFilter<"TransportVehicle"> | string
-    driverName?: StringNullableFilter<"TransportVehicle"> | string | null
     capacity?: IntFilter<"TransportVehicle"> | number
+    driverId?: StringNullableFilter<"TransportVehicle"> | string | null
+    lastLocation?: JsonNullableFilter<"TransportVehicle">
+    status?: StringFilter<"TransportVehicle"> | string
     createdAt?: DateTimeFilter<"TransportVehicle"> | Date | string
     updatedAt?: DateTimeFilter<"TransportVehicle"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    driver?: XOR<StaffNullableRelationFilter, StaffWhereInput> | null
     routes?: TransportRouteListRelationFilter
+    maintenance?: VehicleMaintenanceLogListRelationFilter
+    allocations?: TransportAllocationListRelationFilter
   }
 
   export type TransportVehicleOrderByWithRelationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     plateNumber?: SortOrder
-    driverName?: SortOrderInput | SortOrder
     capacity?: SortOrder
+    driverId?: SortOrderInput | SortOrder
+    lastLocation?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
+    driver?: StaffOrderByWithRelationInput
     routes?: TransportRouteOrderByRelationAggregateInput
+    maintenance?: VehicleMaintenanceLogOrderByRelationAggregateInput
+    allocations?: TransportAllocationOrderByRelationAggregateInput
   }
 
   export type TransportVehicleWhereUniqueInput = Prisma.AtLeast<{
@@ -122402,20 +126484,27 @@ export namespace Prisma {
     NOT?: TransportVehicleWhereInput | TransportVehicleWhereInput[]
     tenantId?: StringFilter<"TransportVehicle"> | string
     plateNumber?: StringFilter<"TransportVehicle"> | string
-    driverName?: StringNullableFilter<"TransportVehicle"> | string | null
     capacity?: IntFilter<"TransportVehicle"> | number
+    driverId?: StringNullableFilter<"TransportVehicle"> | string | null
+    lastLocation?: JsonNullableFilter<"TransportVehicle">
+    status?: StringFilter<"TransportVehicle"> | string
     createdAt?: DateTimeFilter<"TransportVehicle"> | Date | string
     updatedAt?: DateTimeFilter<"TransportVehicle"> | Date | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    driver?: XOR<StaffNullableRelationFilter, StaffWhereInput> | null
     routes?: TransportRouteListRelationFilter
+    maintenance?: VehicleMaintenanceLogListRelationFilter
+    allocations?: TransportAllocationListRelationFilter
   }, "id">
 
   export type TransportVehicleOrderByWithAggregationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     plateNumber?: SortOrder
-    driverName?: SortOrderInput | SortOrder
     capacity?: SortOrder
+    driverId?: SortOrderInput | SortOrder
+    lastLocation?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TransportVehicleCountOrderByAggregateInput
@@ -122432,10 +126521,92 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"TransportVehicle"> | string
     tenantId?: StringWithAggregatesFilter<"TransportVehicle"> | string
     plateNumber?: StringWithAggregatesFilter<"TransportVehicle"> | string
-    driverName?: StringNullableWithAggregatesFilter<"TransportVehicle"> | string | null
     capacity?: IntWithAggregatesFilter<"TransportVehicle"> | number
+    driverId?: StringNullableWithAggregatesFilter<"TransportVehicle"> | string | null
+    lastLocation?: JsonNullableWithAggregatesFilter<"TransportVehicle">
+    status?: StringWithAggregatesFilter<"TransportVehicle"> | string
     createdAt?: DateTimeWithAggregatesFilter<"TransportVehicle"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TransportVehicle"> | Date | string
+  }
+
+  export type VehicleMaintenanceLogWhereInput = {
+    AND?: VehicleMaintenanceLogWhereInput | VehicleMaintenanceLogWhereInput[]
+    OR?: VehicleMaintenanceLogWhereInput[]
+    NOT?: VehicleMaintenanceLogWhereInput | VehicleMaintenanceLogWhereInput[]
+    id?: StringFilter<"VehicleMaintenanceLog"> | string
+    tenantId?: StringFilter<"VehicleMaintenanceLog"> | string
+    vehicleId?: StringFilter<"VehicleMaintenanceLog"> | string
+    date?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    description?: StringFilter<"VehicleMaintenanceLog"> | string
+    cost?: DecimalNullableFilter<"VehicleMaintenanceLog"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringFilter<"VehicleMaintenanceLog"> | string
+    createdAt?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    updatedAt?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    vehicle?: XOR<TransportVehicleRelationFilter, TransportVehicleWhereInput>
+  }
+
+  export type VehicleMaintenanceLogOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    vehicleId?: SortOrder
+    date?: SortOrder
+    description?: SortOrder
+    cost?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    vehicle?: TransportVehicleOrderByWithRelationInput
+  }
+
+  export type VehicleMaintenanceLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VehicleMaintenanceLogWhereInput | VehicleMaintenanceLogWhereInput[]
+    OR?: VehicleMaintenanceLogWhereInput[]
+    NOT?: VehicleMaintenanceLogWhereInput | VehicleMaintenanceLogWhereInput[]
+    tenantId?: StringFilter<"VehicleMaintenanceLog"> | string
+    vehicleId?: StringFilter<"VehicleMaintenanceLog"> | string
+    date?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    description?: StringFilter<"VehicleMaintenanceLog"> | string
+    cost?: DecimalNullableFilter<"VehicleMaintenanceLog"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringFilter<"VehicleMaintenanceLog"> | string
+    createdAt?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    updatedAt?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    vehicle?: XOR<TransportVehicleRelationFilter, TransportVehicleWhereInput>
+  }, "id">
+
+  export type VehicleMaintenanceLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    vehicleId?: SortOrder
+    date?: SortOrder
+    description?: SortOrder
+    cost?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VehicleMaintenanceLogCountOrderByAggregateInput
+    _avg?: VehicleMaintenanceLogAvgOrderByAggregateInput
+    _max?: VehicleMaintenanceLogMaxOrderByAggregateInput
+    _min?: VehicleMaintenanceLogMinOrderByAggregateInput
+    _sum?: VehicleMaintenanceLogSumOrderByAggregateInput
+  }
+
+  export type VehicleMaintenanceLogScalarWhereWithAggregatesInput = {
+    AND?: VehicleMaintenanceLogScalarWhereWithAggregatesInput | VehicleMaintenanceLogScalarWhereWithAggregatesInput[]
+    OR?: VehicleMaintenanceLogScalarWhereWithAggregatesInput[]
+    NOT?: VehicleMaintenanceLogScalarWhereWithAggregatesInput | VehicleMaintenanceLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"VehicleMaintenanceLog"> | string
+    tenantId?: StringWithAggregatesFilter<"VehicleMaintenanceLog"> | string
+    vehicleId?: StringWithAggregatesFilter<"VehicleMaintenanceLog"> | string
+    date?: DateTimeWithAggregatesFilter<"VehicleMaintenanceLog"> | Date | string
+    description?: StringWithAggregatesFilter<"VehicleMaintenanceLog"> | string
+    cost?: DecimalNullableWithAggregatesFilter<"VehicleMaintenanceLog"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringWithAggregatesFilter<"VehicleMaintenanceLog"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"VehicleMaintenanceLog"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"VehicleMaintenanceLog"> | Date | string
   }
 
   export type TransportRouteWhereInput = {
@@ -122449,6 +126620,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TransportRoute"> | Date | string
     updatedAt?: DateTimeFilter<"TransportRoute"> | Date | string
     vehicle?: XOR<TransportVehicleRelationFilter, TransportVehicleWhereInput>
+    allocations?: TransportAllocationListRelationFilter
   }
 
   export type TransportRouteOrderByWithRelationInput = {
@@ -122459,6 +126631,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     vehicle?: TransportVehicleOrderByWithRelationInput
+    allocations?: TransportAllocationOrderByRelationAggregateInput
   }
 
   export type TransportRouteWhereUniqueInput = Prisma.AtLeast<{
@@ -122472,6 +126645,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TransportRoute"> | Date | string
     updatedAt?: DateTimeFilter<"TransportRoute"> | Date | string
     vehicle?: XOR<TransportVehicleRelationFilter, TransportVehicleWhereInput>
+    allocations?: TransportAllocationListRelationFilter
   }, "id">
 
   export type TransportRouteOrderByWithAggregationInput = {
@@ -122496,6 +126670,90 @@ export namespace Prisma {
     stops?: JsonWithAggregatesFilter<"TransportRoute">
     createdAt?: DateTimeWithAggregatesFilter<"TransportRoute"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TransportRoute"> | Date | string
+  }
+
+  export type TransportAllocationWhereInput = {
+    AND?: TransportAllocationWhereInput | TransportAllocationWhereInput[]
+    OR?: TransportAllocationWhereInput[]
+    NOT?: TransportAllocationWhereInput | TransportAllocationWhereInput[]
+    id?: StringFilter<"TransportAllocation"> | string
+    tenantId?: StringFilter<"TransportAllocation"> | string
+    studentId?: StringFilter<"TransportAllocation"> | string
+    vehicleId?: StringFilter<"TransportAllocation"> | string
+    routeId?: StringFilter<"TransportAllocation"> | string
+    pickupPoint?: StringFilter<"TransportAllocation"> | string
+    status?: StringFilter<"TransportAllocation"> | string
+    createdAt?: DateTimeFilter<"TransportAllocation"> | Date | string
+    updatedAt?: DateTimeFilter<"TransportAllocation"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    student?: XOR<StudentRelationFilter, StudentWhereInput>
+    vehicle?: XOR<TransportVehicleRelationFilter, TransportVehicleWhereInput>
+    route?: XOR<TransportRouteRelationFilter, TransportRouteWhereInput>
+  }
+
+  export type TransportAllocationOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    routeId?: SortOrder
+    pickupPoint?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    student?: StudentOrderByWithRelationInput
+    vehicle?: TransportVehicleOrderByWithRelationInput
+    route?: TransportRouteOrderByWithRelationInput
+  }
+
+  export type TransportAllocationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TransportAllocationWhereInput | TransportAllocationWhereInput[]
+    OR?: TransportAllocationWhereInput[]
+    NOT?: TransportAllocationWhereInput | TransportAllocationWhereInput[]
+    tenantId?: StringFilter<"TransportAllocation"> | string
+    studentId?: StringFilter<"TransportAllocation"> | string
+    vehicleId?: StringFilter<"TransportAllocation"> | string
+    routeId?: StringFilter<"TransportAllocation"> | string
+    pickupPoint?: StringFilter<"TransportAllocation"> | string
+    status?: StringFilter<"TransportAllocation"> | string
+    createdAt?: DateTimeFilter<"TransportAllocation"> | Date | string
+    updatedAt?: DateTimeFilter<"TransportAllocation"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    student?: XOR<StudentRelationFilter, StudentWhereInput>
+    vehicle?: XOR<TransportVehicleRelationFilter, TransportVehicleWhereInput>
+    route?: XOR<TransportRouteRelationFilter, TransportRouteWhereInput>
+  }, "id">
+
+  export type TransportAllocationOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    routeId?: SortOrder
+    pickupPoint?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TransportAllocationCountOrderByAggregateInput
+    _max?: TransportAllocationMaxOrderByAggregateInput
+    _min?: TransportAllocationMinOrderByAggregateInput
+  }
+
+  export type TransportAllocationScalarWhereWithAggregatesInput = {
+    AND?: TransportAllocationScalarWhereWithAggregatesInput | TransportAllocationScalarWhereWithAggregatesInput[]
+    OR?: TransportAllocationScalarWhereWithAggregatesInput[]
+    NOT?: TransportAllocationScalarWhereWithAggregatesInput | TransportAllocationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    tenantId?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    studentId?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    vehicleId?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    routeId?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    pickupPoint?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    status?: StringWithAggregatesFilter<"TransportAllocation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TransportAllocation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TransportAllocation"> | Date | string
   }
 
   export type LibraryBookWhereInput = {
@@ -125484,6 +129742,128 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"IdCard"> | Date | string
   }
 
+  export type MetricSnapshotWhereInput = {
+    AND?: MetricSnapshotWhereInput | MetricSnapshotWhereInput[]
+    OR?: MetricSnapshotWhereInput[]
+    NOT?: MetricSnapshotWhereInput | MetricSnapshotWhereInput[]
+    id?: StringFilter<"MetricSnapshot"> | string
+    tenantId?: StringFilter<"MetricSnapshot"> | string
+    metricName?: StringFilter<"MetricSnapshot"> | string
+    metricVersion?: StringFilter<"MetricSnapshot"> | string
+    value?: FloatFilter<"MetricSnapshot"> | number
+    snapshotDate?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    isLatest?: BoolFilter<"MetricSnapshot"> | boolean
+    generatedBy?: StringFilter<"MetricSnapshot"> | string
+    lineageId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    calculationDurationMs?: IntNullableFilter<"MetricSnapshot"> | number | null
+    explainabilityString?: StringNullableFilter<"MetricSnapshot"> | string | null
+    supersededAt?: DateTimeNullableFilter<"MetricSnapshot"> | Date | string | null
+    campusId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    sessionId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    classId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    studentId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    createdAt?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    updatedAt?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }
+
+  export type MetricSnapshotOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricVersion?: SortOrder
+    value?: SortOrder
+    snapshotDate?: SortOrder
+    isLatest?: SortOrder
+    generatedBy?: SortOrder
+    lineageId?: SortOrderInput | SortOrder
+    calculationDurationMs?: SortOrderInput | SortOrder
+    explainabilityString?: SortOrderInput | SortOrder
+    supersededAt?: SortOrderInput | SortOrder
+    campusId?: SortOrderInput | SortOrder
+    sessionId?: SortOrderInput | SortOrder
+    classId?: SortOrderInput | SortOrder
+    studentId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type MetricSnapshotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MetricSnapshotWhereInput | MetricSnapshotWhereInput[]
+    OR?: MetricSnapshotWhereInput[]
+    NOT?: MetricSnapshotWhereInput | MetricSnapshotWhereInput[]
+    tenantId?: StringFilter<"MetricSnapshot"> | string
+    metricName?: StringFilter<"MetricSnapshot"> | string
+    metricVersion?: StringFilter<"MetricSnapshot"> | string
+    value?: FloatFilter<"MetricSnapshot"> | number
+    snapshotDate?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    isLatest?: BoolFilter<"MetricSnapshot"> | boolean
+    generatedBy?: StringFilter<"MetricSnapshot"> | string
+    lineageId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    calculationDurationMs?: IntNullableFilter<"MetricSnapshot"> | number | null
+    explainabilityString?: StringNullableFilter<"MetricSnapshot"> | string | null
+    supersededAt?: DateTimeNullableFilter<"MetricSnapshot"> | Date | string | null
+    campusId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    sessionId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    classId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    studentId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    createdAt?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    updatedAt?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+  }, "id">
+
+  export type MetricSnapshotOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricVersion?: SortOrder
+    value?: SortOrder
+    snapshotDate?: SortOrder
+    isLatest?: SortOrder
+    generatedBy?: SortOrder
+    lineageId?: SortOrderInput | SortOrder
+    calculationDurationMs?: SortOrderInput | SortOrder
+    explainabilityString?: SortOrderInput | SortOrder
+    supersededAt?: SortOrderInput | SortOrder
+    campusId?: SortOrderInput | SortOrder
+    sessionId?: SortOrderInput | SortOrder
+    classId?: SortOrderInput | SortOrder
+    studentId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MetricSnapshotCountOrderByAggregateInput
+    _avg?: MetricSnapshotAvgOrderByAggregateInput
+    _max?: MetricSnapshotMaxOrderByAggregateInput
+    _min?: MetricSnapshotMinOrderByAggregateInput
+    _sum?: MetricSnapshotSumOrderByAggregateInput
+  }
+
+  export type MetricSnapshotScalarWhereWithAggregatesInput = {
+    AND?: MetricSnapshotScalarWhereWithAggregatesInput | MetricSnapshotScalarWhereWithAggregatesInput[]
+    OR?: MetricSnapshotScalarWhereWithAggregatesInput[]
+    NOT?: MetricSnapshotScalarWhereWithAggregatesInput | MetricSnapshotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MetricSnapshot"> | string
+    tenantId?: StringWithAggregatesFilter<"MetricSnapshot"> | string
+    metricName?: StringWithAggregatesFilter<"MetricSnapshot"> | string
+    metricVersion?: StringWithAggregatesFilter<"MetricSnapshot"> | string
+    value?: FloatWithAggregatesFilter<"MetricSnapshot"> | number
+    snapshotDate?: DateTimeWithAggregatesFilter<"MetricSnapshot"> | Date | string
+    isLatest?: BoolWithAggregatesFilter<"MetricSnapshot"> | boolean
+    generatedBy?: StringWithAggregatesFilter<"MetricSnapshot"> | string
+    lineageId?: StringNullableWithAggregatesFilter<"MetricSnapshot"> | string | null
+    calculationDurationMs?: IntNullableWithAggregatesFilter<"MetricSnapshot"> | number | null
+    explainabilityString?: StringNullableWithAggregatesFilter<"MetricSnapshot"> | string | null
+    supersededAt?: DateTimeNullableWithAggregatesFilter<"MetricSnapshot"> | Date | string | null
+    campusId?: StringNullableWithAggregatesFilter<"MetricSnapshot"> | string | null
+    sessionId?: StringNullableWithAggregatesFilter<"MetricSnapshot"> | string | null
+    classId?: StringNullableWithAggregatesFilter<"MetricSnapshot"> | string | null
+    studentId?: StringNullableWithAggregatesFilter<"MetricSnapshot"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MetricSnapshot"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MetricSnapshot"> | Date | string
+  }
+
   export type PlatformPlanCreateInput = {
     id?: string
     name: string
@@ -125632,6 +130012,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -125711,6 +130095,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -125790,6 +130178,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -125869,6 +130261,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -127917,6 +132313,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -127939,6 +132336,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -127961,6 +132359,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -127983,6 +132382,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -128474,6 +132874,8 @@ export namespace Prisma {
     employment?: EmploymentCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateInput = {
@@ -128488,6 +132890,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUpdateInput = {
@@ -128502,6 +132906,8 @@ export namespace Prisma {
     employment?: EmploymentUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateInput = {
@@ -128516,6 +132922,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffCreateManyInput = {
@@ -130343,10 +134751,12 @@ export namespace Prisma {
     id?: string
     name: string
     capacity: number
-    wardenId?: string | null
+    gender?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutHostelInput
+    warden?: StaffCreateNestedOneWithoutManagedHostelsInput
     rooms?: HostelRoomCreateNestedManyWithoutHostelInput
   }
 
@@ -130355,6 +134765,8 @@ export namespace Prisma {
     tenantId: string
     name: string
     capacity: number
+    gender?: string
+    status?: string
     wardenId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -130365,10 +134777,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
-    wardenId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutHostelNestedInput
+    warden?: StaffUpdateOneWithoutManagedHostelsNestedInput
     rooms?: HostelRoomUpdateManyWithoutHostelNestedInput
   }
 
@@ -130377,6 +134791,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     wardenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -130388,6 +134804,8 @@ export namespace Prisma {
     tenantId: string
     name: string
     capacity: number
+    gender?: string
+    status?: string
     wardenId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -130397,7 +134815,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
-    wardenId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -130407,6 +134826,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     wardenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -130414,8 +134835,11 @@ export namespace Prisma {
 
   export type HostelRoomCreateInput = {
     id?: string
+    tenantId?: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     hostel: HostelCreateNestedOneWithoutRoomsInput
@@ -130424,9 +134848,12 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedCreateInput = {
     id?: string
+    tenantId?: string
     hostelId: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     allocations?: BedAllocationUncheckedCreateNestedManyWithoutRoomInput
@@ -130434,8 +134861,11 @@ export namespace Prisma {
 
   export type HostelRoomUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hostel?: HostelUpdateOneRequiredWithoutRoomsNestedInput
@@ -130444,9 +134874,12 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     hostelId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     allocations?: BedAllocationUncheckedUpdateManyWithoutRoomNestedInput
@@ -130454,87 +134887,123 @@ export namespace Prisma {
 
   export type HostelRoomCreateManyInput = {
     id?: string
+    tenantId?: string
     hostelId: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type HostelRoomUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type HostelRoomUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     hostelId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BedAllocationCreateInput = {
     id?: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutBedAllocationInput
     room: HostelRoomCreateNestedOneWithoutAllocationsInput
     student: StudentCreateNestedOneWithoutBedAllocationInput
   }
 
   export type BedAllocationUncheckedCreateInput = {
     id?: string
+    tenantId?: string
     roomId: string
     studentId: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type BedAllocationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBedAllocationNestedInput
     room?: HostelRoomUpdateOneRequiredWithoutAllocationsNestedInput
     student?: StudentUpdateOneRequiredWithoutBedAllocationNestedInput
   }
 
   export type BedAllocationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomId?: StringFieldUpdateOperationsInput | string
     studentId?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BedAllocationCreateManyInput = {
     id?: string
+    tenantId?: string
     roomId: string
     studentId: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type BedAllocationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BedAllocationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomId?: StringFieldUpdateOperationsInput | string
     studentId?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -130542,53 +135011,71 @@ export namespace Prisma {
   export type TransportVehicleCreateInput = {
     id?: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutTransportVehicleInput
+    driver?: StaffCreateNestedOneWithoutDrivenVehiclesInput
     routes?: TransportRouteCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationCreateNestedManyWithoutVehicleInput
   }
 
   export type TransportVehicleUncheckedCreateInput = {
     id?: string
     tenantId: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     routes?: TransportRouteUncheckedCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type TransportVehicleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutTransportVehicleNestedInput
+    driver?: StaffUpdateOneWithoutDrivenVehiclesNestedInput
     routes?: TransportRouteUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUpdateManyWithoutVehicleNestedInput
   }
 
   export type TransportVehicleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     routes?: TransportRouteUncheckedUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type TransportVehicleCreateManyInput = {
     id?: string
     tenantId: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -130596,8 +135083,9 @@ export namespace Prisma {
   export type TransportVehicleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -130606,8 +135094,92 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogCreateInput = {
+    id?: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVehicleMaintenanceLogInput
+    vehicle: TransportVehicleCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type VehicleMaintenanceLogUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    vehicleId: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleMaintenanceLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVehicleMaintenanceLogNestedInput
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutMaintenanceNestedInput
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogCreateManyInput = {
+    id?: string
+    tenantId: string
+    vehicleId: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleMaintenanceLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -130619,6 +135191,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     vehicle: TransportVehicleCreateNestedOneWithoutRoutesInput
+    allocations?: TransportAllocationCreateNestedManyWithoutRouteInput
   }
 
   export type TransportRouteUncheckedCreateInput = {
@@ -130628,6 +135201,7 @@ export namespace Prisma {
     stops: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutRouteInput
   }
 
   export type TransportRouteUpdateInput = {
@@ -130637,6 +135211,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     vehicle?: TransportVehicleUpdateOneRequiredWithoutRoutesNestedInput
+    allocations?: TransportAllocationUpdateManyWithoutRouteNestedInput
   }
 
   export type TransportRouteUncheckedUpdateInput = {
@@ -130646,6 +135221,7 @@ export namespace Prisma {
     stops?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutRouteNestedInput
   }
 
   export type TransportRouteCreateManyInput = {
@@ -130670,6 +135246,86 @@ export namespace Prisma {
     vehicleId?: StringFieldUpdateOperationsInput | string
     routeName?: StringFieldUpdateOperationsInput | string
     stops?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationCreateInput = {
+    id?: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportAllocationInput
+    student: StudentCreateNestedOneWithoutTransportAllocationsInput
+    vehicle: TransportVehicleCreateNestedOneWithoutAllocationsInput
+    route: TransportRouteCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type TransportAllocationUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportAllocationNestedInput
+    student?: StudentUpdateOneRequiredWithoutTransportAllocationsNestedInput
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutAllocationsNestedInput
+    route?: TransportRouteUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type TransportAllocationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationCreateManyInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -133865,6 +138521,152 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MetricSnapshotCreateInput = {
+    id?: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date | string
+    isLatest?: boolean
+    generatedBy: string
+    lineageId?: string | null
+    calculationDurationMs?: number | null
+    explainabilityString?: string | null
+    supersededAt?: Date | string | null
+    campusId?: string | null
+    sessionId?: string | null
+    classId?: string | null
+    studentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutMetricSnapshotInput
+  }
+
+  export type MetricSnapshotUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date | string
+    isLatest?: boolean
+    generatedBy: string
+    lineageId?: string | null
+    calculationDurationMs?: number | null
+    explainabilityString?: string | null
+    supersededAt?: Date | string | null
+    campusId?: string | null
+    sessionId?: string | null
+    classId?: string | null
+    studentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MetricSnapshotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutMetricSnapshotNestedInput
+  }
+
+  export type MetricSnapshotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MetricSnapshotCreateManyInput = {
+    id?: string
+    tenantId: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date | string
+    isLatest?: boolean
+    generatedBy: string
+    lineageId?: string | null
+    calculationDurationMs?: number | null
+    explainabilityString?: string | null
+    supersededAt?: Date | string | null
+    campusId?: string | null
+    sessionId?: string | null
+    classId?: string | null
+    studentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MetricSnapshotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MetricSnapshotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -134472,6 +139274,30 @@ export namespace Prisma {
     none?: LibraryFineWhereInput
   }
 
+  export type VehicleMaintenanceLogListRelationFilter = {
+    every?: VehicleMaintenanceLogWhereInput
+    some?: VehicleMaintenanceLogWhereInput
+    none?: VehicleMaintenanceLogWhereInput
+  }
+
+  export type TransportAllocationListRelationFilter = {
+    every?: TransportAllocationWhereInput
+    some?: TransportAllocationWhereInput
+    none?: TransportAllocationWhereInput
+  }
+
+  export type BedAllocationListRelationFilter = {
+    every?: BedAllocationWhereInput
+    some?: BedAllocationWhereInput
+    none?: BedAllocationWhereInput
+  }
+
+  export type MetricSnapshotListRelationFilter = {
+    every?: MetricSnapshotWhereInput
+    some?: MetricSnapshotWhereInput
+    none?: MetricSnapshotWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -134730,6 +139556,22 @@ export namespace Prisma {
   }
 
   export type LibraryFineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VehicleMaintenanceLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransportAllocationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BedAllocationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MetricSnapshotOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -136041,12 +140883,6 @@ export namespace Prisma {
     none?: StudentGuardianWhereInput
   }
 
-  export type BedAllocationListRelationFilter = {
-    every?: BedAllocationWhereInput
-    some?: BedAllocationWhereInput
-    none?: BedAllocationWhereInput
-  }
-
   export type BookBorrowingListRelationFilter = {
     every?: BookBorrowingWhereInput
     some?: BookBorrowingWhereInput
@@ -136054,10 +140890,6 @@ export namespace Prisma {
   }
 
   export type StudentGuardianOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type BedAllocationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -137602,6 +142434,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    gender?: SortOrder
+    status?: SortOrder
     wardenId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -137616,6 +142450,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    gender?: SortOrder
+    status?: SortOrder
     wardenId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -137626,6 +142462,8 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     capacity?: SortOrder
+    gender?: SortOrder
+    status?: SortOrder
     wardenId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -137642,9 +142480,12 @@ export namespace Prisma {
 
   export type HostelRoomCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     hostelId?: SortOrder
     roomNumber?: SortOrder
     capacity?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -137655,18 +142496,24 @@ export namespace Prisma {
 
   export type HostelRoomMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     hostelId?: SortOrder
     roomNumber?: SortOrder
     capacity?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type HostelRoomMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     hostelId?: SortOrder
     roomNumber?: SortOrder
     capacity?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -137682,27 +142529,39 @@ export namespace Prisma {
 
   export type BedAllocationCountOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     roomId?: SortOrder
     studentId?: SortOrder
     academicYearId?: SortOrder
+    status?: SortOrder
+    allocatedAt?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type BedAllocationMaxOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     roomId?: SortOrder
     studentId?: SortOrder
     academicYearId?: SortOrder
+    status?: SortOrder
+    allocatedAt?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type BedAllocationMinOrderByAggregateInput = {
     id?: SortOrder
+    tenantId?: SortOrder
     roomId?: SortOrder
     studentId?: SortOrder
     academicYearId?: SortOrder
+    status?: SortOrder
+    allocatedAt?: SortOrder
+    expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -137721,8 +142580,10 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     plateNumber?: SortOrder
-    driverName?: SortOrder
     capacity?: SortOrder
+    driverId?: SortOrder
+    lastLocation?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -137735,8 +142596,9 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     plateNumber?: SortOrder
-    driverName?: SortOrder
     capacity?: SortOrder
+    driverId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -137745,8 +142607,9 @@ export namespace Prisma {
     id?: SortOrder
     tenantId?: SortOrder
     plateNumber?: SortOrder
-    driverName?: SortOrder
     capacity?: SortOrder
+    driverId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -137758,6 +142621,50 @@ export namespace Prisma {
   export type TransportVehicleRelationFilter = {
     is?: TransportVehicleWhereInput
     isNot?: TransportVehicleWhereInput
+  }
+
+  export type VehicleMaintenanceLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    vehicleId?: SortOrder
+    date?: SortOrder
+    description?: SortOrder
+    cost?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VehicleMaintenanceLogAvgOrderByAggregateInput = {
+    cost?: SortOrder
+  }
+
+  export type VehicleMaintenanceLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    vehicleId?: SortOrder
+    date?: SortOrder
+    description?: SortOrder
+    cost?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VehicleMaintenanceLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    vehicleId?: SortOrder
+    date?: SortOrder
+    description?: SortOrder
+    cost?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VehicleMaintenanceLogSumOrderByAggregateInput = {
+    cost?: SortOrder
   }
 
   export type TransportRouteCountOrderByAggregateInput = {
@@ -137781,6 +142688,47 @@ export namespace Prisma {
     id?: SortOrder
     vehicleId?: SortOrder
     routeName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TransportRouteRelationFilter = {
+    is?: TransportRouteWhereInput
+    isNot?: TransportRouteWhereInput
+  }
+
+  export type TransportAllocationCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    routeId?: SortOrder
+    pickupPoint?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TransportAllocationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    routeId?: SortOrder
+    pickupPoint?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TransportAllocationMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    studentId?: SortOrder
+    vehicleId?: SortOrder
+    routeId?: SortOrder
+    pickupPoint?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -139738,6 +144686,106 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type MetricSnapshotCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricVersion?: SortOrder
+    value?: SortOrder
+    snapshotDate?: SortOrder
+    isLatest?: SortOrder
+    generatedBy?: SortOrder
+    lineageId?: SortOrder
+    calculationDurationMs?: SortOrder
+    explainabilityString?: SortOrder
+    supersededAt?: SortOrder
+    campusId?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrder
+    studentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MetricSnapshotAvgOrderByAggregateInput = {
+    value?: SortOrder
+    calculationDurationMs?: SortOrder
+  }
+
+  export type MetricSnapshotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricVersion?: SortOrder
+    value?: SortOrder
+    snapshotDate?: SortOrder
+    isLatest?: SortOrder
+    generatedBy?: SortOrder
+    lineageId?: SortOrder
+    calculationDurationMs?: SortOrder
+    explainabilityString?: SortOrder
+    supersededAt?: SortOrder
+    campusId?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrder
+    studentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MetricSnapshotMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    metricName?: SortOrder
+    metricVersion?: SortOrder
+    value?: SortOrder
+    snapshotDate?: SortOrder
+    isLatest?: SortOrder
+    generatedBy?: SortOrder
+    lineageId?: SortOrder
+    calculationDurationMs?: SortOrder
+    explainabilityString?: SortOrder
+    supersededAt?: SortOrder
+    campusId?: SortOrder
+    sessionId?: SortOrder
+    classId?: SortOrder
+    studentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MetricSnapshotSumOrderByAggregateInput = {
+    value?: SortOrder
+    calculationDurationMs?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type TenantCreateNestedManyWithoutPlanInput = {
     create?: XOR<TenantCreateWithoutPlanInput, TenantUncheckedCreateWithoutPlanInput> | TenantCreateWithoutPlanInput[] | TenantUncheckedCreateWithoutPlanInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutPlanInput | TenantCreateOrConnectWithoutPlanInput[]
@@ -140317,6 +145365,34 @@ export namespace Prisma {
     connect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
   }
 
+  export type VehicleMaintenanceLogCreateNestedManyWithoutTenantInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutTenantInput, VehicleMaintenanceLogUncheckedCreateWithoutTenantInput> | VehicleMaintenanceLogCreateWithoutTenantInput[] | VehicleMaintenanceLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutTenantInput | VehicleMaintenanceLogCreateOrConnectWithoutTenantInput[]
+    createMany?: VehicleMaintenanceLogCreateManyTenantInputEnvelope
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+  }
+
+  export type TransportAllocationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TransportAllocationCreateWithoutTenantInput, TransportAllocationUncheckedCreateWithoutTenantInput> | TransportAllocationCreateWithoutTenantInput[] | TransportAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutTenantInput | TransportAllocationCreateOrConnectWithoutTenantInput[]
+    createMany?: TransportAllocationCreateManyTenantInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+  }
+
+  export type BedAllocationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BedAllocationCreateWithoutTenantInput, BedAllocationUncheckedCreateWithoutTenantInput> | BedAllocationCreateWithoutTenantInput[] | BedAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BedAllocationCreateOrConnectWithoutTenantInput | BedAllocationCreateOrConnectWithoutTenantInput[]
+    createMany?: BedAllocationCreateManyTenantInputEnvelope
+    connect?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+  }
+
+  export type MetricSnapshotCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MetricSnapshotCreateWithoutTenantInput, MetricSnapshotUncheckedCreateWithoutTenantInput> | MetricSnapshotCreateWithoutTenantInput[] | MetricSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MetricSnapshotCreateOrConnectWithoutTenantInput | MetricSnapshotCreateOrConnectWithoutTenantInput[]
+    createMany?: MetricSnapshotCreateManyTenantInputEnvelope
+    connect?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+  }
+
   export type PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<PlatformSubscriptionCreateWithoutTenantInput, PlatformSubscriptionUncheckedCreateWithoutTenantInput> | PlatformSubscriptionCreateWithoutTenantInput[] | PlatformSubscriptionUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PlatformSubscriptionCreateOrConnectWithoutTenantInput | PlatformSubscriptionCreateOrConnectWithoutTenantInput[]
@@ -140788,6 +145864,34 @@ export namespace Prisma {
     connectOrCreate?: LibraryFineCreateOrConnectWithoutTenantInput | LibraryFineCreateOrConnectWithoutTenantInput[]
     createMany?: LibraryFineCreateManyTenantInputEnvelope
     connect?: LibraryFineWhereUniqueInput | LibraryFineWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutTenantInput, VehicleMaintenanceLogUncheckedCreateWithoutTenantInput> | VehicleMaintenanceLogCreateWithoutTenantInput[] | VehicleMaintenanceLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutTenantInput | VehicleMaintenanceLogCreateOrConnectWithoutTenantInput[]
+    createMany?: VehicleMaintenanceLogCreateManyTenantInputEnvelope
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+  }
+
+  export type TransportAllocationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<TransportAllocationCreateWithoutTenantInput, TransportAllocationUncheckedCreateWithoutTenantInput> | TransportAllocationCreateWithoutTenantInput[] | TransportAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutTenantInput | TransportAllocationCreateOrConnectWithoutTenantInput[]
+    createMany?: TransportAllocationCreateManyTenantInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+  }
+
+  export type BedAllocationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BedAllocationCreateWithoutTenantInput, BedAllocationUncheckedCreateWithoutTenantInput> | BedAllocationCreateWithoutTenantInput[] | BedAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BedAllocationCreateOrConnectWithoutTenantInput | BedAllocationCreateOrConnectWithoutTenantInput[]
+    createMany?: BedAllocationCreateManyTenantInputEnvelope
+    connect?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+  }
+
+  export type MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MetricSnapshotCreateWithoutTenantInput, MetricSnapshotUncheckedCreateWithoutTenantInput> | MetricSnapshotCreateWithoutTenantInput[] | MetricSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MetricSnapshotCreateOrConnectWithoutTenantInput | MetricSnapshotCreateOrConnectWithoutTenantInput[]
+    createMany?: MetricSnapshotCreateManyTenantInputEnvelope
+    connect?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
   }
 
   export type EnumTenantStatusFieldUpdateOperationsInput = {
@@ -141746,6 +146850,62 @@ export namespace Prisma {
     deleteMany?: LibraryFineScalarWhereInput | LibraryFineScalarWhereInput[]
   }
 
+  export type VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutTenantInput, VehicleMaintenanceLogUncheckedCreateWithoutTenantInput> | VehicleMaintenanceLogCreateWithoutTenantInput[] | VehicleMaintenanceLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutTenantInput | VehicleMaintenanceLogCreateOrConnectWithoutTenantInput[]
+    upsert?: VehicleMaintenanceLogUpsertWithWhereUniqueWithoutTenantInput | VehicleMaintenanceLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: VehicleMaintenanceLogCreateManyTenantInputEnvelope
+    set?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    delete?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    update?: VehicleMaintenanceLogUpdateWithWhereUniqueWithoutTenantInput | VehicleMaintenanceLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: VehicleMaintenanceLogUpdateManyWithWhereWithoutTenantInput | VehicleMaintenanceLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: VehicleMaintenanceLogScalarWhereInput | VehicleMaintenanceLogScalarWhereInput[]
+  }
+
+  export type TransportAllocationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutTenantInput, TransportAllocationUncheckedCreateWithoutTenantInput> | TransportAllocationCreateWithoutTenantInput[] | TransportAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutTenantInput | TransportAllocationCreateOrConnectWithoutTenantInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutTenantInput | TransportAllocationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TransportAllocationCreateManyTenantInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutTenantInput | TransportAllocationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutTenantInput | TransportAllocationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
+  export type BedAllocationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BedAllocationCreateWithoutTenantInput, BedAllocationUncheckedCreateWithoutTenantInput> | BedAllocationCreateWithoutTenantInput[] | BedAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BedAllocationCreateOrConnectWithoutTenantInput | BedAllocationCreateOrConnectWithoutTenantInput[]
+    upsert?: BedAllocationUpsertWithWhereUniqueWithoutTenantInput | BedAllocationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BedAllocationCreateManyTenantInputEnvelope
+    set?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    disconnect?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    delete?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    connect?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    update?: BedAllocationUpdateWithWhereUniqueWithoutTenantInput | BedAllocationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BedAllocationUpdateManyWithWhereWithoutTenantInput | BedAllocationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
+  }
+
+  export type MetricSnapshotUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MetricSnapshotCreateWithoutTenantInput, MetricSnapshotUncheckedCreateWithoutTenantInput> | MetricSnapshotCreateWithoutTenantInput[] | MetricSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MetricSnapshotCreateOrConnectWithoutTenantInput | MetricSnapshotCreateOrConnectWithoutTenantInput[]
+    upsert?: MetricSnapshotUpsertWithWhereUniqueWithoutTenantInput | MetricSnapshotUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MetricSnapshotCreateManyTenantInputEnvelope
+    set?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    disconnect?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    delete?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    connect?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    update?: MetricSnapshotUpdateWithWhereUniqueWithoutTenantInput | MetricSnapshotUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MetricSnapshotUpdateManyWithWhereWithoutTenantInput | MetricSnapshotUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MetricSnapshotScalarWhereInput | MetricSnapshotScalarWhereInput[]
+  }
+
   export type PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<PlatformSubscriptionCreateWithoutTenantInput, PlatformSubscriptionUncheckedCreateWithoutTenantInput> | PlatformSubscriptionCreateWithoutTenantInput[] | PlatformSubscriptionUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: PlatformSubscriptionCreateOrConnectWithoutTenantInput | PlatformSubscriptionCreateOrConnectWithoutTenantInput[]
@@ -142684,6 +147844,62 @@ export namespace Prisma {
     update?: LibraryFineUpdateWithWhereUniqueWithoutTenantInput | LibraryFineUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: LibraryFineUpdateManyWithWhereWithoutTenantInput | LibraryFineUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: LibraryFineScalarWhereInput | LibraryFineScalarWhereInput[]
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutTenantInput, VehicleMaintenanceLogUncheckedCreateWithoutTenantInput> | VehicleMaintenanceLogCreateWithoutTenantInput[] | VehicleMaintenanceLogUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutTenantInput | VehicleMaintenanceLogCreateOrConnectWithoutTenantInput[]
+    upsert?: VehicleMaintenanceLogUpsertWithWhereUniqueWithoutTenantInput | VehicleMaintenanceLogUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: VehicleMaintenanceLogCreateManyTenantInputEnvelope
+    set?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    delete?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    update?: VehicleMaintenanceLogUpdateWithWhereUniqueWithoutTenantInput | VehicleMaintenanceLogUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: VehicleMaintenanceLogUpdateManyWithWhereWithoutTenantInput | VehicleMaintenanceLogUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: VehicleMaintenanceLogScalarWhereInput | VehicleMaintenanceLogScalarWhereInput[]
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutTenantInput, TransportAllocationUncheckedCreateWithoutTenantInput> | TransportAllocationCreateWithoutTenantInput[] | TransportAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutTenantInput | TransportAllocationCreateOrConnectWithoutTenantInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutTenantInput | TransportAllocationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: TransportAllocationCreateManyTenantInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutTenantInput | TransportAllocationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutTenantInput | TransportAllocationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
+  export type BedAllocationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BedAllocationCreateWithoutTenantInput, BedAllocationUncheckedCreateWithoutTenantInput> | BedAllocationCreateWithoutTenantInput[] | BedAllocationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BedAllocationCreateOrConnectWithoutTenantInput | BedAllocationCreateOrConnectWithoutTenantInput[]
+    upsert?: BedAllocationUpsertWithWhereUniqueWithoutTenantInput | BedAllocationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BedAllocationCreateManyTenantInputEnvelope
+    set?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    disconnect?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    delete?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    connect?: BedAllocationWhereUniqueInput | BedAllocationWhereUniqueInput[]
+    update?: BedAllocationUpdateWithWhereUniqueWithoutTenantInput | BedAllocationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BedAllocationUpdateManyWithWhereWithoutTenantInput | BedAllocationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
+  }
+
+  export type MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MetricSnapshotCreateWithoutTenantInput, MetricSnapshotUncheckedCreateWithoutTenantInput> | MetricSnapshotCreateWithoutTenantInput[] | MetricSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MetricSnapshotCreateOrConnectWithoutTenantInput | MetricSnapshotCreateOrConnectWithoutTenantInput[]
+    upsert?: MetricSnapshotUpsertWithWhereUniqueWithoutTenantInput | MetricSnapshotUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MetricSnapshotCreateManyTenantInputEnvelope
+    set?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    disconnect?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    delete?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    connect?: MetricSnapshotWhereUniqueInput | MetricSnapshotWhereUniqueInput[]
+    update?: MetricSnapshotUpdateWithWhereUniqueWithoutTenantInput | MetricSnapshotUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MetricSnapshotUpdateManyWithWhereWithoutTenantInput | MetricSnapshotUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MetricSnapshotScalarWhereInput | MetricSnapshotScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutSubscriptionsInput = {
@@ -144640,6 +149856,13 @@ export namespace Prisma {
     connect?: BookBorrowingWhereUniqueInput | BookBorrowingWhereUniqueInput[]
   }
 
+  export type TransportAllocationCreateNestedManyWithoutStudentInput = {
+    create?: XOR<TransportAllocationCreateWithoutStudentInput, TransportAllocationUncheckedCreateWithoutStudentInput> | TransportAllocationCreateWithoutStudentInput[] | TransportAllocationUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutStudentInput | TransportAllocationCreateOrConnectWithoutStudentInput[]
+    createMany?: TransportAllocationCreateManyStudentInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+  }
+
   export type JournalEntryLineCreateNestedManyWithoutStudentInput = {
     create?: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput> | JournalEntryLineCreateWithoutStudentInput[] | JournalEntryLineUncheckedCreateWithoutStudentInput[]
     connectOrCreate?: JournalEntryLineCreateOrConnectWithoutStudentInput | JournalEntryLineCreateOrConnectWithoutStudentInput[]
@@ -144715,6 +149938,13 @@ export namespace Prisma {
     connectOrCreate?: BookBorrowingCreateOrConnectWithoutStudentInput | BookBorrowingCreateOrConnectWithoutStudentInput[]
     createMany?: BookBorrowingCreateManyStudentInputEnvelope
     connect?: BookBorrowingWhereUniqueInput | BookBorrowingWhereUniqueInput[]
+  }
+
+  export type TransportAllocationUncheckedCreateNestedManyWithoutStudentInput = {
+    create?: XOR<TransportAllocationCreateWithoutStudentInput, TransportAllocationUncheckedCreateWithoutStudentInput> | TransportAllocationCreateWithoutStudentInput[] | TransportAllocationUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutStudentInput | TransportAllocationCreateOrConnectWithoutStudentInput[]
+    createMany?: TransportAllocationCreateManyStudentInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
   }
 
   export type JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput = {
@@ -144890,6 +150120,20 @@ export namespace Prisma {
     deleteMany?: BookBorrowingScalarWhereInput | BookBorrowingScalarWhereInput[]
   }
 
+  export type TransportAllocationUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutStudentInput, TransportAllocationUncheckedCreateWithoutStudentInput> | TransportAllocationCreateWithoutStudentInput[] | TransportAllocationUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutStudentInput | TransportAllocationCreateOrConnectWithoutStudentInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutStudentInput | TransportAllocationUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: TransportAllocationCreateManyStudentInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutStudentInput | TransportAllocationUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutStudentInput | TransportAllocationUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
   export type JournalEntryLineUpdateManyWithoutStudentNestedInput = {
     create?: XOR<JournalEntryLineCreateWithoutStudentInput, JournalEntryLineUncheckedCreateWithoutStudentInput> | JournalEntryLineCreateWithoutStudentInput[] | JournalEntryLineUncheckedCreateWithoutStudentInput[]
     connectOrCreate?: JournalEntryLineCreateOrConnectWithoutStudentInput | JournalEntryLineCreateOrConnectWithoutStudentInput[]
@@ -145042,6 +150286,20 @@ export namespace Prisma {
     update?: BookBorrowingUpdateWithWhereUniqueWithoutStudentInput | BookBorrowingUpdateWithWhereUniqueWithoutStudentInput[]
     updateMany?: BookBorrowingUpdateManyWithWhereWithoutStudentInput | BookBorrowingUpdateManyWithWhereWithoutStudentInput[]
     deleteMany?: BookBorrowingScalarWhereInput | BookBorrowingScalarWhereInput[]
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutStudentInput, TransportAllocationUncheckedCreateWithoutStudentInput> | TransportAllocationCreateWithoutStudentInput[] | TransportAllocationUncheckedCreateWithoutStudentInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutStudentInput | TransportAllocationCreateOrConnectWithoutStudentInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutStudentInput | TransportAllocationUpsertWithWhereUniqueWithoutStudentInput[]
+    createMany?: TransportAllocationCreateManyStudentInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutStudentInput | TransportAllocationUpdateWithWhereUniqueWithoutStudentInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutStudentInput | TransportAllocationUpdateManyWithWhereWithoutStudentInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
   }
 
   export type JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput = {
@@ -145336,6 +150594,20 @@ export namespace Prisma {
     connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
   }
 
+  export type TransportVehicleCreateNestedManyWithoutDriverInput = {
+    create?: XOR<TransportVehicleCreateWithoutDriverInput, TransportVehicleUncheckedCreateWithoutDriverInput> | TransportVehicleCreateWithoutDriverInput[] | TransportVehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutDriverInput | TransportVehicleCreateOrConnectWithoutDriverInput[]
+    createMany?: TransportVehicleCreateManyDriverInputEnvelope
+    connect?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+  }
+
+  export type HostelCreateNestedManyWithoutWardenInput = {
+    create?: XOR<HostelCreateWithoutWardenInput, HostelUncheckedCreateWithoutWardenInput> | HostelCreateWithoutWardenInput[] | HostelUncheckedCreateWithoutWardenInput[]
+    connectOrCreate?: HostelCreateOrConnectWithoutWardenInput | HostelCreateOrConnectWithoutWardenInput[]
+    createMany?: HostelCreateManyWardenInputEnvelope
+    connect?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+  }
+
   export type EmploymentUncheckedCreateNestedOneWithoutStaffInput = {
     create?: XOR<EmploymentCreateWithoutStaffInput, EmploymentUncheckedCreateWithoutStaffInput>
     connectOrCreate?: EmploymentCreateOrConnectWithoutStaffInput
@@ -145354,6 +150626,20 @@ export namespace Prisma {
     connectOrCreate?: LeaveRequestCreateOrConnectWithoutStaffInput | LeaveRequestCreateOrConnectWithoutStaffInput[]
     createMany?: LeaveRequestCreateManyStaffInputEnvelope
     connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
+  }
+
+  export type TransportVehicleUncheckedCreateNestedManyWithoutDriverInput = {
+    create?: XOR<TransportVehicleCreateWithoutDriverInput, TransportVehicleUncheckedCreateWithoutDriverInput> | TransportVehicleCreateWithoutDriverInput[] | TransportVehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutDriverInput | TransportVehicleCreateOrConnectWithoutDriverInput[]
+    createMany?: TransportVehicleCreateManyDriverInputEnvelope
+    connect?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+  }
+
+  export type HostelUncheckedCreateNestedManyWithoutWardenInput = {
+    create?: XOR<HostelCreateWithoutWardenInput, HostelUncheckedCreateWithoutWardenInput> | HostelCreateWithoutWardenInput[] | HostelUncheckedCreateWithoutWardenInput[]
+    connectOrCreate?: HostelCreateOrConnectWithoutWardenInput | HostelCreateOrConnectWithoutWardenInput[]
+    createMany?: HostelCreateManyWardenInputEnvelope
+    connect?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
   }
 
   export type TenantUpdateOneRequiredWithoutStaffNestedInput = {
@@ -145420,6 +150706,34 @@ export namespace Prisma {
     deleteMany?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
   }
 
+  export type TransportVehicleUpdateManyWithoutDriverNestedInput = {
+    create?: XOR<TransportVehicleCreateWithoutDriverInput, TransportVehicleUncheckedCreateWithoutDriverInput> | TransportVehicleCreateWithoutDriverInput[] | TransportVehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutDriverInput | TransportVehicleCreateOrConnectWithoutDriverInput[]
+    upsert?: TransportVehicleUpsertWithWhereUniqueWithoutDriverInput | TransportVehicleUpsertWithWhereUniqueWithoutDriverInput[]
+    createMany?: TransportVehicleCreateManyDriverInputEnvelope
+    set?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    disconnect?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    delete?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    connect?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    update?: TransportVehicleUpdateWithWhereUniqueWithoutDriverInput | TransportVehicleUpdateWithWhereUniqueWithoutDriverInput[]
+    updateMany?: TransportVehicleUpdateManyWithWhereWithoutDriverInput | TransportVehicleUpdateManyWithWhereWithoutDriverInput[]
+    deleteMany?: TransportVehicleScalarWhereInput | TransportVehicleScalarWhereInput[]
+  }
+
+  export type HostelUpdateManyWithoutWardenNestedInput = {
+    create?: XOR<HostelCreateWithoutWardenInput, HostelUncheckedCreateWithoutWardenInput> | HostelCreateWithoutWardenInput[] | HostelUncheckedCreateWithoutWardenInput[]
+    connectOrCreate?: HostelCreateOrConnectWithoutWardenInput | HostelCreateOrConnectWithoutWardenInput[]
+    upsert?: HostelUpsertWithWhereUniqueWithoutWardenInput | HostelUpsertWithWhereUniqueWithoutWardenInput[]
+    createMany?: HostelCreateManyWardenInputEnvelope
+    set?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    disconnect?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    delete?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    connect?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    update?: HostelUpdateWithWhereUniqueWithoutWardenInput | HostelUpdateWithWhereUniqueWithoutWardenInput[]
+    updateMany?: HostelUpdateManyWithWhereWithoutWardenInput | HostelUpdateManyWithWhereWithoutWardenInput[]
+    deleteMany?: HostelScalarWhereInput | HostelScalarWhereInput[]
+  }
+
   export type EmploymentUncheckedUpdateOneWithoutStaffNestedInput = {
     create?: XOR<EmploymentCreateWithoutStaffInput, EmploymentUncheckedCreateWithoutStaffInput>
     connectOrCreate?: EmploymentCreateOrConnectWithoutStaffInput
@@ -145456,6 +150770,34 @@ export namespace Prisma {
     update?: LeaveRequestUpdateWithWhereUniqueWithoutStaffInput | LeaveRequestUpdateWithWhereUniqueWithoutStaffInput[]
     updateMany?: LeaveRequestUpdateManyWithWhereWithoutStaffInput | LeaveRequestUpdateManyWithWhereWithoutStaffInput[]
     deleteMany?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
+  }
+
+  export type TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput = {
+    create?: XOR<TransportVehicleCreateWithoutDriverInput, TransportVehicleUncheckedCreateWithoutDriverInput> | TransportVehicleCreateWithoutDriverInput[] | TransportVehicleUncheckedCreateWithoutDriverInput[]
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutDriverInput | TransportVehicleCreateOrConnectWithoutDriverInput[]
+    upsert?: TransportVehicleUpsertWithWhereUniqueWithoutDriverInput | TransportVehicleUpsertWithWhereUniqueWithoutDriverInput[]
+    createMany?: TransportVehicleCreateManyDriverInputEnvelope
+    set?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    disconnect?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    delete?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    connect?: TransportVehicleWhereUniqueInput | TransportVehicleWhereUniqueInput[]
+    update?: TransportVehicleUpdateWithWhereUniqueWithoutDriverInput | TransportVehicleUpdateWithWhereUniqueWithoutDriverInput[]
+    updateMany?: TransportVehicleUpdateManyWithWhereWithoutDriverInput | TransportVehicleUpdateManyWithWhereWithoutDriverInput[]
+    deleteMany?: TransportVehicleScalarWhereInput | TransportVehicleScalarWhereInput[]
+  }
+
+  export type HostelUncheckedUpdateManyWithoutWardenNestedInput = {
+    create?: XOR<HostelCreateWithoutWardenInput, HostelUncheckedCreateWithoutWardenInput> | HostelCreateWithoutWardenInput[] | HostelUncheckedCreateWithoutWardenInput[]
+    connectOrCreate?: HostelCreateOrConnectWithoutWardenInput | HostelCreateOrConnectWithoutWardenInput[]
+    upsert?: HostelUpsertWithWhereUniqueWithoutWardenInput | HostelUpsertWithWhereUniqueWithoutWardenInput[]
+    createMany?: HostelCreateManyWardenInputEnvelope
+    set?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    disconnect?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    delete?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    connect?: HostelWhereUniqueInput | HostelWhereUniqueInput[]
+    update?: HostelUpdateWithWhereUniqueWithoutWardenInput | HostelUpdateWithWhereUniqueWithoutWardenInput[]
+    updateMany?: HostelUpdateManyWithWhereWithoutWardenInput | HostelUpdateManyWithWhereWithoutWardenInput[]
+    deleteMany?: HostelScalarWhereInput | HostelScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutEmploymentInput = {
@@ -146584,6 +151926,12 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput
   }
 
+  export type StaffCreateNestedOneWithoutManagedHostelsInput = {
+    create?: XOR<StaffCreateWithoutManagedHostelsInput, StaffUncheckedCreateWithoutManagedHostelsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutManagedHostelsInput
+    connect?: StaffWhereUniqueInput
+  }
+
   export type HostelRoomCreateNestedManyWithoutHostelInput = {
     create?: XOR<HostelRoomCreateWithoutHostelInput, HostelRoomUncheckedCreateWithoutHostelInput> | HostelRoomCreateWithoutHostelInput[] | HostelRoomUncheckedCreateWithoutHostelInput[]
     connectOrCreate?: HostelRoomCreateOrConnectWithoutHostelInput | HostelRoomCreateOrConnectWithoutHostelInput[]
@@ -146604,6 +151952,16 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutHostelInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutHostelInput, TenantUpdateWithoutHostelInput>, TenantUncheckedUpdateWithoutHostelInput>
+  }
+
+  export type StaffUpdateOneWithoutManagedHostelsNestedInput = {
+    create?: XOR<StaffCreateWithoutManagedHostelsInput, StaffUncheckedCreateWithoutManagedHostelsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutManagedHostelsInput
+    upsert?: StaffUpsertWithoutManagedHostelsInput
+    disconnect?: StaffWhereInput | boolean
+    delete?: StaffWhereInput | boolean
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutManagedHostelsInput, StaffUpdateWithoutManagedHostelsInput>, StaffUncheckedUpdateWithoutManagedHostelsInput>
   }
 
   export type HostelRoomUpdateManyWithoutHostelNestedInput = {
@@ -146690,6 +152048,12 @@ export namespace Prisma {
     deleteMany?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
   }
 
+  export type TenantCreateNestedOneWithoutBedAllocationInput = {
+    create?: XOR<TenantCreateWithoutBedAllocationInput, TenantUncheckedCreateWithoutBedAllocationInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBedAllocationInput
+    connect?: TenantWhereUniqueInput
+  }
+
   export type HostelRoomCreateNestedOneWithoutAllocationsInput = {
     create?: XOR<HostelRoomCreateWithoutAllocationsInput, HostelRoomUncheckedCreateWithoutAllocationsInput>
     connectOrCreate?: HostelRoomCreateOrConnectWithoutAllocationsInput
@@ -146700,6 +152064,14 @@ export namespace Prisma {
     create?: XOR<StudentCreateWithoutBedAllocationInput, StudentUncheckedCreateWithoutBedAllocationInput>
     connectOrCreate?: StudentCreateOrConnectWithoutBedAllocationInput
     connect?: StudentWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutBedAllocationNestedInput = {
+    create?: XOR<TenantCreateWithoutBedAllocationInput, TenantUncheckedCreateWithoutBedAllocationInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBedAllocationInput
+    upsert?: TenantUpsertWithoutBedAllocationInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBedAllocationInput, TenantUpdateWithoutBedAllocationInput>, TenantUncheckedUpdateWithoutBedAllocationInput>
   }
 
   export type HostelRoomUpdateOneRequiredWithoutAllocationsNestedInput = {
@@ -146724,11 +152096,31 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput
   }
 
+  export type StaffCreateNestedOneWithoutDrivenVehiclesInput = {
+    create?: XOR<StaffCreateWithoutDrivenVehiclesInput, StaffUncheckedCreateWithoutDrivenVehiclesInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutDrivenVehiclesInput
+    connect?: StaffWhereUniqueInput
+  }
+
   export type TransportRouteCreateNestedManyWithoutVehicleInput = {
     create?: XOR<TransportRouteCreateWithoutVehicleInput, TransportRouteUncheckedCreateWithoutVehicleInput> | TransportRouteCreateWithoutVehicleInput[] | TransportRouteUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: TransportRouteCreateOrConnectWithoutVehicleInput | TransportRouteCreateOrConnectWithoutVehicleInput[]
     createMany?: TransportRouteCreateManyVehicleInputEnvelope
     connect?: TransportRouteWhereUniqueInput | TransportRouteWhereUniqueInput[]
+  }
+
+  export type VehicleMaintenanceLogCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutVehicleInput, VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceLogCreateWithoutVehicleInput[] | VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput | VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceLogCreateManyVehicleInputEnvelope
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+  }
+
+  export type TransportAllocationCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<TransportAllocationCreateWithoutVehicleInput, TransportAllocationUncheckedCreateWithoutVehicleInput> | TransportAllocationCreateWithoutVehicleInput[] | TransportAllocationUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutVehicleInput | TransportAllocationCreateOrConnectWithoutVehicleInput[]
+    createMany?: TransportAllocationCreateManyVehicleInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
   }
 
   export type TransportRouteUncheckedCreateNestedManyWithoutVehicleInput = {
@@ -146738,12 +152130,36 @@ export namespace Prisma {
     connect?: TransportRouteWhereUniqueInput | TransportRouteWhereUniqueInput[]
   }
 
+  export type VehicleMaintenanceLogUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutVehicleInput, VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceLogCreateWithoutVehicleInput[] | VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput | VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceLogCreateManyVehicleInputEnvelope
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+  }
+
+  export type TransportAllocationUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<TransportAllocationCreateWithoutVehicleInput, TransportAllocationUncheckedCreateWithoutVehicleInput> | TransportAllocationCreateWithoutVehicleInput[] | TransportAllocationUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutVehicleInput | TransportAllocationCreateOrConnectWithoutVehicleInput[]
+    createMany?: TransportAllocationCreateManyVehicleInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+  }
+
   export type TenantUpdateOneRequiredWithoutTransportVehicleNestedInput = {
     create?: XOR<TenantCreateWithoutTransportVehicleInput, TenantUncheckedCreateWithoutTransportVehicleInput>
     connectOrCreate?: TenantCreateOrConnectWithoutTransportVehicleInput
     upsert?: TenantUpsertWithoutTransportVehicleInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTransportVehicleInput, TenantUpdateWithoutTransportVehicleInput>, TenantUncheckedUpdateWithoutTransportVehicleInput>
+  }
+
+  export type StaffUpdateOneWithoutDrivenVehiclesNestedInput = {
+    create?: XOR<StaffCreateWithoutDrivenVehiclesInput, StaffUncheckedCreateWithoutDrivenVehiclesInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutDrivenVehiclesInput
+    upsert?: StaffUpsertWithoutDrivenVehiclesInput
+    disconnect?: StaffWhereInput | boolean
+    delete?: StaffWhereInput | boolean
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutDrivenVehiclesInput, StaffUpdateWithoutDrivenVehiclesInput>, StaffUncheckedUpdateWithoutDrivenVehiclesInput>
   }
 
   export type TransportRouteUpdateManyWithoutVehicleNestedInput = {
@@ -146760,6 +152176,34 @@ export namespace Prisma {
     deleteMany?: TransportRouteScalarWhereInput | TransportRouteScalarWhereInput[]
   }
 
+  export type VehicleMaintenanceLogUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutVehicleInput, VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceLogCreateWithoutVehicleInput[] | VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput | VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput[]
+    upsert?: VehicleMaintenanceLogUpsertWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceLogUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceLogCreateManyVehicleInputEnvelope
+    set?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    delete?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    update?: VehicleMaintenanceLogUpdateWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceLogUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: VehicleMaintenanceLogUpdateManyWithWhereWithoutVehicleInput | VehicleMaintenanceLogUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: VehicleMaintenanceLogScalarWhereInput | VehicleMaintenanceLogScalarWhereInput[]
+  }
+
+  export type TransportAllocationUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutVehicleInput, TransportAllocationUncheckedCreateWithoutVehicleInput> | TransportAllocationCreateWithoutVehicleInput[] | TransportAllocationUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutVehicleInput | TransportAllocationCreateOrConnectWithoutVehicleInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutVehicleInput | TransportAllocationUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: TransportAllocationCreateManyVehicleInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutVehicleInput | TransportAllocationUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutVehicleInput | TransportAllocationUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
   export type TransportRouteUncheckedUpdateManyWithoutVehicleNestedInput = {
     create?: XOR<TransportRouteCreateWithoutVehicleInput, TransportRouteUncheckedCreateWithoutVehicleInput> | TransportRouteCreateWithoutVehicleInput[] | TransportRouteUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: TransportRouteCreateOrConnectWithoutVehicleInput | TransportRouteCreateOrConnectWithoutVehicleInput[]
@@ -146774,10 +152218,80 @@ export namespace Prisma {
     deleteMany?: TransportRouteScalarWhereInput | TransportRouteScalarWhereInput[]
   }
 
+  export type VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<VehicleMaintenanceLogCreateWithoutVehicleInput, VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput> | VehicleMaintenanceLogCreateWithoutVehicleInput[] | VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput | VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput[]
+    upsert?: VehicleMaintenanceLogUpsertWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceLogUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: VehicleMaintenanceLogCreateManyVehicleInputEnvelope
+    set?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    disconnect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    delete?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    connect?: VehicleMaintenanceLogWhereUniqueInput | VehicleMaintenanceLogWhereUniqueInput[]
+    update?: VehicleMaintenanceLogUpdateWithWhereUniqueWithoutVehicleInput | VehicleMaintenanceLogUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: VehicleMaintenanceLogUpdateManyWithWhereWithoutVehicleInput | VehicleMaintenanceLogUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: VehicleMaintenanceLogScalarWhereInput | VehicleMaintenanceLogScalarWhereInput[]
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutVehicleInput, TransportAllocationUncheckedCreateWithoutVehicleInput> | TransportAllocationCreateWithoutVehicleInput[] | TransportAllocationUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutVehicleInput | TransportAllocationCreateOrConnectWithoutVehicleInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutVehicleInput | TransportAllocationUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: TransportAllocationCreateManyVehicleInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutVehicleInput | TransportAllocationUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutVehicleInput | TransportAllocationUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutVehicleMaintenanceLogInput = {
+    create?: XOR<TenantCreateWithoutVehicleMaintenanceLogInput, TenantUncheckedCreateWithoutVehicleMaintenanceLogInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutVehicleMaintenanceLogInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TransportVehicleCreateNestedOneWithoutMaintenanceInput = {
+    create?: XOR<TransportVehicleCreateWithoutMaintenanceInput, TransportVehicleUncheckedCreateWithoutMaintenanceInput>
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutMaintenanceInput
+    connect?: TransportVehicleWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutVehicleMaintenanceLogNestedInput = {
+    create?: XOR<TenantCreateWithoutVehicleMaintenanceLogInput, TenantUncheckedCreateWithoutVehicleMaintenanceLogInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutVehicleMaintenanceLogInput
+    upsert?: TenantUpsertWithoutVehicleMaintenanceLogInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutVehicleMaintenanceLogInput, TenantUpdateWithoutVehicleMaintenanceLogInput>, TenantUncheckedUpdateWithoutVehicleMaintenanceLogInput>
+  }
+
+  export type TransportVehicleUpdateOneRequiredWithoutMaintenanceNestedInput = {
+    create?: XOR<TransportVehicleCreateWithoutMaintenanceInput, TransportVehicleUncheckedCreateWithoutMaintenanceInput>
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutMaintenanceInput
+    upsert?: TransportVehicleUpsertWithoutMaintenanceInput
+    connect?: TransportVehicleWhereUniqueInput
+    update?: XOR<XOR<TransportVehicleUpdateToOneWithWhereWithoutMaintenanceInput, TransportVehicleUpdateWithoutMaintenanceInput>, TransportVehicleUncheckedUpdateWithoutMaintenanceInput>
+  }
+
   export type TransportVehicleCreateNestedOneWithoutRoutesInput = {
     create?: XOR<TransportVehicleCreateWithoutRoutesInput, TransportVehicleUncheckedCreateWithoutRoutesInput>
     connectOrCreate?: TransportVehicleCreateOrConnectWithoutRoutesInput
     connect?: TransportVehicleWhereUniqueInput
+  }
+
+  export type TransportAllocationCreateNestedManyWithoutRouteInput = {
+    create?: XOR<TransportAllocationCreateWithoutRouteInput, TransportAllocationUncheckedCreateWithoutRouteInput> | TransportAllocationCreateWithoutRouteInput[] | TransportAllocationUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutRouteInput | TransportAllocationCreateOrConnectWithoutRouteInput[]
+    createMany?: TransportAllocationCreateManyRouteInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+  }
+
+  export type TransportAllocationUncheckedCreateNestedManyWithoutRouteInput = {
+    create?: XOR<TransportAllocationCreateWithoutRouteInput, TransportAllocationUncheckedCreateWithoutRouteInput> | TransportAllocationCreateWithoutRouteInput[] | TransportAllocationUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutRouteInput | TransportAllocationCreateOrConnectWithoutRouteInput[]
+    createMany?: TransportAllocationCreateManyRouteInputEnvelope
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
   }
 
   export type TransportVehicleUpdateOneRequiredWithoutRoutesNestedInput = {
@@ -146786,6 +152300,90 @@ export namespace Prisma {
     upsert?: TransportVehicleUpsertWithoutRoutesInput
     connect?: TransportVehicleWhereUniqueInput
     update?: XOR<XOR<TransportVehicleUpdateToOneWithWhereWithoutRoutesInput, TransportVehicleUpdateWithoutRoutesInput>, TransportVehicleUncheckedUpdateWithoutRoutesInput>
+  }
+
+  export type TransportAllocationUpdateManyWithoutRouteNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutRouteInput, TransportAllocationUncheckedCreateWithoutRouteInput> | TransportAllocationCreateWithoutRouteInput[] | TransportAllocationUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutRouteInput | TransportAllocationCreateOrConnectWithoutRouteInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutRouteInput | TransportAllocationUpsertWithWhereUniqueWithoutRouteInput[]
+    createMany?: TransportAllocationCreateManyRouteInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutRouteInput | TransportAllocationUpdateWithWhereUniqueWithoutRouteInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutRouteInput | TransportAllocationUpdateManyWithWhereWithoutRouteInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutRouteNestedInput = {
+    create?: XOR<TransportAllocationCreateWithoutRouteInput, TransportAllocationUncheckedCreateWithoutRouteInput> | TransportAllocationCreateWithoutRouteInput[] | TransportAllocationUncheckedCreateWithoutRouteInput[]
+    connectOrCreate?: TransportAllocationCreateOrConnectWithoutRouteInput | TransportAllocationCreateOrConnectWithoutRouteInput[]
+    upsert?: TransportAllocationUpsertWithWhereUniqueWithoutRouteInput | TransportAllocationUpsertWithWhereUniqueWithoutRouteInput[]
+    createMany?: TransportAllocationCreateManyRouteInputEnvelope
+    set?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    disconnect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    delete?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    connect?: TransportAllocationWhereUniqueInput | TransportAllocationWhereUniqueInput[]
+    update?: TransportAllocationUpdateWithWhereUniqueWithoutRouteInput | TransportAllocationUpdateWithWhereUniqueWithoutRouteInput[]
+    updateMany?: TransportAllocationUpdateManyWithWhereWithoutRouteInput | TransportAllocationUpdateManyWithWhereWithoutRouteInput[]
+    deleteMany?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutTransportAllocationInput = {
+    create?: XOR<TenantCreateWithoutTransportAllocationInput, TenantUncheckedCreateWithoutTransportAllocationInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTransportAllocationInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type StudentCreateNestedOneWithoutTransportAllocationsInput = {
+    create?: XOR<StudentCreateWithoutTransportAllocationsInput, StudentUncheckedCreateWithoutTransportAllocationsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutTransportAllocationsInput
+    connect?: StudentWhereUniqueInput
+  }
+
+  export type TransportVehicleCreateNestedOneWithoutAllocationsInput = {
+    create?: XOR<TransportVehicleCreateWithoutAllocationsInput, TransportVehicleUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutAllocationsInput
+    connect?: TransportVehicleWhereUniqueInput
+  }
+
+  export type TransportRouteCreateNestedOneWithoutAllocationsInput = {
+    create?: XOR<TransportRouteCreateWithoutAllocationsInput, TransportRouteUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: TransportRouteCreateOrConnectWithoutAllocationsInput
+    connect?: TransportRouteWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutTransportAllocationNestedInput = {
+    create?: XOR<TenantCreateWithoutTransportAllocationInput, TenantUncheckedCreateWithoutTransportAllocationInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutTransportAllocationInput
+    upsert?: TenantUpsertWithoutTransportAllocationInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutTransportAllocationInput, TenantUpdateWithoutTransportAllocationInput>, TenantUncheckedUpdateWithoutTransportAllocationInput>
+  }
+
+  export type StudentUpdateOneRequiredWithoutTransportAllocationsNestedInput = {
+    create?: XOR<StudentCreateWithoutTransportAllocationsInput, StudentUncheckedCreateWithoutTransportAllocationsInput>
+    connectOrCreate?: StudentCreateOrConnectWithoutTransportAllocationsInput
+    upsert?: StudentUpsertWithoutTransportAllocationsInput
+    connect?: StudentWhereUniqueInput
+    update?: XOR<XOR<StudentUpdateToOneWithWhereWithoutTransportAllocationsInput, StudentUpdateWithoutTransportAllocationsInput>, StudentUncheckedUpdateWithoutTransportAllocationsInput>
+  }
+
+  export type TransportVehicleUpdateOneRequiredWithoutAllocationsNestedInput = {
+    create?: XOR<TransportVehicleCreateWithoutAllocationsInput, TransportVehicleUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: TransportVehicleCreateOrConnectWithoutAllocationsInput
+    upsert?: TransportVehicleUpsertWithoutAllocationsInput
+    connect?: TransportVehicleWhereUniqueInput
+    update?: XOR<XOR<TransportVehicleUpdateToOneWithWhereWithoutAllocationsInput, TransportVehicleUpdateWithoutAllocationsInput>, TransportVehicleUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type TransportRouteUpdateOneRequiredWithoutAllocationsNestedInput = {
+    create?: XOR<TransportRouteCreateWithoutAllocationsInput, TransportRouteUncheckedCreateWithoutAllocationsInput>
+    connectOrCreate?: TransportRouteCreateOrConnectWithoutAllocationsInput
+    upsert?: TransportRouteUpsertWithoutAllocationsInput
+    connect?: TransportRouteWhereUniqueInput
+    update?: XOR<XOR<TransportRouteUpdateToOneWithWhereWithoutAllocationsInput, TransportRouteUpdateWithoutAllocationsInput>, TransportRouteUncheckedUpdateWithoutAllocationsInput>
   }
 
   export type TenantCreateNestedOneWithoutLibraryBookInput = {
@@ -148428,6 +154026,28 @@ export namespace Prisma {
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutIdCardInput, TenantUpdateWithoutIdCardInput>, TenantUncheckedUpdateWithoutIdCardInput>
   }
 
+  export type TenantCreateNestedOneWithoutMetricSnapshotInput = {
+    create?: XOR<TenantCreateWithoutMetricSnapshotInput, TenantUncheckedCreateWithoutMetricSnapshotInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutMetricSnapshotInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type TenantUpdateOneRequiredWithoutMetricSnapshotNestedInput = {
+    create?: XOR<TenantCreateWithoutMetricSnapshotInput, TenantUncheckedCreateWithoutMetricSnapshotInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutMetricSnapshotInput
+    upsert?: TenantUpsertWithoutMetricSnapshotInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutMetricSnapshotInput, TenantUpdateWithoutMetricSnapshotInput>, TenantUncheckedUpdateWithoutMetricSnapshotInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -149271,6 +154891,22 @@ export namespace Prisma {
     _max?: NestedEnumOutboxStatusFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type TenantCreateWithoutPlanInput = {
     id?: string
     name: string
@@ -149347,6 +154983,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPlanInput = {
@@ -149425,6 +155065,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPlanInput = {
@@ -150151,6 +155795,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -150172,6 +155817,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -150350,6 +155996,8 @@ export namespace Prisma {
     employment?: EmploymentCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateWithoutTenantInput = {
@@ -150363,6 +156011,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffCreateOrConnectWithoutTenantInput = {
@@ -151016,9 +156666,11 @@ export namespace Prisma {
     id?: string
     name: string
     capacity: number
-    wardenId?: string | null
+    gender?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    warden?: StaffCreateNestedOneWithoutManagedHostelsInput
     rooms?: HostelRoomCreateNestedManyWithoutHostelInput
   }
 
@@ -151026,6 +156678,8 @@ export namespace Prisma {
     id?: string
     name: string
     capacity: number
+    gender?: string
+    status?: string
     wardenId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -151045,21 +156699,29 @@ export namespace Prisma {
   export type TransportVehicleCreateWithoutTenantInput = {
     id?: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    driver?: StaffCreateNestedOneWithoutDrivenVehiclesInput
     routes?: TransportRouteCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationCreateNestedManyWithoutVehicleInput
   }
 
   export type TransportVehicleUncheckedCreateWithoutTenantInput = {
     id?: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     routes?: TransportRouteUncheckedCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type TransportVehicleCreateOrConnectWithoutTenantInput = {
@@ -151795,6 +157457,154 @@ export namespace Prisma {
 
   export type LibraryFineCreateManyTenantInputEnvelope = {
     data: LibraryFineCreateManyTenantInput | LibraryFineCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleMaintenanceLogCreateWithoutTenantInput = {
+    id?: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicle: TransportVehicleCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type VehicleMaintenanceLogUncheckedCreateWithoutTenantInput = {
+    id?: string
+    vehicleId: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleMaintenanceLogCreateOrConnectWithoutTenantInput = {
+    where: VehicleMaintenanceLogWhereUniqueInput
+    create: XOR<VehicleMaintenanceLogCreateWithoutTenantInput, VehicleMaintenanceLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type VehicleMaintenanceLogCreateManyTenantInputEnvelope = {
+    data: VehicleMaintenanceLogCreateManyTenantInput | VehicleMaintenanceLogCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransportAllocationCreateWithoutTenantInput = {
+    id?: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    student: StudentCreateNestedOneWithoutTransportAllocationsInput
+    vehicle: TransportVehicleCreateNestedOneWithoutAllocationsInput
+    route: TransportRouteCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type TransportAllocationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateOrConnectWithoutTenantInput = {
+    where: TransportAllocationWhereUniqueInput
+    create: XOR<TransportAllocationCreateWithoutTenantInput, TransportAllocationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TransportAllocationCreateManyTenantInputEnvelope = {
+    data: TransportAllocationCreateManyTenantInput | TransportAllocationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BedAllocationCreateWithoutTenantInput = {
+    id?: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    room: HostelRoomCreateNestedOneWithoutAllocationsInput
+    student: StudentCreateNestedOneWithoutBedAllocationInput
+  }
+
+  export type BedAllocationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    roomId: string
+    studentId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BedAllocationCreateOrConnectWithoutTenantInput = {
+    where: BedAllocationWhereUniqueInput
+    create: XOR<BedAllocationCreateWithoutTenantInput, BedAllocationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BedAllocationCreateManyTenantInputEnvelope = {
+    data: BedAllocationCreateManyTenantInput | BedAllocationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MetricSnapshotCreateWithoutTenantInput = {
+    id?: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date | string
+    isLatest?: boolean
+    generatedBy: string
+    lineageId?: string | null
+    calculationDurationMs?: number | null
+    explainabilityString?: string | null
+    supersededAt?: Date | string | null
+    campusId?: string | null
+    sessionId?: string | null
+    classId?: string | null
+    studentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MetricSnapshotUncheckedCreateWithoutTenantInput = {
+    id?: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date | string
+    isLatest?: boolean
+    generatedBy: string
+    lineageId?: string | null
+    calculationDurationMs?: number | null
+    explainabilityString?: string | null
+    supersededAt?: Date | string | null
+    campusId?: string | null
+    sessionId?: string | null
+    classId?: string | null
+    studentId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MetricSnapshotCreateOrConnectWithoutTenantInput = {
+    where: MetricSnapshotWhereUniqueInput
+    create: XOR<MetricSnapshotCreateWithoutTenantInput, MetricSnapshotUncheckedCreateWithoutTenantInput>
+  }
+
+  export type MetricSnapshotCreateManyTenantInputEnvelope = {
+    data: MetricSnapshotCreateManyTenantInput | MetricSnapshotCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -153212,6 +159022,8 @@ export namespace Prisma {
     tenantId?: StringFilter<"Hostel"> | string
     name?: StringFilter<"Hostel"> | string
     capacity?: IntFilter<"Hostel"> | number
+    gender?: StringFilter<"Hostel"> | string
+    status?: StringFilter<"Hostel"> | string
     wardenId?: StringNullableFilter<"Hostel"> | string | null
     createdAt?: DateTimeFilter<"Hostel"> | Date | string
     updatedAt?: DateTimeFilter<"Hostel"> | Date | string
@@ -153240,8 +159052,10 @@ export namespace Prisma {
     id?: StringFilter<"TransportVehicle"> | string
     tenantId?: StringFilter<"TransportVehicle"> | string
     plateNumber?: StringFilter<"TransportVehicle"> | string
-    driverName?: StringNullableFilter<"TransportVehicle"> | string | null
     capacity?: IntFilter<"TransportVehicle"> | number
+    driverId?: StringNullableFilter<"TransportVehicle"> | string | null
+    lastLocation?: JsonNullableFilter<"TransportVehicle">
+    status?: StringFilter<"TransportVehicle"> | string
     createdAt?: DateTimeFilter<"TransportVehicle"> | Date | string
     updatedAt?: DateTimeFilter<"TransportVehicle"> | Date | string
   }
@@ -153909,6 +159723,140 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"LibraryFine"> | Date | string
   }
 
+  export type VehicleMaintenanceLogUpsertWithWhereUniqueWithoutTenantInput = {
+    where: VehicleMaintenanceLogWhereUniqueInput
+    update: XOR<VehicleMaintenanceLogUpdateWithoutTenantInput, VehicleMaintenanceLogUncheckedUpdateWithoutTenantInput>
+    create: XOR<VehicleMaintenanceLogCreateWithoutTenantInput, VehicleMaintenanceLogUncheckedCreateWithoutTenantInput>
+  }
+
+  export type VehicleMaintenanceLogUpdateWithWhereUniqueWithoutTenantInput = {
+    where: VehicleMaintenanceLogWhereUniqueInput
+    data: XOR<VehicleMaintenanceLogUpdateWithoutTenantInput, VehicleMaintenanceLogUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type VehicleMaintenanceLogUpdateManyWithWhereWithoutTenantInput = {
+    where: VehicleMaintenanceLogScalarWhereInput
+    data: XOR<VehicleMaintenanceLogUpdateManyMutationInput, VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type VehicleMaintenanceLogScalarWhereInput = {
+    AND?: VehicleMaintenanceLogScalarWhereInput | VehicleMaintenanceLogScalarWhereInput[]
+    OR?: VehicleMaintenanceLogScalarWhereInput[]
+    NOT?: VehicleMaintenanceLogScalarWhereInput | VehicleMaintenanceLogScalarWhereInput[]
+    id?: StringFilter<"VehicleMaintenanceLog"> | string
+    tenantId?: StringFilter<"VehicleMaintenanceLog"> | string
+    vehicleId?: StringFilter<"VehicleMaintenanceLog"> | string
+    date?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    description?: StringFilter<"VehicleMaintenanceLog"> | string
+    cost?: DecimalNullableFilter<"VehicleMaintenanceLog"> | Decimal | DecimalJsLike | number | string | null
+    status?: StringFilter<"VehicleMaintenanceLog"> | string
+    createdAt?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+    updatedAt?: DateTimeFilter<"VehicleMaintenanceLog"> | Date | string
+  }
+
+  export type TransportAllocationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: TransportAllocationWhereUniqueInput
+    update: XOR<TransportAllocationUpdateWithoutTenantInput, TransportAllocationUncheckedUpdateWithoutTenantInput>
+    create: XOR<TransportAllocationCreateWithoutTenantInput, TransportAllocationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TransportAllocationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: TransportAllocationWhereUniqueInput
+    data: XOR<TransportAllocationUpdateWithoutTenantInput, TransportAllocationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TransportAllocationUpdateManyWithWhereWithoutTenantInput = {
+    where: TransportAllocationScalarWhereInput
+    data: XOR<TransportAllocationUpdateManyMutationInput, TransportAllocationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type TransportAllocationScalarWhereInput = {
+    AND?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+    OR?: TransportAllocationScalarWhereInput[]
+    NOT?: TransportAllocationScalarWhereInput | TransportAllocationScalarWhereInput[]
+    id?: StringFilter<"TransportAllocation"> | string
+    tenantId?: StringFilter<"TransportAllocation"> | string
+    studentId?: StringFilter<"TransportAllocation"> | string
+    vehicleId?: StringFilter<"TransportAllocation"> | string
+    routeId?: StringFilter<"TransportAllocation"> | string
+    pickupPoint?: StringFilter<"TransportAllocation"> | string
+    status?: StringFilter<"TransportAllocation"> | string
+    createdAt?: DateTimeFilter<"TransportAllocation"> | Date | string
+    updatedAt?: DateTimeFilter<"TransportAllocation"> | Date | string
+  }
+
+  export type BedAllocationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: BedAllocationWhereUniqueInput
+    update: XOR<BedAllocationUpdateWithoutTenantInput, BedAllocationUncheckedUpdateWithoutTenantInput>
+    create: XOR<BedAllocationCreateWithoutTenantInput, BedAllocationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BedAllocationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: BedAllocationWhereUniqueInput
+    data: XOR<BedAllocationUpdateWithoutTenantInput, BedAllocationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type BedAllocationUpdateManyWithWhereWithoutTenantInput = {
+    where: BedAllocationScalarWhereInput
+    data: XOR<BedAllocationUpdateManyMutationInput, BedAllocationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type BedAllocationScalarWhereInput = {
+    AND?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
+    OR?: BedAllocationScalarWhereInput[]
+    NOT?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
+    id?: StringFilter<"BedAllocation"> | string
+    tenantId?: StringFilter<"BedAllocation"> | string
+    roomId?: StringFilter<"BedAllocation"> | string
+    studentId?: StringFilter<"BedAllocation"> | string
+    academicYearId?: StringNullableFilter<"BedAllocation"> | string | null
+    status?: StringFilter<"BedAllocation"> | string
+    allocatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
+    expiresAt?: DateTimeNullableFilter<"BedAllocation"> | Date | string | null
+    createdAt?: DateTimeFilter<"BedAllocation"> | Date | string
+    updatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
+  }
+
+  export type MetricSnapshotUpsertWithWhereUniqueWithoutTenantInput = {
+    where: MetricSnapshotWhereUniqueInput
+    update: XOR<MetricSnapshotUpdateWithoutTenantInput, MetricSnapshotUncheckedUpdateWithoutTenantInput>
+    create: XOR<MetricSnapshotCreateWithoutTenantInput, MetricSnapshotUncheckedCreateWithoutTenantInput>
+  }
+
+  export type MetricSnapshotUpdateWithWhereUniqueWithoutTenantInput = {
+    where: MetricSnapshotWhereUniqueInput
+    data: XOR<MetricSnapshotUpdateWithoutTenantInput, MetricSnapshotUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type MetricSnapshotUpdateManyWithWhereWithoutTenantInput = {
+    where: MetricSnapshotScalarWhereInput
+    data: XOR<MetricSnapshotUpdateManyMutationInput, MetricSnapshotUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type MetricSnapshotScalarWhereInput = {
+    AND?: MetricSnapshotScalarWhereInput | MetricSnapshotScalarWhereInput[]
+    OR?: MetricSnapshotScalarWhereInput[]
+    NOT?: MetricSnapshotScalarWhereInput | MetricSnapshotScalarWhereInput[]
+    id?: StringFilter<"MetricSnapshot"> | string
+    tenantId?: StringFilter<"MetricSnapshot"> | string
+    metricName?: StringFilter<"MetricSnapshot"> | string
+    metricVersion?: StringFilter<"MetricSnapshot"> | string
+    value?: FloatFilter<"MetricSnapshot"> | number
+    snapshotDate?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    isLatest?: BoolFilter<"MetricSnapshot"> | boolean
+    generatedBy?: StringFilter<"MetricSnapshot"> | string
+    lineageId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    calculationDurationMs?: IntNullableFilter<"MetricSnapshot"> | number | null
+    explainabilityString?: StringNullableFilter<"MetricSnapshot"> | string | null
+    supersededAt?: DateTimeNullableFilter<"MetricSnapshot"> | Date | string | null
+    campusId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    sessionId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    classId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    studentId?: StringNullableFilter<"MetricSnapshot"> | string | null
+    createdAt?: DateTimeFilter<"MetricSnapshot"> | Date | string
+    updatedAt?: DateTimeFilter<"MetricSnapshot"> | Date | string
+  }
+
   export type TenantCreateWithoutSubscriptionsInput = {
     id?: string
     name: string
@@ -153985,6 +159933,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubscriptionsInput = {
@@ -154063,6 +160015,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubscriptionsInput = {
@@ -154182,6 +160138,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubscriptionsInput = {
@@ -154260,6 +160220,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PlatformPlanUpsertWithoutSubscriptionsInput = {
@@ -154411,6 +160375,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMarketplaceAppsInput = {
@@ -154489,6 +160457,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMarketplaceAppsInput = {
@@ -154606,6 +160578,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMarketplaceAppsInput = {
@@ -154684,6 +160660,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MarketplaceAppUpsertWithoutTenantAppsInput = {
@@ -154791,6 +160771,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDomainsInput = {
@@ -154869,6 +160853,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDomainsInput = {
@@ -154963,6 +160951,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDomainsInput = {
@@ -155041,6 +161033,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutBrandingInput = {
@@ -155119,6 +161115,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBrandingInput = {
@@ -155197,6 +161197,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBrandingInput = {
@@ -155291,6 +161295,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBrandingInput = {
@@ -155369,6 +161377,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSettingsInput = {
@@ -155447,6 +161459,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -155525,6 +161541,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -155619,6 +161639,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -155697,6 +161721,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFeatureFlagsInput = {
@@ -155775,6 +161803,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeatureFlagsInput = {
@@ -155853,6 +161885,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeatureFlagsInput = {
@@ -155947,6 +161983,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeatureFlagsInput = {
@@ -156025,6 +162065,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipCreateWithoutUserInput = {
@@ -156471,6 +162515,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -156549,6 +162597,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -156695,6 +162747,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -156716,6 +162769,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -156735,6 +162789,8 @@ export namespace Prisma {
     employment?: EmploymentCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateWithoutMembershipInput = {
@@ -156748,6 +162804,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffCreateOrConnectWithoutMembershipInput = {
@@ -156863,6 +162921,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -156941,6 +163003,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutMembershipsInput = {
@@ -157111,6 +163177,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -157132,6 +163199,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -157157,6 +163225,8 @@ export namespace Prisma {
     employment?: EmploymentUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutMembershipInput = {
@@ -157170,6 +163240,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type GuardianUpsertWithoutMembershipInput = {
@@ -157363,6 +163435,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRolesInput = {
@@ -157441,6 +163517,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRolesInput = {
@@ -157603,6 +163683,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRolesInput = {
@@ -157681,6 +163765,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RolePermissionUpsertWithWhereUniqueWithoutRoleInput = {
@@ -158023,6 +164111,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -158101,6 +164193,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -158232,6 +164328,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -158310,6 +164410,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -158431,6 +164535,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCampusInput = {
@@ -158509,6 +164617,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCampusInput = {
@@ -158603,6 +164715,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCampusInput = {
@@ -158681,6 +164797,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAcademicYearInput = {
@@ -158759,6 +164879,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAcademicYearInput = {
@@ -158837,6 +164961,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAcademicYearInput = {
@@ -159019,6 +165147,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAcademicYearInput = {
@@ -159097,6 +165229,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TermUpsertWithWhereUniqueWithoutAcademicYearInput = {
@@ -159207,6 +165343,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTermInput = {
@@ -159285,6 +165425,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTermInput = {
@@ -159522,6 +165666,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTermInput = {
@@ -159600,6 +165748,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AcademicYearUpsertWithoutTermsInput = {
@@ -159761,6 +165913,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDepartmentInput = {
@@ -159839,6 +165995,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDepartmentInput = {
@@ -159916,6 +166076,8 @@ export namespace Prisma {
     employment?: EmploymentCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateWithoutDepartmentInput = {
@@ -159929,6 +166091,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffCreateOrConnectWithoutDepartmentInput = {
@@ -160028,6 +166192,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDepartmentInput = {
@@ -160106,6 +166274,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type DepartmentUpsertWithoutChildrenInput = {
@@ -160249,6 +166421,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutClassInput = {
@@ -160327,6 +166503,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutClassInput = {
@@ -160520,6 +166700,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutClassInput = {
@@ -160598,6 +166782,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ArmUpsertWithWhereUniqueWithoutClassInput = {
@@ -160724,6 +166912,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutArmInput = {
@@ -160802,6 +166994,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutArmInput = {
@@ -160884,6 +167080,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -160905,6 +167102,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -161037,6 +167235,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutArmInput = {
@@ -161115,6 +167317,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ClassUpsertWithoutArmsInput = {
@@ -161274,6 +167480,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubjectGroupInput = {
@@ -161352,6 +167562,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubjectGroupInput = {
@@ -161482,6 +167696,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubjectGroupInput = {
@@ -161560,6 +167778,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithWhereUniqueWithoutSubjectGroupInput = {
@@ -161654,6 +167876,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSubjectInput = {
@@ -161732,6 +167958,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSubjectInput = {
@@ -161978,6 +168208,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSubjectInput = {
@@ -162056,6 +168290,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectGroupUpsertWithoutSubjectsInput = {
@@ -162225,6 +168463,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTimetableInput = {
@@ -162303,6 +168545,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTimetableInput = {
@@ -162489,6 +168735,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTimetableInput = {
@@ -162567,6 +168817,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ArmUpsertWithoutTimetableInput = {
@@ -162748,6 +169002,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStudentInput = {
@@ -162826,6 +169084,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStudentInput = {
@@ -163169,16 +169431,24 @@ export namespace Prisma {
 
   export type BedAllocationCreateWithoutStudentInput = {
     id?: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutBedAllocationInput
     room: HostelRoomCreateNestedOneWithoutAllocationsInput
   }
 
   export type BedAllocationUncheckedCreateWithoutStudentInput = {
     id?: string
+    tenantId?: string
     roomId: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -163224,6 +169494,38 @@ export namespace Prisma {
 
   export type BookBorrowingCreateManyStudentInputEnvelope = {
     data: BookBorrowingCreateManyStudentInput | BookBorrowingCreateManyStudentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransportAllocationCreateWithoutStudentInput = {
+    id?: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportAllocationInput
+    vehicle: TransportVehicleCreateNestedOneWithoutAllocationsInput
+    route: TransportRouteCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type TransportAllocationUncheckedCreateWithoutStudentInput = {
+    id?: string
+    tenantId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateOrConnectWithoutStudentInput = {
+    where: TransportAllocationWhereUniqueInput
+    create: XOR<TransportAllocationCreateWithoutStudentInput, TransportAllocationUncheckedCreateWithoutStudentInput>
+  }
+
+  export type TransportAllocationCreateManyStudentInputEnvelope = {
+    data: TransportAllocationCreateManyStudentInput | TransportAllocationCreateManyStudentInput[]
     skipDuplicates?: boolean
   }
 
@@ -163348,6 +169650,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStudentInput = {
@@ -163426,6 +169732,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutStudentInput = {
@@ -163666,18 +169976,6 @@ export namespace Prisma {
     data: XOR<BedAllocationUpdateManyMutationInput, BedAllocationUncheckedUpdateManyWithoutStudentInput>
   }
 
-  export type BedAllocationScalarWhereInput = {
-    AND?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
-    OR?: BedAllocationScalarWhereInput[]
-    NOT?: BedAllocationScalarWhereInput | BedAllocationScalarWhereInput[]
-    id?: StringFilter<"BedAllocation"> | string
-    roomId?: StringFilter<"BedAllocation"> | string
-    studentId?: StringFilter<"BedAllocation"> | string
-    academicYearId?: StringFilter<"BedAllocation"> | string
-    createdAt?: DateTimeFilter<"BedAllocation"> | Date | string
-    updatedAt?: DateTimeFilter<"BedAllocation"> | Date | string
-  }
-
   export type BookBorrowingUpsertWithWhereUniqueWithoutStudentInput = {
     where: BookBorrowingWhereUniqueInput
     update: XOR<BookBorrowingUpdateWithoutStudentInput, BookBorrowingUncheckedUpdateWithoutStudentInput>
@@ -163707,6 +170005,22 @@ export namespace Prisma {
     status?: EnumBorrowStatusFilter<"BookBorrowing"> | $Enums.BorrowStatus
     createdAt?: DateTimeFilter<"BookBorrowing"> | Date | string
     updatedAt?: DateTimeFilter<"BookBorrowing"> | Date | string
+  }
+
+  export type TransportAllocationUpsertWithWhereUniqueWithoutStudentInput = {
+    where: TransportAllocationWhereUniqueInput
+    update: XOR<TransportAllocationUpdateWithoutStudentInput, TransportAllocationUncheckedUpdateWithoutStudentInput>
+    create: XOR<TransportAllocationCreateWithoutStudentInput, TransportAllocationUncheckedCreateWithoutStudentInput>
+  }
+
+  export type TransportAllocationUpdateWithWhereUniqueWithoutStudentInput = {
+    where: TransportAllocationWhereUniqueInput
+    data: XOR<TransportAllocationUpdateWithoutStudentInput, TransportAllocationUncheckedUpdateWithoutStudentInput>
+  }
+
+  export type TransportAllocationUpdateManyWithWhereWithoutStudentInput = {
+    where: TransportAllocationScalarWhereInput
+    data: XOR<TransportAllocationUpdateManyMutationInput, TransportAllocationUncheckedUpdateManyWithoutStudentInput>
   }
 
   export type JournalEntryLineUpsertWithWhereUniqueWithoutStudentInput = {
@@ -163801,6 +170115,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutGuardianInput = {
@@ -163879,6 +170197,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutGuardianInput = {
@@ -164040,6 +170362,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutGuardianInput = {
@@ -164118,6 +170444,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutGuardianInput = {
@@ -164201,6 +170531,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -164222,6 +170553,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -164280,6 +170612,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -164301,6 +170634,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -164407,6 +170741,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionInput = {
@@ -164485,6 +170823,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionInput = {
@@ -164510,6 +170852,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -164531,6 +170874,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -164626,6 +170970,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionInput = {
@@ -164704,6 +171052,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutAdmissionsInput = {
@@ -164735,6 +171087,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -164756,6 +171109,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -164835,6 +171189,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMedicalRecordInput = {
@@ -164913,6 +171271,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMedicalRecordInput = {
@@ -164938,6 +171300,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -164959,6 +171322,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -165054,6 +171418,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMedicalRecordInput = {
@@ -165132,6 +171500,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutMedicalRecordsInput = {
@@ -165163,6 +171535,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -165184,6 +171557,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -165263,6 +171637,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDisciplineRecordInput = {
@@ -165341,6 +171719,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDisciplineRecordInput = {
@@ -165366,6 +171748,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -165387,6 +171770,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -165482,6 +171866,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDisciplineRecordInput = {
@@ -165560,6 +171948,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutDisciplineRecordsInput = {
@@ -165591,6 +171983,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -165612,6 +172005,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -165691,6 +172085,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAttendanceInput = {
@@ -165769,6 +172167,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAttendanceInput = {
@@ -165794,6 +172196,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -165815,6 +172218,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -165939,6 +172343,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAttendanceInput = {
@@ -166017,6 +172425,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutAttendanceInput = {
@@ -166048,6 +172460,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -166069,6 +172482,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -166183,6 +172597,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutStaffInput = {
@@ -166261,6 +172679,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutStaffInput = {
@@ -166435,6 +172857,78 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TransportVehicleCreateWithoutDriverInput = {
+    id?: string
+    plateNumber: string
+    capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportVehicleInput
+    routes?: TransportRouteCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationCreateNestedManyWithoutVehicleInput
+  }
+
+  export type TransportVehicleUncheckedCreateWithoutDriverInput = {
+    id?: string
+    tenantId: string
+    plateNumber: string
+    capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type TransportVehicleCreateOrConnectWithoutDriverInput = {
+    where: TransportVehicleWhereUniqueInput
+    create: XOR<TransportVehicleCreateWithoutDriverInput, TransportVehicleUncheckedCreateWithoutDriverInput>
+  }
+
+  export type TransportVehicleCreateManyDriverInputEnvelope = {
+    data: TransportVehicleCreateManyDriverInput | TransportVehicleCreateManyDriverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HostelCreateWithoutWardenInput = {
+    id?: string
+    name: string
+    capacity: number
+    gender?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutHostelInput
+    rooms?: HostelRoomCreateNestedManyWithoutHostelInput
+  }
+
+  export type HostelUncheckedCreateWithoutWardenInput = {
+    id?: string
+    tenantId: string
+    name: string
+    capacity: number
+    gender?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    rooms?: HostelRoomUncheckedCreateNestedManyWithoutHostelInput
+  }
+
+  export type HostelCreateOrConnectWithoutWardenInput = {
+    where: HostelWhereUniqueInput
+    create: XOR<HostelCreateWithoutWardenInput, HostelUncheckedCreateWithoutWardenInput>
+  }
+
+  export type HostelCreateManyWardenInputEnvelope = {
+    data: HostelCreateManyWardenInput | HostelCreateManyWardenInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutStaffInput = {
     update: XOR<TenantUpdateWithoutStaffInput, TenantUncheckedUpdateWithoutStaffInput>
     create: XOR<TenantCreateWithoutStaffInput, TenantUncheckedCreateWithoutStaffInput>
@@ -166522,6 +173016,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutStaffInput = {
@@ -166600,6 +173098,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantMembershipUpsertWithoutStaffInput = {
@@ -166747,6 +173249,38 @@ export namespace Prisma {
     data: XOR<LeaveRequestUpdateManyMutationInput, LeaveRequestUncheckedUpdateManyWithoutStaffInput>
   }
 
+  export type TransportVehicleUpsertWithWhereUniqueWithoutDriverInput = {
+    where: TransportVehicleWhereUniqueInput
+    update: XOR<TransportVehicleUpdateWithoutDriverInput, TransportVehicleUncheckedUpdateWithoutDriverInput>
+    create: XOR<TransportVehicleCreateWithoutDriverInput, TransportVehicleUncheckedCreateWithoutDriverInput>
+  }
+
+  export type TransportVehicleUpdateWithWhereUniqueWithoutDriverInput = {
+    where: TransportVehicleWhereUniqueInput
+    data: XOR<TransportVehicleUpdateWithoutDriverInput, TransportVehicleUncheckedUpdateWithoutDriverInput>
+  }
+
+  export type TransportVehicleUpdateManyWithWhereWithoutDriverInput = {
+    where: TransportVehicleScalarWhereInput
+    data: XOR<TransportVehicleUpdateManyMutationInput, TransportVehicleUncheckedUpdateManyWithoutDriverInput>
+  }
+
+  export type HostelUpsertWithWhereUniqueWithoutWardenInput = {
+    where: HostelWhereUniqueInput
+    update: XOR<HostelUpdateWithoutWardenInput, HostelUncheckedUpdateWithoutWardenInput>
+    create: XOR<HostelCreateWithoutWardenInput, HostelUncheckedCreateWithoutWardenInput>
+  }
+
+  export type HostelUpdateWithWhereUniqueWithoutWardenInput = {
+    where: HostelWhereUniqueInput
+    data: XOR<HostelUpdateWithoutWardenInput, HostelUncheckedUpdateWithoutWardenInput>
+  }
+
+  export type HostelUpdateManyWithWhereWithoutWardenInput = {
+    where: HostelScalarWhereInput
+    data: XOR<HostelUpdateManyMutationInput, HostelUncheckedUpdateManyWithoutWardenInput>
+  }
+
   export type TenantCreateWithoutEmploymentInput = {
     id?: string
     name: string
@@ -166823,6 +173357,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEmploymentInput = {
@@ -166901,6 +173439,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEmploymentInput = {
@@ -166919,6 +173461,8 @@ export namespace Prisma {
     department?: DepartmentCreateNestedOneWithoutEmployeesInput
     payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateWithoutEmploymentInput = {
@@ -166932,6 +173476,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffCreateOrConnectWithoutEmploymentInput = {
@@ -167026,6 +173572,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEmploymentInput = {
@@ -167104,6 +173654,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutEmploymentInput = {
@@ -167128,6 +173682,8 @@ export namespace Prisma {
     department?: DepartmentUpdateOneWithoutEmployeesNestedInput
     payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutEmploymentInput = {
@@ -167141,6 +173697,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type TenantCreateWithoutPayrollInput = {
@@ -167219,6 +173777,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPayrollInput = {
@@ -167297,6 +173859,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPayrollInput = {
@@ -167315,6 +173881,8 @@ export namespace Prisma {
     department?: DepartmentCreateNestedOneWithoutEmployeesInput
     employment?: EmploymentCreateNestedOneWithoutStaffInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateWithoutPayrollRecordsInput = {
@@ -167328,6 +173896,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffCreateOrConnectWithoutPayrollRecordsInput = {
@@ -167422,6 +173992,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPayrollInput = {
@@ -167500,6 +174074,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutPayrollRecordsInput = {
@@ -167524,6 +174102,8 @@ export namespace Prisma {
     department?: DepartmentUpdateOneWithoutEmployeesNestedInput
     employment?: EmploymentUpdateOneWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutPayrollRecordsInput = {
@@ -167537,6 +174117,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type TenantCreateWithoutLeaveRequestInput = {
@@ -167615,6 +174197,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLeaveRequestInput = {
@@ -167693,6 +174279,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLeaveRequestInput = {
@@ -167711,6 +174301,8 @@ export namespace Prisma {
     department?: DepartmentCreateNestedOneWithoutEmployeesInput
     employment?: EmploymentCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
   }
 
   export type StaffUncheckedCreateWithoutLeaveRequestsInput = {
@@ -167724,6 +174316,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
     payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
   }
 
   export type StaffCreateOrConnectWithoutLeaveRequestsInput = {
@@ -167818,6 +174412,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLeaveRequestInput = {
@@ -167896,6 +174494,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StaffUpsertWithoutLeaveRequestsInput = {
@@ -167920,6 +174522,8 @@ export namespace Prisma {
     department?: DepartmentUpdateOneWithoutEmployeesNestedInput
     employment?: EmploymentUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutLeaveRequestsInput = {
@@ -167933,6 +174537,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type TenantCreateWithoutFeeCategoryInput = {
@@ -168011,6 +174617,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeeCategoryInput = {
@@ -168089,6 +174699,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeeCategoryInput = {
@@ -168213,6 +174827,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeeCategoryInput = {
@@ -168291,6 +174909,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type InvoiceItemUpsertWithWhereUniqueWithoutFeeCategoryInput = {
@@ -168398,6 +175020,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutInvoiceInput = {
@@ -168476,6 +175102,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutInvoiceInput = {
@@ -168501,6 +175131,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -168522,6 +175153,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -168777,6 +175409,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutInvoiceInput = {
@@ -168855,6 +175491,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutInvoiceInput = {
@@ -168886,6 +175526,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -168907,6 +175548,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -169296,6 +175938,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentInput = {
@@ -169374,6 +176020,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentInput = {
@@ -169571,6 +176221,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentInput = {
@@ -169649,6 +176303,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type InvoiceUpsertWithoutPaymentsInput = {
@@ -169806,6 +176464,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExpenseInput = {
@@ -169884,6 +176546,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExpenseInput = {
@@ -169978,6 +176644,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExpenseInput = {
@@ -170056,6 +176726,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutIncomeInput = {
@@ -170134,6 +176808,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncomeInput = {
@@ -170212,6 +176890,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncomeInput = {
@@ -170306,6 +176988,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncomeInput = {
@@ -170384,6 +177070,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutScholarshipInput = {
@@ -170462,6 +177152,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutScholarshipInput = {
@@ -170540,6 +177234,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutScholarshipInput = {
@@ -170565,6 +177263,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -170586,6 +177285,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -170681,6 +177381,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutScholarshipInput = {
@@ -170759,6 +177463,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type StudentUpsertWithoutScholarshipInput = {
@@ -170790,6 +177498,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -170811,6 +177520,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -170890,6 +177600,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExamInput = {
@@ -170968,6 +177682,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExamInput = {
@@ -171186,6 +177904,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExamInput = {
@@ -171264,6 +177986,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TermUpsertWithoutExamInput = {
@@ -171534,6 +178260,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutResultInput = {
@@ -171612,6 +178342,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutResultInput = {
@@ -171670,6 +178404,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -171691,6 +178426,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -171786,6 +178522,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutResultInput = {
@@ -171864,6 +178604,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExamUpsertWithoutResultsInput = {
@@ -171934,6 +178678,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -171955,6 +178700,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -172034,6 +178780,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssignmentInput = {
@@ -172112,6 +178862,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssignmentInput = {
@@ -172264,6 +179018,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssignmentInput = {
@@ -172342,6 +179100,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithoutAssignmentInput = {
@@ -172490,6 +179252,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLessonNoteInput = {
@@ -172568,6 +179334,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLessonNoteInput = {
@@ -172693,6 +179463,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLessonNoteInput = {
@@ -172771,6 +179545,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type SubjectUpsertWithoutLessonNoteInput = {
@@ -172886,6 +179664,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebsiteInput = {
@@ -172964,6 +179746,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebsiteInput = {
@@ -173151,6 +179937,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebsiteInput = {
@@ -173229,6 +180019,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PageUpsertWithWhereUniqueWithoutWebsiteInput = {
@@ -173385,6 +180179,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPageInput = {
@@ -173463,6 +180261,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPageInput = {
@@ -173594,6 +180396,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPageInput = {
@@ -173672,6 +180478,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteUpsertWithoutPagesInput = {
@@ -173793,6 +180603,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNavigationMenuInput = {
@@ -173871,6 +180685,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNavigationMenuInput = {
@@ -174002,6 +180820,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNavigationMenuInput = {
@@ -174080,6 +180902,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteUpsertWithoutNavigationInput = {
@@ -174201,6 +181027,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAIProviderConfigInput = {
@@ -174279,6 +181109,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAIProviderConfigInput = {
@@ -174373,6 +181207,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAIProviderConfigInput = {
@@ -174451,6 +181289,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAIUsageLogInput = {
@@ -174529,6 +181371,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAIUsageLogInput = {
@@ -174607,6 +181453,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAIUsageLogInput = {
@@ -174738,6 +181588,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAIUsageLogInput = {
@@ -174816,6 +181670,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAIUsageLogInput = {
@@ -174937,6 +181795,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPromptTemplateInput = {
@@ -175015,6 +181877,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPromptTemplateInput = {
@@ -175109,6 +181975,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPromptTemplateInput = {
@@ -175187,6 +182057,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutHostelInput = {
@@ -175265,6 +182139,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutHostelInput = {
@@ -175343,6 +182221,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutHostelInput = {
@@ -175350,10 +182232,48 @@ export namespace Prisma {
     create: XOR<TenantCreateWithoutHostelInput, TenantUncheckedCreateWithoutHostelInput>
   }
 
+  export type StaffCreateWithoutManagedHostelsInput = {
+    id?: string
+    staffIdNumber: string
+    designation?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffInput
+    membership: TenantMembershipCreateNestedOneWithoutStaffInput
+    department?: DepartmentCreateNestedOneWithoutEmployeesInput
+    employment?: EmploymentCreateNestedOneWithoutStaffInput
+    payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleCreateNestedManyWithoutDriverInput
+  }
+
+  export type StaffUncheckedCreateWithoutManagedHostelsInput = {
+    id?: string
+    tenantId: string
+    membershipId: string
+    staffIdNumber: string
+    departmentId?: string | null
+    designation?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
+    payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    drivenVehicles?: TransportVehicleUncheckedCreateNestedManyWithoutDriverInput
+  }
+
+  export type StaffCreateOrConnectWithoutManagedHostelsInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutManagedHostelsInput, StaffUncheckedCreateWithoutManagedHostelsInput>
+  }
+
   export type HostelRoomCreateWithoutHostelInput = {
     id?: string
+    tenantId?: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     allocations?: BedAllocationCreateNestedManyWithoutRoomInput
@@ -175361,8 +182281,11 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedCreateWithoutHostelInput = {
     id?: string
+    tenantId?: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     allocations?: BedAllocationUncheckedCreateNestedManyWithoutRoomInput
@@ -175465,6 +182388,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutHostelInput = {
@@ -175543,6 +182470,51 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StaffUpsertWithoutManagedHostelsInput = {
+    update: XOR<StaffUpdateWithoutManagedHostelsInput, StaffUncheckedUpdateWithoutManagedHostelsInput>
+    create: XOR<StaffCreateWithoutManagedHostelsInput, StaffUncheckedCreateWithoutManagedHostelsInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutManagedHostelsInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutManagedHostelsInput, StaffUncheckedUpdateWithoutManagedHostelsInput>
+  }
+
+  export type StaffUpdateWithoutManagedHostelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffIdNumber?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffNestedInput
+    membership?: TenantMembershipUpdateOneRequiredWithoutStaffNestedInput
+    department?: DepartmentUpdateOneWithoutEmployeesNestedInput
+    employment?: EmploymentUpdateOneWithoutStaffNestedInput
+    payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutManagedHostelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    membershipId?: StringFieldUpdateOperationsInput | string
+    staffIdNumber?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
+    payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
   }
 
   export type HostelRoomUpsertWithWhereUniqueWithoutHostelInput = {
@@ -175566,9 +182538,12 @@ export namespace Prisma {
     OR?: HostelRoomScalarWhereInput[]
     NOT?: HostelRoomScalarWhereInput | HostelRoomScalarWhereInput[]
     id?: StringFilter<"HostelRoom"> | string
+    tenantId?: StringFilter<"HostelRoom"> | string
     hostelId?: StringFilter<"HostelRoom"> | string
     roomNumber?: StringFilter<"HostelRoom"> | string
     capacity?: IntFilter<"HostelRoom"> | number
+    type?: StringFilter<"HostelRoom"> | string
+    status?: StringFilter<"HostelRoom"> | string
     createdAt?: DateTimeFilter<"HostelRoom"> | Date | string
     updatedAt?: DateTimeFilter<"HostelRoom"> | Date | string
   }
@@ -175577,10 +182552,12 @@ export namespace Prisma {
     id?: string
     name: string
     capacity: number
-    wardenId?: string | null
+    gender?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutHostelInput
+    warden?: StaffCreateNestedOneWithoutManagedHostelsInput
   }
 
   export type HostelUncheckedCreateWithoutRoomsInput = {
@@ -175588,6 +182565,8 @@ export namespace Prisma {
     tenantId: string
     name: string
     capacity: number
+    gender?: string
+    status?: string
     wardenId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -175600,16 +182579,24 @@ export namespace Prisma {
 
   export type BedAllocationCreateWithoutRoomInput = {
     id?: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenant?: TenantCreateNestedOneWithoutBedAllocationInput
     student: StudentCreateNestedOneWithoutBedAllocationInput
   }
 
   export type BedAllocationUncheckedCreateWithoutRoomInput = {
     id?: string
+    tenantId?: string
     studentId: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -175639,10 +182626,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
-    wardenId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutHostelNestedInput
+    warden?: StaffUpdateOneWithoutManagedHostelsNestedInput
   }
 
   export type HostelUncheckedUpdateWithoutRoomsInput = {
@@ -175650,6 +182639,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     wardenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -175671,10 +182662,182 @@ export namespace Prisma {
     data: XOR<BedAllocationUpdateManyMutationInput, BedAllocationUncheckedUpdateManyWithoutRoomInput>
   }
 
+  export type TenantCreateWithoutBedAllocationInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+    Document?: DocumentCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBedAllocationInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+    Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBedAllocationInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBedAllocationInput, TenantUncheckedCreateWithoutBedAllocationInput>
+  }
+
   export type HostelRoomCreateWithoutAllocationsInput = {
     id?: string
+    tenantId?: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     hostel: HostelCreateNestedOneWithoutRoomsInput
@@ -175682,9 +182845,12 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedCreateWithoutAllocationsInput = {
     id?: string
+    tenantId?: string
     hostelId: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -175712,6 +182878,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
     Result?: ResultCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -175733,12 +182900,188 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutBedAllocationInput = {
     where: StudentWhereUniqueInput
     create: XOR<StudentCreateWithoutBedAllocationInput, StudentUncheckedCreateWithoutBedAllocationInput>
+  }
+
+  export type TenantUpsertWithoutBedAllocationInput = {
+    update: XOR<TenantUpdateWithoutBedAllocationInput, TenantUncheckedUpdateWithoutBedAllocationInput>
+    create: XOR<TenantCreateWithoutBedAllocationInput, TenantUncheckedCreateWithoutBedAllocationInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBedAllocationInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBedAllocationInput, TenantUncheckedUpdateWithoutBedAllocationInput>
+  }
+
+  export type TenantUpdateWithoutBedAllocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBedAllocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type HostelRoomUpsertWithoutAllocationsInput = {
@@ -175754,8 +183097,11 @@ export namespace Prisma {
 
   export type HostelRoomUpdateWithoutAllocationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     hostel?: HostelUpdateOneRequiredWithoutRoomsNestedInput
@@ -175763,9 +183109,12 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedUpdateWithoutAllocationsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     hostelId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -175799,6 +183148,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -175820,6 +183170,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -175899,6 +183250,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTransportVehicleInput = {
@@ -175977,11 +183332,50 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTransportVehicleInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutTransportVehicleInput, TenantUncheckedCreateWithoutTransportVehicleInput>
+  }
+
+  export type StaffCreateWithoutDrivenVehiclesInput = {
+    id?: string
+    staffIdNumber: string
+    designation?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStaffInput
+    membership: TenantMembershipCreateNestedOneWithoutStaffInput
+    department?: DepartmentCreateNestedOneWithoutEmployeesInput
+    employment?: EmploymentCreateNestedOneWithoutStaffInput
+    payrollRecords?: PayrollCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutStaffInput
+    managedHostels?: HostelCreateNestedManyWithoutWardenInput
+  }
+
+  export type StaffUncheckedCreateWithoutDrivenVehiclesInput = {
+    id?: string
+    tenantId: string
+    membershipId: string
+    staffIdNumber: string
+    departmentId?: string | null
+    designation?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employment?: EmploymentUncheckedCreateNestedOneWithoutStaffInput
+    payrollRecords?: PayrollUncheckedCreateNestedManyWithoutStaffInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutStaffInput
+    managedHostels?: HostelUncheckedCreateNestedManyWithoutWardenInput
+  }
+
+  export type StaffCreateOrConnectWithoutDrivenVehiclesInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutDrivenVehiclesInput, StaffUncheckedCreateWithoutDrivenVehiclesInput>
   }
 
   export type TransportRouteCreateWithoutVehicleInput = {
@@ -175990,6 +183384,7 @@ export namespace Prisma {
     stops: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    allocations?: TransportAllocationCreateNestedManyWithoutRouteInput
   }
 
   export type TransportRouteUncheckedCreateWithoutVehicleInput = {
@@ -175998,6 +183393,7 @@ export namespace Prisma {
     stops: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutRouteInput
   }
 
   export type TransportRouteCreateOrConnectWithoutVehicleInput = {
@@ -176007,6 +183403,70 @@ export namespace Prisma {
 
   export type TransportRouteCreateManyVehicleInputEnvelope = {
     data: TransportRouteCreateManyVehicleInput | TransportRouteCreateManyVehicleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VehicleMaintenanceLogCreateWithoutVehicleInput = {
+    id?: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVehicleMaintenanceLogInput
+  }
+
+  export type VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    tenantId: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleMaintenanceLogCreateOrConnectWithoutVehicleInput = {
+    where: VehicleMaintenanceLogWhereUniqueInput
+    create: XOR<VehicleMaintenanceLogCreateWithoutVehicleInput, VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceLogCreateManyVehicleInputEnvelope = {
+    data: VehicleMaintenanceLogCreateManyVehicleInput | VehicleMaintenanceLogCreateManyVehicleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransportAllocationCreateWithoutVehicleInput = {
+    id?: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportAllocationInput
+    student: StudentCreateNestedOneWithoutTransportAllocationsInput
+    route: TransportRouteCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type TransportAllocationUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateOrConnectWithoutVehicleInput = {
+    where: TransportAllocationWhereUniqueInput
+    create: XOR<TransportAllocationCreateWithoutVehicleInput, TransportAllocationUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type TransportAllocationCreateManyVehicleInputEnvelope = {
+    data: TransportAllocationCreateManyVehicleInput | TransportAllocationCreateManyVehicleInput[]
     skipDuplicates?: boolean
   }
 
@@ -176097,6 +183557,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTransportVehicleInput = {
@@ -176175,6 +183639,51 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StaffUpsertWithoutDrivenVehiclesInput = {
+    update: XOR<StaffUpdateWithoutDrivenVehiclesInput, StaffUncheckedUpdateWithoutDrivenVehiclesInput>
+    create: XOR<StaffCreateWithoutDrivenVehiclesInput, StaffUncheckedCreateWithoutDrivenVehiclesInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutDrivenVehiclesInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutDrivenVehiclesInput, StaffUncheckedUpdateWithoutDrivenVehiclesInput>
+  }
+
+  export type StaffUpdateWithoutDrivenVehiclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    staffIdNumber?: StringFieldUpdateOperationsInput | string
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStaffNestedInput
+    membership?: TenantMembershipUpdateOneRequiredWithoutStaffNestedInput
+    department?: DepartmentUpdateOneWithoutEmployeesNestedInput
+    employment?: EmploymentUpdateOneWithoutStaffNestedInput
+    payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutDrivenVehiclesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    membershipId?: StringFieldUpdateOperationsInput | string
+    staffIdNumber?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    designation?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
+    payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type TransportRouteUpsertWithWhereUniqueWithoutVehicleInput = {
@@ -176205,29 +183714,517 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TransportRoute"> | Date | string
   }
 
-  export type TransportVehicleCreateWithoutRoutesInput = {
+  export type VehicleMaintenanceLogUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: VehicleMaintenanceLogWhereUniqueInput
+    update: XOR<VehicleMaintenanceLogUpdateWithoutVehicleInput, VehicleMaintenanceLogUncheckedUpdateWithoutVehicleInput>
+    create: XOR<VehicleMaintenanceLogCreateWithoutVehicleInput, VehicleMaintenanceLogUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceLogUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: VehicleMaintenanceLogWhereUniqueInput
+    data: XOR<VehicleMaintenanceLogUpdateWithoutVehicleInput, VehicleMaintenanceLogUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type VehicleMaintenanceLogUpdateManyWithWhereWithoutVehicleInput = {
+    where: VehicleMaintenanceLogScalarWhereInput
+    data: XOR<VehicleMaintenanceLogUpdateManyMutationInput, VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type TransportAllocationUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: TransportAllocationWhereUniqueInput
+    update: XOR<TransportAllocationUpdateWithoutVehicleInput, TransportAllocationUncheckedUpdateWithoutVehicleInput>
+    create: XOR<TransportAllocationCreateWithoutVehicleInput, TransportAllocationUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type TransportAllocationUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: TransportAllocationWhereUniqueInput
+    data: XOR<TransportAllocationUpdateWithoutVehicleInput, TransportAllocationUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type TransportAllocationUpdateManyWithWhereWithoutVehicleInput = {
+    where: TransportAllocationScalarWhereInput
+    data: XOR<TransportAllocationUpdateManyMutationInput, TransportAllocationUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type TenantCreateWithoutVehicleMaintenanceLogInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+    Document?: DocumentCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutVehicleMaintenanceLogInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+    Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutVehicleMaintenanceLogInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutVehicleMaintenanceLogInput, TenantUncheckedCreateWithoutVehicleMaintenanceLogInput>
+  }
+
+  export type TransportVehicleCreateWithoutMaintenanceInput = {
     id?: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutTransportVehicleInput
+    driver?: StaffCreateNestedOneWithoutDrivenVehiclesInput
+    routes?: TransportRouteCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationCreateNestedManyWithoutVehicleInput
+  }
+
+  export type TransportVehicleUncheckedCreateWithoutMaintenanceInput = {
+    id?: string
+    tenantId: string
+    plateNumber: string
+    capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type TransportVehicleCreateOrConnectWithoutMaintenanceInput = {
+    where: TransportVehicleWhereUniqueInput
+    create: XOR<TransportVehicleCreateWithoutMaintenanceInput, TransportVehicleUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type TenantUpsertWithoutVehicleMaintenanceLogInput = {
+    update: XOR<TenantUpdateWithoutVehicleMaintenanceLogInput, TenantUncheckedUpdateWithoutVehicleMaintenanceLogInput>
+    create: XOR<TenantCreateWithoutVehicleMaintenanceLogInput, TenantUncheckedCreateWithoutVehicleMaintenanceLogInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutVehicleMaintenanceLogInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutVehicleMaintenanceLogInput, TenantUncheckedUpdateWithoutVehicleMaintenanceLogInput>
+  }
+
+  export type TenantUpdateWithoutVehicleMaintenanceLogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutVehicleMaintenanceLogInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TransportVehicleUpsertWithoutMaintenanceInput = {
+    update: XOR<TransportVehicleUpdateWithoutMaintenanceInput, TransportVehicleUncheckedUpdateWithoutMaintenanceInput>
+    create: XOR<TransportVehicleCreateWithoutMaintenanceInput, TransportVehicleUncheckedCreateWithoutMaintenanceInput>
+    where?: TransportVehicleWhereInput
+  }
+
+  export type TransportVehicleUpdateToOneWithWhereWithoutMaintenanceInput = {
+    where?: TransportVehicleWhereInput
+    data: XOR<TransportVehicleUpdateWithoutMaintenanceInput, TransportVehicleUncheckedUpdateWithoutMaintenanceInput>
+  }
+
+  export type TransportVehicleUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportVehicleNestedInput
+    driver?: StaffUpdateOneWithoutDrivenVehiclesNestedInput
+    routes?: TransportRouteUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportVehicleUncheckedUpdateWithoutMaintenanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: TransportRouteUncheckedUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportVehicleCreateWithoutRoutesInput = {
+    id?: string
+    plateNumber: string
+    capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportVehicleInput
+    driver?: StaffCreateNestedOneWithoutDrivenVehiclesInput
+    maintenance?: VehicleMaintenanceLogCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationCreateNestedManyWithoutVehicleInput
   }
 
   export type TransportVehicleUncheckedCreateWithoutRoutesInput = {
     id?: string
     tenantId: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    maintenance?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutVehicleInput
+    allocations?: TransportAllocationUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type TransportVehicleCreateOrConnectWithoutRoutesInput = {
     where: TransportVehicleWhereUniqueInput
     create: XOR<TransportVehicleCreateWithoutRoutesInput, TransportVehicleUncheckedCreateWithoutRoutesInput>
+  }
+
+  export type TransportAllocationCreateWithoutRouteInput = {
+    id?: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportAllocationInput
+    student: StudentCreateNestedOneWithoutTransportAllocationsInput
+    vehicle: TransportVehicleCreateNestedOneWithoutAllocationsInput
+  }
+
+  export type TransportAllocationUncheckedCreateWithoutRouteInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    vehicleId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateOrConnectWithoutRouteInput = {
+    where: TransportAllocationWhereUniqueInput
+    create: XOR<TransportAllocationCreateWithoutRouteInput, TransportAllocationUncheckedCreateWithoutRouteInput>
+  }
+
+  export type TransportAllocationCreateManyRouteInputEnvelope = {
+    data: TransportAllocationCreateManyRouteInput | TransportAllocationCreateManyRouteInput[]
+    skipDuplicates?: boolean
   }
 
   export type TransportVehicleUpsertWithoutRoutesInput = {
@@ -176244,19 +184241,615 @@ export namespace Prisma {
   export type TransportVehicleUpdateWithoutRoutesInput = {
     id?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutTransportVehicleNestedInput
+    driver?: StaffUpdateOneWithoutDrivenVehiclesNestedInput
+    maintenance?: VehicleMaintenanceLogUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUpdateManyWithoutVehicleNestedInput
   }
 
   export type TransportVehicleUncheckedUpdateWithoutRoutesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    maintenance?: VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportAllocationUpsertWithWhereUniqueWithoutRouteInput = {
+    where: TransportAllocationWhereUniqueInput
+    update: XOR<TransportAllocationUpdateWithoutRouteInput, TransportAllocationUncheckedUpdateWithoutRouteInput>
+    create: XOR<TransportAllocationCreateWithoutRouteInput, TransportAllocationUncheckedCreateWithoutRouteInput>
+  }
+
+  export type TransportAllocationUpdateWithWhereUniqueWithoutRouteInput = {
+    where: TransportAllocationWhereUniqueInput
+    data: XOR<TransportAllocationUpdateWithoutRouteInput, TransportAllocationUncheckedUpdateWithoutRouteInput>
+  }
+
+  export type TransportAllocationUpdateManyWithWhereWithoutRouteInput = {
+    where: TransportAllocationScalarWhereInput
+    data: XOR<TransportAllocationUpdateManyMutationInput, TransportAllocationUncheckedUpdateManyWithoutRouteInput>
+  }
+
+  export type TenantCreateWithoutTransportAllocationInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+    Document?: DocumentCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutTransportAllocationInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+    Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutTransportAllocationInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutTransportAllocationInput, TenantUncheckedCreateWithoutTransportAllocationInput>
+  }
+
+  export type StudentCreateWithoutTransportAllocationsInput = {
+    id?: string
+    admissionNumber: string
+    enrollmentDate?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutStudentInput
+    membership: TenantMembershipCreateNestedOneWithoutStudentInput
+    currentArm?: ArmCreateNestedOneWithoutStudentInput
+    guardians?: StudentGuardianCreateNestedManyWithoutStudentInput
+    admissions?: AdmissionCreateNestedManyWithoutStudentInput
+    medicalRecords?: MedicalRecordCreateNestedManyWithoutStudentInput
+    disciplineRecords?: DisciplineRecordCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    Invoice?: InvoiceCreateNestedManyWithoutStudentInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
+    Result?: ResultCreateNestedManyWithoutStudentInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
+    BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentUncheckedCreateWithoutTransportAllocationsInput = {
+    id?: string
+    tenantId: string
+    membershipId: string
+    admissionNumber: string
+    enrollmentDate?: Date | string
+    currentArmId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    guardians?: StudentGuardianUncheckedCreateNestedManyWithoutStudentInput
+    admissions?: AdmissionUncheckedCreateNestedManyWithoutStudentInput
+    medicalRecords?: MedicalRecordUncheckedCreateNestedManyWithoutStudentInput
+    disciplineRecords?: DisciplineRecordUncheckedCreateNestedManyWithoutStudentInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutStudentInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
+    Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
+    BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutTransportAllocationsInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutTransportAllocationsInput, StudentUncheckedCreateWithoutTransportAllocationsInput>
+  }
+
+  export type TransportVehicleCreateWithoutAllocationsInput = {
+    id?: string
+    plateNumber: string
+    capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutTransportVehicleInput
+    driver?: StaffCreateNestedOneWithoutDrivenVehiclesInput
+    routes?: TransportRouteCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogCreateNestedManyWithoutVehicleInput
+  }
+
+  export type TransportVehicleUncheckedCreateWithoutAllocationsInput = {
+    id?: string
+    tenantId: string
+    plateNumber: string
+    capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutVehicleInput
+    maintenance?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type TransportVehicleCreateOrConnectWithoutAllocationsInput = {
+    where: TransportVehicleWhereUniqueInput
+    create: XOR<TransportVehicleCreateWithoutAllocationsInput, TransportVehicleUncheckedCreateWithoutAllocationsInput>
+  }
+
+  export type TransportRouteCreateWithoutAllocationsInput = {
+    id?: string
+    routeName: string
+    stops: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    vehicle: TransportVehicleCreateNestedOneWithoutRoutesInput
+  }
+
+  export type TransportRouteUncheckedCreateWithoutAllocationsInput = {
+    id?: string
+    vehicleId: string
+    routeName: string
+    stops: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportRouteCreateOrConnectWithoutAllocationsInput = {
+    where: TransportRouteWhereUniqueInput
+    create: XOR<TransportRouteCreateWithoutAllocationsInput, TransportRouteUncheckedCreateWithoutAllocationsInput>
+  }
+
+  export type TenantUpsertWithoutTransportAllocationInput = {
+    update: XOR<TenantUpdateWithoutTransportAllocationInput, TenantUncheckedUpdateWithoutTransportAllocationInput>
+    create: XOR<TenantCreateWithoutTransportAllocationInput, TenantUncheckedCreateWithoutTransportAllocationInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutTransportAllocationInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutTransportAllocationInput, TenantUncheckedUpdateWithoutTransportAllocationInput>
+  }
+
+  export type TenantUpdateWithoutTransportAllocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutTransportAllocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type StudentUpsertWithoutTransportAllocationsInput = {
+    update: XOR<StudentUpdateWithoutTransportAllocationsInput, StudentUncheckedUpdateWithoutTransportAllocationsInput>
+    create: XOR<StudentCreateWithoutTransportAllocationsInput, StudentUncheckedCreateWithoutTransportAllocationsInput>
+    where?: StudentWhereInput
+  }
+
+  export type StudentUpdateToOneWithWhereWithoutTransportAllocationsInput = {
+    where?: StudentWhereInput
+    data: XOR<StudentUpdateWithoutTransportAllocationsInput, StudentUncheckedUpdateWithoutTransportAllocationsInput>
+  }
+
+  export type StudentUpdateWithoutTransportAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: StringFieldUpdateOperationsInput | string
+    enrollmentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutStudentNestedInput
+    membership?: TenantMembershipUpdateOneRequiredWithoutStudentNestedInput
+    currentArm?: ArmUpdateOneWithoutStudentNestedInput
+    guardians?: StudentGuardianUpdateManyWithoutStudentNestedInput
+    admissions?: AdmissionUpdateManyWithoutStudentNestedInput
+    medicalRecords?: MedicalRecordUpdateManyWithoutStudentNestedInput
+    disciplineRecords?: DisciplineRecordUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    Invoice?: InvoiceUpdateManyWithoutStudentNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
+    Result?: ResultUpdateManyWithoutStudentNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
+    BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutTransportAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    membershipId?: StringFieldUpdateOperationsInput | string
+    admissionNumber?: StringFieldUpdateOperationsInput | string
+    enrollmentDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    currentArmId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    guardians?: StudentGuardianUncheckedUpdateManyWithoutStudentNestedInput
+    admissions?: AdmissionUncheckedUpdateManyWithoutStudentNestedInput
+    medicalRecords?: MedicalRecordUncheckedUpdateManyWithoutStudentNestedInput
+    disciplineRecords?: DisciplineRecordUncheckedUpdateManyWithoutStudentNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutStudentNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
+    BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type TransportVehicleUpsertWithoutAllocationsInput = {
+    update: XOR<TransportVehicleUpdateWithoutAllocationsInput, TransportVehicleUncheckedUpdateWithoutAllocationsInput>
+    create: XOR<TransportVehicleCreateWithoutAllocationsInput, TransportVehicleUncheckedCreateWithoutAllocationsInput>
+    where?: TransportVehicleWhereInput
+  }
+
+  export type TransportVehicleUpdateToOneWithWhereWithoutAllocationsInput = {
+    where?: TransportVehicleWhereInput
+    data: XOR<TransportVehicleUpdateWithoutAllocationsInput, TransportVehicleUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type TransportVehicleUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportVehicleNestedInput
+    driver?: StaffUpdateOneWithoutDrivenVehiclesNestedInput
+    routes?: TransportRouteUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportVehicleUncheckedUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: TransportRouteUncheckedUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportRouteUpsertWithoutAllocationsInput = {
+    update: XOR<TransportRouteUpdateWithoutAllocationsInput, TransportRouteUncheckedUpdateWithoutAllocationsInput>
+    create: XOR<TransportRouteCreateWithoutAllocationsInput, TransportRouteUncheckedCreateWithoutAllocationsInput>
+    where?: TransportRouteWhereInput
+  }
+
+  export type TransportRouteUpdateToOneWithWhereWithoutAllocationsInput = {
+    where?: TransportRouteWhereInput
+    data: XOR<TransportRouteUpdateWithoutAllocationsInput, TransportRouteUncheckedUpdateWithoutAllocationsInput>
+  }
+
+  export type TransportRouteUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routeName?: StringFieldUpdateOperationsInput | string
+    stops?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutRoutesNestedInput
+  }
+
+  export type TransportRouteUncheckedUpdateWithoutAllocationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeName?: StringFieldUpdateOperationsInput | string
+    stops?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -176337,6 +184930,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLibraryBookInput = {
@@ -176415,6 +185012,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLibraryBookInput = {
@@ -176543,6 +185144,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLibraryBookInput = {
@@ -176621,6 +185226,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookBorrowingUpsertWithWhereUniqueWithoutBookInput = {
@@ -176684,6 +185293,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipCreateNestedManyWithoutStudentInput
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineCreateNestedManyWithoutStudentInput
   }
 
@@ -176705,6 +185315,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutStudentInput
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
     journalLines?: JournalEntryLineUncheckedCreateNestedManyWithoutStudentInput
   }
 
@@ -176802,6 +185413,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUpdateManyWithoutStudentNestedInput
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -176823,6 +185435,7 @@ export namespace Prisma {
     Scholarship?: ScholarshipUncheckedUpdateManyWithoutStudentNestedInput
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -176935,6 +185548,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutLibraryFineInput = {
@@ -177013,6 +185630,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutLibraryFineInput = {
@@ -177177,6 +185798,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutLibraryFineInput = {
@@ -177255,6 +185880,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BookBorrowingUpsertWithoutLibraryFineInput = {
@@ -177415,6 +186044,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationQueueInput = {
@@ -177493,6 +186126,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationQueueInput = {
@@ -177624,6 +186261,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationQueueInput = {
@@ -177702,6 +186343,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutNotificationQueueInput = {
@@ -177823,6 +186468,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentAttemptInput = {
@@ -177901,6 +186550,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentAttemptInput = {
@@ -178028,6 +186681,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentAttemptInput = {
@@ -178106,6 +186763,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithoutPaymentAttemptInput = {
@@ -178223,6 +186884,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentAllocationInput = {
@@ -178301,6 +186966,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentAllocationInput = {
@@ -178486,6 +187155,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentAllocationInput = {
@@ -178564,6 +187237,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PaymentUpsertWithoutPaymentAllocationInput = {
@@ -178751,6 +187428,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPaymentPlanVersionInput = {
@@ -178829,6 +187510,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPaymentPlanVersionInput = {
@@ -178923,6 +187608,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPaymentPlanVersionInput = {
@@ -179001,6 +187690,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutChartOfAccountInput = {
@@ -179079,6 +187772,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutChartOfAccountInput = {
@@ -179157,6 +187854,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutChartOfAccountInput = {
@@ -179315,6 +188016,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutChartOfAccountInput = {
@@ -179393,6 +188098,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type JournalEntryLineUpsertWithWhereUniqueWithoutAccountInput = {
@@ -179503,6 +188212,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBankAccountInput = {
@@ -179581,6 +188294,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBankAccountInput = {
@@ -179704,6 +188421,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBankAccountInput = {
@@ -179782,6 +188503,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ChartOfAccountUpsertWithoutBankAccountsInput = {
@@ -179895,6 +188620,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAccountingPeriodInput = {
@@ -179973,6 +188702,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAccountingPeriodInput = {
@@ -180105,6 +188838,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAccountingPeriodInput = {
@@ -180183,6 +188920,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionUpsertWithWhereUniqueWithoutPeriodInput = {
@@ -180277,6 +189018,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFinancialTransactionInput = {
@@ -180355,6 +189100,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFinancialTransactionInput = {
@@ -180540,6 +189289,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFinancialTransactionInput = {
@@ -180618,6 +189371,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AccountingPeriodUpsertWithoutTransactionsInput = {
@@ -180763,6 +189520,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutJournalEntryLineInput = {
@@ -180841,6 +189602,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutJournalEntryLineInput = {
@@ -180929,6 +189694,7 @@ export namespace Prisma {
     Result?: ResultCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationCreateNestedManyWithoutStudentInput
   }
 
   export type StudentUncheckedCreateWithoutJournalLinesInput = {
@@ -180950,6 +189716,7 @@ export namespace Prisma {
     Result?: ResultUncheckedCreateNestedManyWithoutStudentInput
     BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutStudentInput
     BookBorrowing?: BookBorrowingUncheckedCreateNestedManyWithoutStudentInput
+    transportAllocations?: TransportAllocationUncheckedCreateNestedManyWithoutStudentInput
   }
 
   export type StudentCreateOrConnectWithoutJournalLinesInput = {
@@ -181085,6 +189852,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutJournalEntryLineInput = {
@@ -181163,6 +189934,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FinancialTransactionUpsertWithoutLinesInput = {
@@ -181269,6 +190044,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
   }
 
   export type StudentUncheckedUpdateWithoutJournalLinesInput = {
@@ -181290,6 +190066,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
   }
 
   export type InvoiceUpsertWithoutJournalLinesInput = {
@@ -181415,6 +190192,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutApprovalWorkflowInput = {
@@ -181493,6 +190274,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutApprovalWorkflowInput = {
@@ -181621,6 +190406,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutApprovalWorkflowInput = {
@@ -181699,6 +190488,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ApprovalStepUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -181873,6 +190666,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutScheduledJobInput = {
@@ -181951,6 +190748,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutScheduledJobInput = {
@@ -182045,6 +190846,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutScheduledJobInput = {
@@ -182123,6 +190928,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutSequenceGeneratorInput = {
@@ -182201,6 +191010,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSequenceGeneratorInput = {
@@ -182279,6 +191092,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSequenceGeneratorInput = {
@@ -182373,6 +191190,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSequenceGeneratorInput = {
@@ -182451,6 +191272,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAssetsInput = {
@@ -182529,6 +191354,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssetsInput = {
@@ -182607,6 +191436,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssetsInput = {
@@ -182701,6 +191534,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssetsInput = {
@@ -182779,6 +191616,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebsiteCreateWithoutDomainsInput = {
@@ -183100,6 +191941,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionCampaignInput = {
@@ -183178,6 +192023,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionCampaignInput = {
@@ -183418,6 +192267,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionCampaignInput = {
@@ -183496,6 +192349,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AcademicYearUpsertWithoutAdmissionCampaignsInput = {
@@ -183678,6 +192535,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionWorkflowInput = {
@@ -183756,6 +192617,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionWorkflowInput = {
@@ -183938,6 +192803,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionWorkflowInput = {
@@ -184016,6 +192885,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -184349,6 +193222,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionFormInput = {
@@ -184427,6 +193304,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionFormInput = {
@@ -184602,6 +193483,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionFormInput = {
@@ -184680,6 +193565,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithoutFormsInput = {
@@ -185018,6 +193907,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionRequiredDocumentInput = {
@@ -185096,6 +193989,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionRequiredDocumentInput = {
@@ -185218,6 +194115,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionRequiredDocumentInput = {
@@ -185296,6 +194197,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionDocumentUpsertWithWhereUniqueWithoutRequiredDocumentInput = {
@@ -185403,6 +194308,10 @@ export namespace Prisma {
     Document?: DocumentCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAdmissionApplicationInput = {
@@ -185481,6 +194390,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAdmissionApplicationInput = {
@@ -185719,6 +194632,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAdmissionApplicationInput = {
@@ -185797,6 +194714,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AdmissionCampaignUpsertWithoutApplicationsInput = {
@@ -186325,6 +195246,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     IdCard?: IdCardCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDocumentInput = {
@@ -186403,6 +195328,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDocumentInput = {
@@ -186497,6 +195426,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDocumentInput = {
@@ -186575,6 +195508,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutIdCardInput = {
@@ -186653,6 +195590,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
     Document?: DocumentCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIdCardInput = {
@@ -186731,6 +195672,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
     Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
     LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+    MetricSnapshot?: MetricSnapshotUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIdCardInput = {
@@ -186825,6 +195770,10 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIdCardInput = {
@@ -186903,6 +195852,354 @@ export namespace Prisma {
     JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutMetricSnapshotInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    plan: PlatformPlanCreateNestedOneWithoutTenantsInput
+    subscriptions?: PlatformSubscriptionCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    Campus?: CampusCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearCreateNestedManyWithoutTenantInput
+    Term?: TermCreateNestedManyWithoutTenantInput
+    Department?: DepartmentCreateNestedManyWithoutTenantInput
+    Class?: ClassCreateNestedManyWithoutTenantInput
+    Arm?: ArmCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupCreateNestedManyWithoutTenantInput
+    Subject?: SubjectCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableCreateNestedManyWithoutTenantInput
+    Student?: StudentCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceCreateNestedManyWithoutTenantInput
+    Staff?: StaffCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceCreateNestedManyWithoutTenantInput
+    Payment?: PaymentCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseCreateNestedManyWithoutTenantInput
+    Income?: IncomeCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipCreateNestedManyWithoutTenantInput
+    Exam?: ExamCreateNestedManyWithoutTenantInput
+    Result?: ResultCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteCreateNestedManyWithoutTenantInput
+    Website?: WebsiteCreateNestedOneWithoutTenantInput
+    Page?: PageCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateCreateNestedManyWithoutTenantInput
+    Hostel?: HostelCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineCreateNestedManyWithoutTenantInput
+    Document?: DocumentCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutMetricSnapshotInput = {
+    id?: string
+    name: string
+    slug: string
+    status?: $Enums.TenantStatus
+    planId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedCreateNestedManyWithoutTenantInput
+    domains?: TenantDomainUncheckedCreateNestedManyWithoutTenantInput
+    branding?: TenantBrandingUncheckedCreateNestedOneWithoutTenantInput
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    memberships?: TenantMembershipUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    Campus?: CampusUncheckedCreateNestedManyWithoutTenantInput
+    AcademicYear?: AcademicYearUncheckedCreateNestedManyWithoutTenantInput
+    Term?: TermUncheckedCreateNestedManyWithoutTenantInput
+    Department?: DepartmentUncheckedCreateNestedManyWithoutTenantInput
+    Class?: ClassUncheckedCreateNestedManyWithoutTenantInput
+    Arm?: ArmUncheckedCreateNestedManyWithoutTenantInput
+    SubjectGroup?: SubjectGroupUncheckedCreateNestedManyWithoutTenantInput
+    Subject?: SubjectUncheckedCreateNestedManyWithoutTenantInput
+    Timetable?: TimetableUncheckedCreateNestedManyWithoutTenantInput
+    Student?: StudentUncheckedCreateNestedManyWithoutTenantInput
+    Guardian?: GuardianUncheckedCreateNestedManyWithoutTenantInput
+    Admission?: AdmissionUncheckedCreateNestedManyWithoutTenantInput
+    MedicalRecord?: MedicalRecordUncheckedCreateNestedManyWithoutTenantInput
+    DisciplineRecord?: DisciplineRecordUncheckedCreateNestedManyWithoutTenantInput
+    Attendance?: AttendanceUncheckedCreateNestedManyWithoutTenantInput
+    Staff?: StaffUncheckedCreateNestedManyWithoutTenantInput
+    Employment?: EmploymentUncheckedCreateNestedManyWithoutTenantInput
+    Payroll?: PayrollUncheckedCreateNestedManyWithoutTenantInput
+    LeaveRequest?: LeaveRequestUncheckedCreateNestedManyWithoutTenantInput
+    FeeCategory?: FeeCategoryUncheckedCreateNestedManyWithoutTenantInput
+    Invoice?: InvoiceUncheckedCreateNestedManyWithoutTenantInput
+    Payment?: PaymentUncheckedCreateNestedManyWithoutTenantInput
+    Expense?: ExpenseUncheckedCreateNestedManyWithoutTenantInput
+    Income?: IncomeUncheckedCreateNestedManyWithoutTenantInput
+    Scholarship?: ScholarshipUncheckedCreateNestedManyWithoutTenantInput
+    Exam?: ExamUncheckedCreateNestedManyWithoutTenantInput
+    Result?: ResultUncheckedCreateNestedManyWithoutTenantInput
+    Assignment?: AssignmentUncheckedCreateNestedManyWithoutTenantInput
+    LessonNote?: LessonNoteUncheckedCreateNestedManyWithoutTenantInput
+    Website?: WebsiteUncheckedCreateNestedOneWithoutTenantInput
+    Page?: PageUncheckedCreateNestedManyWithoutTenantInput
+    NavigationMenu?: NavigationMenuUncheckedCreateNestedManyWithoutTenantInput
+    AIProviderConfig?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    AIUsageLog?: AIUsageLogUncheckedCreateNestedManyWithoutTenantInput
+    PromptTemplate?: PromptTemplateUncheckedCreateNestedManyWithoutTenantInput
+    Hostel?: HostelUncheckedCreateNestedManyWithoutTenantInput
+    TransportVehicle?: TransportVehicleUncheckedCreateNestedManyWithoutTenantInput
+    LibraryBook?: LibraryBookUncheckedCreateNestedManyWithoutTenantInput
+    NotificationQueue?: NotificationQueueUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAttempt?: PaymentAttemptUncheckedCreateNestedManyWithoutTenantInput
+    PaymentAllocation?: PaymentAllocationUncheckedCreateNestedManyWithoutTenantInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedCreateNestedManyWithoutTenantInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    ScheduledJob?: ScheduledJobUncheckedCreateNestedManyWithoutTenantInput
+    SequenceGenerator?: SequenceGeneratorUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionForm?: AdmissionFormUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedCreateNestedManyWithoutTenantInput
+    AdmissionApplication?: AdmissionApplicationUncheckedCreateNestedManyWithoutTenantInput
+    ChartOfAccount?: ChartOfAccountUncheckedCreateNestedManyWithoutTenantInput
+    BankAccount?: BankAccountUncheckedCreateNestedManyWithoutTenantInput
+    AccountingPeriod?: AccountingPeriodUncheckedCreateNestedManyWithoutTenantInput
+    FinancialTransaction?: FinancialTransactionUncheckedCreateNestedManyWithoutTenantInput
+    JournalEntryLine?: JournalEntryLineUncheckedCreateNestedManyWithoutTenantInput
+    Document?: DocumentUncheckedCreateNestedManyWithoutTenantInput
+    IdCard?: IdCardUncheckedCreateNestedManyWithoutTenantInput
+    LibraryFine?: LibraryFineUncheckedCreateNestedManyWithoutTenantInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedCreateNestedManyWithoutTenantInput
+    TransportAllocation?: TransportAllocationUncheckedCreateNestedManyWithoutTenantInput
+    BedAllocation?: BedAllocationUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutMetricSnapshotInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutMetricSnapshotInput, TenantUncheckedCreateWithoutMetricSnapshotInput>
+  }
+
+  export type TenantUpsertWithoutMetricSnapshotInput = {
+    update: XOR<TenantUpdateWithoutMetricSnapshotInput, TenantUncheckedUpdateWithoutMetricSnapshotInput>
+    create: XOR<TenantCreateWithoutMetricSnapshotInput, TenantUncheckedCreateWithoutMetricSnapshotInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutMetricSnapshotInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutMetricSnapshotInput, TenantUncheckedUpdateWithoutMetricSnapshotInput>
+  }
+
+  export type TenantUpdateWithoutMetricSnapshotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    plan?: PlatformPlanUpdateOneRequiredWithoutTenantsNestedInput
+    subscriptions?: PlatformSubscriptionUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUpdateManyWithoutTenantNestedInput
+    Term?: TermUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUpdateManyWithoutTenantNestedInput
+    Class?: ClassUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUpdateManyWithoutTenantNestedInput
+    Student?: StudentUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUpdateManyWithoutTenantNestedInput
+    Result?: ResultUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUpdateOneWithoutTenantNestedInput
+    Page?: PageUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutMetricSnapshotInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    planId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscriptions?: PlatformSubscriptionUncheckedUpdateManyWithoutTenantNestedInput
+    domains?: TenantDomainUncheckedUpdateManyWithoutTenantNestedInput
+    branding?: TenantBrandingUncheckedUpdateOneWithoutTenantNestedInput
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    marketplaceApps?: TenantMarketplaceAppUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    memberships?: TenantMembershipUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    Campus?: CampusUncheckedUpdateManyWithoutTenantNestedInput
+    AcademicYear?: AcademicYearUncheckedUpdateManyWithoutTenantNestedInput
+    Term?: TermUncheckedUpdateManyWithoutTenantNestedInput
+    Department?: DepartmentUncheckedUpdateManyWithoutTenantNestedInput
+    Class?: ClassUncheckedUpdateManyWithoutTenantNestedInput
+    Arm?: ArmUncheckedUpdateManyWithoutTenantNestedInput
+    SubjectGroup?: SubjectGroupUncheckedUpdateManyWithoutTenantNestedInput
+    Subject?: SubjectUncheckedUpdateManyWithoutTenantNestedInput
+    Timetable?: TimetableUncheckedUpdateManyWithoutTenantNestedInput
+    Student?: StudentUncheckedUpdateManyWithoutTenantNestedInput
+    Guardian?: GuardianUncheckedUpdateManyWithoutTenantNestedInput
+    Admission?: AdmissionUncheckedUpdateManyWithoutTenantNestedInput
+    MedicalRecord?: MedicalRecordUncheckedUpdateManyWithoutTenantNestedInput
+    DisciplineRecord?: DisciplineRecordUncheckedUpdateManyWithoutTenantNestedInput
+    Attendance?: AttendanceUncheckedUpdateManyWithoutTenantNestedInput
+    Staff?: StaffUncheckedUpdateManyWithoutTenantNestedInput
+    Employment?: EmploymentUncheckedUpdateManyWithoutTenantNestedInput
+    Payroll?: PayrollUncheckedUpdateManyWithoutTenantNestedInput
+    LeaveRequest?: LeaveRequestUncheckedUpdateManyWithoutTenantNestedInput
+    FeeCategory?: FeeCategoryUncheckedUpdateManyWithoutTenantNestedInput
+    Invoice?: InvoiceUncheckedUpdateManyWithoutTenantNestedInput
+    Payment?: PaymentUncheckedUpdateManyWithoutTenantNestedInput
+    Expense?: ExpenseUncheckedUpdateManyWithoutTenantNestedInput
+    Income?: IncomeUncheckedUpdateManyWithoutTenantNestedInput
+    Scholarship?: ScholarshipUncheckedUpdateManyWithoutTenantNestedInput
+    Exam?: ExamUncheckedUpdateManyWithoutTenantNestedInput
+    Result?: ResultUncheckedUpdateManyWithoutTenantNestedInput
+    Assignment?: AssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    LessonNote?: LessonNoteUncheckedUpdateManyWithoutTenantNestedInput
+    Website?: WebsiteUncheckedUpdateOneWithoutTenantNestedInput
+    Page?: PageUncheckedUpdateManyWithoutTenantNestedInput
+    NavigationMenu?: NavigationMenuUncheckedUpdateManyWithoutTenantNestedInput
+    AIProviderConfig?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    AIUsageLog?: AIUsageLogUncheckedUpdateManyWithoutTenantNestedInput
+    PromptTemplate?: PromptTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    Hostel?: HostelUncheckedUpdateManyWithoutTenantNestedInput
+    TransportVehicle?: TransportVehicleUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryBook?: LibraryBookUncheckedUpdateManyWithoutTenantNestedInput
+    NotificationQueue?: NotificationQueueUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAttempt?: PaymentAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentAllocation?: PaymentAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    PaymentPlanVersion?: PaymentPlanVersionUncheckedUpdateManyWithoutTenantNestedInput
+    ApprovalWorkflow?: ApprovalWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    ScheduledJob?: ScheduledJobUncheckedUpdateManyWithoutTenantNestedInput
+    SequenceGenerator?: SequenceGeneratorUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionCampaign?: AdmissionCampaignUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionWorkflow?: AdmissionWorkflowUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionForm?: AdmissionFormUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionRequiredDocument?: AdmissionRequiredDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    AdmissionApplication?: AdmissionApplicationUncheckedUpdateManyWithoutTenantNestedInput
+    ChartOfAccount?: ChartOfAccountUncheckedUpdateManyWithoutTenantNestedInput
+    BankAccount?: BankAccountUncheckedUpdateManyWithoutTenantNestedInput
+    AccountingPeriod?: AccountingPeriodUncheckedUpdateManyWithoutTenantNestedInput
+    FinancialTransaction?: FinancialTransactionUncheckedUpdateManyWithoutTenantNestedInput
+    JournalEntryLine?: JournalEntryLineUncheckedUpdateManyWithoutTenantNestedInput
+    Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
+    IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
+    LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyPlanInput = {
@@ -187000,6 +196297,10 @@ export namespace Prisma {
     Document?: DocumentUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPlanInput = {
@@ -187078,6 +196379,10 @@ export namespace Prisma {
     Document?: DocumentUncheckedUpdateManyWithoutTenantNestedInput
     IdCard?: IdCardUncheckedUpdateManyWithoutTenantNestedInput
     LibraryFine?: LibraryFineUncheckedUpdateManyWithoutTenantNestedInput
+    VehicleMaintenanceLog?: VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantNestedInput
+    TransportAllocation?: TransportAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    BedAllocation?: BedAllocationUncheckedUpdateManyWithoutTenantNestedInput
+    MetricSnapshot?: MetricSnapshotUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateManyWithoutPlanInput = {
@@ -187550,6 +196855,8 @@ export namespace Prisma {
     id?: string
     name: string
     capacity: number
+    gender?: string
+    status?: string
     wardenId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -187558,8 +196865,10 @@ export namespace Prisma {
   export type TransportVehicleCreateManyTenantInput = {
     id?: string
     plateNumber: string
-    driverName?: string | null
     capacity: number
+    driverId?: string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -187803,6 +197112,60 @@ export namespace Prisma {
     reason: string
     status?: $Enums.FineStatus
     invoiceId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VehicleMaintenanceLogCreateManyTenantInput = {
+    id?: string
+    vehicleId: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateManyTenantInput = {
+    id?: string
+    studentId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BedAllocationCreateManyTenantInput = {
+    id?: string
+    roomId: string
+    studentId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MetricSnapshotCreateManyTenantInput = {
+    id?: string
+    metricName: string
+    metricVersion: string
+    value: number
+    snapshotDate: Date | string
+    isLatest?: boolean
+    generatedBy: string
+    lineageId?: string | null
+    calculationDurationMs?: number | null
+    explainabilityString?: string | null
+    supersededAt?: Date | string | null
+    campusId?: string | null
+    sessionId?: string | null
+    classId?: string | null
+    studentId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -188348,6 +197711,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -188369,6 +197733,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -188548,6 +197913,8 @@ export namespace Prisma {
     employment?: EmploymentUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutTenantInput = {
@@ -188561,6 +197928,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutTenantInput = {
@@ -189198,9 +198567,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
-    wardenId?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    warden?: StaffUpdateOneWithoutManagedHostelsNestedInput
     rooms?: HostelRoomUpdateManyWithoutHostelNestedInput
   }
 
@@ -189208,6 +198579,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     wardenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -189218,6 +198591,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     wardenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -189226,28 +198601,38 @@ export namespace Prisma {
   export type TransportVehicleUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    driver?: StaffUpdateOneWithoutDrivenVehiclesNestedInput
     routes?: TransportRouteUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUpdateManyWithoutVehicleNestedInput
   }
 
   export type TransportVehicleUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     routes?: TransportRouteUncheckedUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type TransportVehicleUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    driverName?: NullableStringFieldUpdateOperationsInput | string | null
     capacity?: IntFieldUpdateOperationsInput | number
+    driverId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -190007,6 +199392,168 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
     status?: EnumFineStatusFieldUpdateOperationsInput | $Enums.FineStatus
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutMaintenanceNestedInput
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    student?: StudentUpdateOneRequiredWithoutTransportAllocationsNestedInput
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutAllocationsNestedInput
+    route?: TransportRouteUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type TransportAllocationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BedAllocationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    room?: HostelRoomUpdateOneRequiredWithoutAllocationsNestedInput
+    student?: StudentUpdateOneRequiredWithoutBedAllocationNestedInput
+  }
+
+  export type BedAllocationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BedAllocationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roomId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MetricSnapshotUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MetricSnapshotUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MetricSnapshotUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    metricName?: StringFieldUpdateOperationsInput | string
+    metricVersion?: StringFieldUpdateOperationsInput | string
+    value?: FloatFieldUpdateOperationsInput | number
+    snapshotDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    isLatest?: BoolFieldUpdateOperationsInput | boolean
+    generatedBy?: StringFieldUpdateOperationsInput | string
+    lineageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calculationDurationMs?: NullableIntFieldUpdateOperationsInput | number | null
+    explainabilityString?: NullableStringFieldUpdateOperationsInput | string | null
+    supersededAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    campusId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    classId?: NullableStringFieldUpdateOperationsInput | string | null
+    studentId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -190784,6 +200331,8 @@ export namespace Prisma {
     employment?: EmploymentUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateWithoutDepartmentInput = {
@@ -190797,6 +200346,8 @@ export namespace Prisma {
     employment?: EmploymentUncheckedUpdateOneWithoutStaffNestedInput
     payrollRecords?: PayrollUncheckedUpdateManyWithoutStaffNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutStaffNestedInput
+    drivenVehicles?: TransportVehicleUncheckedUpdateManyWithoutDriverNestedInput
+    managedHostels?: HostelUncheckedUpdateManyWithoutWardenNestedInput
   }
 
   export type StaffUncheckedUpdateManyWithoutDepartmentInput = {
@@ -191012,6 +200563,7 @@ export namespace Prisma {
     Result?: ResultUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUpdateManyWithoutStudentNestedInput
   }
 
@@ -191033,6 +200585,7 @@ export namespace Prisma {
     Result?: ResultUncheckedUpdateManyWithoutStudentNestedInput
     BedAllocation?: BedAllocationUncheckedUpdateManyWithoutStudentNestedInput
     BookBorrowing?: BookBorrowingUncheckedUpdateManyWithoutStudentNestedInput
+    transportAllocations?: TransportAllocationUncheckedUpdateManyWithoutStudentNestedInput
     journalLines?: JournalEntryLineUncheckedUpdateManyWithoutStudentNestedInput
   }
 
@@ -191432,8 +200985,12 @@ export namespace Prisma {
 
   export type BedAllocationCreateManyStudentInput = {
     id?: string
+    tenantId?: string
     roomId: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -191445,6 +201002,17 @@ export namespace Prisma {
     returnDate?: Date | string | null
     dueDate: Date | string
     status?: $Enums.BorrowStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateManyStudentInput = {
+    id?: string
+    tenantId: string
+    vehicleId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -191735,24 +201303,36 @@ export namespace Prisma {
 
   export type BedAllocationUpdateWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBedAllocationNestedInput
     room?: HostelRoomUpdateOneRequiredWithoutAllocationsNestedInput
   }
 
   export type BedAllocationUncheckedUpdateWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomId?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BedAllocationUncheckedUpdateManyWithoutStudentInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomId?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -191788,6 +201368,39 @@ export namespace Prisma {
     returnDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumBorrowStatusFieldUpdateOperationsInput | $Enums.BorrowStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportAllocationNestedInput
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutAllocationsNestedInput
+    route?: TransportRouteUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type TransportAllocationUncheckedUpdateWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutStudentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -191886,6 +201499,28 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type TransportVehicleCreateManyDriverInput = {
+    id?: string
+    tenantId: string
+    plateNumber: string
+    capacity: number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type HostelCreateManyWardenInput = {
+    id?: string
+    tenantId: string
+    name: string
+    capacity: number
+    gender?: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type PayrollUpdateWithoutStaffInput = {
     id?: StringFieldUpdateOperationsInput | string
     periodStart?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -191960,6 +201595,80 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLeaveStatusFieldUpdateOperationsInput | $Enums.LeaveStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportVehicleUpdateWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportVehicleNestedInput
+    routes?: TransportRouteUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportVehicleUncheckedUpdateWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routes?: TransportRouteUncheckedUpdateManyWithoutVehicleNestedInput
+    maintenance?: VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleNestedInput
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransportVehicleUncheckedUpdateManyWithoutDriverInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    lastLocation?: NullableJsonNullValueInput | InputJsonValue
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HostelUpdateWithoutWardenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutHostelNestedInput
+    rooms?: HostelRoomUpdateManyWithoutHostelNestedInput
+  }
+
+  export type HostelUncheckedUpdateWithoutWardenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rooms?: HostelRoomUncheckedUpdateManyWithoutHostelNestedInput
+  }
+
+  export type HostelUncheckedUpdateManyWithoutWardenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    capacity?: IntFieldUpdateOperationsInput | number
+    gender?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -192438,16 +202147,22 @@ export namespace Prisma {
 
   export type HostelRoomCreateManyHostelInput = {
     id?: string
+    tenantId?: string
     roomNumber: string
     capacity: number
+    type?: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type HostelRoomUpdateWithoutHostelInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     allocations?: BedAllocationUpdateManyWithoutRoomNestedInput
@@ -192455,8 +202170,11 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedUpdateWithoutHostelInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     allocations?: BedAllocationUncheckedUpdateManyWithoutRoomNestedInput
@@ -192464,40 +202182,59 @@ export namespace Prisma {
 
   export type HostelRoomUncheckedUpdateManyWithoutHostelInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     roomNumber?: StringFieldUpdateOperationsInput | string
     capacity?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BedAllocationCreateManyRoomInput = {
     id?: string
+    tenantId?: string
     studentId: string
-    academicYearId: string
+    academicYearId?: string | null
+    status?: string
+    allocatedAt?: Date | string
+    expiresAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type BedAllocationUpdateWithoutRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBedAllocationNestedInput
     student?: StudentUpdateOneRequiredWithoutBedAllocationNestedInput
   }
 
   export type BedAllocationUncheckedUpdateWithoutRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     studentId?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BedAllocationUncheckedUpdateManyWithoutRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     studentId?: StringFieldUpdateOperationsInput | string
-    academicYearId?: StringFieldUpdateOperationsInput | string
+    academicYearId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    allocatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -192510,12 +202247,35 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type VehicleMaintenanceLogCreateManyVehicleInput = {
+    id?: string
+    tenantId: string
+    date: Date | string
+    description: string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationCreateManyVehicleInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    routeId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type TransportRouteUpdateWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
     routeName?: StringFieldUpdateOperationsInput | string
     stops?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: TransportAllocationUpdateManyWithoutRouteNestedInput
   }
 
   export type TransportRouteUncheckedUpdateWithoutVehicleInput = {
@@ -192524,12 +202284,123 @@ export namespace Prisma {
     stops?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    allocations?: TransportAllocationUncheckedUpdateManyWithoutRouteNestedInput
   }
 
   export type TransportRouteUncheckedUpdateManyWithoutVehicleInput = {
     id?: StringFieldUpdateOperationsInput | string
     routeName?: StringFieldUpdateOperationsInput | string
     stops?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVehicleMaintenanceLogNestedInput
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VehicleMaintenanceLogUncheckedUpdateManyWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    description?: StringFieldUpdateOperationsInput | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportAllocationNestedInput
+    student?: StudentUpdateOneRequiredWithoutTransportAllocationsNestedInput
+    route?: TransportRouteUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type TransportAllocationUncheckedUpdateWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutVehicleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    routeId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationCreateManyRouteInput = {
+    id?: string
+    tenantId: string
+    studentId: string
+    vehicleId: string
+    pickupPoint: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransportAllocationUpdateWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutTransportAllocationNestedInput
+    student?: StudentUpdateOneRequiredWithoutTransportAllocationsNestedInput
+    vehicle?: TransportVehicleUpdateOneRequiredWithoutAllocationsNestedInput
+  }
+
+  export type TransportAllocationUncheckedUpdateWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransportAllocationUncheckedUpdateManyWithoutRouteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    studentId?: StringFieldUpdateOperationsInput | string
+    vehicleId?: StringFieldUpdateOperationsInput | string
+    pickupPoint?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -193582,6 +203453,10 @@ export namespace Prisma {
      */
     export type TransportVehicleCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransportVehicleCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use TransportRouteCountOutputTypeDefaultArgs instead
+     */
+    export type TransportRouteCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransportRouteCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use LibraryBookCountOutputTypeDefaultArgs instead
      */
     export type LibraryBookCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LibraryBookCountOutputTypeDefaultArgs<ExtArgs>
@@ -193882,9 +203757,17 @@ export namespace Prisma {
      */
     export type TransportVehicleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransportVehicleDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use VehicleMaintenanceLogDefaultArgs instead
+     */
+    export type VehicleMaintenanceLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VehicleMaintenanceLogDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use TransportRouteDefaultArgs instead
      */
     export type TransportRouteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransportRouteDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TransportAllocationDefaultArgs instead
+     */
+    export type TransportAllocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransportAllocationDefaultArgs<ExtArgs>
     /**
      * @deprecated Use LibraryBookDefaultArgs instead
      */
@@ -194037,6 +203920,10 @@ export namespace Prisma {
      * @deprecated Use IdCardDefaultArgs instead
      */
     export type IdCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = IdCardDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MetricSnapshotDefaultArgs instead
+     */
+    export type MetricSnapshotArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MetricSnapshotDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

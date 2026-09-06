@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '../../../../packages/core-platform/prisma/generated/client';
+import { PrismaClient } from '@saas/core-platform';
 import { FamilyContext } from '../auth/FamilyContext';
 
 @Injectable()

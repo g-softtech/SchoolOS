@@ -1,4 +1,4 @@
-export interface FamilyContext {
+export class FamilyContext {
   tenantId: string;
   guardianId: string;
   userId: string;

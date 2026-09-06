@@ -1,5 +1,5 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { PrismaClient } from '../../../../packages/core-platform/prisma/generated/client';
+import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
+import { PrismaClient } from '@saas/core-platform';
 import { FamilyContext } from './FamilyContext';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class FamilyContextService {
     const membership = await this.prisma.tenantMembership.findUnique({
       where: { tenantId_userId: { tenantId, userId } },
       include: {
-        Guardian: {
+        guardian: {
           include: {
             students: {
               select: { studentId: true } // We only need the IDs to establish the security boundary
@@ -33,12 +33,12 @@ export class FamilyContextService {
     }
 
     // 2. Ensure they actually have a Guardian Profile
-    if (!membership.Guardian) {
+    if (!membership.guardian) {
       throw new UnauthorizedException('User is not registered as a Guardian in this tenant.');
     }
 
     // 3. Extract permissions
-    const permissions = membership.role.permissions.map(rp => rp.permission.name);
+    const permissions = membership.role?.permissions.map((rp: any) => rp.permission.name) || [];
 
     // 4. Determine Active Academic Session (usually configured at Tenant level, using a placeholder logic here)
     const activeYear = await this.prisma.academicYear.findFirst({
@@ -50,9 +50,10 @@ export class FamilyContextService {
     const familyContext: FamilyContext = {
       tenantId,
       userId,
-      guardianId: membership.Guardian.id,
-      studentIds: membership.Guardian.students.map(sg => sg.studentId),
+      guardianId: membership.guardian.id,
+      studentIds: membership.guardian.students.map((sg: any) => sg.studentId),
       permissions,
+      capabilities: [], // Can be expanded based on permissions
       activeAcademicSessionId: activeYear?.id,
       featureFlags: {} // Can be populated from Tenant feature flags
     };

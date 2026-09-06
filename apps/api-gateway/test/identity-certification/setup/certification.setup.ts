@@ -1,6 +1,11 @@
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
 // Global setup for Identity Certification tests
 export default async () => {
   console.log('Setting up Identity Certification Suite...');
+  
+  dotenv.config({ path: path.resolve(__dirname, '../../../../../.env.test') });
   
   // Environment Validation
   // In local unit/integration mode, DATABASE_URL may be absent (mocked Prisma).
