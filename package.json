@@ -36,7 +36,14 @@
       "@prisma/client",
       "prisma",
       "@prisma/engines",
-      "sharp"
+      "sharp",
+      "@prisma/client",
+      "prisma",
+      "@prisma/engines",
+      "sharp",
+      "bcrypt",
+      "argon2",
+      "@swc/core"
     ]
   }
 }
