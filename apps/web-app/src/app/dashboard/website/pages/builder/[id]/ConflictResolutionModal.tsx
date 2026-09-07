@@ -36,7 +36,7 @@ export function ConflictResolutionModal({ isOpen, onResolve }: ConflictResolutio
           >
             <div>
               <div className="font-semibold">Review / Keep Local (Force Overwrite)</div>
-              <div className="text-xs opacity-80 font-normal">Keep your edits and overwrite the server's changes.</div>
+              <div className="text-xs opacity-80 font-normal">Keep your edits and overwrite the server&apos;s changes.</div>
             </div>
           </Button>
 

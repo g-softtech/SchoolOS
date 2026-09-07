@@ -9,7 +9,7 @@ export function UnknownBlock({ type }: { type: string }) {
   // In development, show an informational badge to alert developers
   return (
     <div className="p-4 my-4 border-2 border-red-500 bg-red-50 rounded-md text-red-700">
-      <strong>Developer Warning:</strong> Unrecognized or deprecated block type <code>"{type}"</code> encountered in registry.
+      <strong>Developer Warning:</strong> Unrecognized or deprecated block type <code>&quot;{type}&quot;</code> encountered in registry.
     </div>
   );
 }
